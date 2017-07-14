@@ -20,7 +20,12 @@ export default class MediaItem extends ImmutablePureComponent {
     }
 
     if (!status.get('sensitive')) {
-      style = { backgroundImage: `url(${media.get('preview_url')})` };
+      if (media.get('type') === 'image' || media.get('type') === 'gifv') {
+        style = { backgroundImage: `url(${media.get('preview_url')})` };
+      }
+      else {
+        style = { backgroundImage: `url(${media.get('remote_url')})` };
+      }
     }
 
     return (
