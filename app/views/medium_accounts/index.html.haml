@@ -2,7 +2,10 @@
   = t('accounts.medium', name: display_name(@account))
 
 - content_for :header_tags do
-  = render 'accounts/og', account: @account, url: account_media_url(@account, only_path: false)
+  - if @account.user&.setting_noindex
+    %meta{ name: 'robots', content: 'noindex' }/
+
+  = render 'accounts/og', account: @account, url: account_followers_url(@account, only_path: false)
 
 .h-feed
   %data.p-name{ value: "#{@account.username} on #{site_hostname}" }/
