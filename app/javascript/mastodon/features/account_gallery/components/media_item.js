@@ -19,13 +19,11 @@ export default class MediaItem extends ImmutablePureComponent {
       content = <span className='media-gallery__gifv__label'>GIF</span>;
     }
 
-    if (!status.get('sensitive')) {
-      if (media.get('type') === 'image' || media.get('type') === 'gifv') {
-        style = { backgroundImage: `url(${media.get('preview_url')})` };
-      }
-      else {
-        style = { backgroundImage: `url(${media.get('remote_url')})` };
-      }
+    if (media.get('type') === 'image' || media.get('type') === 'gifv') {
+      style = { backgroundImage: `url(${media.get('preview_url')})` };
+    }
+    else {
+      style = { backgroundImage: `url(${media.get('remote_url')})` };
     }
 
     return (
