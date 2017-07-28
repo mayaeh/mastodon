@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :media, only: [:index], controller: :medium_accounts
     resources :followers, only: [:index], controller: :follower_accounts
     resources :following, only: [:index], controller: :following_accounts
     resource :follow, only: [:create], controller: :account_follow
