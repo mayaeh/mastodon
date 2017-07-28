@@ -1,0 +1,1 @@
+{ "welcome":{ "body":"welcome message", "icon":"https://example.com/foo.png", "href":"https://example.com/" }, "notice":{ "body":"notice message", "icon":"https://example.com/foo.png", "href":"https://example.com/" }, "copyright":{ "body":"Copyright (C) 2017 All Rights Reserved. ", "icon":"https://example.com/foo.png", "href":"http://example.com/" } }

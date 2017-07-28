@@ -1,0 +1,46 @@
+
+.dialog div {
+  background-color: #ebebeb;
+  padding: 10px;
+  width: 90%;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+	margin-bottom: 5px;
+	display: inline-block;
+}
+
+.dialog h1 {
+	margin-top: 0;
+}
+
+#announcements div {
+  margin: 5px;
+  display: inline-block;
+  width: 90%;
+  background-color: #ebebeb;
+  padding: 10px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+}
+
+div#announcements div p {
+  margin: 0;
+  width: 80%;
+  float: left;
+  text-align: right;
+}
+
+#announcements img {
+  width: 50px;
+  height: 50px;
+  float: right;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+}
+
+.copyright {
+font-size: small;
+}
