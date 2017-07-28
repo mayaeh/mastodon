@@ -4,7 +4,7 @@
   display: flex;
   padding: 10px;
   margin: 10px;
-  background-color: white;
+  background-color: #ebebeb;
   color: #313543;
   box-shadow: 0 0 15px rgba(0,0,0,.2);
   border-radius: 4px;
@@ -17,6 +17,8 @@
 
 .announcements__body {
   flex: 1 1 auto;
+  text-align: right;
+  padding-right: 10px;
 }
 
 .announcements__icon {
