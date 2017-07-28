@@ -60,7 +60,7 @@ export default class Announcements extends React.PureComponent {
   }
 
   setPolling = () => {
-    this.timer = setTimeout(this.refresh, 60 * 1000);
+    this.timer = setTimeout(this.refresh, 2 * 60 * 1000);
   }
 
   cancelPolling = () => {
@@ -73,7 +73,7 @@ export default class Announcements extends React.PureComponent {
   refresh = () => {
     this.timer = null;
 
-    axios.get('/system/announcements.json', {
+    axios.get('/announcements.json', {
       headers: {
         'Cache-Control': Announcement.isCacheControlled ? '' : 'max-age=0',
       },
