@@ -1,7 +1,7 @@
 ---
 ja:
   about:
-    about_mastodon_html: Mastodon は、オープンなウェブプロトコルを採用した、自由でオープンソースなソーシャルネットワークです。電子メールのような分散型の仕組みを採っています。
+    about_mastodon_html: Mastodon（マストドン）は、オープンなウェブプロトコルを採用した、自由でオープンソースなソーシャルネットワークです。電子メールのような分散型の仕組みを採っています。
     about_this: 詳細情報
     closed_registrations: 現在このインスタンスでの新規登録は受け付けていません。しかし、他のインスタンスにアカウントを作成しても全く同じネットワークに参加することができます。
     contact: 連絡先
@@ -9,18 +9,18 @@ ja:
     domain_count_after: 個のインスタンス
     domain_count_before: 接続中
     features:
-      humane_approach_body: 他の SNS の失敗から学び、Mastodon はソーシャルメディアが誤った使い方をされることの無いように倫理的な設計を目指しています。
+      humane_approach_body: マストドンは他の SNS で起こった事件から学び、ソーシャルメディアの誤った利用からユーザーを守るようなデザインを目指しています。
       humane_approach_title: より思いやりのある設計
-      not_a_product_body: Mastodon は営利的な SNS ではありません。広告や、データの収集・解析は無く、またユーザーの囲い込みもありません。
-      not_a_product_title: あなたは人間であり、商品ではありません
-      real_conversation_body: 好きなように書ける500文字までの投稿や、文章やメディアの内容に警告をつけられる機能で、思い通りに自分自身を表現することができます。
-      real_conversation_title: 本当のコミュニケーションのために
-      within_reach_body: デベロッパーフレンドリーな API により実現された、iOS や Android、その他様々なプラットフォームのためのアプリでどこでも友人とやりとりできます。
-      within_reach_title: いつでも身近に
+      not_a_product_body: マストドンは非営利な SNS です。広告の表示や収益化のためのデータ解析機能はありません。利用者の囲い込みもなく、あなたはいつでも他のインスタンスに引っ越して利用を継続できます。
+      not_a_product_title: あなたを商品としてではなく個人として扱います
+      real_conversation_body: 1 投稿に 500 文字まで使用可能で、文字やメディアの表示にワンクッション置くようにし閲覧注意を促す機能もあります。使い道はあなた次第です。
+      real_conversation_title: より実用的な作り
+      within_reach_body: あなたは iOS, Android, その他さまざまな端末用の複数のアプリからマストドンを利用し、どこにいても友達と交流することができます。また開発者の馴染みやすい API エコシステムを備えています。
+      within_reach_title: いつでもどこからでも
     find_another_instance: 他のインスタンスを探す
     generic_description: "%{domain} は、Mastodon インスタンスの一つです。"
     hosted_on: Mastodon hosted on %{domain}
-    learn_more: もっと詳しく
+    learn_more: 詳しく（公式サイトへジャンプ）
     other_instances: 他のインスタンス
     source_code: ソースコード
     status_count_after: トゥート
