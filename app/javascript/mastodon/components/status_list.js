@@ -105,13 +105,13 @@ export default class StatusList extends ImmutablePureComponent {
   }
 
   handleKeyDown = (e) => {
-    if (['PageDown', 'PageUp', 'End', 'Home'].includes(e.key)) {
+    if (['PageDown', 'PageUp'].includes(e.key) || (e.ctrlKey && ['End', 'Home'].includes(e.key))) {
       const article = (() => {
         switch (e.key) {
         case 'PageDown':
-          return e.nativeEvent.path[0].nodeName === 'ARTICLE' && e.nativeEvent.path[0].nextElementSibling;
+          return e.target.nodeName === 'ARTICLE' && e.target.nextElementSibling;
         case 'PageUp':
-          return e.nativeEvent.path[0].nodeName === 'ARTICLE' && e.nativeEvent.path[0].previousElementSibling;
+          return e.target.nodeName === 'ARTICLE' && e.target.previousElementSibling;
         case 'End':
           return this.node.querySelector('[role="feed"] > article:last-of-type');
         case 'Home':
