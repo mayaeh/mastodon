@@ -29,7 +29,7 @@ function getAnnouncements() {
       }
     }
   }
-  xmlhttp.open("GET", "announcements.json");
+  xmlhttp.open("GET", "https://taruntarun.net/announcements.json");
   xmlhttp.send();
 }
 
