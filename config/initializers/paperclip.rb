@@ -52,7 +52,7 @@ elsif ENV['SWIFT_ENABLED'] == 'true'
       openstack_auth_url: ENV.fetch('SWIFT_AUTH_URL'),
     },
     fog_directory: ENV.fetch('SWIFT_CONTAINER'),
-    fog_host: ENV.fetch('SWIFT_OBJECT_URL'),
+    fog_host: "#{ENV.fetch('SWIFT_OBJECT_URL')}/#{ENV.fetch('SWIFT_CONTAINER')}",
     fog_public: true
   )
 else
