@@ -55,7 +55,7 @@ elsif ENV['SWIFT_ENABLED'] == 'true'
       openstack_cache_ttl: ENV['SWIFT_CACHE_TTL'] || 60,
     },
     fog_directory: ENV.fetch('SWIFT_CONTAINER'),
-    fog_host: ENV.fetch('SWIFT_OBJECT_URL'),
+    fog_host: "#{ENV.fetch('SWIFT_OBJECT_URL')}/#{ENV.fetch('SWIFT_CONTAINER')}",
     fog_public: true
   )
 else
