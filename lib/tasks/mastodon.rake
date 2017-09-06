@@ -278,7 +278,7 @@ namespace :mastodon do
         self.inheritance_column = false
 
         path = '/preview_cards/:attachment/:id_partition/:style/:filename'
-        if (ENV['S3_ENABLED'] || ENV['OPEN_STACK_OBJECT_STORAGE_ENABLED']) != 'true'
+        if (ENV['S3_ENABLED'] || ENV['SWIFT_ENABLED']) != 'true'
           path = (ENV['PAPERCLIP_ROOT_PATH'] || ':rails_root/public/system') + path
         end
 
