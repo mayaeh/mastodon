@@ -15,9 +15,9 @@ gem 'pghero', '~> 1.7'
 gem 'dotenv-rails', '~> 2.2'
 
 gem 'aws-sdk', '~> 2.9'
+gem 'fog-openstack', '~> 0.1'
 gem 'paperclip', '~> 5.1'
 gem 'paperclip-av-transcoder', '~> 0.6'
-gem 'fog-openstack'
 
 gem 'active_model_serializers', '~> 0.10'
 gem 'addressable', '~> 2.5'

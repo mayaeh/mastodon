@@ -11,11 +11,8 @@ Rails.application.configure do
   config.x.local_domain = host
   config.x.web_domain   = web_host
   config.x.use_https    = https
-  if ENV['S3_ENABLED'] == 'true'
-    config.x.use_s3 = true
-  else
-    config.x.use_open_stack_object_storage = ENV['OPEN_STACK_OBJECT_STORAGE_ENABLED'] == 'true'
-  end
+  config.x.use_s3       = ENV['S3_ENABLED'] == 'true'
+  config.x.use_swift    = ENV['SWIFT_ENABLED'] == 'true'
 
   config.x.alternate_domains = alternate_domains.split(/\s*,\s*/)
 
