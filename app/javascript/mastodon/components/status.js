@@ -128,7 +128,7 @@ export default class Status extends ImmutablePureComponent {
     }
 
     if (status.get('media_attachments').size > 0 && !this.props.muted) {
-      if (status.get('media_attachments').some(item => item.get('type') === 'disabled_this_decision')) {
+      if (status.get('media_attachments').some(item => item.get('type') === 'unknown')) {
 
       } else if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
         const video = status.getIn(['media_attachments', 0]);

@@ -45,7 +45,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
     let applicationLink = '';
 
     if (status.get('media_attachments').size > 0) {
-      if (status.get('media_attachments').some(item => item.get('type') === 'disabled_this_decision')) {
+      if (status.get('media_attachments').some(item => item.get('type') === 'unknown')) {
         media = <AttachmentList media={status.get('media_attachments')} />;
       } else if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
         const video = status.getIn(['media_attachments', 0]);
