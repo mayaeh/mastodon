@@ -48,6 +48,7 @@ elsif ENV['SWIFT_ENABLED'] == 'true'
       provider: 'OpenStack',
       openstack_username: ENV.fetch('SWIFT_USERNAME'),
       openstack_project_name: ENV.fetch('SWIFT_TENANT'),
+      openstack_tenant: ENV.fetch('SWIFT_TENANT'), # Some OpenStack-v2 ignores project_name but needs tenant
       openstack_api_key: ENV.fetch('SWIFT_PASSWORD'),
       openstack_auth_url: ENV.fetch('SWIFT_AUTH_URL'),
       openstack_domain_name: ENV['SWIFT_DOMAIN_NAME'] || 'default',
