@@ -48,11 +48,11 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps)
 @withRouter
-export default class UI extends React.PureComponent {
+export default class UI extends React.Component {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,
-  }
+  };
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -183,12 +183,16 @@ export default class UI extends React.PureComponent {
     document.removeEventListener('dragend', this.handleDragEnd);
   }
 
-  setRef = (c) => {
+  setRef = c => {
     this.node = c;
   }
 
-  setColumnsAreaRef = (c) => {
+  setColumnsAreaRef = c => {
     this.columnsAreaNode = c.getWrappedInstance().getWrappedInstance();
+  }
+
+  setOverlayRef = c => {
+    this.overlay = c;
   }
 
   render () {
