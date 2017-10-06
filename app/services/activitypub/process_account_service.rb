@@ -91,8 +91,8 @@ class ActivityPub::ProcessAccountService < BaseService
     return value['url'] if value.is_a?(Hash)
     return unless value =~ %r{https?://}
 
-    image = fetch_resource(value)
-    image.nil? ? value : image['url']
+    image = fetch_resource_without_id_validation(value)
+    image['url'] if image
   end
 
   def public_key
@@ -101,7 +101,7 @@ class ActivityPub::ProcessAccountService < BaseService
     return if value.nil?
     return value['publicKeyPem'] if value.is_a?(Hash)
 
-    key = fetch_resource(value)
+    key = fetch_resource_without_id_validation(value)
     key['publicKeyPem'] if key
   end
 
@@ -131,7 +131,7 @@ class ActivityPub::ProcessAccountService < BaseService
     return if @json[type].blank?
     return @collections[type] if @collections.key?(type)
 
-    collection = fetch_resource(@json[type])
+    collection = fetch_resource_without_id_validation(@json[type])
 
     @collections[type] = collection.is_a?(Hash) && collection['totalItems'].present? && collection['totalItems'].is_a?(Numeric) ? collection['totalItems'] : nil
   rescue HTTP::Error, OpenSSL::SSL::SSLError

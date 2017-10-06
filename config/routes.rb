@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   namespace :settings do
     resource :profile, only: [:show, :update]
     resource :preferences, only: [:show, :update]
+    resource :notifications, only: [:show, :update]
     resource :import, only: [:show, :create]
 
     resource :export, only: [:show]
@@ -107,6 +108,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :subscriptions, only: [:index]
     resources :domain_blocks, only: [:index, :new, :create, :show, :destroy]
+    resources :email_domain_blocks, only: [:index, :new, :create, :destroy]
     resource :settings, only: [:edit, :update]
 
     resources :instances, only: [:index] do
@@ -137,7 +139,13 @@ Rails.application.routes.draw do
       resource :two_factor_authentication, only: [:destroy]
     end
 
-    resources :custom_emojis, only: [:index, :new, :create, :destroy]
+    resources :custom_emojis, only: [:index, :new, :create, :destroy] do
+      member do
+        post :copy
+        post :enable
+        post :disable
+      end
+    end
   end
 
   get '/admin', to: redirect('/admin/settings/edit', status: 302)
