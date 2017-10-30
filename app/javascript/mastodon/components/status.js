@@ -38,7 +38,6 @@ export default class Status extends ImmutablePureComponent {
     onEmbed: PropTypes.func,
     onHeightChange: PropTypes.func,
     me: PropTypes.string,
-    boostModal: PropTypes.bool,
     muted: PropTypes.bool,
     hidden: PropTypes.bool,
     onMoveUp: PropTypes.func,
@@ -55,7 +54,6 @@ export default class Status extends ImmutablePureComponent {
     'status',
     'account',
     'me',
-    'boostModal',
     'muted',
     'hidden',
   ]
