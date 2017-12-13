@@ -237,7 +237,7 @@ oc:
         available: Disponibles
         expired: Expirats
         title: Filtre
-      title: Covits
+      title: Convits
     reports:
       action_taken_by: Mesura menada per
       are_you_sure: Es segur ?
@@ -343,7 +343,7 @@ oc:
     warning: Mèfi ! Agachatz de partejar aquela donada amb degun !
     your_token: Vòstre geton d’accès
   auth:
-    agreement_html: En vos marcar acceptatz <a href="%{rules_path}">nòstres tèrmes de servici</a> e <a href="%{terms_path}">politica de confidencialitat</a>.
+    agreement_html: En vos marcar acceptatz <a href="%{rules_path}">las règlas de l’instància</a> e <a href="%{terms_path}">politica de confidencialitat</a>.
     change_password: Seguretat
     delete_account: Suprimir lo compte
     delete_account_html: Se volètz suprimir vòstre compte, podètz <a href="%{path}">o far aquí</a>. Vos demandarem que confirmetz.
@@ -533,7 +533,7 @@ oc:
     table:
       expires_at: Expirats
       uses: Usatges
-    title: Covidar de monde
+    title: Convidar de monde
   landing_strip_html: "<strong>%{name}</strong> utiliza %{link_to_root_path}. Podètz lo/la sègre o interagir amb el o ela s’avètz un compte ont que siasque sul fediverse."
   landing_strip_signup_html: S’es pas lo cas, podètz <a href="%{sign_up_path}">vos marcar aquí</a>.
   lists:
@@ -677,6 +677,7 @@ oc:
       private: Se pòt pas penjar los tuts pas publics
       reblog: Se pòt pas penjar un tut partejat
     show_more: Ne veire mai
+    title: '%{name} : "%{quote}"'
     visibilities:
       private: Seguidors solament
       private_long: Mostrar pas qu’als seguidors
