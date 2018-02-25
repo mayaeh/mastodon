@@ -473,7 +473,7 @@ namespace :mastodon do
 
     desc 'Remove cached remote media attachments that are older than NUM_DAYS. By default 14 (2week)'
     task remove_remote: :environment do
-      time_ago = ENV.fetch('NUM_DAYS') { 14 }.to_i.days.ago
+      time_ago = ENV.fetch('NUM_DAYS') { 60 }.to_i.days.ago
 
       MediaAttachment.where.not(remote_url: '').where.not(file_file_name: nil).where('created_at < ?', time_ago).find_each do |media|
         media.file.destroy
