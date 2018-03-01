@@ -3,6 +3,14 @@
 class StatusesIndex < Chewy::Index
   settings index: { refresh_interval: '15m' }, analysis: {
     filter: {
+      pos_filter: {
+        type: "kuromoji_part_of_speech",
+        stoptags: ["助詞-格助詞-一般", "助詞-終助詞"]
+      },
+      greek_lowercase_filter: {
+        type: "lowercase",
+        language: "greek"
+      },
       english_stop: {
         type: 'stop',
         stopwords: '_english_',
@@ -18,10 +26,14 @@ class StatusesIndex < Chewy::Index
     },
     analyzer: {
       content: {
-        tokenizer: 'uax_url_email',
+        tokenizer: 'kuromoji_tokenizer',
+        type: "custom",
         filter: %w(
+          kuromoji_baseform
+          kuromoji_stemmer
+          pos_filter
           english_possessive_stemmer
-          lowercase
+          greek_lowercase_filter
           asciifolding
           cjk_width
           english_stop
