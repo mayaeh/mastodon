@@ -5,7 +5,10 @@ class StatusesIndex < Chewy::Index
     filter: {
       pos_filter: {
         type: 'kuromoji_part_of_speech',
-        stoptags: ['助詞-格助詞-一般', '助詞-終助詞'],
+        stoptags: %w(
+          '助詞-格助詞-一般'
+          '助詞-終助詞'
+        ),
       },
       greek_lowercase_filter: {
         type: 'lowercase',
