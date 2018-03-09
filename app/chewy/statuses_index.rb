@@ -3,21 +3,6 @@
 class StatusesIndex < Chewy::Index
   settings index: { refresh_interval: '15m' }, analysis: {
     filter: {
-      pos_filter: {
-        type: 'kuromoji_part_of_speech',
-        stoptags: %w(
-          '助詞-格助詞-一般'
-          '助詞-終助詞'
-        ),
-      },
-      greek_lowercase_filter: {
-        type: 'lowercase',
-        language: 'greek',
-      },
-      english_stop: {
-        type: 'stop',
-        stopwords: '_english_',
-      },
       english_stemmer: {
         type: 'stemmer',
         language: 'english',
@@ -31,22 +16,20 @@ class StatusesIndex < Chewy::Index
       ja_tokenizer: {
         type: 'kuromoji_tokenizer',
         mode: 'search',
+        user_dictionary: 'userdict_ja.txt',
       },
     },
     analyzer: {
       content: {
         tokenizer: 'ja_tokenizer',
-        type: "custom",
+        type: 'custom',
+        char_filter: %w(
+          icu_normalizer
+        ),
         filter: %w(
-          kuromoji_baseform
           kuromoji_stemmer
-          pos_filter
-          ja_stop
+          kuromoji_part_of_speech
           english_possessive_stemmer
-          greek_lowercase_filter
-          asciifolding
-          cjk_width
-          english_stop
           english_stemmer
         ),
       },
