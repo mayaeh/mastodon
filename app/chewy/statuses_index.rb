@@ -3,10 +3,6 @@
 class StatusesIndex < Chewy::Index
   settings index: { refresh_interval: '15m' }, analysis: {
     filter: {
-      english_stop: {
-        type: 'stop',
-        stopwords: '_english_',
-      },
       english_stemmer: {
         type: 'stemmer',
         language: 'english',
@@ -16,15 +12,24 @@ class StatusesIndex < Chewy::Index
         language: 'possessive_english',
       },
     },
+    tokenizer: {
+      ja_tokenizer: {
+        type: 'kuromoji_tokenizer',
+        mode: 'search',
+        user_dictionary: 'userdict_ja.txt',
+      },
+    },
     analyzer: {
       content: {
-        tokenizer: 'uax_url_email',
+        tokenizer: 'ja_tokenizer',
+        type: 'custom',
+        char_filter: %w(
+          icu_normalizer
+        ),
         filter: %w(
+          kuromoji_stemmer
+          kuromoji_part_of_speech
           english_possessive_stemmer
-          lowercase
-          asciifolding
-          cjk_width
-          english_stop
           english_stemmer
         ),
       },
