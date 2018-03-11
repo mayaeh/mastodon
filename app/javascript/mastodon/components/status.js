@@ -38,15 +38,12 @@ export default class Status extends ImmutablePureComponent {
     onBlock: PropTypes.func,
     onEmbed: PropTypes.func,
     onHeightChange: PropTypes.func,
+    onToggleHidden: PropTypes.func,
     muted: PropTypes.bool,
     hidden: PropTypes.bool,
     onMoveUp: PropTypes.func,
     onMoveDown: PropTypes.func,
   };
-
-  state = {
-    isExpanded: false,
-  }
 
   // Avoid checking props that are functions (and whose equality will always
   // evaluate to false. See react-immutable-pure-component for usage.
@@ -56,8 +53,6 @@ export default class Status extends ImmutablePureComponent {
     'muted',
     'hidden',
   ]
-
-  updateOnStates = ['isExpanded']
 
   handleClick = () => {
     if (!this.context.router) {
@@ -77,7 +72,7 @@ export default class Status extends ImmutablePureComponent {
   }
 
   handleExpandedToggle = () => {
-    this.setState({ isExpanded: !this.state.isExpanded });
+    this.props.onToggleHidden(this._properStatus());
   };
 
   renderLoadingMediaGallery () {
@@ -141,7 +136,6 @@ export default class Status extends ImmutablePureComponent {
     let statusAvatar, prepend;
 
     const { hidden, featured } = this.props;
-    const { isExpanded } = this.state;
 
     let { status, account, ...other } = this.props;
 
@@ -249,7 +243,7 @@ export default class Status extends ImmutablePureComponent {
               </a>
             </div>
 
-            <StatusContent status={status} onClick={this.handleClick} expanded={isExpanded} onExpandedToggle={this.handleExpandedToggle} />
+            <StatusContent status={status} onClick={this.handleClick} expanded={!status.get('hidden')} onExpandedToggle={this.handleExpandedToggle} />
 
             {media}
 
