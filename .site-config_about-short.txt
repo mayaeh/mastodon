@@ -3,4 +3,4 @@ description:
 Maya Minatsuki の運営している Mastodon インスタンスです。<br />
 安定稼働を目指しますが、不定期の再起動を行う場合があります。<br />
 <em>アカウント登録・使用前に必ず<a href="https://taruntarun.net/about/more#attention">こちらの注意書き (注意・禁止行為)</a> をお読みください。</em></p>
-<p>その他何かあれば Mastodon: <a href="https://taruntarun.net/@mayaeh">@mayaeh</a> または Twitter: <a href="https://twitter.com/mayaeh">@mayaeh</a> までご連絡ください。
+<p>その他何かあれば Mastodon: <a href="https://taruntarun.net/@mayaeh">@mayaeh</a> , <a href="https://mstdn.maud.io/@mayaeh">@mayaeh(別インスタンス)</a> または Twitter: <a href="https://twitter.com/mayaeh">@mayaeh</a> までご連絡ください。
