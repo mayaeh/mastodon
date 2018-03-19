@@ -5,7 +5,6 @@ import { is } from 'immutable';
 import IconButton from './icon_button';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { isIOS } from '../is_mobile';
-import { remote_type } from '../remote_media_detector';
 import classNames from 'classnames';
 import { autoPlayGif, displaySensitiveMedia } from '../initial_state';
 
@@ -170,21 +169,6 @@ class Item extends React.PureComponent {
 
           <span className='media-gallery__gifv__label'>GIF</span>
         </div>
-      );
-    } else if (remote_type(attachment) === 'image') {
-      const previewUrl = attachment.get('preview_url');
-
-      const originalUrl = attachment.get('url');
-
-      thumbnail = (
-        <a
-          className='media-gallery__item-thumbnail'
-          href={attachment.get('remote_url') || originalUrl}
-          onClick={this.handleClick}
-          target='_blank'
-        >
-          <img src={previewUrl} alt='' />
-        </a>
       );
     }
 

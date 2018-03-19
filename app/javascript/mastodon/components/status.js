@@ -11,7 +11,6 @@ import AttachmentList from './attachment_list';
 import { FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { MediaGallery, Video } from '../features/ui/util/async-components';
-import { remote_type } from '../remote_media_detector';
 import { HotKeys } from 'react-hotkeys';
 import classNames from 'classnames';
 
@@ -174,14 +173,14 @@ export default class Status extends ImmutablePureComponent {
     }
 
     if (status.get('media_attachments').size > 0) {
-      if (this.props.muted || status.get('media_attachments').some(item => remote_type(item) === 'unknown')) {
+      if (this.props.muted || status.get('media_attachments').some(item => item.get('type') === 'unknown')) {
         media = (
           <AttachmentList
             compact
             media={status.get('media_attachments')}
           />
         );
-      } else if (remote_type(status.getIn(['media_attachments', 0])) === 'video') {
+      } else if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
         const video = status.getIn(['media_attachments', 0]);
 
         media = (
