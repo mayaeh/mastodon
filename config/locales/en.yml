@@ -27,6 +27,7 @@ en:
     generic_description: "%{domain} is one server in the network"
     hosted_on: Mastodon hosted on %{domain}
     learn_more: Learn more
+    learn_more_joinmastodon: Learn more
     other_instances: Instance list
     source_code: Source code
     status_count_after: statuses

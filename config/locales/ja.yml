@@ -26,7 +26,8 @@ ja:
     find_another_instance: 他のインスタンスを探す
     generic_description: "%{domain} は、Mastodon インスタンスの一つです"
     hosted_on: Mastodon hosted on %{domain}
-    learn_more: 詳しく（公式サイトへジャンプ）
+    learn_more: 詳しく
+    learn_more_joinmastodon: 詳しく（外部サイトへ移動）
     other_instances: 他のインスタンス
     source_code: ソースコード
     status_count_after: トゥート
