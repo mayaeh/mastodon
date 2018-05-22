@@ -6,6 +6,8 @@ import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 const messages = defineMessages({
   show: { id: 'column_header.show_settings', defaultMessage: 'Show settings' },
   hide: { id: 'column_header.hide_settings', defaultMessage: 'Hide settings' },
+  moveLeft: { id: 'column_header.moveLeft_settings', defaultMessage: 'Move column to the left' },
+  moveRight: { id: 'column_header.moveRight_settings', defaultMessage: 'Move column to the right' },
 });
 
 @injectIntl
@@ -17,11 +19,11 @@ export default class ColumnHeader extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
-    title: PropTypes.node.isRequired,
-    icon: PropTypes.string.isRequired,
+    title: PropTypes.node,
+    icon: PropTypes.string,
     active: PropTypes.bool,
     multiColumn: PropTypes.bool,
-    focusable: PropTypes.bool,
+    extraButton: PropTypes.node,
     showBackButton: PropTypes.bool,
     children: PropTypes.node,
     pinned: PropTypes.bool,
@@ -29,10 +31,6 @@ export default class ColumnHeader extends React.PureComponent {
     onMove: PropTypes.func,
     onClick: PropTypes.func,
   };
-
-  static defaultProps = {
-    focusable: true,
-  }
 
   state = {
     collapsed: true,
@@ -66,7 +64,7 @@ export default class ColumnHeader extends React.PureComponent {
   }
 
   render () {
-    const { title, icon, active, children, pinned, onPin, multiColumn, focusable, showBackButton, intl: { formatMessage } } = this.props;
+    const { title, icon, active, children, pinned, onPin, multiColumn, extraButton, showBackButton, intl: { formatMessage } } = this.props;
     const { collapsed, animating } = this.state;
 
     const wrapperClassName = classNames('column-header__wrapper', {
@@ -101,8 +99,8 @@ export default class ColumnHeader extends React.PureComponent {
 
       moveButtons = (
         <div key='move-buttons' className='column-header__setting-arrows'>
-          <button className='text-btn column-header__setting-btn' onClick={this.handleMoveLeft}><i className='fa fa-chevron-left' /></button>
-          <button className='text-btn column-header__setting-btn' onClick={this.handleMoveRight}><i className='fa fa-chevron-right' /></button>
+          <button title={formatMessage(messages.moveLeft)} aria-label={formatMessage(messages.moveLeft)} className='text-btn column-header__setting-btn' onClick={this.handleMoveLeft}><i className='fa fa-chevron-left' /></button>
+          <button title={formatMessage(messages.moveRight)} aria-label={formatMessage(messages.moveRight)} className='text-btn column-header__setting-btn' onClick={this.handleMoveRight}><i className='fa fa-chevron-right' /></button>
         </div>
       );
     } else if (multiColumn) {
@@ -128,22 +126,31 @@ export default class ColumnHeader extends React.PureComponent {
     }
 
     if (children || multiColumn) {
-      collapseButton = <button className={collapsibleButtonClassName} aria-label={formatMessage(collapsed ? messages.show : messages.hide)} aria-pressed={collapsed ? 'false' : 'true'} onClick={this.handleToggleClick}><i className='fa fa-sliders' /></button>;
+      collapseButton = <button className={collapsibleButtonClassName} title={formatMessage(collapsed ? messages.show : messages.hide)} aria-label={formatMessage(collapsed ? messages.show : messages.hide)} aria-pressed={collapsed ? 'false' : 'true'} onClick={this.handleToggleClick}><i className='fa fa-sliders' /></button>;
     }
+
+    const hasTitle = icon && title;
 
     return (
       <div className={wrapperClassName}>
-        <div role='heading' tabIndex={focusable && '0'} className={buttonClassName} aria-label={title} onClick={this.handleTitleClick}>
-          <i className={`fa fa-fw fa-${icon} column-header__icon`} />
-          {title}
+        <h1 className={buttonClassName}>
+          {hasTitle && (
+            <button onClick={this.handleTitleClick}>
+              <i className={`fa fa-fw fa-${icon} column-header__icon`} />
+              {title}
+            </button>
+          )}
+
+          {!hasTitle && backButton}
 
           <div className='column-header__buttons'>
-            {backButton}
+            {hasTitle && backButton}
+            {extraButton}
             {collapseButton}
           </div>
-        </div>
+        </h1>
 
-        <div className={collapsibleClassName} tabIndex={collapsed && -1} onTransitionEnd={this.handleTransitionEnd}>
+        <div className={collapsibleClassName} tabIndex={collapsed ? -1 : null} onTransitionEnd={this.handleTransitionEnd}>
           <div className='column-header__collapsible-inner'>
             {(!collapsed || animating) && collapsedContent}
           </div>

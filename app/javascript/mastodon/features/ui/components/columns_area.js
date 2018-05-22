@@ -6,11 +6,16 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 
 import ReactSwipeableViews from 'react-swipeable-views';
 import { links, getIndex, getLink } from './tabs_bar';
+import { Link } from 'react-router-dom';
 
 import BundleContainer from '../containers/bundle_container';
 import ColumnLoading from './column_loading';
+import DrawerLoading from './drawer_loading';
 import BundleColumnError from './bundle_column_error';
-import { Compose, Notifications, HomeTimeline, CommunityTimeline, PublicTimeline, HashtagTimeline, FavouritedStatuses } from '../../ui/util/async-components';
+import { Compose, Notifications, HomeTimeline, CommunityTimeline, PublicTimeline, HashtagTimeline, DirectTimeline, FavouritedStatuses, ListTimeline } from '../../ui/util/async-components';
+
+import detectPassiveEvents from 'detect-passive-events';
+import { scrollRight } from '../../../scroll';
 
 const componentMap = {
   'COMPOSE': Compose,
@@ -19,10 +24,14 @@ const componentMap = {
   'PUBLIC': PublicTimeline,
   'COMMUNITY': CommunityTimeline,
   'HASHTAG': HashtagTimeline,
+  'DIRECT': DirectTimeline,
   'FAVOURITES': FavouritedStatuses,
+  'LIST': ListTimeline,
 };
 
-@injectIntl
+const shouldHideFAB = path => path.match(/^\/statuses\//);
+
+@component => injectIntl(component, { withRef: true })
 export default class ColumnsArea extends ImmutablePureComponent {
 
   static contextTypes = {
@@ -32,6 +41,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
   static propTypes = {
     intl: PropTypes.object.isRequired,
     columns: ImmutablePropTypes.list.isRequired,
+    isModalOpen: PropTypes.bool.isRequired,
     singleColumn: PropTypes.bool,
     children: PropTypes.node,
   };
@@ -45,13 +55,41 @@ export default class ColumnsArea extends ImmutablePureComponent {
   }
 
   componentDidMount() {
+    if (!this.props.singleColumn) {
+      this.node.addEventListener('wheel', this.handleWheel,  detectPassiveEvents.hasSupport ? { passive: true } : false);
+    }
+
+    this.lastIndex   = getIndex(this.context.router.history.location.pathname);
+    this.isRtlLayout = document.getElementsByTagName('body')[0].classList.contains('rtl');
+
+    this.setState({ shouldAnimate: true });
+  }
+
+  componentWillUpdate(nextProps) {
+    if (this.props.singleColumn !== nextProps.singleColumn && nextProps.singleColumn) {
+      this.node.removeEventListener('wheel', this.handleWheel);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.singleColumn !== prevProps.singleColumn && !this.props.singleColumn) {
+      this.node.addEventListener('wheel', this.handleWheel,  detectPassiveEvents.hasSupport ? { passive: true } : false);
+    }
     this.lastIndex = getIndex(this.context.router.history.location.pathname);
     this.setState({ shouldAnimate: true });
   }
 
-  componentDidUpdate() {
-    this.lastIndex = getIndex(this.context.router.history.location.pathname);
-    this.setState({ shouldAnimate: true });
+  componentWillUnmount () {
+    if (!this.props.singleColumn) {
+      this.node.removeEventListener('wheel', this.handleWheel);
+    }
+  }
+
+  handleChildrenContentChange() {
+    if (!this.props.singleColumn) {
+      const modifier = this.isRtlLayout ? -1 : 1;
+      this._interruptScrollAnimation = scrollRight(this.node, (this.node.scrollWidth - window.innerWidth) * modifier);
+    }
   }
 
   handleSwipe = (index) => {
@@ -74,6 +112,18 @@ export default class ColumnsArea extends ImmutablePureComponent {
     }
   }
 
+  handleWheel = () => {
+    if (typeof this._interruptScrollAnimation !== 'function') {
+      return;
+    }
+
+    this._interruptScrollAnimation();
+  }
+
+  setRef = (node) => {
+    this.node = node;
+  }
+
   renderView = (link, index) => {
     const columnIndex = getIndex(this.context.router.history.location.pathname);
     const title = this.props.intl.formatMessage({ id: link.props['data-preview-title-id'] });
@@ -90,8 +140,8 @@ export default class ColumnsArea extends ImmutablePureComponent {
     );
   }
 
-  renderLoading = () => {
-    return <ColumnLoading />;
+  renderLoading = columnId => () => {
+    return columnId === 'COMPOSE' ? <DrawerLoading /> : <ColumnLoading />;
   }
 
   renderError = (props) => {
@@ -99,28 +149,37 @@ export default class ColumnsArea extends ImmutablePureComponent {
   }
 
   render () {
-    const { columns, children, singleColumn } = this.props;
+    const { columns, children, singleColumn, isModalOpen } = this.props;
     const { shouldAnimate } = this.state;
 
     const columnIndex = getIndex(this.context.router.history.location.pathname);
     this.pendingIndex = null;
 
     if (singleColumn) {
-      return columnIndex !== -1 ? (
-        <ReactSwipeableViews index={columnIndex} onChangeIndex={this.handleSwipe} onTransitionEnd={this.handleAnimationEnd} animateTransitions={shouldAnimate} springConfig={{ duration: '400ms', delay: '0s', easeFunction: 'ease' }} style={{ height: '100%' }}>
+      const floatingActionButton = shouldHideFAB(this.context.router.history.location.pathname) ? null : <Link key='floating-action-button' to='/statuses/new' className='floating-action-button'><i className='fa fa-pencil' /></Link>;
+
+      return columnIndex !== -1 ? [
+        <ReactSwipeableViews key='content' index={columnIndex} onChangeIndex={this.handleSwipe} onTransitionEnd={this.handleAnimationEnd} animateTransitions={shouldAnimate} springConfig={{ duration: '400ms', delay: '0s', easeFunction: 'ease' }} style={{ height: '100%' }}>
           {links.map(this.renderView)}
-        </ReactSwipeableViews>
-      ) : <div className='columns-area'>{children}</div>;
+        </ReactSwipeableViews>,
+
+        floatingActionButton,
+      ] : [
+        <div className='columns-area'>{children}</div>,
+
+        floatingActionButton,
+      ];
     }
 
     return (
-      <div className='columns-area'>
+      <div className={`columns-area ${ isModalOpen ? 'unscrollable' : '' }`} ref={this.setRef}>
         {columns.map(column => {
           const params = column.get('params', null) === null ? null : column.get('params').toJS();
+          const other  = params && params.other ? params.other : {};
 
           return (
-            <BundleContainer key={column.get('uuid')} fetchComponent={componentMap[column.get('id')]} loading={this.renderLoading} error={this.renderError}>
-              {SpecificComponent => <SpecificComponent columnId={column.get('uuid')} params={params} multiColumn />}
+            <BundleContainer key={column.get('uuid')} fetchComponent={componentMap[column.get('id')]} loading={this.renderLoading(column.get('id'))} error={this.renderError}>
+              {SpecificComponent => <SpecificComponent columnId={column.get('uuid')} params={params} multiColumn {...other} />}
             </BundleContainer>
           );
         })}

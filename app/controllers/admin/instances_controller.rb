@@ -3,10 +3,12 @@
 module Admin
   class InstancesController < BaseController
     def index
+      authorize :instance, :index?
       @instances = ordered_instances
     end
 
     def resubscribe
+      authorize :instance, :resubscribe?
       params.require(:by_domain)
       Pubsubhubbub::SubscribeWorker.push_bulk(subscribeable_accounts.pluck(:id))
       redirect_to admin_instances_path
@@ -14,8 +16,12 @@ module Admin
 
     private
 
+    def filtered_instances
+      InstanceFilter.new(filter_params).results
+    end
+
     def paginated_instances
-      Account.remote.by_domain_accounts.page(params[:page])
+      filtered_instances.page(params[:page])
     end
 
     helper_method :paginated_instances
@@ -26,6 +32,12 @@ module Admin
 
     def subscribeable_accounts
       Account.with_followers.remote.where(domain: params[:by_domain])
+    end
+
+    def filter_params
+      params.permit(
+        :domain_name
+      )
     end
   end
 end

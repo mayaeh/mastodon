@@ -1,8 +1,6 @@
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import escapeTextContentForBrowser from 'escape-html';
 import PropTypes from 'prop-types';
-import emojify from '../emoji';
 import { isRtl } from '../rtl';
 import { FormattedMessage } from 'react-intl';
 import Permalink from './permalink';
@@ -26,7 +24,12 @@ export default class StatusContent extends React.PureComponent {
   };
 
   _updateStatusLinks () {
-    const node  = this.node;
+    const node = this.node;
+
+    if (!node) {
+      return;
+    }
+
     const links = node.querySelectorAll('a');
 
     for (var i = 0; i < links.length; ++i) {
@@ -117,13 +120,18 @@ export default class StatusContent extends React.PureComponent {
   render () {
     const { status } = this.props;
 
+    if (status.get('content').length === 0) {
+      return null;
+    }
+
     const hidden = this.props.onExpandedToggle ? !this.props.expanded : this.state.hidden;
 
-    const content = { __html: emojify(status.get('content')) };
-    const spoilerContent = { __html: emojify(escapeTextContentForBrowser(status.get('spoiler_text', ''))) };
+    const content = { __html: status.get('contentHtml') };
+    const spoilerContent = { __html: status.get('spoilerHtml') };
     const directionStyle = { direction: 'ltr' };
     const classNames = classnames('status__content', {
       'status__content--with-action': this.props.onClick && this.context.router,
+      'status__content--with-spoiler': status.get('spoiler_text').length > 0,
     });
 
     if (isRtl(status.get('search_index'))) {
@@ -146,22 +154,23 @@ export default class StatusContent extends React.PureComponent {
       }
 
       return (
-        <div className={classNames} ref={this.setRef} onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp}>
+        <div className={classNames} ref={this.setRef} tabIndex='0' style={directionStyle} onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp}>
           <p style={{ marginBottom: hidden && status.get('mentions').isEmpty() ? '0px' : null }}>
             <span dangerouslySetInnerHTML={spoilerContent} />
             {' '}
-            <button tabIndex='0' className='status__content__spoiler-link' onClick={this.handleSpoilerClick}>{toggleText}</button>
+            <button tabIndex='0' className={`status__content__spoiler-link ${hidden ? 'status__content__spoiler-link--show-more' : 'status__content__spoiler-link--show-less'}`} onClick={this.handleSpoilerClick}>{toggleText}</button>
           </p>
 
           {mentionsPlaceholder}
 
-          <div className={`status__content__text ${!hidden ? 'status__content__text--visible' : ''}`} style={directionStyle} dangerouslySetInnerHTML={content} />
+          <div tabIndex={!hidden ? 0 : null} className={`status__content__text ${!hidden ? 'status__content__text--visible' : ''}`} style={directionStyle} dangerouslySetInnerHTML={content} />
         </div>
       );
     } else if (this.props.onClick) {
       return (
         <div
           ref={this.setRef}
+          tabIndex='0'
           className={classNames}
           style={directionStyle}
           onMouseDown={this.handleMouseDown}
@@ -172,6 +181,7 @@ export default class StatusContent extends React.PureComponent {
     } else {
       return (
         <div
+          tabIndex='0'
           ref={this.setRef}
           className='status__content'
           style={directionStyle}

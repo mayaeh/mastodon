@@ -105,9 +105,7 @@ io:
       title: Known Instances
     reports:
       comment:
-        label: Comment
         none: None
-      delete: Delete
       id: ID
       mark_as_resolved: Mark as resolved
       report: 'Report #%{id}'
@@ -149,12 +147,10 @@ io:
     title: Administration
   application_mailer:
     settings: 'Chanjar la retpost-mesajala preferi: %{link}'
-    signature: Savigi di Mastodon de %{instance}
     view: 'Vidar:'
   applications:
     invalid_url: La URL donita ne esas valida
   auth:
-    change_password: Chanjar pasvorto
     didnt_get_confirmation: Ka tu ne recevis la instrucioni por konfirmar?
     forgot_password: Pasvorto obliviita?
     login: Enirar
@@ -162,11 +158,11 @@ io:
     register: Membreskar
     resend_confirmation: Risendar la instrucioni por konfirmar
     reset_password: Chanjar la pasvorto
+    security: Chanjar pasvorto
     set_new_password: Selektar nova pasvorto
   authorize_follow:
     error: Regretinde, eventis eraro probante konsultar la fora konto
     follow: Sequar
-    prompt_html: 'Tu (<strong>%{self}</strong>) demandis sequar:'
     title: Sequar %{acct}
   datetime:
     distance_in_words:
@@ -240,6 +236,17 @@ io:
     reblog:
       body: "%{name} diskonocigis tua mesajo:"
       subject: "%{name} diskonocigis tua mesajo"
+  number:
+    human:
+      decimal_units:
+        format: "%n%u"
+        units:
+          billion: B
+          million: M
+          quadrillion: Q
+          thousand: K
+          trillion: T
+          unit: ''
   pagination:
     next: Sequanta
     prev: Preiranta

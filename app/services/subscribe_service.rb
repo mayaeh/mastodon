@@ -2,23 +2,24 @@
 
 class SubscribeService < BaseService
   def call(account)
-    return unless account.ostatus?
+    return if account.hub_url.blank?
 
     @account        = account
     @account.secret = SecureRandom.hex
-    @response       = build_request.perform
 
-    if response_failed_permanently?
-      # We're not allowed to subscribe. Fail and move on.
-      @account.secret = ''
-      @account.save!
-    elsif response_successful?
-      # The subscription will be confirmed asynchronously.
-      @account.save!
-    else
-      # The response was either a 429 rate limit, or a 5xx error.
-      # We need to retry at a later time. Fail loudly!
-      raise Mastodon::UnexpectedResponseError, @response
+    build_request.perform do |response|
+      if response_failed_permanently? response
+        # We're not allowed to subscribe. Fail and move on.
+        @account.secret = ''
+        @account.save!
+      elsif response_successful? response
+        # The subscription will be confirmed asynchronously.
+        @account.save!
+      else
+        # The response was either a 429 rate limit, or a 5xx error.
+        # We need to retry at a later time. Fail loudly!
+        raise Mastodon::UnexpectedResponseError, response
+      end
     end
   end
 
@@ -42,16 +43,16 @@ class SubscribeService < BaseService
   end
 
   def some_local_account
-    @some_local_account ||= Account.local.first
+    @some_local_account ||= Account.local.where(suspended: false).first
   end
 
   # Any response in the 3xx or 4xx range, except for 429 (rate limit)
-  def response_failed_permanently?
-    (@response.status.redirect? || @response.status.client_error?) && !@response.status.too_many_requests?
+  def response_failed_permanently?(response)
+    (response.status.redirect? || response.status.client_error?) && !response.status.too_many_requests?
   end
 
   # Any response in the 2xx range
-  def response_successful?
-    @response.status.success?
+  def response_successful?(response)
+    response.status.success?
   end
 end

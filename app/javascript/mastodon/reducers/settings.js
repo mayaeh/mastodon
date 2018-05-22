@@ -1,11 +1,17 @@
-import { SETTING_CHANGE } from '../actions/settings';
+import { SETTING_CHANGE, SETTING_SAVE } from '../actions/settings';
 import { COLUMN_ADD, COLUMN_REMOVE, COLUMN_MOVE } from '../actions/columns';
 import { STORE_HYDRATE } from '../actions/store';
+import { EMOJI_USE } from '../actions/emojis';
+import { LIST_DELETE_SUCCESS, LIST_FETCH_FAIL } from '../actions/lists';
 import { Map as ImmutableMap, fromJS } from 'immutable';
 import uuid from '../uuid';
 
 const initialState = ImmutableMap({
+  saved: true,
+
   onboarded: false,
+
+  skinTone: 1,
 
   home: ImmutableMap({
     shows: ImmutableMap({
@@ -52,6 +58,12 @@ const initialState = ImmutableMap({
       body: '',
     }),
   }),
+
+  direct: ImmutableMap({
+    regex: ImmutableMap({
+      body: '',
+    }),
+  }),
 });
 
 const defaultColumns = fromJS([
@@ -72,21 +84,41 @@ const moveColumn = (state, uuid, direction) => {
   newColumns = columns.splice(index, 1);
   newColumns = newColumns.splice(newIndex, 0, columns.get(index));
 
-  return state.set('columns', newColumns);
+  return state
+    .set('columns', newColumns)
+    .set('saved', false);
 };
+
+const updateFrequentEmojis = (state, emoji) => state.update('frequentlyUsedEmojis', ImmutableMap(), map => map.update(emoji.id, 0, count => count + 1)).set('saved', false);
+
+const filterDeadListColumns = (state, listId) => state.update('columns', columns => columns.filterNot(column => column.get('id') === 'LIST' && column.get('params').get('id') === listId));
 
 export default function settings(state = initialState, action) {
   switch(action.type) {
   case STORE_HYDRATE:
     return hydrate(state, action.state.get('settings'));
   case SETTING_CHANGE:
-    return state.setIn(action.key, action.value);
+    return state
+      .setIn(action.path, action.value)
+      .set('saved', false);
   case COLUMN_ADD:
-    return state.update('columns', list => list.push(fromJS({ id: action.id, uuid: uuid(), params: action.params })));
+    return state
+      .update('columns', list => list.push(fromJS({ id: action.id, uuid: uuid(), params: action.params })))
+      .set('saved', false);
   case COLUMN_REMOVE:
-    return state.update('columns', list => list.filterNot(item => item.get('uuid') === action.uuid));
+    return state
+      .update('columns', list => list.filterNot(item => item.get('uuid') === action.uuid))
+      .set('saved', false);
   case COLUMN_MOVE:
     return moveColumn(state, action.uuid, action.direction);
+  case EMOJI_USE:
+    return updateFrequentEmojis(state, action.emoji);
+  case SETTING_SAVE:
+    return state.set('saved', true);
+  case LIST_FETCH_FAIL:
+    return action.error.response.status === 404 ? filterDeadListColumns(state, action.id) : state;
+  case LIST_DELETE_SUCCESS:
+    return filterDeadListColumns(state, action.id);
   default:
     return state;
   }

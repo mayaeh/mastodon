@@ -1,53 +1,48 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+import { NavLink, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import StatusListContainer from '../ui/containers/status_list_container';
 import Column from '../../components/column';
 import ColumnHeader from '../../components/column_header';
-import {
-  refreshCommunityTimeline,
-  expandCommunityTimeline,
-  updateTimeline,
-  deleteFromTimelines,
-  connectTimeline,
-  disconnectTimeline,
-} from '../../actions/timelines';
+import { expandCommunityTimeline } from '../../actions/timelines';
 import { addColumn, removeColumn, moveColumn } from '../../actions/columns';
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ColumnSettingsContainer from './containers/column_settings_container';
-import createStream from '../../stream';
+import { connectCommunityStream } from '../../actions/streaming';
 
 const messages = defineMessages({
   title: { id: 'column.community', defaultMessage: 'Local timeline' },
 });
 
-const mapStateToProps = state => ({
-  hasUnread: state.getIn(['timelines', 'community', 'unread']) > 0,
-  streamingAPIBaseURL: state.getIn(['meta', 'streaming_api_base_url']),
-  accessToken: state.getIn(['meta', 'access_token']),
+const mapStateToProps = (state, { onlyMedia }) => ({
+  hasUnread: state.getIn(['timelines', `community${onlyMedia ? ':media' : ''}`, 'unread']) > 0,
 });
 
 @connect(mapStateToProps)
 @injectIntl
 export default class CommunityTimeline extends React.PureComponent {
 
+  static defaultProps = {
+    onlyMedia: false,
+  };
+
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     columnId: PropTypes.string,
     intl: PropTypes.object.isRequired,
-    streamingAPIBaseURL: PropTypes.string.isRequired,
-    accessToken: PropTypes.string.isRequired,
     hasUnread: PropTypes.bool,
     multiColumn: PropTypes.bool,
+    onlyMedia: PropTypes.bool,
   };
 
   handlePin = () => {
-    const { columnId, dispatch } = this.props;
+    const { columnId, dispatch, onlyMedia } = this.props;
 
     if (columnId) {
       dispatch(removeColumn(columnId));
     } else {
-      dispatch(addColumn('COMMUNITY', {}));
+      dispatch(addColumn('COMMUNITY', { other: { onlyMedia } }));
     }
   }
 
@@ -61,46 +56,16 @@ export default class CommunityTimeline extends React.PureComponent {
   }
 
   componentDidMount () {
-    const { dispatch, streamingAPIBaseURL, accessToken } = this.props;
+    const { dispatch, onlyMedia } = this.props;
 
-    dispatch(refreshCommunityTimeline());
-
-    if (typeof this._subscription !== 'undefined') {
-      return;
-    }
-
-    this._subscription = createStream(streamingAPIBaseURL, accessToken, 'public:local', {
-
-      connected () {
-        dispatch(connectTimeline('community'));
-      },
-
-      reconnected () {
-        dispatch(connectTimeline('community'));
-      },
-
-      disconnected () {
-        dispatch(disconnectTimeline('community'));
-      },
-
-      received (data) {
-        switch(data.event) {
-        case 'update':
-          dispatch(updateTimeline('community', JSON.parse(data.payload)));
-          break;
-        case 'delete':
-          dispatch(deleteFromTimelines(data.payload));
-          break;
-        }
-      },
-
-    });
+    dispatch(expandCommunityTimeline({ onlyMedia }));
+    this.disconnect = dispatch(connectCommunityStream({ onlyMedia }));
   }
 
   componentWillUnmount () {
-    if (typeof this._subscription !== 'undefined') {
-      this._subscription.close();
-      this._subscription = null;
+    if (this.disconnect) {
+      this.disconnect();
+      this.disconnect = null;
     }
   }
 
@@ -108,13 +73,27 @@ export default class CommunityTimeline extends React.PureComponent {
     this.column = c;
   }
 
-  handleLoadMore = () => {
-    this.props.dispatch(expandCommunityTimeline());
+  handleLoadMore = maxId => {
+    const { dispatch, onlyMedia } = this.props;
+
+    dispatch(expandCommunityTimeline({ maxId, onlyMedia }));
   }
 
   render () {
-    const { intl, hasUnread, columnId, multiColumn } = this.props;
+    const { intl, hasUnread, columnId, multiColumn, onlyMedia } = this.props;
     const pinned = !!columnId;
+
+    const headline = pinned ? (
+      <div className='community-timeline__section-headline'>
+        <Link to='/timelines/public/local' replace className={!onlyMedia ? 'active' : undefined}><FormattedMessage id='timeline.posts' defaultMessage='Toots' /></Link>
+        <Link to='/timelines/public/local/media' replace className={onlyMedia ? 'active' : undefined}><FormattedMessage id='timeline.media' defaultMessage='Media' /></Link>
+      </div>
+    ) : (
+      <div className='community-timeline__section-headline'>
+        <NavLink exact to='/timelines/public/local' replace><FormattedMessage id='timeline.posts' defaultMessage='Toots' /></NavLink>
+        <NavLink exact to='/timelines/public/local/media' replace><FormattedMessage id='timeline.media' defaultMessage='Media' /></NavLink>
+      </div>
+    );
 
     return (
       <Column ref={this.setRef}>
@@ -132,10 +111,11 @@ export default class CommunityTimeline extends React.PureComponent {
         </ColumnHeader>
 
         <StatusListContainer
+          prepend={headline}
           trackScroll={!pinned}
           scrollKey={`community_timeline-${columnId}`}
-          timelineId='community'
-          loadMore={this.handleLoadMore}
+          timelineId={`community${onlyMedia ? ':media' : ''}`}
+          onLoadMore={this.handleLoadMore}
           emptyMessage={<FormattedMessage id='empty_column.community' defaultMessage='The local timeline is empty. Write something publicly to get the ball rolling!' />}
         />
       </Column>
