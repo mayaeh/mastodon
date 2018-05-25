@@ -1,4 +1,17 @@
 extended-description:
+<div id="serverEnv">
+<h3>サーバー環境</h3>
+<dl>
+<dt>事業者:</dt>
+<dd>ConoHa ( VPS )</dd>
+<dt>構成:</dt>
+<dd>ConoHa VPS 1GB プラン x4 ( Web x3 / ElasticSearch x1 / DB x1 ( Web と共有 ) )</dd>
+<dd>ConoHa ロードバランサ ( IPv4 )</dd>
+<dd>ConoHa オブジェクトストレージ</dd>
+</dl>
+
+</div>
+
 <div id="attention">
 <h3>注意</h3>
 <ul>
@@ -55,6 +68,7 @@ extended-description:
 </ul>
 </div>
 
+<h3>個人情報の保護について</h3>
 <ul>
 <li>登録に使用したメールアドレス (機密情報という) は特段の事情がない限り管理者も閲覧することはいたしません。</li>
 <li>また機密情報は警察等からの要請がない限り他人に渡すことはいたしません。</li>
