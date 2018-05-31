@@ -34,6 +34,7 @@ const messages = defineMessages({
   discover: { id: 'navigation_bar.discover', defaultMessage: 'Discover' },
   personal: { id: 'navigation_bar.personal', defaultMessage: 'Personal' },
   security: { id: 'navigation_bar.security', defaultMessage: 'Security' },
+  trending_tags: { id: 'navigation_bar.trending_tags', defaultMessage:'Trending now' },
 });
 
 const mapStateToProps = state => ({
@@ -96,6 +97,7 @@ export default class GettingStarted extends ImmutablePureComponent {
         <ColumnSubheading key='1' text={intl.formatMessage(messages.discover)} />,
         <ColumnLink key='2' icon='users' text={intl.formatMessage(messages.community_timeline)} to='/timelines/public/local' />,
         <ColumnLink key='3' icon='globe' text={intl.formatMessage(messages.public_timeline)} to='/timelines/public' />,
+        <ColumnLink key='10' icon='hashtag' text={intl.formatMessage(messages.trending_tags)} to='/search' />,
         <ColumnSubheading key='8' text={intl.formatMessage(messages.personal)} />
       );
     }
