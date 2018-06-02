@@ -30,7 +30,7 @@ if (process.env.S3_ENABLED === 'true') {
   }
 } else if (process.env.SWIFT_ENABLED === 'true') {
   const { host } = new URL(process.env.SWIFT_OBJECT_URL);
-  attachmentHost = host;
+  attachmentHost = null; // If the domain of the instance and the domain of the SWIFT_OBJECT_URL are the same, the entire data of the instance will be cached and therefore invalidated.
 } else {
   attachmentHost = null;
 }
