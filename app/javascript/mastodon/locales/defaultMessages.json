@@ -1043,6 +1043,19 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Refresh",
+        "id": "trends.refresh"
+      },
+      {
+        "defaultMessage": "Trending now",
+        "id": "trends.header"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/getting_started/components/trends.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Home",
         "id": "tabs_bar.home"
       },
@@ -1099,10 +1112,6 @@
         "id": "navigation_bar.lists"
       },
       {
-        "defaultMessage": "Refresh",
-        "id": "trends.refresh"
-      },
-      {
         "defaultMessage": "Discover",
         "id": "navigation_bar.discover"
       },
@@ -1117,10 +1126,6 @@
       {
         "defaultMessage": "Getting started",
         "id": "getting_started.heading"
-      },
-      {
-        "defaultMessage": "Trending now",
-        "id": "trends.header"
       },
       {
         "defaultMessage": "Hotkeys",
