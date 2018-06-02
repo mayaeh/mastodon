@@ -88,7 +88,7 @@ export default class GettingStarted extends ImmutablePureComponent {
         <ColumnSubheading key={i++} text={intl.formatMessage(messages.discover)} />,
         <ColumnLink key={i++} icon='users' text={intl.formatMessage(messages.community_timeline)} to='/timelines/public/local' />,
         <ColumnLink key={i++} icon='globe' text={intl.formatMessage(messages.public_timeline)} to='/timelines/public' />,
-        <ColumnLink key={i++} icon='hashtag' text={intl.formatMessage(messages.trending_tags)} to='/search' />,
+        <ColumnLink key={i++} icon='fire' text={intl.formatMessage(messages.trending_tags)} to='/search' />,
         <ColumnSubheading key={i++} text={intl.formatMessage(messages.personal)} />
       );
 
