@@ -173,6 +173,7 @@
   "navigation_bar.preferences": "Preferences",
   "navigation_bar.public_timeline": "Federated timeline",
   "navigation_bar.security": "Security",
+  "navigation_bar.trending_tags": "Trending now",
   "notification.favourite": "{name} favourited your status",
   "notification.follow": "{name} followed you",
   "notification.mention": "{name} mentioned you",
