@@ -288,6 +288,8 @@
   "timeline.media": "Media",
   "timeline.posts": "Toots",
   "trends.count_by_accounts": "{count} {rawCount, plural, one {person} other {people}} talking",
+  "trends.header": "Trending now",
+  "trends.refresh": "Refresh",
   "ui.beforeunload": "Your draft will be lost if you leave Mastodon.",
   "upload_area.title": "Drag & drop to upload",
   "upload_button.label": "Add media",

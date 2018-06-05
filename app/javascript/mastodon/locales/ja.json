@@ -288,6 +288,8 @@
   "timeline.media": "メディア",
   "timeline.posts": "投稿",
   "trends.count_by_accounts": "{count} {rawCount, plural, one {人} other {人}} がトゥート",
+  "trends.header": "トレンドタグ",
+  "trends.refresh": "更新",
   "ui.beforeunload": "Mastodonから離れると送信前の投稿は失われます。",
   "upload_area.title": "ドラッグ＆ドロップでアップロード",
   "upload_button.label": "メディアを追加",
