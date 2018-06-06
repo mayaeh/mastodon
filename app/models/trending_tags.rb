@@ -7,7 +7,7 @@ class TrendingTags
 
   class << self
     def record_use!(tag, account, at_time = Time.now.utc)
-      return if disallowed_hashtags.include?(tag.name) || account.silenced? || account.bot?
+      return if disallowed_hashtags.include?(tag.name) || trend_hidden_hashtags.include?(tag.name) || account.silenced? || account.bot?
 
       increment_historical_use!(tag.id, at_time)
       increment_unique_use!(tag.id, account.id, at_time)
@@ -53,6 +53,14 @@ class TrendingTags
       @disallowed_hashtags = Setting.disallowed_hashtags.nil? ? [] : Setting.disallowed_hashtags
       @disallowed_hashtags = @disallowed_hashtags.split(' ') if @disallowed_hashtags.is_a? String
       @disallowed_hashtags = @disallowed_hashtags.map(&:downcase)
+    end
+
+    def trend_hidden_hashtags
+      return @trend_hidden_hashtags if defined?(@trend_hidden_hashtags)
+
+      @trend_hidden_hashtags = Setting.trend_hidden_hashtags.nil? ? [] : Setting.trend_hidden_hashtags
+      @trend_hidden_hashtags = @trend_hidden_hashtags.split(' ') if @trend_hidden_hashtags.is_a? String
+      @trend_hidden_hashtags = @trend_hidden_hashtags.map(&:downcase)
     end
 
     def redis
