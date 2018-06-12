@@ -554,6 +554,10 @@
         "id": "navigation_bar.mutes"
       },
       {
+        "defaultMessage": "Trending now",
+        "id": "navigation_bar.trending_tags"
+      },
+      {
         "defaultMessage": "Information below may reflect the user's profile incompletely.",
         "id": "account.disclaimer_full"
       },
@@ -817,6 +821,10 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Trending now",
+        "id": "trends.header"
+      },
+      {
         "defaultMessage": "People",
         "id": "search_results.accounts"
       },
@@ -1043,6 +1051,19 @@
       }
     ],
     "path": "app/javascript/mastodon/features/follow_requests/index.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Refresh",
+        "id": "trends.refresh"
+      },
+      {
+        "defaultMessage": "Trending now",
+        "id": "trends.header"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/getting_started/components/trends.json"
   },
   {
     "descriptors": [
