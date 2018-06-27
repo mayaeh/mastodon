@@ -372,6 +372,8 @@ en:
       title: WebSub
       topic: Topic
     title: Administration
+    trends:
+      title: Trends
   admin_mailer:
     new_report:
       body: "%{reporter} has reported %{target}"
