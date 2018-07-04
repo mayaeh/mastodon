@@ -129,6 +129,7 @@ Rails.application.routes.draw do
     resources :action_logs, only: [:index]
     resource :settings, only: [:edit, :update]
     resources :invites, only: [:index, :create, :destroy]
+    resources :trends, only: [:index, :show, :destroy]
 
     resources :instances, only: [:index] do
       collection do
