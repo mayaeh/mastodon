@@ -511,8 +511,11 @@ namespace :mastodon do
     task remove_remote: :environment do
       time_ago = ENV.fetch('NUM_DAYS') { 60 }.to_i.days.ago
 
-      MediaAttachment.where.not(remote_url: '').where.not(file_file_name: nil).where('created_at < ?', time_ago).select(:id).find_in_batches do |media_attachments|
-        Maintenance::UncacheMediaWorker.push_bulk(media_attachments.map(&:id))
+      MediaAttachment.where.not(remote_url: '').where.not(file_file_name: nil).where('created_at < ?', time_ago).find_each do |media|
+        next unless media.file.exists?
+
+        media.file.destroy
+        media.save
       end
     end
 
