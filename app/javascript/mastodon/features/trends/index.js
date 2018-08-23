@@ -47,7 +47,7 @@ export default class Trends extends ImmutablePureComponent {
     const { trends, loading, intl } = this.props;
 
     return (
-      <Column>
+      <Column label={intl.formatMessage(messages.title)}>
         <ColumnHeader
           icon='fire'
           title={intl.formatMessage(messages.title)}
