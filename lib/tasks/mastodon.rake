@@ -222,7 +222,7 @@ namespace :mastodon do
         end
 
         if prompt.yes?('Do you want to access the uploaded files from your own domain?')
-          env['S3_CLOUDFRONT_HOST'] = prompt.ask('Domain for uploaded files:') do |q|
+          env['S3_ALIAS_HOST'] = prompt.ask('Domain for uploaded files:') do |q|
             q.required true
             q.default "files.#{env['LOCAL_DOMAIN']}"
             q.modify :strip
@@ -512,14 +512,9 @@ namespace :mastodon do
 
     desc 'Remove cached remote media attachments that are older than NUM_DAYS. By default 7 (1week)'
     task remove_remote: :environment do
-      time_ago = ENV.fetch('NUM_DAYS') { 60 }.to_i.days.ago
-
-      MediaAttachment.where.not(remote_url: '').where.not(file_file_name: nil).where('created_at < ?', time_ago).find_each do |media|
-        next unless media.file.exists?
-
-        media.file.destroy
-        media.save
-      end
+      require_relative '../mastodon/media_cli'
+      cli = Mastodon::MediaCLI.new([], days: ENV['NUM_DAYS'] || 60)
+      cli.invoke(:remove)
     end
 
     desc 'Set unknown attachment type for remote-only attachments'
