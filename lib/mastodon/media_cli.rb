@@ -2,6 +2,7 @@
 
 require_relative '../../config/boot'
 require_relative '../../config/environment'
+require_relative 'cli_helper'
 
 # rubocop:disable Rails/Output
 
@@ -23,8 +24,9 @@ module Mastodon
       the underlying file storage.
     DESC
     def remove
-      time_ago = options[:days].days.ago
-      queued   = 0
+      time_ago  = options[:days].days.ago
+      queued    = 0
+      processed = 0
 
 
       if options[:background]
@@ -38,11 +40,17 @@ module Mastodon
 
           media.file.destroy
           media.save
+          processed += 1
         end
       end
 
-      puts
-      puts "Scheduled the deletion of #{queued} media attachments" if options[:background]
+      say
+
+      if options[:background]
+        say("Scheduled the deletion of #{queued} media attachments", :green)
+      else
+        say("Removed #{processed} media attachments", :green)
+      end
     end
   end
 end
