@@ -7,14 +7,14 @@ require_relative '../../config/environment'
 
 module Mastodon
   class MediaCLI < Thor
-    option :days, type: :numeric, default: 7
+    option :days, type: :numeric, default: 60
     option :background, type: :boolean, default: false
     desc 'remove', 'remove remote media files'
     long_desc <<-DESC
       Removes locally cached copies of media attachments from other servers.
 
       The --days option specifies how old media attachments have to be before
-      they are removed. It defaults to 7 days.
+      they are removed. It defaults to 60 days.
 
       With the --background option, instead of deleting the files sequentially,
       they will be queued into Sidekiq and the command will exit as soon as
@@ -26,15 +26,18 @@ module Mastodon
       time_ago = options[:days].days.ago
       queued   = 0
 
-      MediaAttachment.where.not(remote_url: '').where.not(file_file_name: nil).where('created_at < ?', time_ago).select(:id).reorder(nil).find_in_batches do |media_attachments|
-        if options[:background]
+
+      if options[:background]
+        MediaAttachment.where.not(remote_url: '').where.not(file_file_name: nil).where('created_at < ?', time_ago).select(:id).reorder(nil).find_in_batches do |media_attachments|
           queued += media_attachments.size
           Maintenance::UncacheMediaWorker.push_bulk(media_attachments.map(&:id))
-        else
-          media_attachments.each do |m|
-            Maintenance::UncacheMediaWorker.new.perform(m)
-            print '.'
-          end
+        end
+      else
+        MediaAttachment.where.not(remote_url: '').where.not(file_file_name: nil).where('created_at < ?', time_ago).find_each do |media|
+          next unless media.file.exists?
+
+          media.file.destroy
+          media.save
         end
       end
 
