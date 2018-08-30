@@ -42,15 +42,16 @@ module Mastodon
           Maintenance::UncacheMediaWorker.push_bulk(media_attachments.map(&:id)) unless options[:dry_run]
         end
       else
-        MediaAttachment.where.not(remote_url: '').where.not(file_file_name: nil).where('created_at < ?', time_ago).find_each do |media|
-          next unless media.file.exists?
-
-          unless options[:dry_run]
-            media.file.destroy
-            media.save
+        MediaAttachment.where.not(remote_url: '').where.not(file_file_name: nil).where('created_at < ?', time_ago).reorder(nil).find_in_batches do |media_attachments|
+          media_attachments.each do |m|
+            next unless m.file.exists?
+            unless options[:dry_run]
+              m.file.destroy
+              m.save
+            end
+            options[:verbose] ? say(m.id) : say('.', :green, false)
+            processed += 1
           end
-          options[:verbose] ? say(media.id) : say('.', :green, false)
-          processed += 1
         end
       end
 
