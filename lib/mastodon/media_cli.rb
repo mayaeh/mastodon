@@ -40,6 +40,7 @@ module Mastodon
 
           media.file.destroy
           media.save
+          say('.', :green, false)
           processed += 1
         end
       end
