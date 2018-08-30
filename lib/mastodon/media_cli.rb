@@ -44,7 +44,7 @@ module Mastodon
       else
         MediaAttachment.where.not(remote_url: '').where.not(file_file_name: nil).where('created_at < ?', time_ago).reorder(nil).find_in_batches do |media_attachments|
           media_attachments.each do |m|
-            next unless m.file.exists?
+            next if m.file.blank?
             unless options[:dry_run]
               m.file.destroy
               m.save
