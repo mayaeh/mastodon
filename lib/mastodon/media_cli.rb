@@ -35,7 +35,6 @@ module Mastodon
       processed = 0
       dry_run = options[:dry_run] ? '(DRY RUN)' : ''
 
-
       if options[:background]
         MediaAttachment.where.not(remote_url: '').where.not(file_file_name: nil).where('created_at < ?', time_ago).select(:id).reorder(nil).find_in_batches do |media_attachments|
           queued += media_attachments.size
