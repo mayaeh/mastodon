@@ -189,10 +189,10 @@ class SwitchingColumnsArea extends React.PureComponent {
 
 }
 
-@connect(mapStateToProps)
+export default @connect(mapStateToProps)
 @injectIntl
 @withRouter
-export default class UI extends React.PureComponent {
+class UI extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,
