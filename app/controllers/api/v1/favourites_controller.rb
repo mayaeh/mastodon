@@ -28,7 +28,9 @@ class Api::V1::FavouritesController < Api::BaseController
   def results
     @_results ||= account_favourites.paginate_by_id(
       limit_param(DEFAULT_STATUSES_LIMIT),
-      params_slice(:max_id, :since_id, :min_id)
+      params[:max_id],
+      params[:since_id],
+      params[:min_id]
     )
   end
 
