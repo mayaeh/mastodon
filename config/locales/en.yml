@@ -369,6 +369,9 @@ en:
       hero:
         desc_html: Displayed on the frontpage. At least 600x100px recommended. When not set, falls back to instance thumbnail
         title: Hero image
+      mascot:
+        desc_html: Displayed on multiple pages. At least 293px × 205px recommended. When not set, falls back to instance thumbnail
+        title: Mascot image
       peers_api_enabled:
         desc_html: Domain names this instance has encountered in the fediverse
         title: Publish list of discovered instances
@@ -529,7 +532,7 @@ en:
     '500':
       content: We're sorry, but something went wrong on our end.
       title: This page is not correct
-    noscript_html: To use the Mastodon web application, please enable JavaScript. Alternatively, try one of the <a href="https://github.com/tootsuite/documentation/blob/master/Using-Mastodon/Apps.md">native apps</a> for Mastodon for your platform.
+    noscript_html: To use the Mastodon web application, please enable JavaScript. Alternatively, try one of the <a href="%{apps_path}">native apps</a> for Mastodon for your platform.
   exports:
     archive_takeout:
       date: Date
