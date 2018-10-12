@@ -13,6 +13,7 @@ import spring from 'react-motion/lib/spring';
 import SearchResultsContainer from './containers/search_results_container';
 import { changeComposing } from '../../actions/compose';
 import elephantUIPlane from '../../../images/elephant_ui_plane.svg';
+import { mascot } from '../../initial_state';
 import Announcements from './components/announcements';
 
 const messages = defineMessages({
@@ -109,7 +110,7 @@ class Compose extends React.PureComponent {
             <Announcements />
             {multiColumn && (
               <div className='drawer__inner__mastodon'>
-                <img alt='' draggable='false' src={elephantUIPlane} />
+                <img alt='' draggable='false' src={mascot || elephantUIPlane} />
               </div>
             )}
           </div>}
