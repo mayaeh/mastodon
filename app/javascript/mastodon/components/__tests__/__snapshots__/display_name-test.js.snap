@@ -14,15 +14,12 @@ exports[`<DisplayName /> renders display name + account name 1`] = `
       }
     />
   </bdi>
+   
   <span
-    className="display-name__suffix"
+    className="display-name__account"
   >
-    <span
-      className="display-name__account"
-    >
-      @
-      bar@baz
-    </span>
+    @
+    bar@baz
   </span>
 </span>
 `;
