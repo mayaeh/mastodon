@@ -50,6 +50,7 @@ module Mastodon
       else
         MediaAttachment.where.not(remote_url: '').where.not(file_file_name: nil).where('created_at < ?', time_ago).reorder(nil).find_in_batches do |media_attachments|
           media_attachments.each do |m|
+            size += m.file_file_size || 0
             next if m.file.blank?
             unless options[:dry_run]
               m.file.destroy
@@ -57,7 +58,6 @@ module Mastodon
             end
             options[:verbose] ? say(m.id) : say('.', :green, false)
             processed += 1
-            size      += m.file_file_size || 0
           end
         end
       end
