@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from '../features/ui/util/fullscreen';
 import LoadingIndicator from './loading_indicator';
 
-const MOUSE_IDLE_DELAY = 300;
+const MOUSE_IDLE_DELAY = 1000;
 
 export default class ScrollableList extends PureComponent {
 
