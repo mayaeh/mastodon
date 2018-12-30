@@ -44,6 +44,7 @@
 #  fields                  :jsonb
 #  actor_type              :string
 #  discoverable            :boolean
+#  also_known_as           :string           is an Array
 #
 
 class Account < ApplicationRecord
@@ -139,6 +140,10 @@ class Account < ApplicationRecord
     "#{username}@#{Rails.configuration.x.local_domain}"
   end
 
+  def local_followers_count
+    Follow.where(target_account_id: id).count
+  end
+
   def to_webfinger_s
     "acct:#{local_username_and_domain}"
   end
@@ -221,6 +226,10 @@ class Account < ApplicationRecord
         tag.increment_count!(:accounts_count)
       end
     end
+  end
+
+  def also_known_as
+    self[:also_known_as] || []
   end
 
   def fields
