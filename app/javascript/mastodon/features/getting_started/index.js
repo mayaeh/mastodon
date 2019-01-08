@@ -34,6 +34,7 @@ const messages = defineMessages({
   security: { id: 'navigation_bar.security', defaultMessage: 'Security' },
   trending_tags: { id: 'navigation_bar.trending_tags', defaultMessage:'Trending now' },
   menu: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
+  profile_directory: { id: 'getting_started.directory', defaultMessage: 'Profile directory' },
 });
 
 const mapStateToProps = state => ({
@@ -84,25 +85,51 @@ class GettingStarted extends ImmutablePureComponent {
     let i = 1;
     let height = (multiColumn) ? 0 : 60;
 
+    navItems.push(
+      <ColumnSubheading key={i++} text={intl.formatMessage(messages.discover)} />,
+    );
+
+    height += 34;
+
     if (multiColumn) {
       navItems.push(
-        <ColumnSubheading key={i++} text={intl.formatMessage(messages.discover)} />,
         <ColumnLink key={i++} icon='users' text={intl.formatMessage(messages.community_timeline)} to='/timelines/public/local' />,
         <ColumnLink key={i++} icon='globe' text={intl.formatMessage(messages.public_timeline)} to='/timelines/public' />,
         <ColumnLink key={i++} icon='fire' text={intl.formatMessage(messages.trending_tags)} to='/trends' />,
-        <ColumnSubheading key={i++} text={intl.formatMessage(messages.personal)} />
       );
 
-      height += 34*2 + 48*3;
+      height += 48*3;
+
+      if (profile_directory) {
+        navItems.push(
+          <ColumnLink key={i++} icon='address-book' text={intl.formatMessage(messages.profile_directory)} href='/explore' />,
+        );
+
+        height += 48;
+      }
+    } else if (profile_directory) {
+      navItems.push(
+        <ColumnLink key={i++} icon='fire' text={intl.formatMessage(messages.trending_tags)} to='/trends' />,
+        <ColumnLink key={i++} icon='address-book' text={intl.formatMessage(messages.profile_directory)} href='/explore' />,
+      );
+
+      height += 48*2;
+    } else {
+      navItems.push(
+        <ColumnLink key={i++} icon='fire' text={intl.formatMessage(messages.trending_tags)} to='/trends' />,
+      );
+
+      height += 48;
     }
 
     navItems.push(
+      <ColumnSubheading key={i++} text={intl.formatMessage(messages.personal)} />,
       <ColumnLink key={i++} icon='envelope' text={intl.formatMessage(messages.direct)} to='/timelines/direct' />,
       <ColumnLink key={i++} icon='star' text={intl.formatMessage(messages.favourites)} to='/favourites' />,
       <ColumnLink key={i++} icon='list-ul' text={intl.formatMessage(messages.lists)} to='/lists' />
     );
 
-    height += 48*3;
+    height += 34 + 48*3;
 
     if (myAccount.get('locked')) {
       navItems.push(<ColumnLink key={i++} icon='users' text={intl.formatMessage(messages.follow_requests)} badge={badgeDisplay(unreadFollowRequests, 40)} to='/follow_requests' />);
@@ -141,7 +168,6 @@ class GettingStarted extends ImmutablePureComponent {
 
           <div className='getting-started__footer'>
             <ul>
-              {profile_directory && <li><a href='/explore' target='_blank'><FormattedMessage id='getting_started.directory' defaultMessage='Profile directory' /></a> · </li>}
               {invitesEnabled && <li><a href='/invites' target='_blank'><FormattedMessage id='getting_started.invite' defaultMessage='Invite people' /></a> · </li>}
               {multiColumn && <li><Link to='/keyboard-shortcuts'><FormattedMessage id='navigation_bar.keyboard_shortcuts' defaultMessage='Hotkeys' /></Link> · </li>}
               <li><a href='/auth/edit'><FormattedMessage id='getting_started.security' defaultMessage='Security' /></a> · </li>
