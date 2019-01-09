@@ -106,8 +106,12 @@ class GettingStarted extends ImmutablePureComponent {
 
       height += 34 + 48;
     } else if (profile_directory) {
-      navItems.push(<ColumnLink key={i++} icon='address-book' text={intl.formatMessage(messages.profile_directory)} href='/explore' />);
-      height += 48;
+      navItems.push(
+        <ColumnLink key={i++} icon='address-book' text={intl.formatMessage(messages.profile_directory)} href='/explore' />,
+        <ColumnLink key={i++} icon='fire' text={intl.formatMessage(messages.trending_tags)} to='/trends' />
+      );
+
+      height += 48*2;
     } else {
       navItems.push(<ColumnLink key={i++} icon='fire' text={intl.formatMessage(messages.trending_tags)} to='/trends' />);
       height += 48;
