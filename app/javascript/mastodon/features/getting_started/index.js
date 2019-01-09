@@ -85,32 +85,41 @@ class GettingStarted extends ImmutablePureComponent {
     let i = 1;
     let height = (multiColumn) ? 0 : 60;
 
-    navItems.push(<ColumnSubheading key={i++} text={intl.formatMessage(messages.discover)} />);
-    height += 34;
-
     if (multiColumn) {
       navItems.push(
+        <ColumnSubheading key={i++} text={intl.formatMessage(messages.discover)} />
         <ColumnLink key={i++} icon='users' text={intl.formatMessage(messages.community_timeline)} to='/timelines/public/local' />,
         <ColumnLink key={i++} icon='globe' text={intl.formatMessage(messages.public_timeline)} to='/timelines/public' />,
       );
 
-      height += 48*2;
-    }
+      height += 34 + 48*2;
 
-    if (profile_directory) {
+      if (profile_directory) {
+        navItems.push(<ColumnLink key={i++} icon='address-book' text={intl.formatMessage(messages.profile_directory)} href='/explore' />);
+        height += 48;
+      }
+
+      navItems.push(
+        <ColumnLink key={i++} icon='fire' text={intl.formatMessage(messages.trending_tags)} to='/trends' />,
+        <ColumnSubheading key={i++} text={intl.formatMessage(messages.personal)} />
+      );
+
+      height += 34 + 48;
+    } else if (profile_directory) {
       navItems.push(<ColumnLink key={i++} icon='address-book' text={intl.formatMessage(messages.profile_directory)} href='/explore' />);
+      height += 48;
+    } else {
+      navItems.push(<ColumnLink key={i++} icon='fire' text={intl.formatMessage(messages.trending_tags)} to='/trends' />);
       height += 48;
     }
 
     navItems.push(
-      <ColumnLink key={i++} icon='fire' text={intl.formatMessage(messages.trending_tags)} to='/trends' />,
-      <ColumnSubheading key={i++} text={intl.formatMessage(messages.personal)} />,
       <ColumnLink key={i++} icon='envelope' text={intl.formatMessage(messages.direct)} to='/timelines/direct' />,
       <ColumnLink key={i++} icon='star' text={intl.formatMessage(messages.favourites)} to='/favourites' />,
       <ColumnLink key={i++} icon='list-ul' text={intl.formatMessage(messages.lists)} to='/lists' />
     );
 
-    height += 34 + 48*4;
+    height += 48*3;
 
     if (myAccount.get('locked')) {
       navItems.push(<ColumnLink key={i++} icon='users' text={intl.formatMessage(messages.follow_requests)} badge={badgeDisplay(unreadFollowRequests, 40)} to='/follow_requests' />);
