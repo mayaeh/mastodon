@@ -87,7 +87,7 @@ class GettingStarted extends ImmutablePureComponent {
 
     if (multiColumn) {
       navItems.push(
-        <ColumnSubheading key={i++} text={intl.formatMessage(messages.discover)} />
+        <ColumnSubheading key={i++} text={intl.formatMessage(messages.discover)} />,
         <ColumnLink key={i++} icon='users' text={intl.formatMessage(messages.community_timeline)} to='/timelines/public/local' />,
         <ColumnLink key={i++} icon='globe' text={intl.formatMessage(messages.public_timeline)} to='/timelines/public' />,
       );
