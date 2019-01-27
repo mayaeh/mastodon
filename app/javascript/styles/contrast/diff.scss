@@ -12,3 +12,10 @@
     }
   }
 }
+
+.status__content,
+.reply-indicator__content {
+  a {
+    color: $ui-highlight-color;
+  }
+}
