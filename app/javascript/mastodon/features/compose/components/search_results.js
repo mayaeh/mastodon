@@ -64,7 +64,7 @@ class SearchResults extends ImmutablePureComponent {
         <div className='search-results'>
           <div className='trends'>
             <div className='trends__header'>
-              <i className='fa fa-fire fa-fw' />
+              <Icon id='fire' fixedWidth />
               <FormattedMessage id='trends.header' defaultMessage='Trending now' />
             </div>
 

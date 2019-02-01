@@ -6,6 +6,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import Hashtag from '../../../components/hashtag';
 import { Link } from 'react-router-dom';
+import Icon from 'mastodon/components/icon';
 
 const messages = defineMessages({
   refresh_trends: { id: 'trends.refresh', defaultMessage: 'Refresh' },
@@ -49,13 +50,13 @@ export default class Trends extends ImmutablePureComponent {
         <div className='column-header__wrapper'>
           <h1 className='column-header'>
             <button>
-              <i className='fa fa-fire fa-fw' />
+              <Icon id='fire' fixedWidth />
               <FormattedMessage id='trends.header' defaultMessage='Trending now' />
             </button>
 
             <div className='column-header__buttons'>
-              {showTrends && <button onClick={this.handleRefreshTrends} className='column-header__button' title={intl.formatMessage(messages.refresh_trends)} aria-label={intl.formatMessage(messages.refresh_trends)} disabled={loading}><i className={classNames('fa', 'fa-refresh', { 'fa-spin': loading })} /></button>}
-              <button onClick={this.handleToggle} className='column-header__button'><i className={classNames('fa', showTrends ? 'fa-chevron-down' : 'fa-chevron-up')} /></button>
+              {showTrends && <button onClick={this.handleRefreshTrends} className='column-header__button' title={intl.formatMessage(messages.refresh_trends)} aria-label={intl.formatMessage(messages.refresh_trends)} disabled={loading}><Icon id='refresh' className={classNames({ 'fa-spin': loading })} /></button>}
+              <button onClick={this.handleToggle} className='column-header__button'><Icon id={showTrends ? 'chevron-down' : 'chevron-up'} /></button>
             </div>
           </h1>
         </div>

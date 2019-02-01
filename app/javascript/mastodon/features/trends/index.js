@@ -9,6 +9,7 @@ import ColumnHeader from '../../components/column_header';
 import Hashtag from '../../components/hashtag';
 import classNames from 'classnames';
 import { fetchTrends } from '../../actions/trends';
+import Icon from 'mastodon/components/icon';
 
 const messages = defineMessages({
   title: { id: 'trends.header', defaultMessage: 'Trending now' },
@@ -52,7 +53,7 @@ export default class Trends extends ImmutablePureComponent {
           icon='fire'
           title={intl.formatMessage(messages.title)}
           extraButton={(
-            <button className='column-header__button' title={intl.formatMessage(messages.refreshTrends)} aria-label={intl.formatMessage(messages.refreshTrends)} onClick={this.handleRefresh}><i className={classNames('fa', 'fa-refresh', { 'fa-spin': loading })} /></button>
+            <button className='column-header__button' title={intl.formatMessage(messages.refreshTrends)} aria-label={intl.formatMessage(messages.refreshTrends)} onClick={this.handleRefresh}><Icon id='refresh' className={classNames({ 'fa-spin': loading })} /></button>
           )}
         />
 
