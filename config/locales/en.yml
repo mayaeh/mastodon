@@ -589,6 +589,10 @@ en:
     lists: Lists
     mutes: You mute
     storage: Media storage
+  featured_tags:
+    add_new: Add new
+    errors:
+      limit: You have already featured the maximum amount of hashtags
   filters:
     contexts:
       home: Home timeline
@@ -629,10 +633,16 @@ en:
       one: Something isn't quite right yet! Please review the error below
       other: Something isn't quite right yet! Please review %{count} errors below
   imports:
+    modes:
+      merge: Merge
+      merge_long: Keep existing records and add new ones
+      overwrite: Overwrite
+      overwrite_long: Replace current records with the new ones
     preface: You can import data that you have exported from another instance, such as a list of the people you are following or blocking.
     success: Your data was successfully uploaded and will now be processed in due time
     types:
       blocking: Blocking list
+      domain_blocking: Domain blocking list
       following: Following list
       muting: Muting list
     upload: Upload
@@ -802,6 +812,7 @@ en:
     development: Development
     edit_profile: Edit profile
     export: Data export
+    featured_tags: Featured hashtags
     followers: Authorized followers
     import: Import
     migrate: Account migration
