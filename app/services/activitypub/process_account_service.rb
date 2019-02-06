@@ -213,7 +213,7 @@ class ActivityPub::ProcessAccountService < BaseService
   end
 
   def clear_tombstones!
-    Tombstone.delete_all(account_id: @account.id)
+    Tombstone.where(account_id: @account.id).delete_all
   end
 
   def protocol_changed?
