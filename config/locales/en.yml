@@ -902,6 +902,8 @@ en:
 
       <p>You may irreversibly delete your account at any time.</p>
 
+      <p>To delete an account, contact <a href="https://taruntarun.net/@mayaeh">the server administrator</a> by direct message or e-mail. In principle, we will only accept applications by that account owner.</p>
+
       <hr class="spacer"/>
 
       <h3 id="cookies">Do we use cookies?</h3>
@@ -936,9 +938,11 @@ en:
 
       <p>If we decide to change our privacy policy, we will post those changes on this page.</p>
 
-      <p>This document is CC-BY-SA. It was last updated March 7, 2018.</p>
+      <p>This document is CC-BY-SA. It was last updated February 6, 2019.</p>
 
       <p>Originally adapted from the <a href="https://github.com/discourse/discourse">Discourse privacy policy</a>.</p>
+
+      <p>February 6, 2019: Add regulations concerning account deletion</p>
     title: "%{instance} Terms of Service and Privacy Policy"
   themes:
     contrast: Mastodon (High contrast)
