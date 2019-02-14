@@ -39,7 +39,7 @@ class StatusesIndex < Chewy::Index
     },
   }
 
-  define_type ::Status.unscoped.without_reblogs do
+  define_type ::Status.unscoped.without_reblogs.includes(:media_attachments) do
     crutch :mentions do |collection|
       data = ::Mention.where(status_id: collection.map(&:id)).pluck(:status_id, :account_id)
       data.each.with_object({}) { |(id, name), result| (result[id] ||= []).push(name) }
@@ -58,7 +58,7 @@ class StatusesIndex < Chewy::Index
     root date_detection: false do
       field :account_id, type: 'long'
 
-      field :text, type: 'text', analyzer: 'ja_default_analyzer', value: ->(status) { [status.spoiler_text, Formatter.instance.plaintext(status)].join("\n\n") } do
+      field :text, type: 'text', analyzer: 'ja_default_analyzer', value: ->(status) { [status.spoiler_text, Formatter.instance.plaintext(status)].concat(status.media_attachments.map(&:description)).join("\n\n") } do
         field :stemmed, type: 'text', analyzer: 'content'
       end
 
