@@ -56,6 +56,7 @@ class StatusesIndex < Chewy::Index
     end
 
     root date_detection: false do
+      field :id, type: 'long'
       field :account_id, type: 'long'
 
       field :text, type: 'text', analyzer: 'ja_default_analyzer', value: ->(status) { [status.spoiler_text, Formatter.instance.plaintext(status)].concat(status.media_attachments.map(&:description)).join("\n\n") } do
@@ -63,7 +64,6 @@ class StatusesIndex < Chewy::Index
       end
 
       field :searchable_by, type: 'long', value: ->(status, crutches) { status.searchable_by(crutches) }
-      field :created_at, type: 'date'
     end
   end
 end
