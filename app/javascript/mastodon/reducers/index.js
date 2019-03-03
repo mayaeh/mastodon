@@ -30,6 +30,7 @@ import filters from './filters';
 import conversations from './conversations';
 import suggestions from './suggestions';
 import trends from './trends';
+import polls from './polls';
 
 const reducers = {
   dropdown_menu,
@@ -63,6 +64,7 @@ const reducers = {
   conversations,
   suggestions,
   trends,
+  polls,
 };
 
 export default combineReducers(reducers);
