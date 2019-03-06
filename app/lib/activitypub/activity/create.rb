@@ -231,8 +231,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
       items    = @object['oneOf']
     end
 
-    Poll.new(
-      account: @account,
+    @account.polls.new(
       multiple: multiple,
       expires_at: expires_at,
       options: items.map { |item| item['name'].presence || item['content'] },
@@ -242,7 +241,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
 
   def poll_vote?
     return false if replied_to_status.nil? || replied_to_status.poll.nil? || !replied_to_status.local? || !replied_to_status.poll.options.include?(@object['name'])
-    replied_to_status.poll.votes.create!(account: @account, choice: replied_to_status.poll.options.index(@object['name']))
+    replied_to_status.poll.votes.create!(account: @account, choice: replied_to_status.poll.options.index(@object['name']), uri: @object['id'])
   end
 
   def resolve_thread(status)

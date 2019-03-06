@@ -11,7 +11,7 @@ class ActivityPub::FetchRemotePollService < BaseService
     expires_at = begin
       if @json['closed'].is_a?(String)
         @json['closed']
-      elsif !@object['closed'].nil? && !@object['closed'].is_a?(FalseClass)
+      elsif !@json['closed'].nil? && !@json['closed'].is_a?(FalseClass)
         Time.now.utc
       else
         @json['endTime']
@@ -33,6 +33,7 @@ class ActivityPub::FetchRemotePollService < BaseService
     poll.votes.delete_all if latest_options != poll.options
 
     poll.update!(
+      last_fetched_at: Time.now.utc,
       expires_at: expires_at,
       options: latest_options,
       cached_tallies: items.map { |item| item.dig('replies', 'totalItems') || 0 }
