@@ -7,7 +7,6 @@ ja:
     administered_by: '管理者:'
     api: API
     apps: アプリ
-    closed_registrations: 現在このサーバーでの新規登録は受け付けていません。しかし、他のサーバーにアカウントを作成しても全く同じネットワークに参加することができます。
     contact: 連絡先
     contact_missing: 未設定
     contact_unavailable: N/A
@@ -15,20 +14,10 @@ ja:
     extended_description_html: |
       <h3>ルールを書くのに適した場所</h3>
       <p>詳細説明が設定されていません。</p>
-    features:
-      humane_approach_body: マストドンは他の SNS で起こった事件から学び、ソーシャルメディアの誤った利用からユーザーを守るようなデザインを目指しています。
-      humane_approach_title: より思いやりのある設計
-      not_a_product_body: マストドンは非営利な SNS です。広告の表示や収益化のためのデータ解析機能はありません。利用者の囲い込みもなく、あなたはいつでも他のサーバーに引っ越して利用を継続できます。
-      not_a_product_title: あなたを商品としてではなく個人として扱います
-      real_conversation_body: 1 投稿に 500 文字まで使用可能で、文字やメディアの表示にワンクッション置くようにし閲覧注意を促す機能もあります。使い道はあなた次第です。
-      real_conversation_title: より実用的な作り
-      within_reach_body: あなたは iOS, Android, その他さまざまな端末用の複数のアプリからマストドンを利用し、どこにいても友達と交流することができます。また開発者の馴染みやすい API エコシステムを備えています。
-      within_reach_title: いつでもどこからでも
     generic_description: "%{domain} は、Mastodon サーバーの一つです"
     hosted_on: Mastodon hosted on %{domain}
     learn_more: 詳しく
     learn_more_joinmastodon: 詳しく（外部サイトへ移動）
-    other_instances: 他のサーバー
     privacy_policy: プライバシーポリシー
     source_code: ソースコード
     status_count_after:
@@ -509,13 +498,11 @@ ja:
     logout: ログアウト
     migrate_account: 別のアカウントに引っ越す
     migrate_account_html: 引っ越し先を明記したい場合は<a href="%{path}">こちら</a>で設定できます。
-    or: または
     or_log_in_with: または次のサービスでログイン
     providers:
       cas: CAS
       saml: SAML
     register: 登録する
-    register_elsewhere: 他のサーバーで新規登録
     resend_confirmation: 確認メールを再送する
     reset_password: パスワードを再発行
     security: セキュリティ
