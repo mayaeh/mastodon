@@ -25,7 +25,6 @@ en:
     get_apps: Try a mobile app
     hosted_on: Mastodon hosted on %{domain}
     learn_more: Learn more
-    learn_more_joinmastodon: Learn more
     privacy_policy: Privacy policy
     see_whats_happening: See what's happening
     server_stats: 'Server stats:'

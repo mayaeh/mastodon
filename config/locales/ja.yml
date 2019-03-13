@@ -17,7 +17,6 @@ ja:
     generic_description: "%{domain} は、Mastodon サーバーの一つです"
     hosted_on: Mastodon hosted on %{domain}
     learn_more: 詳しく
-    learn_more_joinmastodon: 詳しく（外部サイトへ移動）
     privacy_policy: プライバシーポリシー
     source_code: ソースコード
     status_count_after:
