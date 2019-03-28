@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import StatusContainer from '../../../containers/status_container';
 import AccountContainer from '../../../containers/account_container';
+import RelativeTimestamp from '../../../components/relative_timestamp';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import Permalink from '../../../components/permalink';
 import ImmutablePureComponent from 'react-immutable-pure-component';
@@ -33,7 +34,7 @@ class Notification extends ImmutablePureComponent {
     onFavourite: PropTypes.func.isRequired,
     onReblog: PropTypes.func.isRequired,
     onToggleHidden: PropTypes.func.isRequired,
-    status: PropTypes.option,
+    status: ImmutablePropTypes.map,
     intl: PropTypes.object.isRequired,
     getScrollPosition: PropTypes.func,
     updateScrollBottom: PropTypes.func,
@@ -112,12 +113,13 @@ class Notification extends ImmutablePureComponent {
             <div className='notification__favourite-icon-wrapper'>
               <Icon id='user-plus' fixedWidth />
             </div>
-
             <span title={notification.get('created_at')}>
               <FormattedMessage id='notification.follow' defaultMessage='{name} followed you' values={{ name: link }} />
+              <span className='notification__relative_time'>
+                <RelativeTimestamp timestamp={notification.get('created_at')} />
+              </span>
             </span>
           </div>
-
           <AccountContainer id={account.get('id')} withNote={false} hidden={this.props.hidden} />
         </div>
       </HotKeys>
@@ -151,9 +153,9 @@ class Notification extends ImmutablePureComponent {
             <div className='notification__favourite-icon-wrapper'>
               <Icon id='star' className='star-icon' fixedWidth />
             </div>
-
-            <span title={notification.get('created_at')}>
-              <FormattedMessage id='notification.favourite' defaultMessage='{name} favourited your status' values={{ name: link }} />
+            <FormattedMessage id='notification.favourite' defaultMessage='{name} favourited your status' values={{ name: link }} />
+            <span className='notification__relative_time'>
+              <RelativeTimestamp className='notification__relative_time' timestamp={notification.get('created_at')} />
             </span>
           </div>
 
@@ -183,9 +185,41 @@ class Notification extends ImmutablePureComponent {
             <div className='notification__favourite-icon-wrapper'>
               <Icon id='retweet' fixedWidth />
             </div>
+            <FormattedMessage id='notification.reblog' defaultMessage='{name} boosted your status' values={{ name: link }} />
+            <span className='notification__relative_time'>
+              <RelativeTimestamp className='notification__relative_time' timestamp={notification.get('created_at')} />
+            </span>
+          </div>
+
+          <StatusContainer
+            id={notification.get('status')}
+            account={notification.get('account')}
+            muted
+            withDismiss
+            hidden={this.props.hidden}
+            getScrollPosition={this.props.getScrollPosition}
+            updateScrollBottom={this.props.updateScrollBottom}
+            cachedMediaWidth={this.props.cachedMediaWidth}
+            cacheMediaWidth={this.props.cacheMediaWidth}
+          />
+        </div>
+      </HotKeys>
+    );
+  }
+
+  renderPoll (notification) {
+    const { intl } = this.props;
+
+    return (
+      <HotKeys handlers={this.getHandlers()}>
+        <div className='notification notification-poll focusable' tabIndex='0' aria-label={notificationForScreenReader(intl, intl.formatMessage({ id: 'notification.poll', defaultMessage: 'A poll you have voted in has ended' }), notification.get('created_at'))}>
+          <div className='notification__message'>
+            <div className='notification__favourite-icon-wrapper'>
+              <Icon id='tasks' fixedWidth />
+            </div>
 
             <span title={notification.get('created_at')}>
-              <FormattedMessage id='notification.reblog' defaultMessage='{name} boosted your status' values={{ name: link }} />
+              <FormattedMessage id='notification.poll' defaultMessage='A poll you have voted in has ended' />
             </span>
           </div>
 
@@ -220,6 +254,8 @@ class Notification extends ImmutablePureComponent {
       return this.renderFavourite(notification, link);
     case 'reblog':
       return this.renderReblog(notification, link);
+    case 'poll':
+      return this.renderPoll(notification);
     }
 
     return null;
