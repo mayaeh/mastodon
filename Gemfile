@@ -30,7 +30,7 @@ gem 'charlock_holmes', '~> 0.7.6'
 gem 'iso-639'
 gem 'chewy', '~> 5.0'
 gem 'cld3', '~> 3.2.3'
-gem 'devise', '~> 4.5'
+gem 'devise', '~> 4.6'
 gem 'devise-two-factor', '~> 3.0'
 
 group :pam_authentication, optional: true do
@@ -85,7 +85,7 @@ gem 'strong_migrations', '~> 0.3'
 gem 'tty-command', '~> 0.8', require: false
 gem 'tty-prompt', '~> 0.18', require: false
 gem 'twitter-text', '~> 1.14'
-gem 'tzinfo-data', '~> 1.2018'
+gem 'tzinfo-data', '~> 1.2019'
 gem 'webpacker', '~> 4.0'
 gem 'webpush'
 
