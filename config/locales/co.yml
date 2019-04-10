@@ -860,6 +860,8 @@ co:
     revoke_success: Sessione rivucata
     title: Sessioni
   settings:
+    account: Contu
+    account_settings: Parametri di u contu
     authorized_apps: Applicazione auturizate
     back: Ritornu nant’à Mastodon
     delete: Suppressione di u contu
@@ -869,13 +871,12 @@ co:
     featured_tags: Hashtag in vista
     identity_proofs: Prove d'identità
     import: Impurtazione
+    import_and_export: Impurtazione è spurtazione
     migrate: Migrazione di u contu
     notifications: Nutificazione
     preferences: Priferenze
     relationships: Abbunamenti è abbunati
-    settings: Parametri
     two_factor_authentication: Identificazione à dui fattori
-    your_apps: E vostre applicazione
   statuses:
     attached:
       description: 'Aghjuntu: %{attached}'
