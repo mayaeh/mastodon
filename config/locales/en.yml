@@ -1007,6 +1007,7 @@ en:
     contrast: Mastodon (High contrast)
     default: Mastodon (Dark)
     mastodon-light: Mastodon (Light)
+    slack-like-mastodon: like-slack
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
