@@ -1010,6 +1010,7 @@ ja:
     contrast: Mastodon (ハイコントラスト)
     default: Mastodon (ダーク)
     mastodon-light: Mastodon (ライト)
+    slack-like-mastodon: like-slack
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"
