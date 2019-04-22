@@ -7,6 +7,11 @@
 ==/UserStyle== */
 
 @media(min-width:631px) {
+    /* announcements 欄を非表示にし、テキストエリアの高さを修正 */
+    .announcements {
+        display: none;
+    }
+
     /* Slackっぽい左右分割レイアウトにする */
     .ui {
         flex-direction: row;
