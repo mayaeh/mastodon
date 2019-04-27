@@ -21,6 +21,7 @@ gem 'fog-openstack', '~> 0.3', require: false
 gem 'paperclip', '~> 6.0'
 gem 'paperclip-av-transcoder', '~> 0.6'
 gem 'streamio-ffmpeg', '~> 3.0'
+gem 'blurhash', '~> 0.1'
 
 gem 'active_model_serializers', '~> 0.10'
 gem 'addressable', '~> 2.6'
@@ -107,7 +108,7 @@ group :production, :test do
 end
 
 group :test do
-  gem 'capybara', '~> 3.17'
+  gem 'capybara', '~> 3.18'
   gem 'climate_control', '~> 0.2'
   gem 'faker', '~> 1.9'
   gem 'microformats', '~> 4.1'
