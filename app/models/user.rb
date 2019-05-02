@@ -114,7 +114,7 @@ class User < ApplicationRecord
   end
 
   def invited?
-    invite_id.present?
+    invite_id.present? && invite.valid_for_use?
   end
 
   def disable!
@@ -282,7 +282,7 @@ class User < ApplicationRecord
   end
 
   def external?
-    @external
+    !!@external
   end
 
   def sanitize_languages
