@@ -1743,6 +1743,11 @@ bluebird@^3.5.1, bluebird@^3.5.3:
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.3.tgz#7d01c6f9616c9a51ab0f8c549a79dfe6ec33efa7"
   integrity sha512-/qKPUQlaW1OyR51WeCPBvRnAlnZFUJkCSG5HzGnuIqhgyJtF+T94lFnn33eiazjRm2LAHVy2guNnaq48X9SJuw==
 
+blurhash@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/blurhash/-/blurhash-1.0.0.tgz#9087bc5cc4d482f1305059d7410df4133adcab2e"
+  integrity sha512-x6fpZnd6AWde4U9m7xhUB44qIvGV4W6OdTAXGabYm4oZUOOGh5K1HAEoGAQn3iG4gbbPn9RSGce3VfNgGsX/Vw==
+
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
   version "4.11.8"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.8.tgz#2cde09eb5ee341f484746bb0309b3253b1b1442f"
@@ -3173,12 +3178,9 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
-emoji-mart@^2.10.0:
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/emoji-mart/-/emoji-mart-2.10.0.tgz#e1adec430f4963f79055b12b80e6d60c5abb742d"
-  integrity sha512-VhcX463f8TDaQc1Tpc8rI31E15+8KXOYff1vwjokjMT52bZlCQCyq3zrnNScSYjv95f1+R4DMMreeuPvYFvOhg==
-  dependencies:
-    prop-types "^15.6.0"
+emoji-mart@Gargron/emoji-mart#build:
+  version "2.6.2"
+  resolved "https://codeload.github.com/Gargron/emoji-mart/tar.gz/ff00dc470b5b2d9f145a6d6e977a54de5df2b4c9"
 
 emoji-regex@^6.5.1:
   version "6.5.1"

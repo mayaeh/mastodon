@@ -52,6 +52,7 @@ export default class Trends extends ImmutablePureComponent {
         <ColumnHeader
           icon='fire'
           title={intl.formatMessage(messages.title)}
+          showBackButton
           extraButton={(
             <button className='column-header__button' title={intl.formatMessage(messages.refreshTrends)} aria-label={intl.formatMessage(messages.refreshTrends)} onClick={this.handleRefresh}><Icon id='refresh' className={classNames({ 'fa-spin': loading })} /></button>
           )}

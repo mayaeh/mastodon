@@ -74,6 +74,9 @@ class User < ApplicationRecord
   has_many :applications, class_name: 'Doorkeeper::Application', as: :owner
   has_many :backups, inverse_of: :user
 
+  has_one :invite_request, class_name: 'UserInviteRequest', inverse_of: :user, dependent: :destroy
+  accepts_nested_attributes_for :invite_request, reject_if: ->(attributes) { attributes['text'].blank? }
+
   validates :locale, inclusion: I18n.available_locales.map(&:to_s), if: :locale?
   validates_with BlacklistedEmailValidator, if: :email_changed?
   validates_with EmailMxValidator, if: :validate_email_dns?
@@ -104,6 +107,7 @@ class User < ApplicationRecord
            :expand_spoilers, :default_language, :aggregate_reblogs, :show_application, to: :settings, prefix: :setting, allow_nil: false
 
   attr_reader :invite_code
+  attr_writer :external
 
   def confirmed?
     confirmed_at.present?
@@ -188,6 +192,10 @@ class User < ApplicationRecord
     settings.notification_emails['report']
   end
 
+  def allows_pending_account_emails?
+    settings.notification_emails['pending_account']
+  end
+
   def hides_network?
     @hides_network ||= settings.hide_network
   end
@@ -266,11 +274,15 @@ class User < ApplicationRecord
   private
 
   def set_approved
-    self.approved = open_registrations? || invited?
+    self.approved = open_registrations? || invited? || external?
   end
 
   def open_registrations?
     Setting.registrations_mode == 'open'
+  end
+
+  def external?
+    @external
   end
 
   def sanitize_languages
@@ -292,7 +304,7 @@ class User < ApplicationRecord
 
   def notify_staff_about_pending_account!
     User.staff.includes(:account).each do |u|
-      next unless u.allows_report_emails?
+      next unless u.allows_pending_account_emails?
       AdminMailer.new_pending_account(u.account, self).deliver_later
     end
   end

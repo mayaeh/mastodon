@@ -31,6 +31,7 @@ import conversations from './conversations';
 import suggestions from './suggestions';
 import trends from './trends';
 import polls from './polls';
+import identity_proofs from './identity_proofs';
 
 const reducers = {
   dropdown_menu,
@@ -57,6 +58,7 @@ const reducers = {
   notifications,
   height_cache,
   custom_emojis,
+  identity_proofs,
   lists,
   listEditor,
   listAdder,

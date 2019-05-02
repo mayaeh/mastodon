@@ -2,8 +2,9 @@
 fr:
   activerecord:
     attributes:
-      status:
-        owned_poll: Sondage
+      poll:
+        expires_at: Date butoir
+        options: Choix
     errors:
       models:
         account:
