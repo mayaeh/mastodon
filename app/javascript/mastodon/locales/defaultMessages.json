@@ -669,10 +669,6 @@
         "id": "navigation_bar.mutes"
       },
       {
-        "defaultMessage": "Trending now",
-        "id": "navigation_bar.trending_tags"
-      },
-      {
         "defaultMessage": "Feature on profile",
         "id": "account.endorse"
       },
@@ -993,16 +989,16 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Trending now",
-        "id": "trends.header"
-      },
-      {
         "defaultMessage": "Dismiss suggestion",
         "id": "suggestions.dismiss"
       },
       {
         "defaultMessage": "You might be interested in…",
         "id": "suggestions.header"
+      },
+      {
+        "defaultMessage": "Trending now",
+        "id": "trends.header"
       },
       {
         "defaultMessage": "People",
@@ -1373,6 +1369,10 @@
       {
         "defaultMessage": "Security",
         "id": "navigation_bar.security"
+      },
+      {
+        "defaultMessage": "Trending now",
+        "id": "navigation_bar.trending_tags"
       },
       {
         "defaultMessage": "Getting started",
