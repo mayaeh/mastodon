@@ -2292,6 +2292,15 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Follow requests",
+        "id": "navigation_bar.follow_requests"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/ui/components/follow_requests_nav_link.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Close",
         "id": "lightbox.close"
       },
