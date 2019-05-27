@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { me, invitesEnabled, version, profile_directory, repository, source_url, forceSingleColumn } from '../../initial_state';
+import { me, invitesEnabled, version, profile_directory, repository, source_url } from '../../initial_state';
 import { fetchFollowRequests } from 'mastodon/actions/accounts';
 import { List as ImmutableList } from 'immutable';
 import { Link } from 'react-router-dom';
@@ -80,7 +80,7 @@ class GettingStarted extends ImmutablePureComponent {
   componentDidMount () {
     const { myAccount, fetchFollowRequests } = this.props;
 
-    if (forceSingleColumn && window.innerWidth >= NAVIGATION_PANEL_BREAKPOINT) {
+    if (window.innerWidth >= NAVIGATION_PANEL_BREAKPOINT) {
       this.context.router.history.replace('/timelines/home');
       return;
     }
