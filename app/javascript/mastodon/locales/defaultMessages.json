@@ -1356,46 +1356,6 @@
       {
         "defaultMessage": "Profile directory",
         "id": "getting_started.directory"
-      },
-      {
-        "defaultMessage": "Invite people",
-        "id": "getting_started.invite"
-      },
-      {
-        "defaultMessage": "Hotkeys",
-        "id": "navigation_bar.keyboard_shortcuts"
-      },
-      {
-        "defaultMessage": "Security",
-        "id": "getting_started.security"
-      },
-      {
-        "defaultMessage": "About this server",
-        "id": "navigation_bar.info"
-      },
-      {
-        "defaultMessage": "Mobile apps",
-        "id": "navigation_bar.apps"
-      },
-      {
-        "defaultMessage": "Terms of service",
-        "id": "getting_started.terms"
-      },
-      {
-        "defaultMessage": "Developers",
-        "id": "getting_started.developers"
-      },
-      {
-        "defaultMessage": "Documentation",
-        "id": "getting_started.documentation"
-      },
-      {
-        "defaultMessage": "Logout",
-        "id": "navigation_bar.logout"
-      },
-      {
-        "defaultMessage": "Mastodon is open source software. You can contribute or report issues on GitHub at {github}.",
-        "id": "getting_started.open_source_notice"
       }
     ],
     "path": "app/javascript/mastodon/features/getting_started/index.json"
@@ -2221,6 +2181,41 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Cancel",
+        "id": "confirmation_modal.cancel"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/ui/components/confirmation_modal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Embed",
+        "id": "status.embed"
+      },
+      {
+        "defaultMessage": "Embed this status on your website by copying the code below.",
+        "id": "embed.instructions"
+      },
+      {
+        "defaultMessage": "Here is what it will look like:",
+        "id": "embed.preview"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/ui/components/embed_modal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Follow requests",
+        "id": "navigation_bar.follow_requests"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/ui/components/follow_requests_nav_link.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Invite people",
         "id": "getting_started.invite"
       },
@@ -2261,42 +2256,7 @@
         "id": "getting_started.open_source_notice"
       }
     ],
-    "path": "app/javascript/mastodon/features/ui/components/compose_panel.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Cancel",
-        "id": "confirmation_modal.cancel"
-      }
-    ],
-    "path": "app/javascript/mastodon/features/ui/components/confirmation_modal.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Embed",
-        "id": "status.embed"
-      },
-      {
-        "defaultMessage": "Embed this status on your website by copying the code below.",
-        "id": "embed.instructions"
-      },
-      {
-        "defaultMessage": "Here is what it will look like:",
-        "id": "embed.preview"
-      }
-    ],
-    "path": "app/javascript/mastodon/features/ui/components/embed_modal.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Follow requests",
-        "id": "navigation_bar.follow_requests"
-      }
-    ],
-    "path": "app/javascript/mastodon/features/ui/components/follow_requests_nav_link.json"
+    "path": "app/javascript/mastodon/features/ui/components/link_footer.json"
   },
   {
     "descriptors": [
