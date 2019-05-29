@@ -2593,7 +2593,7 @@ a.account__display-name {
   display: flex;
   flex-direction: column;
   height: calc(100% - 10px);
-  overflow-y: hidden;
+  overflow: auto;
 
   .navigation-bar {
     padding-top: 20px;
