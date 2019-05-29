@@ -58,7 +58,7 @@ class Rack::Attack
   end
 
   throttle('throttle_unauthenticated_api', limit: 300, period: 5.minutes) do |req|
-    req.remote_ip if req.api_request? && !req.authenticated?
+    req.remote_ip if req.api_request? && req.unauthenticated?
   end
 
   throttle('throttle_api_media', limit: 30, period: 30.minutes) do |req|
@@ -79,7 +79,7 @@ class Rack::Attack
   end
 
   throttle('throttle_unauthenticated_paging', limit: 300, period: 15.minutes) do |req|
-    req.remote_ip if req.paging_request? && !req.authenticated?
+    req.remote_ip if req.paging_request? && req.unauthenticated?
   end
 
   API_DELETE_REBLOG_REGEX = /\A\/api\/v1\/statuses\/[\d]+\/unreblog/.freeze
