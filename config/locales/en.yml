@@ -269,6 +269,7 @@ en:
       created_msg: Domain block is now being processed
       destroyed_msg: Domain block has been undone
       domain: Domain
+      existing_domain_block_html: You have already imposed stricter limits on %{name}, you need to <a href="%{unblock_url}">unblock it</a> first.
       new:
         create: Create block
         hint: The domain block will not prevent creation of account entries in the database, but will retroactively and automatically apply specific moderation methods on those accounts.
@@ -292,8 +293,8 @@ en:
           one: One account in the database affected
           other: "%{count} accounts in the database affected"
         retroactive:
-          silence: Unsilence all existing accounts from this domain
-          suspend: Unsuspend all existing accounts from this domain
+          silence: Unsilence existing affected accounts from this domain
+          suspend: Unsuspend existing affected accounts from this domain
         title: Undo domain block for %{domain}
         undo: Undo
       undo: Undo domain block
