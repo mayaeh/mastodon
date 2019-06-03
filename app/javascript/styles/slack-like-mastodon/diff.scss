@@ -13,7 +13,7 @@
 @var            checkbox replaceToHash "アイコンフォントの代わりに # を表示する" 0
 @var            checkbox selectedItemBackground "選択しているペインを背景色で表現する" 0
 ==/UserStyle== */
-@-moz-document regexp("https://mstdn\\..*/web/?.*") {
+@media(min-width:631px) {
     /* Slackっぽい左右分割レイアウトにする */
     .columns-area__panels {
         flex-direction: row-reverse;
