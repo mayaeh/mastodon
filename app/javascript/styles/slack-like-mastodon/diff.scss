@@ -618,25 +618,3 @@
         }
     }
 }
-
-@-moz-document regexp("https://mstdn\\..*/web/timelines/(home|public)/?(local)?") {
-    if reverseTimeline {
-        .scrollable {
-            direction: rtl !important;
-            transform: rotate(180deg) !important;
-        }
-        
-        .scrollable article {
-            direction: ltr !important;
-            transform: rotate(180deg) !important;
-            position: relative !important;
-        }
-        
-        if overlayStatusAction {
-            .status__action-bar {
-                top: 0px;
-                bottom: auto;
-            }
-        }
-    }
-}
