@@ -1,11 +1,35 @@
 /* ==UserStyle==
 @name           Slack like Mastodon
 @namespace      io.plusminus.mstdn.like.slack
-@version        1.1.0
+@version        1.5.0
 @description    Slack like Mastodon
 @author         mohemohe
-==/UserStyle== */
+@license        WTFPL
+@preprocessor   stylus
 
+@var            checkbox moveMyInfo "自身のユーザー情報を上部に表示する" 0
+@var            checkbox hideMyIcon "自身のユーザー情報のアイコンを隠す" 0
+@var            checkbox reduceSidebarPadding "サイドバーの密度を上げる" 0
+@var            checkbox replaceToHash "アイコンフォントの代わりに # を表示する" 0
+@var            checkbox selectedItemBackground "選択しているペインを背景色で表現する" 0
+@var            checkbox overlayStatusAction "BTやFavなどをマウスオーバーで表示する" 0
+@var            checkbox removeTimelinePadding "メインカラムの余白を消す" 0
+@var            checkbox removeTootBorder "トゥート間のボーダーを消す" 0
+@var            checkbox reverseTimeline "新着トゥートを下に表示する（Experimental）" 0
+@var            checkbox enableTheme "Slackテーマを有効にする（Experimental）" 0
+@var            color columnBg "Column BG" #3F0E40
+@var            color menuHoverBg "Menu Hover BG" #350D36
+@var            color activeItem "Active Item" #1164A3
+@var            color activeItemText "Active Item Text" #FFFFFF
+@var            color hoverItem "Hover Item" #350D36
+@var            color textColor "Text Color" #FFFFFF
+@var            color activePresence "Active Presence" #2BAC76
+@var            color mentionBadge "Mention Badge" #CD2553
+@var            color timelineBg "Timeline BG (extend)" #FFFFFF
+@var            color timelineText "Timeline Text(extend)" #303030
+@var            color timelineLinkText "Timeline Link Text(extend)" #1264a3
+@var            color timelineHoverBg "Timeline Hober BG (extend)" #f8f8f8
+==/UserStyle== */
 @media(min-width:631px) {
     /* announcements 欄を非表示にし、テキストエリアの高さを修正 */
     .announcements {
@@ -13,59 +37,101 @@
     }
 
     /* Slackっぽい左右分割レイアウトにする */
-    .ui {
-        flex-direction: row;
+    .columns-area__panels {
+        flex-direction: row-reverse;
     }
 
-    /* タブバー常時表示 */
+    /* タブバー常時非表示 */
     .tabs-bar {
+        display: none;
+    }
+
+    /* サイドバー常時表示 */
+    .columns-area__panels__pane--navigational {
+        display: block !important;
+        width: 220px !important; /* from slack sidebar width */
+        flex-shrink: 0;
+    }
+    
+    /* サイドバーがスクロールできるようにする */
+    .columns-area__panels__pane--navigational .columns-area__panels__pane__inner {
+        height: calc(100% - 68px);
+        overflow: auto;
+        box-sizing: border-box;
+    }
+
+    /* サイドバーのリンクを1行表示にする */
+    .columns-area__panels__pane__inner {
+        width: 100%;
+    }
+
+    .columns-area__panels__pane__inner .column-link {
         display: flex;
-        flex-direction: column;
-        margin: 10px;
-        width: 48px;
+    }
+
+    .columns-area__panels__pane--navigational .column-link span {
+        word-break: keep-all;
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .columns-area__panels__main {
+        width: calc(100vw - 190px) !important;
+        max-width: calc(100vw - 190px) !important;
+        height: calc(100vh - 50px);
+    }
+
+    /* 投稿欄を下部に移動 */
+    .columns-area__panels__pane--compositional {
+        position: absolute;
+        width: 100vw;
+        min-height: 40px !important;
         z-index: 1;
     }
 
-    /* タブバー上寄せ */
-    .tabs-bar__link {
-        flex: 0;
+    /* 投稿欄レイヤーのマウスイベントを透過させる */
+    .columns-area__panels__pane--compositional,
+    .columns-area__panels__pane--compositional .columns-area__panels__pane__inner,
+    .columns-area__panels__pane--compositional .columns-area__panels__pane__inner .compose-panel {
+        pointer-events: none;
     }
-
-    /* タブバー文字消し */
-    .tabs-bar__link span {
-        display: none;
+    
+    .columns-area__panels__pane--compositional .columns-area__panels__pane__inner .compose-panel * {
+        pointer-events: all;
     }
-
-    /* TLと投稿欄の配置を逆転させる */
-    .columns-area {
-        flex-direction: column-reverse;
-    }
-
-    /* シングルカラム化 */
-    .drawer .drawer__header,
-    .column {
-        display: none;
-    }
-
-    .drawer {
-        width: 100%;
-    }
-
-    .drawer[role="region"] {
-        padding: 5px 10px 10px 0px !important;
-        padding-left: 5px !important;
-    }
-
-    .column:last-child {
+    
+    /* ここにコメントを書こうとしたけど何を書こうとしたか忘れた */
+    .columns-area__panels__pane--compositional .columns-area__panels__pane__inner .compose-panel {
         display: flex;
-        width: 100%;
-        flex: 1;
+        flex-direction: row;
+        align-items: flex-end;
+        margin-top: 0;
     }
 
-    /* カラム下検索バーの非表示 */
-    .drawer .search {
+    /* 投稿欄を横いっぱいに広げる */
+    .columns-area__panels__pane--compositional .columns-area__panels__pane__inner .compose-panel {
+        width: 100%;
+    }
+
+    /* 投稿欄の不要な要素を非表示 */
+    .columns-area__panels__pane--compositional .columns-area__panels__pane__inner .compose-panel .search,
+    .columns-area__panels__pane--compositional .columns-area__panels__pane__inner .compose-panel .flex-spacer,
+    .columns-area__panels__pane--compositional .columns-area__panels__pane__inner .compose-panel .getting-started__footer {
         display: none;
-    }        
+    }
+    
+    /* アイコンとか名前の部分の調整 */
+    .columns-area__panels__pane--compositional .columns-area__panels__pane__inner .compose-panel .navigation-bar {
+        width: 220px;
+        box-sizing: border-box;
+        padding: 10px !important;
+    }
+    
+    .columns-area__panels__pane--compositional .columns-area__panels__pane__inner .compose-panel .navigation-bar .navigation-bar__actions {
+        transform: rotate(180deg);
+    }
 
     /* 下部投稿欄の横方向配置 */
     .drawer__pager {
@@ -83,33 +149,22 @@
         height: 100%;
     }
 
-    /* 投稿欄下部の画像を消す */
-    .drawer__inner__mastodon {
-        display: none;
-    }
 
-    /* 入力欄にオーバーラップされて表示される検索結果を消す */
-    .drawer__inner.darker {
-        display: none;
-    }
-
-    /* 自分のアイコンとか名前とかのコンテナーのpadding 10pxが重複するから打ち消す */
-    .navigation-bar {
-        padding-right: 0;
-    }
-
-    /* 自分の名前とかプロフィール編集とかの非表示 */
-    .navigation-bar__profile {
-        display: none;
-    }
-
-    /* 自分の名前とかプロフィール編集とか右側入力メイン部分のコンテナーを幅いっぱいまで伸ばす
-       コンテナー内は下寄せ */
-    .compose-form {
+    /* 自分の名前とかプロフィール編集とか右側入力メイン部分のコンテナーを幅いっぱいまで伸ばす コンテナー内は下寄せ */
+   .compose-form {
         flex: 1;
         display: flex;
         flex-direction: row;
         align-items: flex-end;
+        background: #17191f;
+    }
+    
+    /* 非公開とかDMとかの表示をサイドバーに押し込む */
+    .compose-form__warning {
+        position: absolute;
+        left: 10px;
+        max-width: 220px;
+        box-sizing: border-box;
     }
 
     /* CW入力部分がふわって出て来るのをやめる */
@@ -132,6 +187,7 @@
     .spoiler-input.spoiler-input--visible {
         width: 210px;
         margin-right: 10px;
+        margin-bottom: 0 !important;
     }
 
     /* 入力欄を初期単行表示にする */
@@ -153,7 +209,6 @@
         position: relative;
     }
 
-    /* emojiサジェストがクソ大きいのを普通にする */
     .compose-form__autosuggest-wrapper .autosuggest-textarea .autosuggest-textarea__suggestions .autosuggest-textarea__suggestions__item,
     .compose-form__autosuggest-wrapper .autosuggest-textarea .autosuggest-textarea__suggestions .autosuggest-textarea__suggestions__item * {
         max-height: 1em !important;
@@ -185,6 +240,7 @@
         align-items: center;
         box-sizing: border-box;
         border-radius: 4px !important;
+        height: 40px;
     }
 
     /* トゥートボタンに余白がないので足す */
@@ -214,21 +270,356 @@
         height: 40px !important;
         display: block;
     }
+    
+    /* 公開範囲のポップアップが隠れるのを直す */
+    .privacy-dropdown__dropdown {
+        z-index: 2;
+    }
 
     /* TL内の画像が異様に伸びないように固定する */
-    .media-gallery,
+    .media-gallery {
+        display: flex;
+        height: fit-content !important;
+    }
+
+    .spoiler-button {
+        max-width: 25%;
+        height: 120px;
+        min-width: 25%;
+    }
+    
+    .spoiler-button.spoiler-button--minified {
+        position: absolute !important;
+        height: 0 !important;
+    }
+    
     .media-gallery__item {
-        width: auto !important;
-        height: auto !important;
+        display: flex;
+        align-items: center;
+        max-width: 25%;
+        min-width: 25%;
+        height: 120px !important;
     }
+    
+    /* ここまで基本スタイル */
 
-    .media-spoiler {
-        max-height: 120px;
-        max-width: calc(100% / 4);
+    /* ここから設定によるオーバーライド mastodon本体に組み込むときは好みの設定にしてifを消せばOK */
+
+    if moveMyInfo {
+        .columns-area__panels__pane--navigational .columns-area__panels__pane__inner {
+            transform: translate3d(0, 68px, 0);
+        }
+        
+        .columns-area__panels__pane--compositional .columns-area__panels__pane__inner .compose-panel .navigation-bar {
+            position: absolute;
+            top: 0;
+        }
+        
+        .columns-area__panels__pane--compositional .columns-area__panels__pane__inner .compose-panel .navigation-bar .navigation-bar__actions {
+            transform: none;
+        }
+        
+        .compose-form {
+            margin-left: 220px !important;
+        }
     }
+    
+    if hideMyIcon {        
+        .columns-area__panels__pane--compositional .columns-area__panels__pane__inner .compose-panel .navigation-bar .account__avatar {
+            display: none;
+        }
+        
+        if moveMyInfo {
+            .columns-area__panels__pane--navigational .columns-area__panels__pane__inner {
+                transform: translate3d(0, 59px, 0);
+                height: calc(100% - 59px);
+            }
+        }
+    }
+    
+    if reduceSidebarPadding {
+        .columns-area__panels__pane--navigational .columns-area__panels__pane__inner .navigation-panel .column-link {
+            padding-top: 6px;
+            padding-bottom: 6px;
+        }
+    }
+    
+    if replaceToHash {
+        .columns-area__panels__pane--navigational .columns-area__panels__pane__inner .navigation-panel .column-link:not([target="_blank"]) .fa {
+            margin: 0 !important;
+        }
+        
+        .columns-area__panels__pane--navigational .columns-area__panels__pane__inner .navigation-panel .column-link:not([target="_blank"]) .fa::before {
+            content: "#" !important;
+        }
+    }
+    
+    if selectedItemBackground {
+        .columns-area__panels__pane--navigational .columns-area__panels__pane__inner .navigation-panel .column-link.active {
+            background: activeItem;
+            color: activeItemText;
+        }
+    }
+    
+    if overlayStatusAction {
+        .status__action-bar {
+            position: absolute;
+            z-index: 1;
+            right: 10px;
+            bottom: -10px;
+            padding: 10px;
+            background: #313543;
+            border: 1px solid #393f4f;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity ease 0.3s;
+        }
+        
+        .status__wrapper.focusable:hover .status__action-bar,
+        .status__action-bar:hover {
+            opacity: 1;
+        }
+    }
+    
+    if removeTimelinePadding {
+        .columns-area__panels__main {
+            padding: 0 !important;
+        }
+        
+        .columns-area__panels__main .react-swipeable-view-container > div {
+            overflow: hidden !important;
+        }
+        
+        .columns-area__panels__main .columns-area--mobile {
+            height: 100% !important;
+            padding-top: 0 !important;
+        }
+    }
+    
+    if removeTootBorder {
+        .status {
+            border: none !important;
+        }
+    }
+    
+    if enableTheme {
+        .columns-area__panels__pane--navigational {
+            background-color: columnBg !important;    
+        }
+        
+        .columns-area__panels__pane--navigational .columns-area__panels__pane__inner .navigation-panel .column-link:hover {
+            background-color: menuHoverBg !important;
+        }
+   
+        .columns-area__panels__pane--navigational .columns-area__panels__pane__inner .navigation-panel .column-link.active {
+            background-color: activeItem !important;
+            color: activeItemText !important;
+        }
+        
+        .icon-with-badge__badge {
+            background-color: mentionBadge !important;
+        }
+        
+        .column-header__wrapper {
+            border-bottom: 1px solid rgba(134,134,134,.7);
+        }
+        
+        .compose-form:before {
+            content: "";
+            border: 2px solid rgba(134,134,134,.7);
+            border-radius: .375rem;
+            position: absolute;
+            left: calc(10px - 2px);
+            top: calc(10px - 2px);
+            width: calc(100% - 20px + 2 * 2px);
+            height: calc(100% - 20px + 2 * 2px);
+            box-sizing: border-box;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .compose-form {
+            position: relative;
+        }
+        
+        .compose-form,
+        .columns-area__panels__main,
+        .columns-area__panels__main .column-header__wrapper *
+        .columns-area__panels__main .scrollable,
+        .columns-area__panels__main .scrollable .detailed-status, 
+        article,
+        .status__content {
+            background-color: timelineBg !important;
+            color: timelineText !important;
+        }
+        
+        .columns-area__panels__main .scrollable,
+        .display-name strong,
+        .status__content p {
+            color: timelineText !important;
+            font-size: 15px !important;
+        }
+        
+        .status__info .status__display-name {
+            padding-right: 0.5em !important;
+        }
+        
+        .status__info {
+            display: inline-flex;
+            flex-direction: row-reverse;
+        }
+        
+        .display-name__account,
+        .status__info time,
+        .status__prepend {
+            font-size: 12px !important;
+        }
+        
+        article .status__prepend {
+            position: absolute;
+            top: -6px;
+            right: 10px;
+            z-index: 1;
+        }
+        
+        article .status__prepend-icon-wrapper {
+            left: -1.5em !important;
+        }
+        
+        .h-card {
+            background: #e8f5fa;
+            border-radius: 2px;
+            padding: 1px 2px;
+        }
+        
+        .h-card:hover {
+            background: #ddf0f8;
+        }
+        
+        .h-card a:hover {
+            text-decoration: none !important; 
+        }
+        
+        .status-link,
+        .status-link *,
+        .status-card__title {
+            color: timelineLinkText !important;
+            font-size: 15px !important;
+        }
+        
+        article .invisible {
+            color: transparent !important;
+        }
+        
+        article .status__avatar {
+            top: 6px !important;
+        }
+        
+        article .account__avatar,
+        article .status__avatar,
+        article .account__avatar-overlay {
+            width: 36px !important;
+            height: 36px !important;
+        }
+        
+        article .account__avatar-overlay-base {
+            width: 28px !important;
+            height: 28px !important;
+        }
+        
+        article .account__avatar-overlay-overlay {
+            width: 20px !important;
+            height: 20px !important;
+        }
+        
+        article .status {
+            padding: 5px 5px 5px 64px !important;
+            min-height: 45px !important;
+        }
+        
+        article .status__wrapper:hover,
+        article .status__wrapper:hover .status__content {
+            background-color: timelineHoverBg !important;
+        }
+        
+        .status__action-bar {
+            background: timelineBg !important;
+        }
 
-    .media-gallery__item-thumbnail img {
-        max-height: 120px;
-        width: auto;
+        /*
+        .status__action-bar > *:hover * {
+            color: activeItem !important;
+            fill: activeItem !important;
+            mask-image: linear-gradient(rgba(0, 0, 0, 1.0), transparent);
+        }
+        */
+        
+        .status-card {
+            border: none !important;
+            position: relative;
+            display: flex;
+            flex-direction: column-reverse;
+            padding-left: 1em;
+            pointer-events: none;
+        }
+        
+        .status-card:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            margin-right: 8px;
+            background-color: #ddd;
+            border-radius: 8px;
+        }
+        
+        .status-card:hover {
+            background: inherit !important;
+        }
+        
+        .status-card .status-card__content {
+            display: flex;
+            flex-direction: column-reverse;
+            padding: 0 !important;
+        }
+        
+        .status-card .status-card__content .status-card__title {
+            pointer-events: all;
+        }
+        
+        .status-card .status-card__content .status-card__title:hover {
+            text-decoration: underline;
+        }
+        
+        .status-card__image {
+                flex: 1;
+                height: 120px;
+                max-width: 50%;
+        }
+        
+        .columns-area__panels__main .scrollable {
+            margin-right: 4px;
+            margin-bottom: 6px;
+        }
+        
+        .compose-form__publish {
+            display: none !important;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px !important;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: timelineBg !important;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            width: 8px !important;
+            border-radius: 4px !important;
+            background: rgba(29,28,29,.52) !important;
+        }
     }
 }
