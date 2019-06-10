@@ -116,7 +116,7 @@ class ComposeForm extends ImmutablePureComponent {
 
   handleFocus = () => {
     if (this.composeForm) {
-      this.composeForm.scrollIntoView();
+      //this.composeForm.scrollIntoView();
     }
   }
 
