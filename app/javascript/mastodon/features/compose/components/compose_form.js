@@ -60,6 +60,7 @@ class ComposeForm extends ImmutablePureComponent {
     onPickEmoji: PropTypes.func.isRequired,
     showSearch: PropTypes.bool,
     anyMedia: PropTypes.bool,
+    singleColumn: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -114,6 +115,12 @@ class ComposeForm extends ImmutablePureComponent {
     this.props.onChangeSpoilerText(e.target.value);
   }
 
+  handleFocus = () => {
+    if (this.composeForm && !this.props.singleColumn) {
+      this.composeForm.scrollIntoView();
+    }
+  }
+
   componentDidUpdate (prevProps) {
     // This statement does several things:
     // - If we're beginning a reply, and,
@@ -155,6 +162,10 @@ class ComposeForm extends ImmutablePureComponent {
     this.spoilerText = c;
   }
 
+  setRef = c => {
+    this.composeForm = c;
+  };
+
   handleEmojiPick = (data) => {
     const { text }     = this.props;
     const position     = this.autosuggestTextarea.textarea.selectionStart;
@@ -177,7 +188,7 @@ class ComposeForm extends ImmutablePureComponent {
     }
 
     return (
-      <div className='compose-form'>
+      <div className='compose-form' ref={this.setRef}>
         <WarningContainer />
 
         <ReplyIndicatorContainer />
@@ -200,10 +211,6 @@ class ComposeForm extends ImmutablePureComponent {
           />
         </div>
 
-        <div className='emoji-picker-wrapper'>
-          <EmojiPickerDropdown onPickEmoji={this.handleEmojiPick} />
-        </div>
-
         <AutosuggestTextarea
           ref={this.setAutosuggestTextarea}
           placeholder={intl.formatMessage(messages.placeholder)}
@@ -211,6 +218,7 @@ class ComposeForm extends ImmutablePureComponent {
           value={this.props.text}
           onChange={this.handleChange}
           suggestions={this.props.suggestions}
+          onFocus={this.handleFocus}
           onKeyDown={this.handleKeyDown}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
@@ -218,6 +226,7 @@ class ComposeForm extends ImmutablePureComponent {
           onPaste={onPaste}
           autoFocus={!showSearch && !isMobile(window.innerWidth)}
         >
+          <EmojiPickerDropdown onPickEmoji={this.handleEmojiPick} />
           <div className='compose-form__modifiers'>
             <UploadFormContainer />
             <PollFormContainer />
