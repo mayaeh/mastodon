@@ -998,7 +998,7 @@ ja:
     contrast: Mastodon (ハイコントラスト)
     default: Mastodon (ダーク)
     mastodon-light: Mastodon (ライト)
-    slack-like-mastodon: like-slack
+    slack-like-mastodon: like-slack (上級者向け UI のチェックを外す)
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"
