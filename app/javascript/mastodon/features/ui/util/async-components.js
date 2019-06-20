@@ -133,3 +133,7 @@ export function ListAdder () {
 export function Trends () {
   return import(/* webpackChunkName: "features/trends" */'../../trends');
 }
+
+export function Search () {
+  return import(/*webpackChunkName: "features/search" */'../../search');
+}
