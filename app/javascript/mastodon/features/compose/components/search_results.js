@@ -7,6 +7,7 @@ import StatusContainer from '../../../containers/status_container';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import Hashtag from '../../../components/hashtag';
 import Icon from 'mastodon/components/icon';
+import { searchEnabled } from '../../../initial_state';
 
 const messages = defineMessages({
   dismissSuggestion: { id: 'suggestions.dismiss', defaultMessage: 'Dismiss suggestion' },
@@ -22,6 +23,7 @@ class SearchResults extends ImmutablePureComponent {
     dismissSuggestion: PropTypes.func.isRequired,
     trends: ImmutablePropTypes.list,
     fetchTrends: PropTypes.func.isRequired,
+    searchTerm: PropTypes.string,
     intl: PropTypes.object.isRequired,
   };
 
@@ -31,7 +33,7 @@ class SearchResults extends ImmutablePureComponent {
   }
 
   render () {
-    const { intl, results, suggestions, dismissSuggestion, trends } = this.props;
+    const { intl, results, suggestions, dismissSuggestion, trends, searchTerm } = this.props;
 
     if (results.isEmpty() && !suggestions.isEmpty()) {
       return (
@@ -92,6 +94,16 @@ class SearchResults extends ImmutablePureComponent {
           <h5><Icon id='quote-right' fixedWidth /><FormattedMessage id='search_results.statuses' defaultMessage='Toots' /></h5>
 
           {results.get('statuses').map(statusId => <StatusContainer key={statusId} id={statusId} />)}
+        </div>
+      );
+    } else if(results.get('statuses') && results.get('statuses').size === 0 && !searchEnabled && !(searchTerm.startsWith('@') || searchTerm.startsWith('#') || searchTerm.includes(' '))) {
+      statuses = (
+        <div className='search-results__section'>
+          <h5><Icon id='quote-right' fixedWidth /><FormattedMessage id='search_results.statuses' defaultMessage='Toots' /></h5>
+
+          <div className='search-results__info'>
+            <FormattedMessage id='search_results.statuses_fts_disabled' defaultMessage='Searching toots by their content is not enabled on this Mastodon server.' />
+          </div>
         </div>
       );
     }
