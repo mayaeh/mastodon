@@ -1005,6 +1005,10 @@
         "id": "search_results.statuses"
       },
       {
+        "defaultMessage": "Searching toots by their content is not enabled on this Mastodon server.",
+        "id": "search_results.statuses_fts_disabled"
+      },
+      {
         "defaultMessage": "Hashtags",
         "id": "search_results.hashtags"
       },
