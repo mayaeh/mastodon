@@ -7,7 +7,7 @@ const mapStateToProps = state => ({
   results: state.getIn(['search', 'results']),
   suggestions: state.getIn(['suggestions', 'items']),
   trends: state.getIn(['trends', 'items']),
-  searchTerm: state.getIn(['search', 'value']),
+  searchTerm: state.getIn(['search', 'searchTerm']),
 });
 
 const mapDispatchToProps = dispatch => ({
