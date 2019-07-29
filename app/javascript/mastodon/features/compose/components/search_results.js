@@ -8,6 +8,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import Hashtag from '../../../components/hashtag';
 import Icon from 'mastodon/components/icon';
 import { searchEnabled } from '../../../initial_state';
+import LoadMore from 'mastodon/components/load_more';
 
 const messages = defineMessages({
   dismissSuggestion: { id: 'suggestions.dismiss', defaultMessage: 'Dismiss suggestion' },
@@ -20,6 +21,7 @@ class SearchResults extends ImmutablePureComponent {
     results: ImmutablePropTypes.map.isRequired,
     suggestions: ImmutablePropTypes.list.isRequired,
     fetchSuggestions: PropTypes.func.isRequired,
+    expandSearch: PropTypes.func.isRequired,
     dismissSuggestion: PropTypes.func.isRequired,
     trends: ImmutablePropTypes.list,
     fetchTrends: PropTypes.func.isRequired,
@@ -28,9 +30,17 @@ class SearchResults extends ImmutablePureComponent {
   };
 
   componentDidMount () {
-    this.props.fetchSuggestions();
-    this.props.fetchTrends();
+    if (this.props.searchTerm === '') {
+      this.props.fetchSuggestions();
+      this.props.fetchTrends();
+    }
   }
+
+  handleLoadMoreAccounts = () => this.props.expandSearch('accounts');
+
+  handleLoadMoreStatuses = () => this.props.expandSearch('statuses');
+
+  handleLoadMoreHashtags = () => this.props.expandSearch('hashtags');
 
   render () {
     const { intl, results, suggestions, dismissSuggestion, trends, searchTerm } = this.props;
@@ -83,6 +93,8 @@ class SearchResults extends ImmutablePureComponent {
           <h5><Icon id='users' fixedWidth /><FormattedMessage id='search_results.accounts' defaultMessage='People' /></h5>
 
           {results.get('accounts').map(accountId => <AccountContainer key={accountId} id={accountId} />)}
+
+          {results.get('accounts').size >= 20 && <LoadMore visible onClick={this.handleLoadMoreAccounts} />}
         </div>
       );
     }
@@ -94,6 +106,8 @@ class SearchResults extends ImmutablePureComponent {
           <h5><Icon id='quote-right' fixedWidth /><FormattedMessage id='search_results.statuses' defaultMessage='Toots' /></h5>
 
           {results.get('statuses').map(statusId => <StatusContainer key={statusId} id={statusId} />)}
+
+          {results.get('statuses').size >= 20 && <LoadMore visible onClick={this.handleLoadMoreStatuses} />}
         </div>
       );
     } else if(results.get('statuses') && results.get('statuses').size === 0 && !searchEnabled && !(searchTerm.startsWith('@') || searchTerm.startsWith('#') || searchTerm.includes(' '))) {
@@ -115,6 +129,8 @@ class SearchResults extends ImmutablePureComponent {
           <h5><Icon id='hashtag' fixedWidth /><FormattedMessage id='search_results.hashtags' defaultMessage='Hashtags' /></h5>
 
           {results.get('hashtags').map(hashtag => <Hashtag key={hashtag.get('name')} hashtag={hashtag} />)}
+
+          {results.get('hashtags').size >= 20 && <LoadMore visible onClick={this.handleLoadMoreHashtags} />}
         </div>
       );
     }
