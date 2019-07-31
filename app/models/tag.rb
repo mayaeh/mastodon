@@ -7,6 +7,7 @@
 #  name       :string           default(""), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  score      :integer
 #
 
 class Tag < ApplicationRecord
@@ -20,7 +21,7 @@ class Tag < ApplicationRecord
   HASHTAG_NAME_RE = '([[:word:]_][[:word:]_·]*[[:alpha:]_·][[:word:]_·]*[[:word:]_])|([[:word:]_]*[[:alpha:]][[:word:]_]*)'
   HASHTAG_RE = /(?:^|[^\/\)\w])#(#{HASHTAG_NAME_RE})/i
 
-  validates :name, presence: true, uniqueness: true, format: { with: /\A(#{HASHTAG_NAME_RE})\z/i }
+  validates :name, presence: true, format: { with: /\A(#{HASHTAG_NAME_RE})\z/i }
 
   scope :discoverable, -> { joins(:account_tag_stat).where(AccountTagStat.arel_table[:accounts_count].gt(0)).where(account_tag_stats: { hidden: false }).order(Arel.sql('account_tag_stats.accounts_count desc')) }
   scope :hidden, -> { where(account_tag_stats: { hidden: true }) }
@@ -64,21 +65,49 @@ class Tag < ApplicationRecord
   end
 
   class << self
-    def search_for(term, limit = 5, offset = 0)
-      pattern = sanitize_sql_like(term.strip) + '%'
+    def find_or_create_by_names(name_or_names)
+      Array(name_or_names).map(&method(:normalize)).uniq { |str| str.mb_chars.downcase.to_s }.map do |normalized_name|
+        tag = matching_name(normalized_name).first || create(name: normalized_name)
 
-      Tag.where('lower(name) like lower(?)', pattern)
-         .order(:name)
+        yield tag if block_given?
+
+        tag
+      end
+    end
+
+    def search_for(term, limit = 5, offset = 0)
+      normalized_term = normalize(term.strip).mb_chars.downcase.to_s
+      pattern         = sanitize_sql_like(normalized_term) + '%'
+
+      Tag.where(arel_table[:name].lower.matches(pattern))
+         .where(arel_table[:score].gt(0).or(arel_table[:name].lower.eq(normalized_term)))
+         .order(Arel.sql('length(name) ASC, score DESC, name ASC'))
          .limit(limit)
          .offset(offset)
     end
 
     def find_normalized(name)
-      find_by(name: name.mb_chars.downcase.to_s)
+      matching_name(name).first
     end
 
     def find_normalized!(name)
       find_normalized(name) || raise(ActiveRecord::RecordNotFound)
+    end
+
+    def matching_name(name_or_names)
+      names = Array(name_or_names).map { |name| normalize(name).mb_chars.downcase.to_s }
+
+      if names.size == 1
+        where(arel_table[:name].lower.eq(names.first))
+      else
+        where(arel_table[:name].lower.in(names))
+      end
+    end
+
+    private
+
+    def normalize(str)
+      str.gsub(/\A#/, '')
     end
   end
 
