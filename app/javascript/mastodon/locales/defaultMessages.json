@@ -74,6 +74,15 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "{count} per week",
+        "id": "autosuggest_hashtag.per_week"
+      }
+    ],
+    "path": "app/javascript/mastodon/components/autosuggest_hashtag.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Back",
         "id": "column_back_button.label"
       }
@@ -804,6 +813,10 @@
       {
         "defaultMessage": "Muted words",
         "id": "navigation_bar.filters"
+      },
+      {
+        "defaultMessage": "Logout",
+        "id": "navigation_bar.logout"
       }
     ],
     "path": "app/javascript/mastodon/features/compose/components/action_bar.json"
@@ -1426,6 +1439,10 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Basic",
+        "id": "home.column_settings.basic"
+      },
+      {
         "defaultMessage": "Show boosts",
         "id": "home.column_settings.show_reblogs"
       },
@@ -1805,14 +1822,6 @@
       {
         "defaultMessage": "Push notifications",
         "id": "notifications.column_settings.push"
-      },
-      {
-        "defaultMessage": "Basic",
-        "id": "home.column_settings.basic"
-      },
-      {
-        "defaultMessage": "Update in real-time",
-        "id": "home.column_settings.update_live"
       },
       {
         "defaultMessage": "Quick filter bar",
