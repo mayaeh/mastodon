@@ -78,10 +78,11 @@ class Tag < ApplicationRecord
     def search_for(term, limit = 5, offset = 0)
       normalized_term = normalize(term.strip).mb_chars.downcase.to_s
       pattern         = sanitize_sql_like(normalized_term) + '%'
+      factor          = 4
 
       Tag.where(arel_table[:name].lower.matches(pattern))
          .where(arel_table[:score].gt(0).or(arel_table[:name].lower.eq(normalized_term)))
-         .order(Arel.sql('length(name) ASC, score DESC, name ASC'))
+         .order(Arel.sql("log(coalesce(score, 0) + 1) / (abs(length(name) - #{term.size}) + #{factor}) DESC"))
          .limit(limit)
          .offset(offset)
     end
