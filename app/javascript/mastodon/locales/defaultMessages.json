@@ -587,6 +587,10 @@
         "id": "account.follow"
       },
       {
+        "defaultMessage": "Cancel follow request",
+        "id": "account.cancel_follow_request"
+      },
+      {
         "defaultMessage": "Awaiting approval. Click to cancel follow request",
         "id": "account.requested"
       },

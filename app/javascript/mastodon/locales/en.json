@@ -4,6 +4,7 @@
   "account.block": "Block @{name}",
   "account.block_domain": "Hide everything from {domain}",
   "account.blocked": "Blocked",
+  "account.cancel_follow_request": "Cancel follow request",
   "account.direct": "Direct message @{name}",
   "account.domain_blocked": "Domain hidden",
   "account.edit_profile": "Edit profile",
