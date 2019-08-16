@@ -127,6 +127,8 @@ class Account < ApplicationRecord
 
   delegate :chosen_languages, to: :user, prefix: false, allow_nil: true
 
+  update_index('accounts#account', :self) if Chewy.enabled?
+
   def local?
     domain.nil?
   end
@@ -167,6 +169,10 @@ class Account < ApplicationRecord
 
   def subscribed?
     subscription_expires_at.present?
+  end
+
+  def searchable?
+    !(suspended? || moved?)
   end
 
   def possibly_stale?
@@ -506,7 +512,7 @@ class Account < ApplicationRecord
   end
 
   def emojifiable_text
-    [note, display_name, fields.map(&:value)].join(' ')
+    [note, display_name, fields.map(&:name), fields.map(&:value)].join(' ')
   end
 
   def clean_feed_manager
