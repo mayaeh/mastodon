@@ -1090,25 +1090,21 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Uploading...",
+        "defaultMessage": "Uploading…",
         "id": "upload_progress.label"
       }
     ],
-    "path": "app/javascript/mastodon/features/compose/components/upload_progress.json"
+    "path": "app/javascript/mastodon/features/compose/components/upload_form.json"
   },
   {
     "descriptors": [
-      {
-        "defaultMessage": "Describe for the visually impaired",
-        "id": "upload_form.description"
-      },
       {
         "defaultMessage": "Delete",
         "id": "upload_form.undo"
       },
       {
-        "defaultMessage": "Crop",
-        "id": "upload_form.focus"
+        "defaultMessage": "Edit",
+        "id": "upload_form.edit"
       }
     ],
     "path": "app/javascript/mastodon/features/compose/components/upload.json"
@@ -2233,6 +2229,47 @@
       }
     ],
     "path": "app/javascript/mastodon/features/ui/components/embed_modal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Close",
+        "id": "lightbox.close"
+      },
+      {
+        "defaultMessage": "Apply",
+        "id": "upload_modal.apply"
+      },
+      {
+        "defaultMessage": "A quick brown fox jumps over the lazy dog",
+        "id": "upload_modal.description_placeholder"
+      },
+      {
+        "defaultMessage": "Edit media",
+        "id": "upload_modal.edit_media"
+      },
+      {
+        "defaultMessage": "Click or drag the circle on the preview to choose the focal point which will always be in view on all thumbnails.",
+        "id": "upload_modal.hint"
+      },
+      {
+        "defaultMessage": "Describe for the visually impaired",
+        "id": "upload_form.description"
+      },
+      {
+        "defaultMessage": "Analyzing picture…",
+        "id": "upload_modal.analyzing_picture"
+      },
+      {
+        "defaultMessage": "Detect text from picture",
+        "id": "upload_modal.detect_text"
+      },
+      {
+        "defaultMessage": "Preview ({ratio})",
+        "id": "upload_modal.preview_label"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/ui/components/focal_point_modal.json"
   },
   {
     "descriptors": [
