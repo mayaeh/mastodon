@@ -14,6 +14,7 @@ assets_host ||= host_to_url(base_host)
 media_host   = host_to_url(ENV['S3_ALIAS_HOST'])
 media_host ||= host_to_url(ENV['S3_CLOUDFRONT_HOST'])
 media_host ||= host_to_url(ENV['S3_HOSTNAME']) if ENV['S3_ENABLED'] == 'true'
+media_host ||= ENV['SWIFT_OBJECT_URL'] if ENV['SWIFT_ENABLED'] == 'true'
 media_host ||= assets_host
 
 Rails.application.config.content_security_policy do |p|
