@@ -35,6 +35,8 @@ class SearchService < BaseService
   def perform_statuses_search!
     definition = parsed_query.apply(StatusesIndex.filter(term: { searchable_by: @account.id }))
 
+    definition = definition.order(created_at: { order: 'desc' })
+
     if @options[:account_id].present?
       definition = definition.filter(term: { account_id: @options[:account_id] })
     end
