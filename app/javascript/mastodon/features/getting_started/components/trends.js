@@ -35,6 +35,7 @@ export default class Trends extends ImmutablePureComponent {
     if (this.refreshInterval) {
       clearInterval(this.refreshInterval);
     }
+  }
 
   handleRefreshTrends = () => {
     this.props.fetchTrends();

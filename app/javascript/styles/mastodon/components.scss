@@ -2233,6 +2233,7 @@ a.account__display-name {
   }
 
   .getting-started__wrapper,
+  .getting-started__trends,
   .search {
     margin-bottom: 10px;
   }
@@ -2748,6 +2749,7 @@ a.account__display-name {
   }
 
   &__trends {
+    background: $ui-base-color;
     flex: 0 1 auto;
     opacity: 1;
     animation: fade 150ms linear;

@@ -29,7 +29,6 @@ import listAdder from './list_adder';
 import filters from './filters';
 import conversations from './conversations';
 import suggestions from './suggestions';
-import trends from './trends';
 import polls from './polls';
 import identity_proofs from './identity_proofs';
 import trends from './trends';
@@ -67,7 +66,6 @@ const reducers = {
   filters,
   conversations,
   suggestions,
-  trends,
   polls,
   trends,
   missed_updates,
