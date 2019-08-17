@@ -137,3 +137,7 @@ export function Trends () {
 export function Search () {
   return import(/*webpackChunkName: "features/search" */'../../search');
 }
+
+export function Tesseract () {
+  return import(/*webpackChunkName: "tesseract" */'tesseract.js');
+}

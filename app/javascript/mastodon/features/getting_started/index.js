@@ -7,13 +7,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { me, profile_directory } from '../../initial_state';
+import { me, profile_directory, showTrends } from '../../initial_state';
 import { fetchFollowRequests } from 'mastodon/actions/accounts';
 import { List as ImmutableList } from 'immutable';
 import NavigationBar from '../compose/components/navigation_bar';
-import TrendsContainer from './containers/trends_container';
 import Icon from 'mastodon/components/icon';
 import LinkFooter from 'mastodon/features/ui/components/link_footer';
+import TrendsContainer from './containers/trends_container';
 
 const messages = defineMessages({
   home_timeline: { id: 'tabs_bar.home', defaultMessage: 'Home' },
@@ -168,12 +168,13 @@ class GettingStarted extends ImmutablePureComponent {
             {navItems}
           </div>
 
-          {multiColumn && <TrendsContainer />}
+          {multiColumn && showTrends && <TrendsContainer />}
 
           {!multiColumn && <div className='flex-spacer' />}
 
           <LinkFooter withHotkeys={multiColumn} />
         </div>
+
       </Column>
     );
   }
