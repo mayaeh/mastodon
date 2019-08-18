@@ -465,7 +465,7 @@ ja:
       site_title: サーバーの名前
       spam_check_enabled:
         desc_html: 求められていないメッセージを繰り返し送信するアカウントを自動でサイレンスにし通報することができます。誤検知を含む可能性もあります。
-        title: スパム対策
+        title: スパム対策を有効にする
       thumbnail:
         desc_html: OpenGraphとAPIによるプレビューに使用されます。サイズは1200×630px推奨です
         title: サーバーのサムネイル
@@ -475,7 +475,7 @@ ja:
       title: サイト設定
       trends:
         desc_html: 現在トレンドになっている承認済みのハッシュタグを公開します
-        title: トレンドタグ
+        title: トレンドタグを表示する
     statuses:
       back_to_account: アカウントページに戻る
       batch:
@@ -496,6 +496,7 @@ ja:
       context: 表示先
       directory: ディレクトリに使用
       in_directory: "%{count} 人がディレクトリに使用"
+      name: ハッシュタグ
       review: 審査状況
       reviewed: 承認済み
       title: ハッシュタグ

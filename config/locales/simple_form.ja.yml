@@ -47,7 +47,7 @@ ja:
       sessions:
         otp: '携帯電話のアプリで生成された二段階認証コードを入力するか、リカバリーコードを使用してください:'
       tag:
-        name: 視認性向上などのために大文字 / 小文字の変更のみ行うことができます
+        name: 視認性向上などのためにアルファベットの大文字小文字の変更のみ行うことができます
       user:
         chosen_languages: 選択すると、選択した言語のトゥートのみが公開タイムラインに表示されるようになります
     labels:
@@ -115,7 +115,7 @@ ja:
         setting_trends: 本日のトレンドタグを表示する
         setting_unfollow_modal: フォローを解除する前に確認ダイアログを表示する
         setting_use_blurhash: 非表示のメディアを色付きのぼかしで表示する
-        setting_use_pending_items: 手動更新モード
+        setting_use_pending_items: 手動更新に切り替える
         severity: 重大性
         type: インポートする項目
         username: ユーザー名
