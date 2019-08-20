@@ -475,7 +475,7 @@ ja:
       title: サイト設定
       trends:
         desc_html: 現在トレンドになっている承認済みのハッシュタグを公開します
-        title: トレンドタグを表示する
+        title: トレンドタグを有効にする
     statuses:
       back_to_account: アカウントページに戻る
       batch:
@@ -675,6 +675,7 @@ ja:
     developers: 開発者向け
     more: さらに…
     resources: リソース
+    trending_now: トレンドタグ
   generic:
     all: すべて
     changes_saved_msg: 正常に変更されました！
