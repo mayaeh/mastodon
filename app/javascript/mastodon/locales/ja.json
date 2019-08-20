@@ -371,7 +371,6 @@
   "time_remaining.moments": "まもなく終了",
   "time_remaining.seconds": "残り{number}秒",
   "trends.count_by_accounts": "{count}人がトゥート",
-  "trends.refresh": "更新",
   "ui.beforeunload": "Mastodonから離れると送信前の投稿は失われます。",
   "upload_area.title": "ドラッグ＆ドロップでアップロード",
   "upload_button.label": "メディアを追加 ({formats})",
