@@ -63,7 +63,7 @@ export default class Trends extends ImmutablePureComponent {
 
             <div className='column-header__buttons'>
               {showTrends && <button onClick={this.handleRefreshTrends} className='column-header__button' title={intl.formatMessage(messages.refresh_trends)} aria-label={intl.formatMessage(messages.refresh_trends)} disabled={loading}><Icon id='refresh' className={classNames({ 'fa-spin': loading })} /></button>}
-              <button onClick={this.handleToggle} className='column-header__button'><Icon id={showTrends ? 'chevron-down' : 'chevron-up'} /></button>
+              <button onClick={this.handleToggle} className='column-header__button'><Icon id={showTrends ? 'chevron-up' : 'chevron-down'} /></button>
             </div>
           </h1>
         </div>
