@@ -28,7 +28,7 @@ export default class Trends extends ImmutablePureComponent {
 
   componentDidMount () {
     this.props.fetchTrends();
-    this.refreshInterval = setInterval(() => this.props.fetchTrends(), 3600000);
+    this.refreshInterval = setInterval(() => this.props.fetchTrends(), 900 * 1000);
   }
 
   componentWillUnmount () {
