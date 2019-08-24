@@ -371,6 +371,7 @@
   "time_remaining.moments": "Moments remaining",
   "time_remaining.seconds": "{number, plural, one {# second} other {# seconds}} left",
   "trends.count_by_accounts": "{count} {rawCount, plural, one {person} other {people}} talking",
+  "trends.trending_now": "Trending now",
   "ui.beforeunload": "Your draft will be lost if you leave Mastodon.",
   "upload_area.title": "Drag & drop to upload",
   "upload_button.label": "Add media ({formats})",
