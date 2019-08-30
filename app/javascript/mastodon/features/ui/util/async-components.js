@@ -145,3 +145,7 @@ export function Tesseract () {
 export function Audio () {
   return import(/* webpackChunkName: "features/audio" */'../../audio');
 }
+
+export function Directory () {
+  return import(/* webpackChunkName: "features/directory" */'../../directory');
+}

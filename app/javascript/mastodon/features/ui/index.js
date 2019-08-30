@@ -48,6 +48,7 @@ import {
   Lists,
   Trends,
   Search,
+  Directory,
 } from './util/async-components';
 import { me, forceSingleColumn } from '../../initial_state';
 import { previewState as previewMediaState } from './components/media_modal';
@@ -190,6 +191,7 @@ class SwitchingColumnsArea extends React.PureComponent {
 
           <WrappedRoute path='/trends' component={Trends} content={children} />
           <WrappedRoute path='/search' component={Search} content={children} />
+          <WrappedRoute path='/directory' component={Directory} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
 
           <WrappedRoute path='/statuses/new' component={Compose} content={children} />
           <WrappedRoute path='/statuses/:statusId' exact component={Status} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
