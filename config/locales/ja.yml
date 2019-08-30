@@ -43,7 +43,7 @@ ja:
     what_is_mastodon: Mastodon とは？
   accounts:
     choices_html: "%{name} によるおすすめ:"
-    endorsements_hint: あなたがフォローしている中でおすすめしたい人をここで紹介できます
+    endorsements_hint: あなたがフォローしている中でおすすめしたい人をここで紹介できます。
     featured_tags_hint: 特定のハッシュタグをここに表示できます。
     follow: フォロー
     followers:
@@ -624,13 +624,8 @@ ja:
     warning_title: 共有されたコンテンツについて
   directories:
     directory: ディレクトリ
-    enabled: あなたはディレクトリに掲載されています。
-    enabled_but_waiting: あなたはディレクトリへの掲載を選択しましたが、掲載に必要な最小フォロワー数 (%{min_followers} 人) を満たしていません。
     explanation: 関心を軸にユーザーを発見しよう
     explore_mastodon: "%{title}を探索"
-    how_to_enable: あなたはディレクトリへの掲載を選択していません。下記から選択できます。ハッシュタグカラムに掲載するにはプロフィール文にハッシュタグを使用してください。
-    people:
-      other: "%{count} 人"
   domain_blocks:
     blocked_domains: ドメインブロックリスト
     description: "%{instance} が連合を制限または拒否しているサーバーのリストです。"
@@ -651,8 +646,10 @@ ja:
   domain_validator:
     invalid_domain: は無効なドメイン名です
   errors:
+    '400': 送信されたリクエストは無効であるか、または不正なフォーマットです。
     '403': このページを表示する権限がありません。
     '404': お探しのページは見つかりませんでした。
+    '406': このページは要求された形式では利用できません。
     '410': お探しのページはもう存在しません。
     '422':
       content: セキュリティ認証に失敗しました。Cookieをブロックしていませんか？
@@ -661,6 +658,7 @@ ja:
     '500':
       content: もうしわけありませんが、なにかが間違っています。
       title: このページは正しくありません
+    '503': 一時的なサーバー障害のため利用することができません。
     noscript_html: Mastodonのウェブアプリケーションを利用する場合はJavaScriptを有効にしてください。またはあなたのプラットフォーム向けの<a href="%{apps_path}">Mastodonネイティブアプリ</a>を探すことができます。
   existing_username_validator:
     not_found: そのようなユーザー名はローカルに見つかりませんでした
