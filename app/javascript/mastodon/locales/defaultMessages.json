@@ -200,6 +200,10 @@
         "id": "media_gallery.toggle_visible"
       },
       {
+        "defaultMessage": "Not available",
+        "id": "status.uncached_media_warning"
+      },
+      {
         "defaultMessage": "Sensitive content",
         "id": "status.sensitive_warning"
       },
@@ -2536,7 +2540,7 @@
       },
       {
         "defaultMessage": "Profile directory",
-        "id": "getting_started.profile_directory"
+        "id": "getting_started.directory"
       },
       {
         "defaultMessage": "Preferences",
