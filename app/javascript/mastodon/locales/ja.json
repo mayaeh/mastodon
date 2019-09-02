@@ -367,6 +367,7 @@
   "status.show_more": "もっと見る",
   "status.show_more_all": "全て見る",
   "status.show_thread": "スレッドを表示",
+  "status.uncached_media_warning": "利用できません",
   "status.unmute_conversation": "会話のミュートを解除",
   "status.unpin": "プロフィールへの固定を解除",
   "suggestions.dismiss": "隠す",

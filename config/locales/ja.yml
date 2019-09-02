@@ -55,6 +55,7 @@ ja:
     media: メディア
     moved_html: "%{name} さんは引っ越しました %{new_profile_link}:"
     network_hidden: この情報は利用できません
+    never_active: 活動なし
     nothing_here: 何もありません！
     people_followed_by: "%{name} さんがフォロー中のアカウント"
     people_who_follow: "%{name} さんをフォロー中のアカウント"
@@ -765,6 +766,7 @@ ja:
     max_uses_prompt: 無制限
     prompt: リンクを生成・共有してこのサーバーへの新規登録を受け付けることができます
     table:
+      comment: コメント
       expires_at: 有効期限
       uses: 使用
     title: 新規ユーザーの招待
