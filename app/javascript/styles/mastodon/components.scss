@@ -3451,6 +3451,10 @@ a.status-card.compact:hover {
     height: auto;
   }
 
+  &--click-thru {
+    pointer-events: none;
+  }
+
   &--hidden {
     display: none;
   }
@@ -3481,8 +3485,6 @@ a.status-card.compact:hover {
     }
 
     &:disabled {
-      cursor: not-allowed;
-
       .spoiler-button__overlay__label {
         background: rgba($base-overlay-background, 0.5);
       }
