@@ -155,7 +155,6 @@
   "getting_started.heading": "Getting started",
   "getting_started.invite": "Invite people",
   "getting_started.open_source_notice": "Mastodon is open source software. You can contribute or report issues on GitHub at {github}.",
-  "getting_started.profile_directory": "Profile directory",
   "getting_started.security": "Security",
   "getting_started.terms": "Terms of service",
   "hashtag.column_header.tag_mode.all": "and {additional}",
