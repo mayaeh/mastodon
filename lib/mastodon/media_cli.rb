@@ -14,7 +14,7 @@ module Mastodon
     end
 
     option :days, type: :numeric, default: 60, aliases: [:d]
-    option :concurrency, type: :numeric, default: 5, aliases: [:c]
+    option :concurrency, type: :numeric, default: 1, aliases: [:c]
     option :verbose, type: :boolean, default: false, aliases: [:v]
     option :dry_run, type: :boolean, default: false
     desc 'remove', 'Remove remote media files'
