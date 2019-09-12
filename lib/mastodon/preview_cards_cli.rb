@@ -15,7 +15,7 @@ module Mastodon
     end
 
     option :days, type: :numeric, default: 180
-    option :concurrency, type: :numeric, default: 5, aliases: [:c]
+    option :concurrency, type: :numeric, default: 1, aliases: [:c]
     option :verbose, type: :boolean, aliases: [:v]
     option :dry_run, type: :boolean, default: false
     option :link, type: :boolean, default: false
