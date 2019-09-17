@@ -1136,15 +1136,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Uploading...",
-        "id": "upload_progress.label"
-      }
-    ],
-    "path": "app/javascript/mastodon/features/compose/components/upload_progress.json"
-  },
-  {
-    "descriptors": [
-      {
         "defaultMessage": "Delete",
         "id": "upload_form.undo"
       },
@@ -1597,6 +1588,10 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Basic",
+        "id": "home.column_settings.basic"
+      },
+      {
         "defaultMessage": "Show boosts",
         "id": "home.column_settings.show_reblogs"
       },
@@ -1978,14 +1973,6 @@
         "id": "notifications.column_settings.push"
       },
       {
-        "defaultMessage": "Basic",
-        "id": "home.column_settings.basic"
-      },
-      {
-        "defaultMessage": "Update in real-time",
-        "id": "home.column_settings.update_live"
-      },
-      {
         "defaultMessage": "Quick filter bar",
         "id": "notifications.column_settings.filter_bar.category"
       },
@@ -2043,10 +2030,6 @@
   },
   {
     "descriptors": [
-      {
-        "defaultMessage": "and {count, plural, one {# other} other {# others}}",
-        "id": "notification.and_n_others"
-      },
       {
         "defaultMessage": "{name} followed you",
         "id": "notification.follow"
@@ -2302,10 +2285,6 @@
       {
         "defaultMessage": "Block & Report",
         "id": "confirmations.block.block_and_report"
-      },
-      {
-        "defaultMessage": "Toot",
-        "id": "column.status"
       },
       {
         "defaultMessage": "Are you sure you want to block {name}?",
