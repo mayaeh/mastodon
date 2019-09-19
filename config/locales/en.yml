@@ -521,6 +521,10 @@ en:
       context: Context
       directory: In directory
       in_directory: "%{count} in directory"
+      last_active: Last active
+      most_popular: Most popular
+      most_recent: Most recent
+      name: Hashtag
       review: Review status
       reviewed: Reviewed
       title: Hashtags
@@ -617,6 +621,11 @@ en:
       return: Show the user's profile
       web: Go to web
     title: Follow %{acct}
+  challenge:
+    confirm: Continue
+    hint_html: "<strong>Tip:</strong> We won't ask you for your password again for the next hour."
+    invalid_password: Invalid password
+    prompt: Confirm password to continue
   datetime:
     distance_in_words:
       about_x_hours: "%{count}h"
@@ -632,8 +641,9 @@ en:
       x_months: "%{count}mo"
       x_seconds: "%{count}s"
   deletes:
-    bad_password_msg: The password you entered was incorrect
+    challenge_not_passed: The information you entered was not correct
     confirm_password: Enter your current password to verify your identity
+    confirm_username: Enter your username to confirm the procedure
     proceed: Delete account
     success_msg: Your account was successfully deleted
     warning:
