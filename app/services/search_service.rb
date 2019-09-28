@@ -62,7 +62,8 @@ class SearchService < BaseService
     TagSearchService.new.call(
       @query,
       limit: @limit,
-      offset: @offset
+      offset: @offset,
+      exclude_unreviewed: @options[:exclude_unreviewed]
     )
   end
 
