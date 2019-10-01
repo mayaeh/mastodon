@@ -1041,6 +1041,10 @@
         "id": "suggestions.header"
       },
       {
+        "defaultMessage": "Trending now",
+        "id": "trends.header"
+      },
+      {
         "defaultMessage": "People",
         "id": "search_results.accounts"
       },
@@ -1406,6 +1410,10 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Refresh",
+        "id": "refresh"
+      },
+      {
         "defaultMessage": "No one has favourited this toot yet. When someone does, they will show up here.",
         "id": "empty_column.favourites"
       }
@@ -1467,8 +1475,16 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Refresh",
+        "id": "trends.refresh"
+      },
+      {
         "defaultMessage": "Trending now",
-        "id": "trends.trending_now"
+        "id": "trends.header"
+      },
+      {
+        "defaultMessage": "Load more",
+        "id": "status.load_more"
       }
     ],
     "path": "app/javascript/mastodon/features/getting_started/components/trends.json"
@@ -1542,6 +1558,10 @@
       {
         "defaultMessage": "Security",
         "id": "navigation_bar.security"
+      },
+      {
+        "defaultMessage": "Trending now",
+        "id": "navigation_bar.trending_tags"
       },
       {
         "defaultMessage": "Getting started",
@@ -2119,6 +2139,10 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Refresh",
+        "id": "refresh"
+      },
+      {
         "defaultMessage": "No one has boosted this toot yet. When someone does, they will show up here.",
         "id": "status.reblogs.empty"
       }
@@ -2287,6 +2311,19 @@
       }
     ],
     "path": "app/javascript/mastodon/features/status/index.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Trending now",
+        "id": "trends.header"
+      },
+      {
+        "defaultMessage": "Refresh trends",
+        "id": "trends.refresh"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/trends/index.json"
   },
   {
     "descriptors": [
@@ -2561,6 +2598,10 @@
       {
         "defaultMessage": "Federated",
         "id": "tabs_bar.federated_timeline"
+      },
+      {
+        "defaultMessage": "Trending now",
+        "id": "navigation_bar.trending_tags"
       },
       {
         "defaultMessage": "Direct messages",
