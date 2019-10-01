@@ -296,7 +296,7 @@
   "notifications.group": "{count} 件の通知",
   "poll.closed": "終了",
   "poll.refresh": "更新",
-  "poll.total_people": "{count人",
+  "poll.total_people": "{count}人",
   "poll.total_votes": "{count}票",
   "poll.vote": "投票",
   "poll.voted": "この項目に投票しました",
