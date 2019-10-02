@@ -1427,6 +1427,10 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Refresh",
+        "id": "refresh"
+      },
+      {
         "defaultMessage": "No one has favourited this toot yet. When someone does, they will show up here.",
         "id": "empty_column.favourites"
       }
@@ -1474,10 +1478,6 @@
   },
   {
     "descriptors": [
-      {
-        "defaultMessage": "Refresh",
-        "id": "refresh"
-      },
       {
         "defaultMessage": "Profile unavailable",
         "id": "empty_column.account_unavailable"
