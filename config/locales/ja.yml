@@ -830,11 +830,11 @@ ja:
       backreference_required: まずは引っ越し先のアカウントでこのアカウントに対しエイリアスを作成する必要があります
       before: '続行する前に、次の点を再度確認してください:'
       cooldown: 引っ越し後はクールダウン期間があります。その間再度引っ越すことはできません
-      disabled_account: 引っ越すと現在のアカウントの機能は完全には利用できなくなります。ただしデータのエクスポートと再有効化は利用できます。
+      disabled_account: 引っ越すとデータのエクスポートと再有効化以外の大半の機能は利用できなくなります。
       followers: この操作により、すべてのフォロワーを現在のアカウントから新しいアカウントに引き継ぎます。
       only_redirect_html: または、<a href="%{path}">プロフィールに「引っ越しました」と表示するだけにする</a>こともできます。
       other_data: その他のデータは自動的に引き継がれません
-      redirect: あなたのプロフィールには引っ越し済みの通知が表示され、検索結果からは除外されています
+      redirect: プロフィールに引っ越し済みの通知が表示され、検索結果から除外されます
   moderation:
     title: モデレーション
   notification_mailer:
@@ -976,7 +976,7 @@ ja:
     title: セッション
   settings:
     account: アカウント
-    account_settings: セキュリティ
+    account_settings: アカウント設定
     aliases: アカウントエイリアス
     appearance: 外観
     authorized_apps: 認証済みアプリ
