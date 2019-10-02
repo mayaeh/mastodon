@@ -36,10 +36,11 @@ ja:
     terms: 利用規約
     unavailable_content: 制限中のサーバー
     unavailable_content_description:
-      reason: '制限理由:'
-      rejecting_media: このサーバーからのメディアファイルは受信されず、サムネイルも表示されません。表示するにはクリックしてそのサーバーに直接アクセスする必要があります。
-      silenced: このサーバーからの投稿は相手をフォローしてもあなたのホームタイムライン以外には表示されません。
-      suspended: このサーバーからは誰もフォローできません。このサーバーからのデータは受信されず、やりとりもされません。
+      domain: サーバー
+      reason: 制限理由
+      rejecting_media: これらのサーバーからのメディアファイルは処理されず、保存や変換もされません。サムネイルも表示されません。表示するにはクリックしてそのサーバーに直接アクセスする必要があります。
+      silenced: 'これらのサーバーからの投稿は公開タイムラインと会話から隠されます。また該当するユーザーからの通知は相手をフォローしている場合を除き表示されません:'
+      suspended: 'これらのサーバーからのデータは処理されず、保存や変換もされません。該当するユーザーとの交流も不可能です:'
     unavailable_content_html: 通常 Mastodon では連合先のどんなサーバーのユーザーとでもやりとりできます。ただし次のサーバーには例外が設定されています。
     user_count_after:
       other: 人
@@ -235,6 +236,7 @@ ja:
       delete: 削除
       destroyed_msg: 絵文字の削除に成功しました！
       disable: 無効化
+      disabled: 無効
       disabled_msg: 絵文字を無効化しました
       emoji: 絵文字
       enable: 有効化
@@ -793,7 +795,6 @@ ja:
     max_uses_prompt: 無制限
     prompt: リンクを生成・共有してこのサーバーへの新規登録を受け付けることができます
     table:
-      comment: コメント
       expires_at: 有効期限
       uses: 使用
     title: 新規ユーザーの招待
@@ -805,6 +806,7 @@ ja:
       images_and_video: 既に画像が追加されているため、動画を追加することはできません
       too_many: 追加できるファイルは4つまでです
   migrations:
+    acct: 引越し先
     cancel: 引っ越しを取り消す
     cancel_explanation: 引っ越しを取り消すと現在のアカウントが再度有効化されますが、引き継がれたフォロワーは戻されません。
     cancelled_msg: 引っ越し設定を取り消しました。
@@ -829,7 +831,9 @@ ja:
       cooldown: 引っ越し後はクールダウン期間があります。その間再度引っ越すことはできません
       disabled_account: 引っ越すと現在のアカウントの機能は完全には利用できなくなります。ただしデータのエクスポートと再有効化は利用できます。
       followers: この操作により、すべてのフォロワーを現在のアカウントから新しいアカウントに引き継ぎます。
+      only_redirect_html: または、<a href="%{path}">プロフィールに「引っ越しました」と表示するだけにする</a>こともできます。
       other_data: その他のデータは自動的に引き継がれません
+      redirect: あなたのプロフィールには引っ越し済みの通知が表示され、検索結果からは除外されています
   moderation:
     title: モデレーション
   notification_mailer:
@@ -1012,6 +1016,8 @@ ja:
       private: 非公開のトゥートを固定することはできません
       reblog: ブーストを固定することはできません
     poll:
+      total_people:
+        other: "%{count}人"
       total_votes:
         other: "%{count}票"
       vote: 投票
