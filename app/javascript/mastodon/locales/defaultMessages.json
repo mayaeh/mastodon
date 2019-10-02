@@ -1483,10 +1483,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Refresh",
-        "id": "refresh"
-      },
-      {
         "defaultMessage": "Profile unavailable",
         "id": "empty_column.account_unavailable"
       },

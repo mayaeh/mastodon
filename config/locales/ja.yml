@@ -795,6 +795,7 @@ ja:
     max_uses_prompt: 無制限
     prompt: リンクを生成・共有してこのサーバーへの新規登録を受け付けることができます
     table:
+      comment: コメント
       expires_at: 有効期限
       uses: 使用
     title: 新規ユーザーの招待
