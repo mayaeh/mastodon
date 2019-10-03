@@ -38,7 +38,7 @@ ja:
     unavailable_content_description:
       domain: サーバー
       reason: 制限理由
-      rejecting_media: これらのサーバーからのメディアファイルは処理されず、保存や変換もされません。サムネイルも表示されません。表示するにはクリックしてそのサーバーに直接アクセスする必要があります。
+      rejecting_media: 'これらのサーバーからのメディアファイルは処理されず、保存や変換もされません。サムネイルも表示されません。表示するにはクリックしてそのサーバーに直接アクセスする必要があります:'
       silenced: 'これらのサーバーからの投稿は公開タイムラインと会話から隠されます。また該当するユーザーからの通知は相手をフォローしている場合を除き表示されません:'
       suspended: 'これらのサーバーからのデータは処理されず、保存や変換もされません。該当するユーザーとの交流も不可能です:'
     unavailable_content_html: 通常 Mastodon では連合先のどんなサーバーのユーザーとでもやりとりできます。ただし次のサーバーには例外が設定されています。
@@ -252,8 +252,8 @@ ja:
       shortcode_hint: 2文字以上の半角英数字とアンダーバーのみ利用できます
       title: カスタム絵文字
       uncategorized: 未分類
-      unlist: 未収載
-      unlisted: 未収載
+      unlist: 非表示
+      unlisted: 非表示
       update_failed_msg: 絵文字を更新できませんでした
       updated_msg: 絵文字の更新に成功しました！
       upload: アップロード
@@ -826,13 +826,14 @@ ja:
     past_migrations: ''
     proceed_with_move: フォロワーを引き継ぐ
     redirecting_to: アカウントは %{acct} に引っ越し設定されています。
+    set_redirect: 引っ越しを設定
     warning:
       backreference_required: まずは引っ越し先のアカウントでこのアカウントに対しエイリアスを作成する必要があります
       before: '続行する前に、次の点を再度確認してください:'
       cooldown: 引っ越し後はクールダウン期間があります。その間再度引っ越すことはできません
-      disabled_account: 引っ越すとデータのエクスポートと再有効化以外の大半の機能は利用できなくなります。
+      disabled_account: 引っ越すとデータのエクスポートと再有効化以外の大半の機能は利用できなくなります
       followers: すべてのフォロワーを現在のアカウントから新しいアカウントに引き継ぎます
-      only_redirect_html: または、<a href="%{path}">プロフィールに「引っ越しました」と表示するだけにする</a>こともできます。
+      only_redirect_html: あるいは、<a href="%{path}">引っ越し先の表示のみ</a>も可能です。
       other_data: その他のデータは自動的に引き継がれません
       redirect: プロフィールに引っ越し済みの通知が表示され、検索結果から除外されます
   moderation:
