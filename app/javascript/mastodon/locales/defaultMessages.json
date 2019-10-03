@@ -2349,6 +2349,15 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "View context",
+        "id": "lightbox.view_context"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/ui/components/audio_modal.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Are you sure you want to block {name}?",
         "id": "confirmations.block.message"
       },
@@ -2438,6 +2447,10 @@
   },
   {
     "descriptors": [
+      {
+        "defaultMessage": "Close",
+        "id": "lightbox.close"
+      },
       {
         "defaultMessage": "Embed",
         "id": "status.embed"
