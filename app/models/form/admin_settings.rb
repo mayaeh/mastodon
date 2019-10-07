@@ -44,7 +44,6 @@ class Form::AdminSettings
     show_known_fediverse_at_about_page
     preview_sensitive_media
     profile_directory
-    spam_check_enabled
     trends
     noindex
   ).freeze
@@ -64,6 +63,7 @@ class Form::AdminSettings
   validates :site_contact_email, :site_contact_username, presence: true
   validates :site_contact_username, existing_username: true
   validates :bootstrap_timeline_accounts, existing_username: { multiple: true }
+  validates :spam_check_enabled, inclusion: { in: %w(disabled report report_and_silence) }
   validates :show_domain_blocks, inclusion: { in: %w(disabled users all) }
   validates :show_domain_blocks_rationale, inclusion: { in: %w(disabled users all) }
 

@@ -74,10 +74,10 @@
     .fields-group
       = f.input :noindex, as: :boolean, wrapper: :with_label, label: t('admin.settings.default_noindex.title'), hint: t('admin.settings.default_noindex.desc_html')
 
-  .fields-group
-    = f.input :spam_check_enabled, as: :boolean, wrapper: :with_label, label: t('admin.settings.spam_check_enabled.title'), hint: t('admin.settings.spam_check_enabled.desc_html')
-
   %hr.spacer/
+
+  .fields-group
+    = f.input :spam_check_enabled, wrapper: :with_label, collection: %i(disabled report report_and_silence), label: t('admin.settings.spam_check_enabled.title'), hint: t('admin.settings.spam_check_enabled.desc_html'), label_method: lambda { |value| t("admin.settings.spam_check_enabled.#{value}") }, include_blank: false, collection_wrapper_tag: 'ul', item_wrapper_tag: 'li'
 
   .fields-group
     = f.input :min_invite_role, wrapper: :with_label, collection: %i(disabled user moderator admin), label: t('admin.settings.registrations.min_invite_role.title'), label_method: lambda { |role| role == :disabled ? t('admin.settings.registrations.min_invite_role.disabled') : t("admin.accounts.roles.#{role}") }, include_blank: false, collection_wrapper_tag: 'ul', item_wrapper_tag: 'li'

@@ -111,7 +111,7 @@ class SpamCheck
   private
 
   def disabled?
-    !Setting.spam_check_enabled
+    !Setting.spam_check_enabled == 'report' || !Setting.spam_check_enabled == 'report_and_silence'
   end
 
   def remove_mentions(text)
