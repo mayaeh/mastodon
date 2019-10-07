@@ -1486,6 +1486,10 @@ a.account__display-name {
   color: inherit;
 }
 
+.detailed-status .button.logo-button {
+  margin-bottom: 15px;
+}
+
 .detailed-status__display-name {
   color: $secondary-text-color;
   display: block;
@@ -3125,37 +3129,27 @@ a.status-card.compact:hover {
   cursor: default;
   display: flex;
   flex: 1 1 auto;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
 
-  & > div {
-    width: 100%;
-    background: transparent;
-    padding-top: 0;
-  }
-
   &__figure {
-    background: url('../images/elephant_ui_working.svg') no-repeat center 0;
-    width: 100%;
-    height: 160px;
-    background-size: contain;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  &.missing-indicator {
-    padding-top: 20px + 48px;
-
-    .regeneration-indicator__figure {
-      background-image: url('../images/elephant_ui_disappointed.svg');
+    &,
+    img {
+      display: block;
+      width: auto;
+      height: 160px;
+      margin: 0;
     }
   }
 
+  &--without-header {
+    padding-top: 20px + 48px;
+  }
+
   &__label {
-    margin-top: 200px;
+    margin-top: 30px;
 
     strong {
       display: block;
@@ -4269,10 +4263,13 @@ a.status-card.compact:hover {
   z-index: 9999;
 }
 
-.video-modal {
+.video-modal__container {
   max-width: 100vw;
   max-height: 100vh;
-  position: relative;
+}
+
+.audio-modal__container {
+  width: 50vw;
 }
 
 .media-modal {
@@ -4372,6 +4369,7 @@ a.status-card.compact:hover {
   }
 
   a {
+    pointer-events: auto;
     text-decoration: none;
     font-weight: 500;
     color: $ui-secondary-color;
@@ -4856,6 +4854,7 @@ a.status-card.compact:hover {
   &:focus,
   &:active {
     color: darken($lighter-text-color, 4%);
+    background-color: transparent;
   }
 }
 
@@ -5122,6 +5121,7 @@ a.status-card.compact:hover {
   background: darken($ui-base-color, 8%);
   border-radius: 4px;
   padding-bottom: 44px;
+  direction: ltr;
 
   &.editable {
     border-radius: 0;
@@ -5169,6 +5169,7 @@ a.status-card.compact:hover {
   max-width: 100%;
   border-radius: 4px;
   box-sizing: border-box;
+  direction: ltr;
 
   &.editable {
     border-radius: 0;
@@ -5852,6 +5853,7 @@ noscript {
 }
 
 .embed-modal {
+  width: auto;
   max-width: 80vw;
   max-height: 80vh;
 
@@ -5882,6 +5884,7 @@ noscript {
       font-size: 14px;
       margin: 0;
       margin-bottom: 15px;
+      border-radius: 4px;
 
       &::-moz-focus-inner {
         border: 0;
@@ -5907,6 +5910,7 @@ noscript {
       max-width: 100%;
       overflow: hidden;
       border: 0;
+      border-radius: 4px;
     }
   }
 }
