@@ -7,13 +7,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { me, profile_directory } from '../../initial_state';
+import { me, profile_directory, showTrends } from '../../initial_state';
 import { fetchFollowRequests } from 'mastodon/actions/accounts';
 import { List as ImmutableList } from 'immutable';
 import NavigationBar from '../compose/components/navigation_bar';
-import TrendsContainer from './containers/trends_container';
 import Icon from 'mastodon/components/icon';
 import LinkFooter from 'mastodon/features/ui/components/link_footer';
+import TrendsContainer from './containers/trends_container';
 
 const messages = defineMessages({
   home_timeline: { id: 'tabs_bar.home', defaultMessage: 'Home' },
@@ -78,16 +78,14 @@ class GettingStarted extends ImmutablePureComponent {
   };
 
   componentDidMount () {
-    const { myAccount, fetchFollowRequests, multiColumn } = this.props;
+    const { fetchFollowRequests, multiColumn } = this.props;
 
     if (!multiColumn && window.innerWidth >= NAVIGATION_PANEL_BREAKPOINT) {
       this.context.router.history.replace('/timelines/home');
       return;
     }
 
-    if (myAccount.get('locked')) {
-      fetchFollowRequests();
-    }
+    fetchFollowRequests();
   }
 
   render () {
@@ -107,7 +105,10 @@ class GettingStarted extends ImmutablePureComponent {
       height += 34 + 48*2;
 
       if (profile_directory) {
-        navItems.push(<ColumnLink key={i++} icon='address-book' text={intl.formatMessage(messages.profile_directory)} href='/explore' />);
+        navItems.push(
+          <ColumnLink key={i++} icon='address-book' text={intl.formatMessage(messages.profile_directory)} to='/directory' />
+        );
+
         height += 48;
       }
 
@@ -119,7 +120,7 @@ class GettingStarted extends ImmutablePureComponent {
       height += 34 + 48;
     } else if (profile_directory) {
       navItems.push(
-        <ColumnLink key={i++} icon='address-book' text={intl.formatMessage(messages.profile_directory)} href='/explore' />,
+        <ColumnLink key={i++} icon='address-book' text={intl.formatMessage(messages.profile_directory)} to='/directory' />,
         <ColumnLink key={i++} icon='fire' text={intl.formatMessage(messages.trending_tags)} to='/trends' />
       );
 
@@ -137,7 +138,7 @@ class GettingStarted extends ImmutablePureComponent {
 
     height += 48*3;
 
-    if (myAccount.get('locked')) {
+    if (myAccount.get('locked') || unreadFollowRequests > 0) {
       navItems.push(<ColumnLink key={i++} icon='user-plus' text={intl.formatMessage(messages.follow_requests)} badge={badgeDisplay(unreadFollowRequests, 40)} to='/follow_requests' />);
       height += 48;
     }
@@ -152,7 +153,7 @@ class GettingStarted extends ImmutablePureComponent {
     }
 
     return (
-      <Column label={intl.formatMessage(messages.menu)}>
+      <Column bindToDocument={!multiColumn} label={intl.formatMessage(messages.menu)}>
         {multiColumn && <div className='column-header__wrapper'>
           <h1 className='column-header'>
             <button>
@@ -168,12 +169,13 @@ class GettingStarted extends ImmutablePureComponent {
             {navItems}
           </div>
 
-          {multiColumn && <TrendsContainer />}
+          {multiColumn && showTrends && <TrendsContainer />}
 
           {!multiColumn && <div className='flex-spacer' />}
 
           <LinkFooter withHotkeys={multiColumn} />
         </div>
+
       </Column>
     );
   }

@@ -34,6 +34,7 @@ export default class Trends extends ImmutablePureComponent {
     trends: ImmutablePropTypes.list,
     fetchTrends: PropTypes.func.isRequired,
     loading: PropTypes.bool,
+    multiColumn: PropTypes.bool,
   };
 
   componentDidMount () {
@@ -45,14 +46,15 @@ export default class Trends extends ImmutablePureComponent {
   }
 
   render () {
-    const { trends, loading, intl } = this.props;
+    const { trends, loading, intl, multiColumn } = this.props;
 
     return (
-      <Column label={intl.formatMessage(messages.title)}>
+      <Column bindToDocument={!multiColumn} label={intl.formatMessage(messages.title)}>
         <ColumnHeader
           icon='fire'
           title={intl.formatMessage(messages.title)}
           showBackButton
+          multiColumn={multiColumn}
           extraButton={(
             <button className='column-header__button' title={intl.formatMessage(messages.refreshTrends)} aria-label={intl.formatMessage(messages.refreshTrends)} onClick={this.handleRefresh}><Icon id='refresh' className={classNames({ 'fa-spin': loading })} /></button>
           )}
