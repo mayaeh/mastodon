@@ -472,7 +472,7 @@ ja:
           open: 誰でも登録可
         title: 新規登録
       show_known_fediverse_at_about_page:
-        desc_html: チェックを入れるとランディングページからリンクされた公開タイムラインに既知の連合先全ての公開トゥートを表示します。外すとローカルの公開トゥートのみ表示します。
+        desc_html: チェックを外すと、ランディングページからリンクされた公開タイムラインにローカルの公開トゥートのみ表示します。
         title: 公開タイムラインに連合先のコンテンツも表示する
       show_staff_badge:
         desc_html: ユーザーページにスタッフのバッジを表示します
@@ -661,7 +661,7 @@ ja:
     success_msg: アカウントは正常に削除されました
     warning:
       before: '続行する前に、次の点を再度確認してください:'
-      caches: 削除しても他のサーバーに残り続ける場合があります
+      caches: 他のサーバーにコンテンツのキャッシュがずっと残る場合があります
       data_removal: あなたの投稿やその他のデータはこのサーバーから完全に削除されます
       email_change_html: アカウントを削除しなくても<a href="%{path}">メールアドレスを変更</a>できます
       email_contact_html: それでも届かない場合、<a href="mailto:%{email}">%{email}</a> までメールで問い合わせてください
@@ -739,7 +739,7 @@ ja:
     all: すべて
     changes_saved_msg: 正常に変更されました！
     copy: コピー
-    no_batch_actions_available: 利用可能なバッチアクションはありません
+    no_batch_actions_available: このページに一括操作はありません
     order_by: 並び順
     save_changes: 変更を保存
     validation_errors:
@@ -998,7 +998,7 @@ ja:
     relationships: フォロー・フォロワー
     two_factor_authentication: 二段階認証
   spam_check:
-    spam_detected_and_silenced: これは自動通報です。スパムが検出されたため、当該送信者は自動的にサイレンスに設定されました。もしこれが誤りである場合、アカウントのサイレンスを解除してください。
+    spam_detected: これは自動的に作成された通報です。スパムが検出されています。
   statuses:
     attached:
       description: '添付: %{attached}'
