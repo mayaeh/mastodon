@@ -18,7 +18,6 @@ ja:
     discover_users: ユーザーを見つける
     documentation: ドキュメント
     federation_hint_html: "%{instance} のアカウントひとつでどんなMastodon互換サーバーのユーザーでもフォローできるでしょう。"
-    generic_description: "%{domain} は、Mastodon サーバーの一つです"
     get_apps: モバイルアプリを試す
     hosted_on: Mastodon hosted on %{domain}
     instance_actor_flash: 'このアカウントはサーバーそのものを示す仮想的なもので、特定のユーザーを示すものではありません。これはサーバーの連合のために使用されます。サーバー全体をブロックするときは、このアカウントをブロックせずに、ドメインブロックを使用してください。
@@ -243,8 +242,8 @@ ja:
       enabled: 有効
       enabled_msg: 絵文字を有効化しました
       image_hint: 50KBまでのPNG画像を利用できます
-      list: 収載
-      listed: 収載
+      list: 表示
+      listed: 表示
       new:
         title: 新規カスタム絵文字の追加
       overwrite: 上書き
@@ -473,8 +472,8 @@ ja:
           open: 誰でも登録可
         title: 新規登録
       show_known_fediverse_at_about_page:
-        desc_html: チェックを入れるとプレビュー欄に既知の連合先全てのトゥートを表示します。外すとローカルのトゥートだけ表示します。
-        title: タイムラインプレビューに連合タイムラインを表示する
+        desc_html: チェックを入れるとランディングページからリンクされた公開タイムラインに既知の連合先全ての公開トゥートを表示します。外すとローカルの公開トゥートのみ表示します。
+        title: 公開タイムラインに連合先のコンテンツも表示する
       show_staff_badge:
         desc_html: ユーザーページにスタッフのバッジを表示します
         title: スタッフバッジを表示する
@@ -492,15 +491,18 @@ ja:
         title: カスタム利用規約
       site_title: サーバーの名前
       spam_check_enabled:
-        desc_html: 迷惑なメッセージを繰り返し送信するアカウントを自動でサイレンスにし通報することができます。誤検知を含む可能性があります。
+        desc_html: 迷惑なメッセージを繰り返し送信するアカウントを自動で通報することができます。誤検知を含む可能性があります。
         title: スパム対策を有効にする
       thumbnail:
         desc_html: OpenGraphとAPIによるプレビューに使用されます。サイズは1200×630px推奨です
         title: サーバーのサムネイル
       timeline_preview:
-        desc_html: ランディングページに公開タイムラインを表示します
-        title: タイムラインプレビュー
+        desc_html: ランディングページに公開タイムラインへのリンクを表示し、認証なしでの公開タイムラインへの API アクセスを許可します
+        title: 公開タイムラインへの未認証のアクセスを許可する
       title: サイト設定
+      trendable_by_default:
+        desc_html: 表示を拒否していないハッシュタグに影響します
+        title: 審査前のハッシュタグのトレンドへの表示を許可する
       trends:
         desc_html: 現在トレンドになっている承認済みのハッシュタグを公開します
         title: トレンドタグを有効にする
@@ -788,14 +790,13 @@ ja:
       '604800': 1 週間
       '86400': 1 日
     expires_in_prompt: 無期限
-    generate: 作成
+    generate: 招待リンクを作成
     invited_by: '次の人に招待されました:'
     max_uses:
       other: "%{count}"
     max_uses_prompt: 無制限
     prompt: リンクを生成・共有してこのサーバーへの新規登録を受け付けることができます
     table:
-      comment: コメント
       expires_at: 有効期限
       uses: 使用
     title: 新規ユーザーの招待
@@ -807,7 +808,7 @@ ja:
       images_and_video: 既に画像が追加されているため、動画を追加することはできません
       too_many: 追加できるファイルは4つまでです
   migrations:
-    acct: 引越し先
+    acct: 引っ越し先
     cancel: 引っ越しを取り消す
     cancel_explanation: 引っ越しを取り消すと現在のアカウントが再度有効化されますが、引き継がれたフォロワーは戻されません。
     cancelled_msg: 引っ越し設定を取り消しました。
