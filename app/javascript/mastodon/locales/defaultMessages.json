@@ -2079,20 +2079,28 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "{name} favourited your status",
+        "id": "notification.favourite"
+      },
+      {
         "defaultMessage": "{name} followed you",
         "id": "notification.follow"
       },
       {
-        "defaultMessage": "{name} favourited your status",
-        "id": "notification.favourite"
+        "defaultMessage": "Your poll has ended",
+        "id": "notification.own_poll"
+      },
+      {
+        "defaultMessage": "A poll you have voted in has ended",
+        "id": "notification.poll"
       },
       {
         "defaultMessage": "{name} boosted your status",
         "id": "notification.reblog"
       },
       {
-        "defaultMessage": "A poll you have voted in has ended",
-        "id": "notification.poll"
+        "defaultMessage": "Your poll has ended",
+        "id": "notification.ownPoll"
       }
     ],
     "path": "app/javascript/mastodon/features/notifications/components/notification.json"
@@ -2757,6 +2765,10 @@
       {
         "defaultMessage": "Exit full screen",
         "id": "video.exit_fullscreen"
+      },
+      {
+        "defaultMessage": "Download file",
+        "id": "video.download"
       },
       {
         "defaultMessage": "Sensitive content",
