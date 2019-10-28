@@ -13,7 +13,7 @@ import Permalink from 'mastodon/components/permalink';
 const messages = defineMessages({
   favourite: { id: 'notification.favourite', defaultMessage: '{name} favourited your status' },
   follow: { id: 'notification.follow', defaultMessage: '{name} followed you' },
-  ownPoll: { id: 'notification.own_poll', defaultMessage: 'Your poll has ended' },
+  own_poll: { id: 'notification.own_poll', defaultMessage: 'Your poll has ended' },
   poll: { id: 'notification.poll', defaultMessage: 'A poll you have voted in has ended' },
   reblog: { id: 'notification.reblog', defaultMessage: '{name} boosted your status' },
 });
@@ -216,8 +216,8 @@ class Notification extends ImmutablePureComponent {
 
   renderPoll (notification, account) {
     const { intl } = this.props;
-    const ownPoll  = me === account.get('id');
-    const message  = ownPoll ? intl.formatMessage(messages.ownPoll) : intl.formatMessage(messages.poll);
+    const own_poll  = me === account.get('id');
+    const message  = own_poll ? intl.formatMessage(messages.own_poll) : intl.formatMessage(messages.poll);
 
     return (
       <HotKeys handlers={this.getHandlers()}>
@@ -228,8 +228,8 @@ class Notification extends ImmutablePureComponent {
             </div>
 
             <span title={notification.get('created_at')}>
-              {ownPoll ? (
-                <FormattedMessage id='notification.ownPoll' defaultMessage='Your poll has ended' />
+              {own_poll ? (
+                <FormattedMessage id='notification.own_poll' defaultMessage='Your poll has ended' />
               ) : (
                 <FormattedMessage id='notification.poll' defaultMessage='A poll you have voted in has ended' />
               )}
