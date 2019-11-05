@@ -2097,10 +2097,6 @@
       {
         "defaultMessage": "{name} boosted your status",
         "id": "notification.reblog"
-      },
-      {
-        "defaultMessage": "Your poll has ended",
-        "id": "notification.ownPoll"
       }
     ],
     "path": "app/javascript/mastodon/features/notifications/components/notification.json"

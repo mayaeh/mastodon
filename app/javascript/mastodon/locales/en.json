@@ -274,7 +274,6 @@
   "notification.favourite": "{name} favourited your status",
   "notification.follow": "{name} followed you",
   "notification.mention": "{name} mentioned you",
-  "notification.ownPoll": "Your poll has ended",
   "notification.own_poll": "Your poll has ended",
   "notification.poll": "A poll you have voted in has ended",
   "notification.reblog": "{name} boosted your status",
