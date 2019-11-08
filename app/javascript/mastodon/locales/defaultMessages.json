@@ -281,6 +281,19 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Loading…",
+        "id": "regeneration_indicator.label"
+      },
+      {
+        "defaultMessage": "Your home feed is being prepared!",
+        "id": "regeneration_indicator.sublabel"
+      }
+    ],
+    "path": "app/javascript/mastodon/components/regeneration_indicator.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "now",
         "id": "relative_time.just_now"
       },
@@ -444,19 +457,6 @@
       }
     ],
     "path": "app/javascript/mastodon/components/status_content.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Loading…",
-        "id": "regeneration_indicator.label"
-      },
-      {
-        "defaultMessage": "Your home feed is being prepared!",
-        "id": "regeneration_indicator.sublabel"
-      }
-    ],
-    "path": "app/javascript/mastodon/components/status_list.json"
   },
   {
     "descriptors": [
@@ -776,6 +776,10 @@
       {
         "defaultMessage": "Unmute sound",
         "id": "video.unmute"
+      },
+      {
+        "defaultMessage": "Download file",
+        "id": "video.download"
       }
     ],
     "path": "app/javascript/mastodon/features/audio/index.json"
@@ -2091,20 +2095,24 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "{name} followed you",
-        "id": "notification.follow"
-      },
-      {
         "defaultMessage": "{name} favourited your status",
         "id": "notification.favourite"
       },
       {
-        "defaultMessage": "{name} boosted your status",
-        "id": "notification.reblog"
+        "defaultMessage": "{name} followed you",
+        "id": "notification.follow"
+      },
+      {
+        "defaultMessage": "Your poll has ended",
+        "id": "notification.own_poll"
       },
       {
         "defaultMessage": "A poll you have voted in has ended",
         "id": "notification.poll"
+      },
+      {
+        "defaultMessage": "{name} boosted your status",
+        "id": "notification.reblog"
       }
     ],
     "path": "app/javascript/mastodon/features/notifications/components/notification.json"
@@ -2786,6 +2794,10 @@
       {
         "defaultMessage": "Exit full screen",
         "id": "video.exit_fullscreen"
+      },
+      {
+        "defaultMessage": "Download file",
+        "id": "video.download"
       },
       {
         "defaultMessage": "Sensitive content",
