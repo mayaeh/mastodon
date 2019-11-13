@@ -78,7 +78,7 @@ ja:
         text: カスタム警告文
         type: アクション
         types:
-          disable: 無効化
+          disable: ログインを無効化
           none: 何もしない
           silence: サイレンス
           suspend: 停止しアカウントのデータを恒久的に削除する
@@ -113,6 +113,7 @@ ja:
         setting_aggregate_reblogs: ブーストをまとめる
         setting_auto_play_gif: アニメーションGIFを自動再生する
         setting_boost_modal: ブーストする前に確認ダイアログを表示する
+        setting_crop_images: トゥートの詳細以外では画像を 16:9 に切り抜く
         setting_default_language: 投稿する言語
         setting_default_privacy: 投稿の公開範囲
         setting_default_sensitive: メディアを常に閲覧注意としてマークする
