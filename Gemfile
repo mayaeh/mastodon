@@ -12,10 +12,10 @@ gem 'thor', '~> 0.20'
 gem 'hamlit-rails', '~> 0.2'
 gem 'pg', '~> 1.1'
 gem 'makara', '~> 0.4'
-gem 'pghero', '~> 2.3'
+gem 'pghero', '~> 2.4'
 gem 'dotenv-rails', '~> 2.7'
 
-gem 'aws-sdk-s3', '~> 1.52', require: false
+gem 'aws-sdk-s3', '~> 1.55', require: false
 gem 'fog-core', '<= 2.1.0'
 gem 'fog-openstack', '~> 0.3', require: false
 gem 'paperclip', '~> 6.0'
@@ -27,7 +27,7 @@ gem 'active_model_serializers', '~> 0.10'
 gem 'addressable', '~> 2.7'
 gem 'bootsnap', '~> 1.4', require: false
 gem 'browser'
-gem 'charlock_holmes', '~> 0.7.6'
+gem 'charlock_holmes', '~> 0.7.7'
 gem 'iso-639'
 gem 'chewy', '~> 5.1'
 gem 'cld3', '~> 3.2.4'
@@ -71,8 +71,8 @@ gem 'parallel', '~> 1.18'
 gem 'posix-spawn', git: 'https://github.com/rtomayko/posix-spawn', ref: '58465d2e213991f8afb13b984854a49fcdcc980c'
 gem 'pundit', '~> 2.1'
 gem 'premailer-rails'
-gem 'rack-attack', '~> 6.1'
-gem 'rack-cors', '~> 1.0', require: 'rack/cors'
+gem 'rack-attack', '~> 6.2'
+gem 'rack-cors', '~> 1.1', require: 'rack/cors'
 gem 'rails-i18n', '~> 5.1'
 gem 'rails-settings-cached', '~> 0.6'
 gem 'redis', '~> 4.1', require: ['redis', 'redis/connection/hiredis']
@@ -93,7 +93,7 @@ gem 'tty-command', '~> 0.9', require: false
 gem 'tty-prompt', '~> 0.19', require: false
 gem 'twitter-text', '~> 1.14'
 gem 'tzinfo-data', '~> 1.2019'
-gem 'webpacker', '~> 4.0'
+gem 'webpacker', '~> 4.2'
 gem 'webpush'
 
 gem 'json-ld', git: 'https://github.com/ruby-rdf/json-ld.git', ref: 'e742697a0906e74e8bb777ef98137bc3955d981d'
