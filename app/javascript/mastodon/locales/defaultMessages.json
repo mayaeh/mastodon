@@ -1828,6 +1828,10 @@
         "id": "keyboard_shortcuts.enter"
       },
       {
+        "defaultMessage": "to open media",
+        "id": "keyboard_shortcuts.open_media"
+      },
+      {
         "defaultMessage": "to show/hide text behind CW",
         "id": "keyboard_shortcuts.toggle_hidden"
       },
@@ -2078,6 +2082,10 @@
         "id": "notifications.column_settings.follow"
       },
       {
+        "defaultMessage": "New follow requests:",
+        "id": "notifications.column_settings.follow_request"
+      },
+      {
         "defaultMessage": "Favourites:",
         "id": "notifications.column_settings.favourite"
       },
@@ -2128,6 +2136,19 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Authorize",
+        "id": "follow_request.authorize"
+      },
+      {
+        "defaultMessage": "Reject",
+        "id": "follow_request.reject"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/notifications/components/follow_request.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "{name} favourited your status",
         "id": "notification.favourite"
       },
@@ -2146,6 +2167,10 @@
       {
         "defaultMessage": "{name} boosted your status",
         "id": "notification.reblog"
+      },
+      {
+        "defaultMessage": "{name} has requested to follow you",
+        "id": "notification.follow_request"
       }
     ],
     "path": "app/javascript/mastodon/features/notifications/components/notification.json"
