@@ -399,6 +399,7 @@ ja:
       are_you_sure: 本当に実行しますか？
       assign_to_self: 担当になる
       assigned: 担当者
+      by_target_domain: ドメイン
       comment:
         none: なし
       created_at: 通報日時
@@ -876,6 +877,10 @@ ja:
       body: "%{name} さんにブーストされた、あなたのトゥートがあります:"
       subject: "%{name} さんにブーストされました"
       title: 新たなブースト
+  notifications:
+    email_events: メールで通知する種類
+    email_events_hint: '通知を受信する項目を選択:'
+    other_settings: その他の通知設定
   number:
     human:
       decimal_units:
@@ -909,6 +914,8 @@ ja:
   relationships:
     activity: 活動
     dormant: 非アクティブ
+    followers: フォロワー
+    following: フォロー中
     last_active: 最後の活動
     most_recent: 新着
     moved: 引っ越し済み
