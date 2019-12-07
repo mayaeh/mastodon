@@ -23,7 +23,7 @@ databases:
 # explain_timeout_sec: 10
 
 # Time zone (defaults to app time zone)
-# time_zone: "Pacific Time (US & Canada)"
+time_zone: "Asia/Tokyo"
 
 # Basic authentication
 # username: admin
