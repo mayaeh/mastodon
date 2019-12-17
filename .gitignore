@@ -24,6 +24,7 @@ public/packs-test
 public/announcements.json
 .env
 .env.production
+.env.development
 node_modules/
 build/
 
