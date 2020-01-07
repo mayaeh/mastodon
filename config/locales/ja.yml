@@ -74,6 +74,7 @@ ja:
     roles:
       admin: Admin
       bot: Bot
+      group: Group
       moderator: Mod
     unavailable: プロフィールは利用できません
     unfollow: フォロー解除
@@ -387,6 +388,11 @@ ja:
       created_msg: 通報メモを書き込みました！
       destroyed_msg: 通報メモを削除しました！
     reports:
+      account:
+        notes:
+          other: "%{count} 件のメモ"
+        reports:
+          other: "%{count} 件の通報"
       action_taken_by: 通報処理者
       are_you_sure: 本当に実行しますか？
       assign_to_self: 担当になる
@@ -437,6 +443,8 @@ ja:
         users: ログイン済みローカルユーザーのみ許可
       domain_blocks_rationale:
         title: コメントを表示
+      enable_bootstrap_timeline_accounts:
+        title: 新規ユーザーの自動フォローを有効にする
       hero:
         desc_html: フロントページに表示されます。サイズは600x100px以上推奨です。未設定の場合、標準のサムネイルが使用されます
         title: ヒーローイメージ
@@ -565,6 +573,10 @@ ja:
     animations_and_accessibility: アニメーションとアクセシビリティー
     confirmation_dialogs: 確認ダイアログ
     discovery: 見つける
+    localization:
+      body: Mastodon は有志によって翻訳されています。
+      guide_link: https://ja.crowdin.com/project/mastodon
+      guide_link_text: 誰でも翻訳に参加できます。
     sensitive_content: 閲覧注意コンテンツ
     toot_layout: レイアウト
   application_mailer:
@@ -703,7 +715,6 @@ ja:
     blocks: ブロック
     csv: CSV
     domain_blocks: 非表示にしたドメイン
-    follows: フォロー
     lists: リスト
     mutes: ミュート
     storage: メディア
@@ -737,7 +748,7 @@ ja:
     all: すべて
     changes_saved_msg: 正常に変更されました！
     copy: コピー
-    no_batch_actions_available: このページに一括操作はありません
+    no_batch_actions_available: 利用可能なバッチアクションはありません
     order_by: 並び順
     save_changes: 変更を保存
     validation_errors:
@@ -870,8 +881,8 @@ ja:
       subject: "%{name} さんにブーストされました"
       title: 新たなブースト
   notifications:
-    email_events: メールで通知する種類
-    email_events_hint: '通知を受信する項目を選択:'
+    email_events: メールによる通知
+    email_events_hint: '受信する通知を選択:'
     other_settings: その他の通知設定
   number:
     human:
