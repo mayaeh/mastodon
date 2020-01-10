@@ -123,6 +123,7 @@ class Notification extends ImmutablePureComponent {
             <div className='notification__favourite-icon-wrapper'>
               <Icon id='user-plus' fixedWidth />
             </div>
+
             <span title={notification.get('created_at')}>
               <FormattedMessage id='notification.follow' defaultMessage='{name} followed you' values={{ name: link }} />
               <span className='notification__relative_time'>
@@ -150,6 +151,9 @@ class Notification extends ImmutablePureComponent {
 
             <span title={notification.get('created_at')}>
               <FormattedMessage id='notification.follow_request' defaultMessage='{name} has requested to follow you' values={{ name: link }} />
+              <span className='notification__relative_time'>
+                <RelativeTimestamp timestamp={notification.get('created_at')} />
+              </span>
             </span>
           </div>
 
@@ -186,9 +190,12 @@ class Notification extends ImmutablePureComponent {
             <div className='notification__favourite-icon-wrapper'>
               <Icon id='star' className='star-icon' fixedWidth />
             </div>
-            <FormattedMessage id='notification.favourite' defaultMessage='{name} favourited your status' values={{ name: link }} />
-            <span className='notification__relative_time'>
-              <RelativeTimestamp className='notification__relative_time' timestamp={notification.get('created_at')} />
+
+            <span title={notification.get('created_at')}>
+              <FormattedMessage id='notification.favourite' defaultMessage='{name} favourited your status' values={{ name: link }} />
+              <span className='notification__relative_time'>
+                  <RelativeTimestamp className='notification__relative_time' timestamp={notification.get('created_at')} />
+              </span>
             </span>
           </div>
 
@@ -218,9 +225,12 @@ class Notification extends ImmutablePureComponent {
             <div className='notification__favourite-icon-wrapper'>
               <Icon id='retweet' fixedWidth />
             </div>
-            <FormattedMessage id='notification.reblog' defaultMessage='{name} boosted your status' values={{ name: link }} />
-            <span className='notification__relative_time'>
-              <RelativeTimestamp className='notification__relative_time' timestamp={notification.get('created_at')} />
+
+            <span title={notification.get('created_at')}>
+              <FormattedMessage id='notification.reblog' defaultMessage='{name} boosted your status' values={{ name: link }} />
+              <span className='notification__relative_time'>
+                <RelativeTimestamp className='notification__relative_time' timestamp={notification.get('created_at')} />
+              </span>
             </span>
           </div>
 
@@ -259,6 +269,9 @@ class Notification extends ImmutablePureComponent {
               ) : (
                 <FormattedMessage id='notification.poll' defaultMessage='A poll you have voted in has ended' />
               )}
+              <span className='notification__relative_time'>
+                <RelativeTimestamp className='notification__relative_time' timestamp={notification.get('created_at')} />
+              </span>
             </span>
           </div>
 
