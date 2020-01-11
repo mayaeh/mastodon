@@ -85,7 +85,10 @@ describe Api::ProofsController do
         end
 
         it 'has the correct avatar url' do
-          expect(body_as_json[:avatar]).to match "https://cb6e6126.ngrok.io#{alice.avatar.url}"
+          first_part = 'https://cb6e6126.ngrok.io/system/accounts/avatars/'
+          last_part  = 'original/avatar.gif'
+
+          expect(body_as_json[:avatar]).to match /#{Regexp.quote(first_part)}(?:\d{3,5}\/){3}#{Regexp.quote(last_part)}/
         end
       end
     end

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-Paperclip::DataUriAdapter.register
-
 Paperclip.interpolates :filename do |attachment, style|
   if style == :original
     attachment.original_filename
