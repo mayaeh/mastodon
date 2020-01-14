@@ -334,6 +334,7 @@ ja:
       delete: 消去
       destroyed_msg: ブラックリストから外しました
       domain: ドメイン
+      empty: メールブラックリストに登録されたドメインはありません
       new:
         create: ドメインを追加
         title: メールアドレス用ブラックリスト新規追加
@@ -736,6 +737,7 @@ ja:
       invalid_irreversible: この機能はホームタイムラインまたは通知と一緒に指定する場合のみ機能します
     index:
       delete: 削除
+      empty: フィルターはありません。
       title: フィルター
     new:
       title: 新規フィルターを追加
