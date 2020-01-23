@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
-import { fetchTrends } from '../../../actions/trends';
+import { fetchTrends } from 'mastodon/actions/trends';
 import Trends from '../components/trends';
 import { changeSetting } from '../../../actions/settings';
 
