@@ -15,7 +15,7 @@ import { changeComposing } from '../../actions/compose';
 import { openModal } from 'mastodon/actions/modal';
 import elephantUIPlane from '../../../images/elephant_ui_plane.svg';
 import { mascot } from '../../initial_state';
-import Announcements from './components/announcements';
+import ModsAnnouncements from './components/mods_announcements';
 import Icon from 'mastodon/components/icon';
 import { logOut } from 'mastodon/utils/log_out';
 
@@ -127,7 +127,7 @@ class Compose extends React.PureComponent {
           {!isSearchPage && <div className='drawer__inner' onFocus={this.onFocus}>
             <NavigationContainer onClose={this.onBlur} />
             <ComposeFormContainer />
-            <Announcements />
+            <ModsAnnouncements />
             <div className='drawer__inner__mastodon'>
               <img alt='' draggable='false' src={mascot || elephantUIPlane} />
             </div>
