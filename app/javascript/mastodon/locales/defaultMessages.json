@@ -2336,6 +2336,10 @@
         "id": "status.bookmark"
       },
       {
+        "defaultMessage": "More",
+        "id": "status.more"
+      },
+      {
         "defaultMessage": "Mute @{name}",
         "id": "status.mute"
       },
