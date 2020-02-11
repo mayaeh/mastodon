@@ -142,6 +142,7 @@ class MediaAttachment < ApplicationRecord
 
   validates :account, presence: true
   validates :description, length: { maximum: MAX_DESCRIPTION_LENGTH }, if: :local?
+  validates :file, presence: true, if: :local?
 
   scope :attached,   -> { where.not(status_id: nil).or(where.not(scheduled_status_id: nil)) }
   scope :unattached, -> { where(status_id: nil, scheduled_status_id: nil) }
@@ -167,6 +168,18 @@ class MediaAttachment < ApplicationRecord
     audio? || video?
   end
 
+  def variant?(other_file_name)
+    return true if file_file_name == other_file_name
+
+    formats = file.styles.values.map(&:format).compact
+
+    return false if formats.empty?
+
+    extension = File.extname(other_file_name)
+
+    formats.include?(extension.delete('.')) && File.basename(other_file_name, extension) == File.basename(file_file_name, File.extname(file_file_name))
+  end
+
   def to_param
     shortcode
   end
@@ -190,9 +203,12 @@ class MediaAttachment < ApplicationRecord
   end
 
   after_commit :reset_parent_cache, on: :update
+
   before_create :prepare_description, unless: :local?
   before_create :set_shortcode
+
   before_post_process :set_type_and_extension
+
   before_save :set_meta
 
   class << self
@@ -287,7 +303,7 @@ class MediaAttachment < ApplicationRecord
       width:  width,
       height: height,
       size: "#{width}x#{height}",
-      aspect: width.to_f / height.to_f,
+      aspect: width.to_f / height,
     }
   end
 
