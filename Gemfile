@@ -92,6 +92,7 @@ gem 'simple-navigation', '~> 4.1'
 gem 'simple_form', '~> 5.0'
 gem 'sprockets-rails', '~> 3.2', require: 'sprockets/railtie'
 gem 'stoplight', '~> 2.2.0'
+gem "stoplight-admin", "~> 0.3.5"
 gem 'strong_migrations', '~> 0.5'
 gem 'tty-command', '~> 0.9', require: false
 gem 'tty-prompt', '~> 0.20', require: false

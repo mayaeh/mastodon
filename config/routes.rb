@@ -2,6 +2,13 @@
 
 require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
+require 'sinatra/stoplight_admin'
+
+class StoplightAdmin < Sinatra::Base
+  register Sinatra::StoplightAdmin
+  set :data_store, Stoplight::Light.default_data_store
+  set :haml, :escape_html => false
+end
 
 Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 
@@ -15,6 +22,7 @@ Rails.application.routes.draw do
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web, at: 'sidekiq', as: :sidekiq
     mount PgHero::Engine, at: 'pghero', as: :pghero
+    mount StoplightAdmin, at: 'stoplights', as: :stoplights
   end
 
   use_doorkeeper do
