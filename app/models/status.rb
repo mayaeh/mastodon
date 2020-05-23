@@ -137,7 +137,7 @@ class Status < ApplicationRecord
     ids = [account_id]
 
     if preloaded.nil?
-      ids += mentions.pluck(:account_id)
+      ids += mentions.where(silent: false).pluck(:account_id)
       ids += favourites.pluck(:account_id)
       ids += reblogs.pluck(:account_id)
       ids += bookmarks.pluck(:account_id)

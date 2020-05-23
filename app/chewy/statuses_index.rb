@@ -41,7 +41,7 @@ class StatusesIndex < Chewy::Index
 
   define_type ::Status.unscoped.without_reblogs.includes(:media_attachments) do
     crutch :mentions do |collection|
-      data = ::Mention.where(status_id: collection.map(&:id)).pluck(:status_id, :account_id)
+      data = ::Mention.where(status_id: collection.map(&:id)).where(silent: false).pluck(:status_id, :account_id)
       data.each.with_object({}) { |(id, name), result| (result[id] ||= []).push(name) }
     end
 
