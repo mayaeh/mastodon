@@ -1921,6 +1921,10 @@
         "id": "keyboard_shortcuts.toot"
       },
       {
+        "defaultMessage": "to show/hide CW field",
+        "id": "keyboard_shortcuts.spoilers"
+      },
+      {
         "defaultMessage": "to navigate back",
         "id": "keyboard_shortcuts.back"
       },
@@ -2426,6 +2430,15 @@
       }
     ],
     "path": "app/javascript/mastodon/features/status/components/action_bar.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Sensitive content",
+        "id": "status.sensitive_warning"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/status/components/card.json"
   },
   {
     "descriptors": [
