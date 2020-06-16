@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+Redis.exists_returns_integer = true
+
 redis_connection = Redis.new(
   url: ENV['REDIS_URL'],
   driver: :hiredis
