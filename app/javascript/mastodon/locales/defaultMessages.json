@@ -493,22 +493,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Public",
-        "id": "privacy.public.short"
-      },
-      {
-        "defaultMessage": "Unlisted",
-        "id": "privacy.unlisted.short"
-      },
-      {
-        "defaultMessage": "Followers-only",
-        "id": "privacy.private.short"
-      },
-      {
-        "defaultMessage": "Direct",
-        "id": "privacy.direct.short"
-      },
-      {
         "defaultMessage": "Filtered",
         "id": "status.filtered"
       },
@@ -2496,27 +2480,6 @@
       }
     ],
     "path": "app/javascript/mastodon/features/status/components/card.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Public",
-        "id": "privacy.public.short"
-      },
-      {
-        "defaultMessage": "Unlisted",
-        "id": "privacy.unlisted.short"
-      },
-      {
-        "defaultMessage": "Followers-only",
-        "id": "privacy.private.short"
-      },
-      {
-        "defaultMessage": "Direct",
-        "id": "privacy.direct.short"
-      }
-    ],
-    "path": "app/javascript/mastodon/features/status/components/detailed_status.json"
   },
   {
     "descriptors": [
