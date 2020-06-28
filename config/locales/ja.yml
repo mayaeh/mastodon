@@ -91,7 +91,7 @@ ja:
       delete: 削除
       destroyed_msg: モデレーションメモを削除しました！
     accounts:
-      add_email_domain_block: ドメインをメールブラックリストに追加
+      add_email_domain_block: メールドメインブロックに追加
       approve: 承認
       approve_all: すべて承認
       are_you_sure: 本当に実行しますか？
@@ -192,7 +192,7 @@ ja:
       username: ユーザー名
       warn: 警告
       web: Web
-      whitelisted: ホワイトリストに登録済み
+      whitelisted: 連合許可済み
     action_logs:
       action_types:
         assigned_to_self_report: 通報を割り当て
@@ -237,15 +237,15 @@ ja:
         create_account_warning: "%{name} さんが %{target} さんに警告メールを送信しました"
         create_announcement: "%{name} さんがお知らせ %{target} を追加しました"
         create_custom_emoji: "%{name} さんがカスタム絵文字 %{target} を追加しました"
-        create_domain_allow: "%{name} さんがドメイン %{target} をホワイトリストに追加しました"
+        create_domain_allow: "%{name} さんがドメイン %{target} の連合を許可しました"
         create_domain_block: "%{name} さんがドメイン %{target} をブロックしました"
-        create_email_domain_block: "%{name} さんがドメイン %{target} をメールアドレス用ブラックリストに追加しました"
+        create_email_domain_block: "%{name} さんがドメイン %{target} をメールドメインブロックに追加しました"
         demote_user: "%{name} さんが %{target} さんを降格しました"
         destroy_announcement: "%{name} さんがお知らせ %{target} を削除しました"
         destroy_custom_emoji: "%{name} さんがカスタム絵文字 %{target} を削除しました"
-        destroy_domain_allow: "%{name} さんがドメイン %{target} をホワイトリストから外しました"
+        destroy_domain_allow: "%{name} さんがドメイン %{target} の連合許可を取り消しました"
         destroy_domain_block: "%{name} さんがドメイン %{target} のブロックを外しました"
-        destroy_email_domain_block: "%{name} さんがドメイン %{target} をメールアドレス用ブラックリストから外しました"
+        destroy_email_domain_block: "%{name} さんがドメイン %{target} をメールドメインブロックから削除しました"
         destroy_status: "%{name} さんが %{target} さんのトゥートを削除しました"
         disable_2fa_user: "%{name} さんが %{target} さんの二段階認証を無効化しました"
         disable_custom_emoji: "%{name} さんがカスタム絵文字 %{target} を無効化しました"
@@ -346,12 +346,12 @@ ja:
       week_interactions: 今週交流のあった回数
       week_users_active: 今週活動した人数
       week_users_new: 今週登録した人数
-      whitelist_mode: ホワイトリストモード
+      whitelist_mode: 連合制限モード
     domain_allows:
-      add_new: ホワイトリストに追加
-      created_msg: ドメインのホワイトリストへの登録が完了しました
-      destroyed_msg: ドメインをホワイトリストから削除しました
-      undo: ホワイトリストから削除
+      add_new: 連合を許可
+      created_msg: 連合を許可しました
+      destroyed_msg: 連合許可を取り消しました
+      undo: 連合許可の取り消し
     domain_blocks:
       add_new: ドメインブロックを追加
       created_msg: ドメインブロック処理を完了しました
@@ -393,16 +393,16 @@ ja:
       view: ドメインブロックを表示
     email_domain_blocks:
       add_new: 新規追加
-      created_msg: ブラックリストに追加しました
+      created_msg: メールドメインブロックに追加しました
       delete: 消去
-      destroyed_msg: ブラックリストから外しました
+      destroyed_msg: メールドメインブロックから削除しました
       domain: ドメイン
-      empty: メールブラックリストに登録されたドメインはありません
+      empty: メールドメインブロックには現在何も登録されていません
       from_html: "%{domain} から"
       new:
         create: ドメインを追加
-        title: メールアドレス用ブラックリスト新規追加
-      title: メールブラックリスト
+        title: 新規追加
+      title: メールドメインブロック
     instances:
       by_domain: ドメイン
       delivery_available: 配送可能
@@ -445,7 +445,7 @@ ja:
       pending: リレーサーバーの承認待ちです
       save_and_enable: 保存して有効にする
       setup: リレー接続を設定する
-      signatures_not_enabled: セキュアモードまたはホワイトリストモードが有効の場合、リレーは正常に動作しません
+      signatures_not_enabled: セキュアモードまたは連合制限モードが有効の場合、リレーは正常に動作しません
       status: ステータス
       title: リレー
     report_notes:
@@ -1104,6 +1104,8 @@ ja:
     spam_detected: これは自動的に作成された通報です。スパムが検出されています。
   statuses:
     attached:
+      audio:
+        other: "%{count} 本の音声"
       description: '添付: %{attached}'
       image:
         other: "%{count} 枚の画像"
