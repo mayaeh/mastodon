@@ -201,15 +201,15 @@ ja:
         create_account_warning: 警告を作成
         create_announcement: お知らせを作成
         create_custom_emoji: カスタム絵文字を作成
-        create_domain_allow: ドメインをホワイトリストに追加
+        create_domain_allow: 連合を許可
         create_domain_block: ドメインブロックを作成
         create_email_domain_block: メールドメインブロックを作成
         demote_user: ユーザーを降格
         destroy_announcement: お知らせを削除
         destroy_custom_emoji: カスタム絵文字を削除
-        destroy_domain_allow: ドメインをホワイトリストから削除
+        destroy_domain_allow: 連合許可を外す
         destroy_domain_block: ドメインブロックを削除
-        destroy_email_domain_block: メールブラックリストから削除
+        destroy_email_domain_block: メールドメインブロックから外す
         destroy_status: トゥートを削除
         disable_2fa_user: 二段階認証を無効化
         disable_custom_emoji: カスタム絵文字を無効化
@@ -237,15 +237,15 @@ ja:
         create_account_warning: "%{name} さんが %{target} さんに警告メールを送信しました"
         create_announcement: "%{name} さんがお知らせ %{target} を追加しました"
         create_custom_emoji: "%{name} さんがカスタム絵文字 %{target} を追加しました"
-        create_domain_allow: "%{name} さんがドメイン %{target} の連合を許可しました"
+        create_domain_allow: "%{name} さんが %{target} の連合を許可しました"
         create_domain_block: "%{name} さんがドメイン %{target} をブロックしました"
-        create_email_domain_block: "%{name} さんがドメイン %{target} をメールドメインブロックに追加しました"
+        create_email_domain_block: "%{name} さんが %{target} をメールドメインブロックに追加しました"
         demote_user: "%{name} さんが %{target} さんを降格しました"
         destroy_announcement: "%{name} さんがお知らせ %{target} を削除しました"
         destroy_custom_emoji: "%{name} さんがカスタム絵文字 %{target} を削除しました"
-        destroy_domain_allow: "%{name} さんがドメイン %{target} の連合許可を取り消しました"
+        destroy_domain_allow: "%{name} さんが %{target} の連合許可を外しました"
         destroy_domain_block: "%{name} さんがドメイン %{target} のブロックを外しました"
-        destroy_email_domain_block: "%{name} さんがドメイン %{target} をメールドメインブロックから削除しました"
+        destroy_email_domain_block: "%{name} さんが %{target} をメールドメインブロックから外しました"
         destroy_status: "%{name} さんが %{target} さんのトゥートを削除しました"
         disable_2fa_user: "%{name} さんが %{target} さんの二段階認証を無効化しました"
         disable_custom_emoji: "%{name} さんがカスタム絵文字 %{target} を無効化しました"
@@ -350,8 +350,8 @@ ja:
     domain_allows:
       add_new: 連合を許可
       created_msg: 連合を許可しました
-      destroyed_msg: 連合許可を取り消しました
-      undo: 連合許可の取り消し
+      destroyed_msg: 連合許可を外しました
+      undo: 連合許可を外す
     domain_blocks:
       add_new: ドメインブロックを追加
       created_msg: ドメインブロック処理を完了しました
@@ -395,13 +395,13 @@ ja:
       add_new: 新規追加
       created_msg: メールドメインブロックに追加しました
       delete: 消去
-      destroyed_msg: メールドメインブロックから削除しました
+      destroyed_msg: メールドメインブロックから外しました
       domain: ドメイン
-      empty: メールドメインブロックには現在何も登録されていません
+      empty: メールドメインブロックには現在何も登録されていません。
       from_html: "%{domain} から"
       new:
         create: ドメインを追加
-        title: 新規追加
+        title: 新規メールドメインブロック
       title: メールドメインブロック
     instances:
       by_domain: ドメイン
