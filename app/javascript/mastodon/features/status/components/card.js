@@ -112,7 +112,7 @@ export default class Card extends React.PureComponent {
   }
 
   _decode () {
-    if (!useBlurhash) return;
+    if (!useBlurhash || !this.canvas) return;
 
     const hash   = this.props.card.get('blurhash');
     const pixels = decode(hash, 32, 32);
