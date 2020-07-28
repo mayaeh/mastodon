@@ -21,9 +21,7 @@ sv:
     federation_hint_html: Med ett konto på %{instance} kommer du att kunna följa personer på alla Mastodon-servers och mer än så.
     get_apps: Prova en mobilapp
     hosted_on: Mastodon-värd på %{domain}
-    instance_actor_flash: 'Detta konto är en virtuell agent som används för att representera servern själv och inte någon individuell användare. Det används av sammanslutningsskäl och ska inte blockeras såvitt du inte vill blockera hela instansen, och för detta fall ska domänblockering användas.
-
-'
+    instance_actor_flash: Detta konto är en virtuell agent som används för att representera servern själv och inte någon individuell användare. Det används av sammanslutningsskäl och ska inte blockeras såvitt du inte vill blockera hela instansen, och för detta fall ska domänblockering användas.
     learn_more: Lär dig mer
     privacy_policy: Integritetspolicy
     see_whats_happening: Se vad som händer
@@ -37,8 +35,11 @@ sv:
       domain: Server
       reason: Anledning
       rejecting_media: 'Mediafiler från dessa servers kommer inte hanteras eller lagras, och inga miniatyrer kammer att visas, utan manuell klickning erfordras på originalfilen:'
+      rejecting_media_title: Filtrerade media
       silenced: 'Poster från dessa servers kommer att döljas i publika tidslinjer och konversationer, och meddelanden kommer inte att genereras från deras användares handlingar, förutom om du följer dem:'
+      silenced_title: Ljuddämpade värddatorer
       suspended: 'Ingen data från dessa serverdatorer kommer bearbetas, lagras eller bytas ut vilket omöjliggör kommunikation med användare från dessa serverdatorer:'
+      suspended_title: Avstängda värddatorer
     unavailable_content_html: Mastodon låter dig se material från, och interagera med, andra användare i servernätverket. Det är undantag som gjorts på denna serverdator.
     user_count_before: Hem till
     what_is_mastodon: Vad är Mastodon?
@@ -219,6 +220,8 @@ sv:
         update_status: "%{name} uppdaterade status för %{target}"
       deleted_status: "(raderad status)"
       title: Revisionslogg
+    announcements:
+      scheduled_for: Schemalagd för %{time}
     custom_emojis:
       assign_category: Ange kategori
       by_domain: Domän
@@ -241,6 +244,7 @@ sv:
       listed: Noterade
       new:
         title: Lägg till ny egen emoji
+      not_permitted: Du har inte behörighet att utföra denna åtgärd
       overwrite: Skriva över
       shortcode: Kortkod
       shortcode_hint: Minst 2 tecken, endast alfanumeriska tecken och understreck
@@ -430,6 +434,8 @@ sv:
         desc_html: Visa offentlig tidslinje på landingsidan
         title: Förhandsgranska tidslinje
       title: Sidans inställningar
+    site_uploads:
+      delete: Radera uppladdad fil
     statuses:
       back_to_account: Tillbaka till kontosidan
       batch:
@@ -448,7 +454,6 @@ sv:
     warning_presets:
       add_new: Lägg till ny
       delete: Radera
-      edit: Redigera
   admin_mailer:
     new_report:
       body: "%{reporter} har rapporterat %{target}"
@@ -505,6 +510,7 @@ sv:
       account_status: Kontostatus
   authorize_follow:
     already_following: Du följer redan detta konto
+    already_requested: Du har redan skickat en vänförfrågan till det kontot
     error: Tyvärr inträffade ett fel när vi kontrollerade fjärrkontot
     follow: Följ
     follow_request: 'Du har skickat en följaförfrågan till:'
@@ -518,6 +524,10 @@ sv:
     confirm: Fortsätt
     invalid_password: Ogiltigt lösenord
     prompt: Bekräfta lösenord för att fortsätta
+  crypto:
+    errors:
+      invalid_key: är inte en giltig Ed25519 eller Curve25519 nyckel
+      invalid_signature: är inte en giltig Ed25519 signatur
   datetime:
     distance_in_words:
       about_x_hours: "%{count}tim"
@@ -630,6 +640,7 @@ sv:
   migrations:
     acct: användarnamn@domän av det nya kontot
     incoming_migrations: Flyttar från ett annat konto
+    redirected_msg: Ditt konto dirigeras om till %{acct}.
   moderation:
     title: Moderera
   notification_mailer:
@@ -751,6 +762,8 @@ sv:
     disallowed_hashtags:
       one: 'innehöll en otillåten hashtag: %{tags}'
       other: 'innehöll de otillåtna hashtagarna: %{tags}'
+    errors:
+      in_reply_not_found: Statusen du försöker svara på existerar inte.
     language_detection: Lista ut språk automatiskt
     open_in_web: Öppna på webben
     over_character_limit: teckengräns på %{max} har överskridits
@@ -760,6 +773,7 @@ sv:
       private: Icke-offentliga toot kan inte fästas
       reblog: Knuffar kan inte fästas
     show_more: Visa mer
+    show_thread: Visa tråd
     visibilities:
       private: Endast följare
       private_long: Visa endast till följare

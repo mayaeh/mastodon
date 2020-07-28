@@ -7,7 +7,7 @@ class Api::BaseController < ApplicationController
   include RateLimitHeaders
 
   skip_before_action :store_current_location
-  skip_before_action :require_functional!
+  skip_before_action :require_functional!, unless: :whitelist_mode?
 
   before_action :require_authenticated_user!, if: :disallow_unauthenticated_api_access?
   before_action :set_cache_headers
@@ -42,6 +42,10 @@ class Api::BaseController < ApplicationController
 
   rescue_from Mastodon::RaceConditionError do
     render json: { error: 'There was a temporary problem serving your request, please try again' }, status: 503
+  end
+
+  rescue_from Mastodon::RateLimitExceededError do
+    render json: { error: I18n.t('errors.429') }, status: 429
   end
 
   rescue_from ActionController::ParameterMissing do |e|

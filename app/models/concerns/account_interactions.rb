@@ -44,6 +44,14 @@ module AccountInteractions
       follow_mapping(AccountPin.where(account_id: account_id, target_account_id: target_account_ids), :target_account_id)
     end
 
+    def account_note_map(target_account_ids, account_id)
+      AccountNote.where(target_account_id: target_account_ids, account_id: account_id).each_with_object({}) do |note, mapping|
+        mapping[note.target_account_id] = {
+          comment: note.comment,
+        }
+      end
+    end
+
     def domain_blocking_map(target_account_ids, account_id)
       accounts_map    = Account.where(id: target_account_ids).select('id, domain').each_with_object({}) { |a, h| h[a.id] = a.domain }
       blocked_domains = domain_blocking_map_by_domain(accounts_map.values.compact, account_id)
@@ -87,11 +95,23 @@ module AccountInteractions
     has_many :announcement_mutes, dependent: :destroy
   end
 
-  def follow!(other_account, reblogs: nil, uri: nil)
+  def follow!(other_account, reblogs: nil, uri: nil, rate_limit: false)
     reblogs = true if reblogs.nil?
 
-    rel = active_relationships.create_with(show_reblogs: reblogs, uri: uri)
+    rel = active_relationships.create_with(show_reblogs: reblogs, uri: uri, rate_limit: rate_limit)
                               .find_or_create_by!(target_account: other_account)
+
+    rel.update!(show_reblogs: reblogs)
+    remove_potential_friendship(other_account)
+
+    rel
+  end
+
+  def request_follow!(other_account, reblogs: nil, uri: nil, rate_limit: false)
+    reblogs = true if reblogs.nil?
+
+    rel = follow_requests.create_with(show_reblogs: reblogs, uri: uri, rate_limit: rate_limit)
+                         .find_or_create_by!(target_account: other_account)
 
     rel.update!(show_reblogs: reblogs)
     remove_potential_friendship(other_account)

@@ -8,6 +8,7 @@ oc:
         acct: Donatz l’utilizaire@domeni del compte ont volètz anar
       account_warning_preset:
         text: Podètz utilizar la sintaxi dels tuts, coma las URL, las etiquetas e las mencions
+        title: Opcional. Pas visible pel destinari
       admin_account_action:
         include_statuses: L’utilizaire veiràs quals tuts a provocat l’accion de moderacion o avertiment
         send_email_notification: L’utilizaire recebrà una explicacion de çò qu’arribèt a son compte
@@ -53,6 +54,9 @@ oc:
         whole_word: Quand lo mot-clau o frasa es solament alfranumeric, serà pas qu’aplicat se correspond al mot complèt
       domain_allow:
         domain: Aqueste domeni poirà recuperar las donadas d’aqueste servidor estant e las donadas venent d’aqueste domeni seràn tractadas e gardadas
+      email_domain_block:
+        domain: Pòt èsser lo nom de domeni mostrat sus l’adreça electronica, l’enregistrament MX, o l’adreça IP ligada. Serà verificat pendent l’inscripcion de la persona puèi serà regetada.
+        with_dns_records: Un ensag de resolucion dels enregistraments DNS del domeni donat serà realizat e los resultats seràn tanben meses en lista negra
       featured_tag:
         name: 'Benlèu que volètz utilizar una d’aquestas causas :'
       form_challenge:
@@ -78,6 +82,7 @@ oc:
         acct: Identificant del nòu compte
       account_warning_preset:
         text: Tèxt predefinit
+        title: Títol
       admin_account_action:
         include_statuses: Inclure los tuts senhalats dins lo corrièl
         send_email_notification: Avisar l’utilizaire per corrièl
@@ -146,10 +151,13 @@ oc:
         setting_use_blurhash: Mostrar los degradats colorats pels mèdias resconduts
         setting_use_pending_items: Mòde lent
         severity: Severitat
+        sign_in_token_attempt: Còdi de seguretat
         type: Tipe d’impòrt
         username: Nom d’utilizaire
         username_or_email: Nom d’utilizaire o corrièl
         whole_word: Mot complèt
+      email_domain_block:
+        with_dns_records: Inclure los enregistraments MX e las IP del domeni
       featured_tag:
         name: Etiqueta
       interactions:

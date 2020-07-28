@@ -40,8 +40,11 @@ co:
       domain: Servore
       reason: 'Ragione:'
       rejecting_media: I fugliali media da stu servore ùn saranu micca arregistrati è e vignette ùn saranu micca affissate, duverete cliccà manualmente per accede à l'altru servore è vedeli.
+      rejecting_media_title: Media filtrati
       silenced: I statuti da stu servore ùn saranu mai visti tranne nant'a vostra pagina d'accolta s'e voi siguitate l'autore.
+      silenced_title: Servori silenzati
       suspended: Ùn puderete micca siguità qualsiasi nant'à stu servore, i dati versu o da quallà ùn saranu mai accessi, scambiati o arregistrati.
+      suspended_title: Servori suspesi
     unavailable_content_html: Mastodon vi parmette in generale di vede u cuntinutu è interagisce cù l'utilizatori di tutti l'altri servori di u fediversu. Quessi sò l'eccezzione fatte nant'à stu servore in particulare.
     user_count_after:
       one: utilizatore
@@ -87,11 +90,12 @@ co:
       action: Realizà un'azzione
       title: Realizà un'azzione di muderazione nant'à %{acct}
     account_moderation_notes:
-      create: Creà
+      create: Creà una nota
       created_msg: Nota di muderazione creata!
       delete: Toglie
       destroyed_msg: Nota di muderazione sguassata!
     accounts:
+      add_email_domain_block: Mette u duminiu e-mail in lista nera
       approve: Appruvà
       approve_all: Appruvà tuttu
       are_you_sure: Site sicuru·a?
@@ -172,6 +176,7 @@ co:
         staff: Squadra
         user: Utilizatore
       search: Cercà
+      search_same_email_domain: Altri utilizatori cù listessu duminiu d'e-mail
       search_same_ip: Altri utilizatori cù listessa IP
       shared_inbox_url: URL di l’inbox spartuta
       show:
@@ -193,6 +198,42 @@ co:
       web: Web
       whitelisted: In a lista bianca
     action_logs:
+      action_types:
+        assigned_to_self_report: Assignà signalamentu
+        change_email_user: Mudificà l'E-mail di l'Utilizatore
+        confirm_user: Cunfirmà Utilizatore
+        create_account_warning: Creà avertimentu
+        create_announcement: Creà Annunziu
+        create_custom_emoji: Creà Emoji Persunalizata
+        create_domain_allow: Creà Auturizazione di Duminiu
+        create_domain_block: Creà Blucchime di Duminiu
+        create_email_domain_block: Creà Blucchime di Duminiu E-mail
+        demote_user: Ritrugadà Utilizatore
+        destroy_announcement: Toglie Annunziu
+        destroy_custom_emoji: Toglie Emoji Persunalizata
+        destroy_domain_allow: Toglie Auturizazione di Duminiu
+        destroy_domain_block: Toglie Blucchime di Duminiu
+        destroy_email_domain_block: Toglie blucchime di duminiu e-mail
+        destroy_status: Toglie u statutu
+        disable_2fa_user: Disattivà l’identificazione à 2 fattori
+        disable_custom_emoji: Disattivà Emoji Persunalizata
+        disable_user: Disattivà Utilizatore
+        enable_custom_emoji: Attivà Emoji Persunalizata
+        enable_user: Attivà utilizatore
+        memorialize_account: Trasfurmà contu in mimuriale
+        promote_user: Prumove Utilizatore
+        remove_avatar_user: Toglie Avatar
+        reopen_report: Riapre Signalamentu
+        reset_password_user: Riinizializà Chjave d'Accessu
+        resolve_report: Chjode Signalamentu
+        silence_account: Silenzà Contu
+        suspend_account: Suspende Contu
+        unassigned_report: Disassignà signalamentu
+        unsilence_account: Ùn Silenzà Più u Contu
+        unsuspend_account: Ùn Suspende Più u Contu
+        update_announcement: Cambià Annunziu
+        update_custom_emoji: Cambià Emoji Persunalizata
+        update_status: Cambià Statutu
       actions:
         assigned_to_self_report: "%{name} s’hè assignatu u signalamentu %{target}"
         change_email_user: "%{name} hà cambiatu l’indirizzu e-mail di %{target}"
@@ -230,6 +271,9 @@ co:
         update_custom_emoji: "%{name} hà messu à ghjornu l’emoji %{target}"
         update_status: "%{name} hà cambiatu u statutu di %{target}"
       deleted_status: "(statutu sguassatu)"
+      empty: Nunda trovu.
+      filter_by_action: Filtrà da azzione
+      filter_by_user: Filtrà da utilizatore
       title: Ghjurnale d’audit
     announcements:
       destroyed_msg: Annunziu sguassatu!
@@ -268,6 +312,7 @@ co:
       listed: Listata
       new:
         title: Aghjunghje una nov’emoji
+      not_permitted: Ùn avete micca l'auturizazione di realizà st'azzione
       overwrite: Soprascrive
       shortcode: Accorta
       shortcode_hint: 2 caratteri o più, solu lettere, numeri è liniette basse
@@ -358,6 +403,7 @@ co:
       destroyed_msg: U blucchime di u duminiu d’e-mail ùn hè più attivu
       domain: Duminiu
       empty: Ùn c'hè manc'un duminiu d'email in lista nera.
+      from_html: da %{domain}
       new:
         create: Creà un blucchime
         title: Nova iscrizzione nant’a lista nera e-mail
@@ -537,6 +583,9 @@ co:
       trends:
         desc_html: Mustrà à u pubblicu i hashtag chì sò stati digià verificati è chì sò in e tendenze avà
         title: Tendenze di hashtag
+    site_uploads:
+      delete: Sguassà u fugliale caricatu
+      destroyed_msg: Fugliale sguassatu da u situ!
     statuses:
       back_to_account: Ritornu à a pagina di u contu
       batch:
@@ -573,7 +622,6 @@ co:
     warning_presets:
       add_new: Aghjunghje
       delete: Sguassà
-      edit: Cambià
       edit_preset: Cambià a preselezzione d'avertimentu
       title: Amministrà e preselezzione d'avertimentu
   admin_mailer:
@@ -591,6 +639,7 @@ co:
     add_new: Creà un pseudonimu
     created_msg: Novu pseudonimu creatu. Pudete avà inizià u trasferimentu da u vechju contu.
     deleted_msg: U pseudonimu hè statu sguassatu. Ùn si puderà più migrà da questu contu à quellu.
+    empty: Ùn avete un pseudonimu.
     hint_html: Per traslucà da un altru contu à questu, quì pudete creà un pseudonimu o "alias", riquisitu per trasferì l'abbunati da u vechju contu à u novu. St'azzione sola <strong>ùn face nunda</strong> è pò esse <strong>annullata senza prublemi</strong>. <strong>A migrazione hè principiata dapoi u vechju contu</strong>.
     remove: Sguassà u pseudonimu
   appearance:
@@ -661,6 +710,7 @@ co:
     trouble_logging_in: Difficultà per cunnettavi?
   authorize_follow:
     already_following: Site digià abbunatu·a à stu contu
+    already_requested: Avete digià mandatu una dumanda d'abbunamentu à stu contu
     error: Peccatu, c’hè statu un prublemu ricercandu u contu
     follow: Siguità
     follow_request: 'Avete dumandatu di siguità:'
@@ -675,6 +725,10 @@ co:
     hint_html: "<strong>Astuzia:</strong> Ùn avemu micca da dumandavvi stu codice per l'ore chì vene."
     invalid_password: Chjave d'accessu micca curretta
     prompt: Cunfirmà a chjave d'accessu per cuntinuvà
+  crypto:
+    errors:
+      invalid_key: ùn hè micca una chjave Ed25519 o Curve25519 valida
+      invalid_signature: ùn hè micca una firma Ed25519 valida
   date:
     formats:
       default: "%d %b %Y"
@@ -804,6 +858,8 @@ co:
     inactive: Inattiva
     publicize_checkbox: 'È mandà stu statutu:'
     publicize_toot: 'Hè pruvata! Sò %{username} nant’à %{service}: %{url}'
+    remove: Sguassà a prova da u contu
+    removed: Prova sguassata da u contu
     status: Statutu di a verificazione
     view_proof: Vede a prova
   imports:
@@ -849,6 +905,7 @@ co:
   media_attachments:
     validations:
       images_and_video: Ùn si pò micca aghjunghje un filmettu à un statutu chì hà digià ritratti
+      not_ready: Ùn si pò micca aghjunghje un fugliale micca ancu trattatu. Ripruvate più tardi!
       too_many: Ùn si pò micca aghjunghje più di 4 fugliali
   migrations:
     acct: cugnome@duminiu di u novu contu
@@ -869,6 +926,7 @@ co:
     on_cooldown: Avede digià migratu u vostru contu. Sta funzionne sarà torna dispunibule in %{count} ghjorni.
     past_migrations: Anziane migrazione
     proceed_with_move: Trasferì l'abbunati
+    redirected_msg: Avà u vostru contu riindirizza versu à %{acct}.
     redirecting_to: U vostru contu riindirizza versu à %{acct}.
     set_redirect: Creà ridirezzione
     warning:
@@ -882,6 +940,10 @@ co:
       redirect: U prufile di u vostru contu attuale sarà messu à ghjornu cù una nutificazione di ridirezzione è sarà sclusu di e ricerche
   moderation:
     title: Muderazione
+  move_handler:
+    carry_blocks_over_text: St'utilizatore hà traslucatu dapoi %{acct}, ch'aviate bluccatu.
+    carry_mutes_over_text: St'utilizatore hà traslucatu dapoi %{acct}, ch'aviate piattatu.
+    copy_account_note_text: 'St''utilizatore hà traslucatu dapoi %{acct}, eccu e vostr''anziane note nant''à ellu:'
   notification_mailer:
     digest:
       action: Vede tutte e nutificazione
@@ -1058,6 +1120,9 @@ co:
     spam_detected: Quessu ghjè un riportu automaticu. Un spam hè statu ditettatu.
   statuses:
     attached:
+      audio:
+        one: "%{count} audio"
+        other: "%{count} audio"
       description: 'Aghjuntu: %{attached}'
       image:
         one: "%{count} ritrattu"
@@ -1070,6 +1135,8 @@ co:
     disallowed_hashtags:
       one: 'cuntene l’hashtag disattivatu: %{tags}'
       other: 'cuntene l’hashtag disattivati: %{tags}'
+    errors:
+      in_reply_not_found: U statutu à quellu avete pruvatu di risponde ùn sembra micca esiste.
     language_detection: Truvà a lingua autumaticamente
     open_in_web: Apre nant’à u web
     over_character_limit: Site sopr’à a limita di %{max} caratteri
@@ -1209,12 +1276,18 @@ co:
     recovery_codes_regenerated: Codici di ricuperazione ricreati
     recovery_instructions_html: Pudete fà usu di i codici quì sottu per sempre avè accessu à u vostru contu s’ellu hè statu persu u vostru telefuninu. <strong>Guardateli in una piazza sicura</strong>. Per esempiu, stampati è cunservati cù altri ducumenti impurtanti.
     setup: Attivà
-    wrong_code: U codice ùn hè micca currettu! Site sicuru che l’ora di u telefuninu è di u servore sò esatte?
+    wrong_code: U codice ùn hè micca currettu! Site sicuru·a chì l’ora di l'apparechju è di u servore sò esatte?
   user_mailer:
     backup_ready:
       explanation: Avete dumandatu un’archiviu cumpletu di u vostru contu Mastodon. Avà hè prontu per scaricà!
       subject: U vostru archiviu hè prontu à scaricà
       title: Archiviu prontu
+    sign_in_token:
+      details: 'Ditagli di u tentativu quì sottu:'
+      explanation: 'Avemu ditettatu un tentativu di cunnessione nant''à u vostru contu da un''indirizzu IP ch''ùn avemu micca ricunisciutu. S''ellu era voi, vi pricuremu d''entrà u codice di sicurità quì sottu nant''à a pagina di cunfirmazione di cunnessione:'
+      further_actions: 'S''ellu ùn era micca voi, duvete cambià a vostra chjave d''accessu è attivà l''identificazione à dui fattori nant''à u vostru contu. Pudete fà quessi quì:'
+      subject: Cunfirmate u tentativu di cunnessione
+      title: Tentativu di cunnessione
     warning:
       explanation:
         disable: Quandu u vostru contu hè ghjacciatu, i vostri dati stannu intatti, mà ùn pudete fà nunda fin'à ch'ellu sia sbluccatu.
@@ -1252,11 +1325,14 @@ co:
       title: Benvenutu·a, %{name}!
   users:
     follow_limit_reached: Ùn pidete seguità più di %{limit} conti
+    generic_access_help_html: Prublemi d'accessu à u vostru contu? Pudete cuntattà %{email} per ottene aiutu
     invalid_email: L’indirizzu e-mail ùn hè currettu
     invalid_otp_token: U codice d’identificazione ùn hè currettu
+    invalid_sign_in_token: Codice di sicurità micca validu
     otp_lost_help_html: S’è voi avete persu i dui, pudete cuntattà %{email}
     seamless_external_login: Site cunnettatu·a dapoi un serviziu esternu, allora i parametri di chjave d’accessu è d’indirizzu e-mail ùn so micca dispunibili.
     signed_in_as: 'Cunnettatu·a cum’è:'
+    suspicious_sign_in_confirmation: Ci pare ch'ùn vi site mai cunnettatu·a da quess'apparechju, è ùn vi site micca cunnettatu·a dapoi una stonda, allora vi mandemu un codice di sicurità à u vostr'indirizzu e-mail per cunfirmà chì site voi.
   verification:
     explanation_html: 'Pudete <strong>verificavi cum''è u pruprietariu di i ligami in i metadati di u vostru prufile</strong>. Per quessa, u vostru situ deve avè un ligame versu a vostra pagina Mastodon. U ligame <strong>deve</strong> avè un''attributu <code>rel="me"</code>. U cuntenutu di u testu di u ligame ùn hè micca impurtante. Eccu un''esempiu:'
     verification: Verificazione

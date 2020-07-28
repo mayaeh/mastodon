@@ -8,7 +8,7 @@ class FollowerAccountsController < ApplicationController
   before_action :set_cache_headers
 
   skip_around_action :set_locale, if: -> { request.format == :json }
-  skip_before_action :require_functional!
+  skip_before_action :require_functional!, unless: :whitelist_mode?
 
   def index
     respond_to do |format|
@@ -28,7 +28,8 @@ class FollowerAccountsController < ApplicationController
         render json: collection_presenter,
                serializer: ActivityPub::CollectionSerializer,
                adapter: ActivityPub::Adapter,
-               content_type: 'application/activity+json'
+               content_type: 'application/activity+json',
+               fields: restrict_fields_to
       end
     end
   end
@@ -69,6 +70,14 @@ class FollowerAccountsController < ApplicationController
         size: @account.followers_count,
         first: page_url(1)
       )
+    end
+  end
+
+  def restrict_fields_to
+    if page_requested? || !@account.user_hides_network?
+      # Return all fields
+    else
+      %i(id type totalItems)
     end
   end
 end

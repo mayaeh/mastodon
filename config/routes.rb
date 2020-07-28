@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'sidekiq/web'
+require 'sidekiq_unique_jobs/web'
 require 'sidekiq-scheduler/web'
 
 Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
@@ -79,6 +79,7 @@ Rails.application.routes.draw do
 
     resource :outbox, only: [:show], module: :activitypub
     resource :inbox, only: [:create], module: :activitypub
+    resource :claim, only: [:create], module: :activitypub
     resources :collections, only: [:show], module: :activitypub
   end
 
@@ -100,7 +101,9 @@ Rails.application.routes.draw do
   get '/settings', to: redirect('/settings/profile')
 
   namespace :settings do
-    resource :profile, only: [:show, :update]
+    resource :profile, only: [:show, :update] do
+      resources :pictures, only: :destroy
+    end
 
     get :preferences, to: redirect('/settings/preferences/appearance')
 
@@ -128,7 +131,7 @@ Rails.application.routes.draw do
       resource :confirmation, only: [:new, :create]
     end
 
-    resources :identity_proofs, only: [:index, :show, :new, :create, :update]
+    resources :identity_proofs, only: [:index, :new, :create, :destroy]
 
     resources :applications, except: [:edit] do
       member do
@@ -186,6 +189,7 @@ Rails.application.routes.draw do
     end
 
     resource :settings, only: [:edit, :update]
+    resources :site_uploads, only: [:destroy]
 
     resources :invites, only: [:index, :create, :destroy] do
       collection do
@@ -336,13 +340,30 @@ Rails.application.routes.draw do
         end
       end
 
+      # namespace :crypto do
+      #   resources :deliveries, only: :create
+
+      #   namespace :keys do
+      #     resource :upload, only: [:create]
+      #     resource :query,  only: [:create]
+      #     resource :claim,  only: [:create]
+      #     resource :count,  only: [:show]
+      #   end
+
+      #   resources :encrypted_messages, only: [:index] do
+      #     collection do
+      #       post :clear
+      #     end
+      #   end
+      # end
+
       resources :conversations, only: [:index, :destroy] do
         member do
           post :read
         end
       end
 
-      resources :media,        only: [:create, :update]
+      resources :media,        only: [:create, :update, :show]
       resources :blocks,       only: [:index]
       resources :mutes,        only: [:index]
       resources :favourites,   only: [:index]
@@ -410,6 +431,7 @@ Rails.application.routes.draw do
 
         resource :pin, only: :create, controller: 'accounts/pins'
         post :unpin, to: 'accounts/pins#destroy'
+        resource :note, only: :create, controller: 'accounts/notes'
       end
 
       resources :lists, only: [:index, :create, :show, :update, :destroy] do
@@ -455,6 +477,7 @@ Rails.application.routes.draw do
     end
 
     namespace :v2 do
+      resources :media, only: [:create]
       get '/search', to: 'search#index', as: :search
     end
 

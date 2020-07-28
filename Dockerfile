@@ -1,18 +1,29 @@
-FROM ubuntu:18.04 as build-dep
+FROM ubuntu:20.04 as build-dep
 
 # Use bash for the shell
 SHELL ["bash", "-c"]
 
 # Install Node v12 (LTS)
-ENV NODE_VER="12.14.0"  
-RUN	echo "Etc/UTC" > /etc/localtime && \
+ENV NODE_VER="12.16.3"
+RUN ARCH= && \
+    dpkgArch="$(dpkg --print-architecture)" && \
+  case "${dpkgArch##*-}" in \
+    amd64) ARCH='x64';; \
+    ppc64el) ARCH='ppc64le';; \
+    s390x) ARCH='s390x';; \
+    arm64) ARCH='arm64';; \
+    armhf) ARCH='armv7l';; \
+    i386) ARCH='x86';; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+  esac && \
+    echo "Etc/UTC" > /etc/localtime && \
 	apt update && \
 	apt -y install wget python && \
 	cd ~ && \
-	wget https://nodejs.org/download/release/v$NODE_VER/node-v$NODE_VER-linux-x64.tar.gz && \
-	tar xf node-v$NODE_VER-linux-x64.tar.gz && \
-	rm node-v$NODE_VER-linux-x64.tar.gz && \
-	mv node-v$NODE_VER-linux-x64 /opt/node
+	wget https://nodejs.org/download/release/v$NODE_VER/node-v$NODE_VER-linux-$ARCH.tar.gz && \
+	tar xf node-v$NODE_VER-linux-$ARCH.tar.gz && \
+	rm node-v$NODE_VER-linux-$ARCH.tar.gz && \
+	mv node-v$NODE_VER-linux-$ARCH /opt/node
 
 # Install jemalloc
 ENV JE_VER="5.2.1"
@@ -27,8 +38,8 @@ RUN apt update && \
 	make -j$(nproc) > /dev/null && \
 	make install_bin install_include install_lib
 
-# Install ruby
-ENV RUBY_VER="2.6.5"
+# Install Ruby
+ENV RUBY_VER="2.6.6"
 ENV CPPFLAGS="-I/opt/jemalloc/include"
 ENV LDFLAGS="-L/opt/jemalloc/lib/"
 RUN apt update && \
@@ -63,7 +74,7 @@ RUN cd /opt/mastodon && \
 	bundle install -j$(nproc) && \
 	yarn install --pure-lockfile
 
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 # Copy over all the langs needed for runtime
 COPY --from=build-dep /opt/node /opt/node
@@ -87,8 +98,8 @@ RUN apt update && \
 # Install mastodon runtime deps
 RUN apt -y --no-install-recommends install \
 	  libssl1.1 libpq5 imagemagick ffmpeg \
-	  libicu60 libprotobuf10 libidn11 libyaml-0-2 \
-	  file ca-certificates tzdata libreadline7 && \
+	  libicu66 libprotobuf17 libidn11 libyaml-0-2 \
+	  file ca-certificates tzdata libreadline8 && \
 	apt -y install gcc && \
 	ln -s /opt/mastodon /mastodon && \
 	gem install bundler && \
