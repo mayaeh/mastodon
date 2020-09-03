@@ -2126,12 +2126,28 @@
         "id": "confirmations.delete_list.confirm"
       },
       {
+        "defaultMessage": "Any followed user",
+        "id": "lists.replies_policy.all_replies"
+      },
+      {
+        "defaultMessage": "No one",
+        "id": "lists.replies_policy.no_replies"
+      },
+      {
+        "defaultMessage": "Members of the list",
+        "id": "lists.replies_policy.list_replies"
+      },
+      {
         "defaultMessage": "Edit list",
         "id": "lists.edit"
       },
       {
         "defaultMessage": "Delete list",
         "id": "lists.delete"
+      },
+      {
+        "defaultMessage": "Show replies to:",
+        "id": "lists.replies_policy.title"
       },
       {
         "defaultMessage": "There is nothing in this list yet. When members of this list post new statuses, they will appear here.",
@@ -2786,6 +2802,14 @@
         "id": "upload_form.description"
       },
       {
+        "defaultMessage": "Analyzing picture…",
+        "id": "upload_modal.analyzing_picture"
+      },
+      {
+        "defaultMessage": "Preparing OCR…",
+        "id": "upload_modal.preparing_ocr"
+      },
+      {
         "defaultMessage": "Edit media",
         "id": "upload_modal.edit_media"
       },
@@ -2796,10 +2820,6 @@
       {
         "defaultMessage": "Change thumbnail",
         "id": "upload_form.thumbnail"
-      },
-      {
-        "defaultMessage": "Analyzing picture…",
-        "id": "upload_modal.analyzing_picture"
       },
       {
         "defaultMessage": "Detect text from picture",
