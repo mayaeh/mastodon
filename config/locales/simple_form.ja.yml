@@ -8,7 +8,7 @@ ja:
         acct: 引っ越し先のユーザー名@ドメインを指定してください
       account_warning_preset:
         text: URL、ハッシュタグ、メンションなど、投稿に用いる構文が使用できます
-        title: オプションです。受信者には表示されません。
+        title: オプションです。受信者には表示されません
       admin_account_action:
         include_statuses: ユーザーは取られた制限や警告の原因となったトゥートを確認できるようになります
         send_email_notification: ユーザーは自分のアカウントに何が起こったのか説明を受け取ります
@@ -90,9 +90,9 @@ ja:
         type: アクション
         types:
           disable: ログインを無効化
-          none: 何もしない
+          none: 警告を送信
           silence: サイレンス
-          suspend: 停止しアカウントのデータを恒久的に削除する
+          suspend: 停止
         warning_preset_id: プリセット警告文を使用
       announcement:
         all_day: 終日
