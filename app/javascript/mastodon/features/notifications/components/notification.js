@@ -18,6 +18,7 @@ const messages = defineMessages({
   ownPoll: { id: 'notification.own_poll', defaultMessage: 'Your poll has ended' },
   poll: { id: 'notification.poll', defaultMessage: 'A poll you have voted in has ended' },
   reblog: { id: 'notification.reblog', defaultMessage: '{name} boosted your status' },
+  status: { id: 'notification.status', defaultMessage: '{name} just posted' },
 });
 
 const notificationForScreenReader = (intl, message, timestamp) => {
@@ -250,6 +251,38 @@ class Notification extends ImmutablePureComponent {
     );
   }
 
+  renderStatus (notification, link) {
+    const { intl } = this.props;
+
+    return (
+      <HotKeys handlers={this.getHandlers()}>
+        <div className='notification notification-status focusable' tabIndex='0' aria-label={notificationForScreenReader(intl, intl.formatMessage(messages.status, { name: notification.getIn(['account', 'acct']) }), notification.get('created_at'))}>
+          <div className='notification__message'>
+            <div className='notification__favourite-icon-wrapper'>
+              <Icon id='home' fixedWidth />
+            </div>
+
+            <span title={notification.get('created_at')}>
+              <FormattedMessage id='notification.status' defaultMessage='{name} just posted' values={{ name: link }} />
+            </span>
+          </div>
+
+          <StatusContainer
+            id={notification.get('status')}
+            account={notification.get('account')}
+            muted
+            withDismiss
+            hidden={this.props.hidden}
+            getScrollPosition={this.props.getScrollPosition}
+            updateScrollBottom={this.props.updateScrollBottom}
+            cachedMediaWidth={this.props.cachedMediaWidth}
+            cacheMediaWidth={this.props.cacheMediaWidth}
+          />
+        </div>
+      </HotKeys>
+    );
+  }
+
   renderPoll (notification, account) {
     const { intl } = this.props;
     const ownPoll  = me === account.get('id');
@@ -308,6 +341,8 @@ class Notification extends ImmutablePureComponent {
       return this.renderFavourite(notification, link);
     case 'reblog':
       return this.renderReblog(notification, link);
+    case 'status':
+      return this.renderStatus(notification, link);
     case 'poll':
       return this.renderPoll(notification, account);
     }
