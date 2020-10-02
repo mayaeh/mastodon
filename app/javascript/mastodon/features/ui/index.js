@@ -268,7 +268,7 @@ class UI extends React.PureComponent {
 
   handleWindowFocus = () => {
     this.props.dispatch(focusApp());
-    this.props.dispatch(submitMarkers());
+    this.props.dispatch(submitMarkers({ immediate: true }));
   }
 
   handleWindowBlur = () => {
