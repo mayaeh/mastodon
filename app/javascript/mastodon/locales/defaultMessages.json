@@ -2269,14 +2269,6 @@
         "id": "notifications.column_settings.push"
       },
       {
-        "defaultMessage": "Mastodon cannot show notifications because the permission has been denied",
-        "id": "notifications.permission_denied"
-      },
-      {
-        "defaultMessage": "Enable browser notifications",
-        "id": "notifications.request_permission"
-      },
-      {
         "defaultMessage": "Quick filter bar",
         "id": "notifications.column_settings.filter_bar.category"
       },
@@ -2395,10 +2387,6 @@
       {
         "defaultMessage": "Clear notifications",
         "id": "notifications.clear"
-      },
-      {
-        "defaultMessage": "Cannot enable desktop notifications as permission has been denied.",
-        "id": "notifications.permission_denied"
       }
     ],
     "path": "app/javascript/mastodon/features/notifications/containers/column_settings_container.json"
@@ -3009,22 +2997,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "{number, plural, one {# minute} other {# minutes}}",
-        "id": "intervals.full.minutes"
-      },
-      {
-        "defaultMessage": "{number, plural, one {# hour} other {# hours}}",
-        "id": "intervals.full.hours"
-      },
-      {
-        "defaultMessage": "{number, plural, one {# day} other {# days}}",
-        "id": "intervals.full.days"
-      },
-      {
-        "defaultMessage": "Indefinite",
-        "id": "mute_modal.indefinite"
-      },
-      {
         "defaultMessage": "Are you sure you want to mute {name}?",
         "id": "confirmations.mute.message"
       },
@@ -3035,10 +3007,6 @@
       {
         "defaultMessage": "Hide notifications from this user?",
         "id": "mute_modal.hide_notifications"
-      },
-      {
-        "defaultMessage": "Duration",
-        "id": "mute_modal.duration"
       },
       {
         "defaultMessage": "Cancel",
