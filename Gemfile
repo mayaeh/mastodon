@@ -131,7 +131,7 @@ group :test do
 end
 
 group :development do
-  gem 'active_record_query_trace', '~> 1.7'
+  gem 'active_record_query_trace', '~> 1.8'
   gem 'annotate', '~> 3.1'
   gem 'better_errors', '~> 2.8'
   gem 'binding_of_caller', '~> 0.7'
@@ -159,3 +159,6 @@ end
 
 gem 'concurrent-ruby', require: false
 gem 'connection_pool', require: false
+
+gem 'xorcist', '~> 1.1'
+gem 'pluck_each', '~> 0.1.3'
