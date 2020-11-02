@@ -92,6 +92,7 @@ ja:
       add_email_domain_block: メールドメインブロックに追加
       approve: 承認
       approve_all: すべて承認
+      approved_msg: "%{username} の登録申請を承認しました"
       are_you_sure: 本当に実行しますか？
       avatar: アイコン
       by_domain: ドメイン
@@ -105,8 +106,10 @@ ja:
       confirm: 確認
       confirmed: 確認済み
       confirming: 確認中
+      delete: データを削除
       deleted: 削除済み
       demote: 降格
+      destroyed_msg: "%{username} のデータは完全に削除されるよう登録されました"
       disable: 無効化
       disable_two_factor_authentication: 二段階認証を無効にする
       disabled: 無効
@@ -117,6 +120,7 @@ ja:
       email_status: メールアドレスの状態
       enable: 有効化
       enabled: 有効
+      enabled_msg: "%{username} の無効化を解除しました"
       followers: フォロワー数
       follows: フォロー数
       header: ヘッダー
@@ -132,6 +136,8 @@ ja:
       login_status: ログイン
       media_attachments: 添付されたメディア
       memorialize: 追悼アカウント化
+      memorialized: 追悼アカウント化
+      memorialized_msg: "%{username} を追悼アカウント化しました"
       moderation:
         active: アクティブ
         all: すべて
@@ -152,10 +158,14 @@ ja:
       public: パブリック
       push_subscription_expires: PuSH購読期限
       redownload: プロフィールを更新
+      redownloaded_msg: "%{username} のプロフィールをリモートから更新しました"
       reject: 却下
       reject_all: すべて却下
+      rejected_msg: "%{username} の登録申請を却下しました"
       remove_avatar: アイコンを削除
       remove_header: ヘッダーを削除
+      removed_avatar_msg: "%{username} のアバター画像を削除しました"
+      removed_header_msg: "%{username} のヘッダー画像を削除しました"
       resend_confirmation:
         already_confirmed: メールアドレスは確認済みです
         send: 確認メールを再送
@@ -181,13 +191,18 @@ ja:
       statuses: トゥート数
       subscribe: 購読する
       suspended: 停止済み
+      suspension_irreversible: このアカウントのデータは削除され元に戻せなくなります。後日アカウントの凍結を解除することはできますがデータは元に戻せません。
+      suspension_reversible_hint_html: アカウントは停止されており、データは %{date} に完全に削除されます。それまではアカウントを元に戻すことができます。今すぐ完全に削除したい場合は以下から行うことができます。
       time_in_queue: "%{time} 待ち"
       title: アカウント
       unconfirmed_email: 確認待ちのメールアドレス
       undo_silenced: サイレンスから戻す
       undo_suspension: 停止から戻す
+      unsilenced_msg: "%{username} のサイレンスを解除しました"
       unsubscribe: 購読の解除
+      unsuspended_msg: "%{username} の停止を解除しました"
       username: ユーザー名
+      view_domain: ドメインの概要を表示
       warn: 警告
       web: Web
       whitelisted: 連合許可済み
@@ -202,19 +217,21 @@ ja:
         create_domain_allow: 連合を許可
         create_domain_block: ドメインブロックを作成
         create_email_domain_block: メールドメインブロックを作成
+        create_ip_block: IPルールを作成
         demote_user: ユーザーを降格
         destroy_announcement: お知らせを削除
         destroy_custom_emoji: カスタム絵文字を削除
         destroy_domain_allow: 連合許可を外す
         destroy_domain_block: ドメインブロックを削除
         destroy_email_domain_block: メールドメインブロックを削除
+        destroy_ip_block: IPルールを削除
         destroy_status: トゥートを削除
         disable_2fa_user: 二段階認証を無効化
         disable_custom_emoji: カスタム絵文字を無効化
         disable_user: ユーザーを無効化
         enable_custom_emoji: カスタム絵文字を有効化
         enable_user: ユーザーを有効化
-        memorialize_account: 追悼アカウント
+        memorialize_account: 追悼アカウント化
         promote_user: ユーザーを昇格
         remove_avatar_user: アイコンを削除
         reopen_report: 通報を再度開く
@@ -238,12 +255,14 @@ ja:
         create_domain_allow: "%{name} さんが %{target} の連合を許可しました"
         create_domain_block: "%{name} さんがドメイン %{target} をブロックしました"
         create_email_domain_block: "%{name} さんが %{target} をメールドメインブロックに追加しました"
+        create_ip_block: "%{name} さんが IP %{target} のルールを作成しました"
         demote_user: "%{name} さんが %{target} さんを降格しました"
         destroy_announcement: "%{name} さんがお知らせ %{target} を削除しました"
         destroy_custom_emoji: "%{name} さんがカスタム絵文字 %{target} を削除しました"
         destroy_domain_allow: "%{name} さんが %{target} の連合許可を外しました"
         destroy_domain_block: "%{name} さんがドメイン %{target} のブロックを外しました"
         destroy_email_domain_block: "%{name} さんが %{target} をメールドメインブロックから外しました"
+        destroy_ip_block: "%{name} さんが IP %{target} のルールを削除しました"
         destroy_status: "%{name} さんが %{target} さんのトゥートを削除しました"
         disable_2fa_user: "%{name} さんが %{target} さんの二段階認証を無効化しました"
         disable_custom_emoji: "%{name} さんがカスタム絵文字 %{target} を無効化しました"
@@ -265,9 +284,9 @@ ja:
         update_custom_emoji: "%{name} さんがカスタム絵文字 %{target} を更新しました"
         update_status: "%{name} さんが %{target} さんのトゥートを更新しました"
       deleted_status: "(削除済)"
-      empty: ログが見つかりませんでした
-      filter_by_action: アクションでフィルター
-      filter_by_user: ユーザーでフィルター
+      empty: 操作履歴が見つかりませんでした。
+      filter_by_action: アクションで絞り込み
+      filter_by_user: ユーザーで絞り込み
       title: 操作履歴
     announcements:
       destroyed_msg: お知らせが削除されました
@@ -306,7 +325,7 @@ ja:
       listed: 表示
       new:
         title: 新規カスタム絵文字の追加
-      not_permitted: この操作を実行する権限がありません。
+      not_permitted: この操作を実行する権限がありません
       overwrite: 上書き
       shortcode: ショートコード
       shortcode_hint: 2文字以上の半角英数字とアンダーバーのみ利用できます
@@ -426,6 +445,21 @@ ja:
         expired: 期限切れ
         title: フィルター
       title: 招待
+    ip_blocks:
+      add_new: ルールを作成
+      created_msg: IPルールを追加しました
+      delete: 削除
+      expires_in:
+        '1209600': 2週間
+        '15778476': 6ヶ月
+        '2629746': 1ヶ月
+        '31556952': 1年
+        '86400': 1 日
+        '94670856': 3年
+      new:
+        title: 新規IPルール
+      no_ip_block_selected: 何も選択されていないためIPルールを変更しませんでした
+      title: IPルール
     pending_accounts:
       title: 承認待ちアカウント (%{count})
     relationships:
@@ -673,6 +707,7 @@ ja:
     didnt_get_confirmation: 確認メールを受信できませんか？
     forgot_password: パスワードをお忘れですか？
     invalid_reset_password_token: パスワードリセットトークンが正しくないか期限切れです。もう一度リクエストしてください。
+    link_to_otp: 携帯電話から二段階認証コードを入力するか、リカバリーコードを入力してください
     login: ログイン
     logout: ログアウト
     migrate_account: 別のアカウントに引っ越す
@@ -824,7 +859,7 @@ ja:
     changes_saved_msg: 正常に変更されました！
     copy: コピー
     delete: 削除
-    no_batch_actions_available: このページに一括操作はありません
+    no_batch_actions_available: 利用可能なバッチアクションはありません
     order_by: 並び順
     save_changes: 変更を保存
     validation_errors:
@@ -848,7 +883,7 @@ ja:
     publicize_checkbox: 'そしてこれをトゥートします:'
     publicize_toot: 'It is proven! I am %{username} on %{service}: %{url}'
     remove: アカウントから証明書を削除
-    removed: アカウントから証明書を削除することに成功しました
+    removed: アカウントから証明書を削除しました
     status: 認証状態
     view_proof: 証明を表示
   imports:
@@ -893,7 +928,7 @@ ja:
   media_attachments:
     validations:
       images_and_video: 既に画像が追加されているため、動画を追加することはできません
-      not_ready: ファイルのアップロードに失敗しました。しばらくしてからもう一度お試しください！
+      not_ready: 処理が完了していないファイルは追加できません。しばらく待ってからやり直してください。
       too_many: 追加できるファイルは4つまでです
   migrations:
     acct: 引っ越し先の ユーザー名@ドメイン
@@ -978,6 +1013,11 @@ ja:
           quadrillion: Q
           thousand: K
           trillion: T
+  otp_authentication:
+    code_hint: 続行するには認証アプリで表示されたコードを入力してください
+    enable: 有効化
+    setup: セットアップ
+    wrong_code: コードが間違っています。サーバーとデバイスの時計にずれがあるかもしれません。
   pagination:
     newer: 新しいトゥート
     next: 次
@@ -1102,6 +1142,7 @@ ja:
     profile: プロフィール
     relationships: フォロー・フォロワー
     two_factor_authentication: 二段階認証
+    webauthn_authentication: セキュリティキー
   spam_check:
     spam_detected: これは自動的に作成された通報です。スパムが検出されています。
   statuses:
@@ -1118,7 +1159,7 @@ ja:
     disallowed_hashtags:
       other: '許可されていないハッシュタグが含まれています: %{tags}'
     errors:
-      in_reply_not_found: あなたが返信しようとしているトゥートは存在しないようです。
+      in_reply_not_found: 返信先のトゥートを見つけられませんでした。
     language_detection: 自動検出
     open_in_web: Webで開く
     over_character_limit: 上限は %{max}文字までです
@@ -1129,7 +1170,7 @@ ja:
       reblog: ブーストを固定することはできません
     poll:
       total_people:
-        other: "%{count} 人"
+        other: "%{count}人"
       total_votes:
         other: "%{count}票"
       vote: 投票
@@ -1242,21 +1283,19 @@ ja:
       default: "%Y年%m月%d日 %H:%M"
       month: "%Y年 %b"
   two_factor_authentication:
-    code_hint: 続行するには認証アプリで表示されたコードを入力してください
-    description_html: "<strong>二段階認証</strong>を有効にするとログイン時、認証アプリからコードを入力する必要があります。"
-    disable: 無効化
-    enable: 有効
+    add: 追加
+    disabled_success: 二段階認証が無効になりました
+    edit: 編集
     enabled: 二段階認証は有効になっています
     enabled_success: 二段階認証が有効になりました
     generate_recovery_codes: リカバリーコードを生成
-    instructions_html: "<strong>Google Authenticatorか、もしくはほかのTOTPアプリでこのQRコードをスキャンしてください。</strong>これ以降、ログインするときはそのアプリで生成されるコードが必要になります。"
     lost_recovery_codes: リカバリーコードを使用すると携帯電話を紛失した場合でもアカウントにアクセスできるようになります。 リカバリーコードを紛失した場合もここで再生成することができますが、古いリカバリーコードは無効になります。
-    manual_instructions: 'QRコードがスキャンできず、手動での登録を希望の場合はこのシークレットコードを利用してください。:'
+    methods: 方式
+    otp: 認証アプリ
     recovery_codes: リカバリーコード
     recovery_codes_regenerated: リカバリーコードが再生成されました
     recovery_instructions_html: 携帯電話を紛失した場合、以下の内どれかのリカバリーコードを使用してアカウントへアクセスすることができます。<strong>リカバリーコードは大切に保全してください。</strong>たとえば印刷してほかの重要な書類と一緒に保管することができます。
-    setup: 初期設定
-    wrong_code: コードが間違っています。サーバー上の時間とデバイス上の時間が一致していますか？
+    webauthn: セキュリティキー
   user_mailer:
     backup_ready:
       explanation: Mastodonアカウントのアーカイブを受け付けました。今すぐダウンロードできます！
@@ -1270,9 +1309,9 @@ ja:
       title: ログインを検出しました
     warning:
       explanation:
-        disable: アカウントが凍結されている間、データはそのまま残りますが、凍結が解除されるまでは何の操作もできません。
-        silence: あなたのアカウントは制限されていますが、あなたをフォローしているユーザーのみ、このサーバー上の投稿を見ることができます。そしてあなたは様々な公開リストから除外されるかもしれません。ただし、他のユーザーは手動であなたをフォローすることができます。
-        suspend: あなたのアカウントは停止されています。あなたの投稿とアップロードされたメディアファイルは、このサーバーとあなたのフォロワーが参加していたサーバーから完全に削除されました。
+        disable: あなたのアカウントはログインが禁止され使用できなくなりました。しかしアカウントのデータはそのまま残っています。
+        silence: あなたのアカウントは制限されましたがそのまま使用できます。ただし既にフォローしている人はあなたのトゥートを見ることができますが、様々な公開タイムラインには表示されない場合があります。また他のユーザーは今後も手動であなたをフォローすることができます。
+        suspend: あなたのアカウントは使用できなくなりプロフィールやその他データにアクセスできなくなりました。アカウントが完全に削除されるまではログインしてデータのエクスポートをリクエストできます。証拠隠滅を防ぐため一部のデータは削除されず残ります。
       get_in_touch: このメールに返信することで %{instance} のスタッフと連絡を取ることができます。
       review_server_policies: サーバーのポリシーを確認
       statuses: '特に次のトゥート:'
@@ -1304,9 +1343,11 @@ ja:
       tips: 豆知識
       title: ようこそ、%{name}！
   users:
+    blocked_email_provider: 指定されたメールプロバイダーの利用は許可されていません
     follow_limit_reached: あなたは現在 %{limit} 人以上フォローできません
     generic_access_help_html: アクセスできませんか？ %{email} に問い合わせることができます。
     invalid_email: メールアドレスが無効です
+    invalid_email_mx: 指定されたメールアドレスは実在しないようです
     invalid_otp_token: 二段階認証コードが間違っています
     invalid_sign_in_token: 無効なセキュリティコードです
     otp_lost_help_html: どちらも使用できない場合、%{email} に連絡を取ると解決できるかもしれません
@@ -1316,3 +1357,20 @@ ja:
   verification:
     explanation_html: <strong>プロフィール内のリンクの所有者であることを認証することができます</strong>。そのためにはリンクされたウェブサイトにMastodonプロフィールへのリンクが含まれている必要があります。リンクには<code>rel="me"</code>属性を<strong>必ず</strong>与えなければなりません。リンクのテキストについては重要ではありません。以下は例です：
     verification: 認証
+  webauthn_credentials:
+    add: セキュリティキーを追加
+    create:
+      error: セキュリティキーの追加中に問題が発生しました。もう一度お試しください。
+      success: セキュリティキーを追加しました。
+    delete: 削除
+    delete_confirmation: 本当にこのセキュリティキーを削除しますか？
+    description_html: "<strong>セキュリティキーによる認証</strong>を有効にすると、ログイン時にセキュリティキーを要求するようにできます。"
+    destroy:
+      error: セキュリティキーの削除中に問題が発生しました。もう一度お試しください。
+      success: セキュリティキーを削除しました。
+    invalid_credential: セキュリティキーが間違っています
+    nickname_hint: セキュリティキーの名前を入力してください
+    not_enabled: まだセキュリティキーを有効にしていません
+    not_supported: このブラウザはセキュリティキーに対応していないようです
+    otp_required: セキュリティキーを使用するには、まず二段階認証を有効にしてください。
+    registered_on: "%{date} に登録"
