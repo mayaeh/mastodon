@@ -21,7 +21,9 @@ ja:
     federation_hint_html: "%{instance} のアカウントひとつでどんなMastodon互換サーバーのユーザーでもフォローできるでしょう。"
     get_apps: モバイルアプリを試す
     hosted_on: Mastodon hosted on %{domain}
-    instance_actor_flash: このアカウントはサーバーそのものを示す仮想的なもので、特定のユーザーを示すものではありません。これはサーバーの連合のために使用されます。サーバー全体をブロックするときは、このアカウントをブロックせずに、ドメインブロックを使用してください。
+    instance_actor_flash: 'このアカウントはサーバーそのものを示す仮想的なもので、特定のユーザーを示すものではありません。これはサーバーの連合のために使用されます。サーバー全体をブロックするときは、このアカウントをブロックせずに、ドメインブロックを使用してください。
+
+'
     learn_more: もっと詳しく
     privacy_policy: プライバシーポリシー
     see_whats_happening: やりとりを見てみる
@@ -182,6 +184,8 @@ ja:
       search: 検索
       search_same_email_domain: 同じドメインのメールアドレスを使用しているユーザー
       search_same_ip: 同じ IP のユーザーを検索
+      sensitive: 閲覧注意
+      sensitized: 閲覧注意済み
       shared_inbox_url: Shared inbox URL
       show:
         created_reports: このアカウントで作られた通報
@@ -196,6 +200,7 @@ ja:
       time_in_queue: "%{time} 待ち"
       title: アカウント
       unconfirmed_email: 確認待ちのメールアドレス
+      undo_sensitized: 閲覧注意から戻す
       undo_silenced: サイレンスから戻す
       undo_suspension: 停止から戻す
       unsilenced_msg: "%{username} のサイレンスを解除しました"
@@ -223,7 +228,7 @@ ja:
         destroy_custom_emoji: カスタム絵文字を削除
         destroy_domain_allow: 連合許可を外す
         destroy_domain_block: ドメインブロックを削除
-        destroy_email_domain_block: メールドメインブロックから外す
+        destroy_email_domain_block: メールドメインブロックを削除
         destroy_ip_block: IPルールを削除
         destroy_status: トゥートを削除
         disable_2fa_user: 二段階認証を無効化
@@ -237,9 +242,11 @@ ja:
         reopen_report: 通報を再び開く
         reset_password_user: パスワードをリセット
         resolve_report: 通報を解決済みにする
+        sensitive_account: アカウントのメディアを閲覧注意にマーク
         silence_account: アカウントをサイレンス
         suspend_account: アカウントを停止
         unassigned_report: 通報の割り当てを解除
+        unsensitive_account: アカウントのメディアの閲覧注意マークを解除
         unsilence_account: アカウントのサイレンスを解除
         unsuspend_account: アカウントの停止を解除
         update_announcement: お知らせを更新
@@ -275,9 +282,11 @@ ja:
         reopen_report: "%{name} さんが通報 %{target} を再び開きました"
         reset_password_user: "%{name} さんが %{target} さんのパスワードをリセットしました"
         resolve_report: "%{name} さんが通報 %{target} を解決済みにしました"
+        sensitive_account: "%{name} さんが %{target} さんのメディアを閲覧注意にマークしました"
         silence_account: "%{name} さんが %{target} さんをサイレンスにしました"
         suspend_account: "%{name} さんが %{target} さんを停止しました"
         unassigned_report: "%{name} さんが通報 %{target} の担当を外しました"
+        unsensitive_account: "%{name} さんが %{target} さんのメディアの閲覧注意を解除しました"
         unsilence_account: "%{name} さんが %{target} さんのサイレンスを解除しました"
         unsuspend_account: "%{name} さんが %{target} さんの停止を解除しました"
         update_announcement: "%{name} さんがお知らせ %{target} を更新しました"
@@ -1175,6 +1184,8 @@ ja:
         other: "%{count}票"
       vote: 投票
     show_more: もっと見る
+    show_newer: 新しいものから表示
+    show_older: 古いものから表示
     show_thread: スレッドを表示
     sign_in_to_participate: ログインして会話に参加
     title: '%{name}: "%{quote}"'
@@ -1289,6 +1300,7 @@ ja:
       month: "%Y年 %b"
   two_factor_authentication:
     add: 追加
+    disable: 無効化
     disabled_success: 二段階認証が無効になりました
     edit: 編集
     enabled: 二段階認証は有効になっています
@@ -1315,6 +1327,7 @@ ja:
     warning:
       explanation:
         disable: あなたのアカウントはログインが禁止され使用できなくなりました。しかしアカウントのデータはそのまま残っています。
+        sensitive: アップロードされたメディアファイルとリンクされたメディアは閲覧注意として扱われます。
         silence: あなたのアカウントは制限されましたがそのまま使用できます。ただし既にフォローしている人はあなたのトゥートを見ることができますが、様々な公開タイムラインには表示されない場合があります。また他のユーザーは今後も手動であなたをフォローすることができます。
         suspend: あなたのアカウントは使用できなくなりプロフィールやその他データにアクセスできなくなりました。アカウントが完全に削除されるまではログインしてデータのエクスポートをリクエストできます。証拠隠滅を防ぐため一部のデータは削除されず残ります。
       get_in_touch: このメールに返信することで %{instance} のスタッフと連絡を取ることができます。
@@ -1323,11 +1336,13 @@ ja:
       subject:
         disable: あなたのアカウント %{acct} は凍結されました
         none: "%{acct} に対する警告"
+        sensitive: あなたのアカウント %{acct} が投稿したメディアは閲覧注意にマークされました
         silence: あなたのアカウント %{acct} はサイレンスにされました
         suspend: あなたのアカウント %{acct} は停止されました
       title:
         disable: アカウントが凍結されました
         none: 警告
+        sensitive: あなたのメディアが閲覧注意に指定されました
         silence: アカウントがサイレンスにされました
         suspend: アカウントが停止されました
     welcome:

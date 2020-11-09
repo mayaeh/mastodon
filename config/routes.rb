@@ -236,6 +236,7 @@ Rails.application.routes.draw do
     resources :accounts, only: [:index, :show, :destroy] do
       member do
         post :enable
+        post :unsensitive
         post :unsilence
         post :unsuspend
         post :redownload
@@ -477,6 +478,7 @@ Rails.application.routes.draw do
         resources :accounts, only: [:index, :show, :destroy] do
           member do
             post :enable
+            post :unsensitive
             post :unsilence
             post :unsuspend
             post :approve
