@@ -8,7 +8,7 @@ ja:
         acct: 引っ越し先のユーザー名@ドメインを指定してください
       account_warning_preset:
         text: URL、ハッシュタグ、メンションなど、投稿に用いる構文が使用できます
-        title: オプションです。受信者には表示されません。
+        title: オプションです。受信者には表示されません
       admin_account_action:
         include_statuses: ユーザーは取られた制限や警告の原因となったトゥートを確認できるようになります
         send_email_notification: ユーザーは自分のアカウントに何が起こったのか説明を受け取ります
@@ -140,7 +140,7 @@ ja:
         setting_aggregate_reblogs: ブーストをまとめる
         setting_auto_play_gif: アニメーションGIFを自動再生する
         setting_boost_modal: ブーストする前に確認ダイアログを表示する
-        setting_crop_images: トゥート詳細以外では画像を16:9に切り抜く
+        setting_crop_images: トゥートの詳細以外では画像を 16:9 に切り抜く
         setting_default_language: 投稿する言語
         setting_default_privacy: 投稿の公開範囲
         setting_default_sensitive: メディアを常に閲覧注意としてマークする

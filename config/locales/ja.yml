@@ -108,7 +108,7 @@ ja:
       confirm: 確認
       confirmed: 確認済み
       confirming: 確認中
-      delete: データを削除する
+      delete: データを削除
       deleted: 削除済み
       demote: 降格
       destroyed_msg: "%{username} のデータは完全に削除されるよう登録されました"
@@ -138,6 +138,7 @@ ja:
       login_status: ログイン
       media_attachments: 添付されたメディア
       memorialize: 追悼アカウント化
+      memorialized: 追悼アカウント化
       memorialized_msg: "%{username} を追悼アカウント化しました"
       moderation:
         active: アクティブ
@@ -159,6 +160,7 @@ ja:
       public: パブリック
       push_subscription_expires: PuSH購読期限
       redownload: プロフィールを更新
+      redownloaded_msg: "%{username} のプロフィールをリモートから更新しました"
       reject: 却下
       reject_all: すべて却下
       rejected_msg: "%{username} の登録申請を却下しました"
@@ -183,7 +185,7 @@ ja:
       search_same_email_domain: 同じドメインのメールアドレスを使用しているユーザー
       search_same_ip: 同じ IP のユーザーを検索
       sensitive: 閲覧注意
-      sensitized: 閲覧注意にする
+      sensitized: 閲覧注意済み
       shared_inbox_url: Shared inbox URL
       show:
         created_reports: このアカウントで作られた通報
@@ -198,10 +200,12 @@ ja:
       time_in_queue: "%{time} 待ち"
       title: アカウント
       unconfirmed_email: 確認待ちのメールアドレス
-      undo_sensitized: 機密情報から戻す
+      undo_sensitized: 閲覧注意から戻す
       undo_silenced: サイレンスから戻す
       undo_suspension: 停止から戻す
+      unsilenced_msg: "%{username} のサイレンスを解除しました"
       unsubscribe: 購読の解除
+      unsuspended_msg: "%{username} の停止を解除しました"
       username: ユーザー名
       view_domain: ドメインの概要を表示
       warn: 警告
@@ -209,7 +213,7 @@ ja:
       whitelisted: 連合許可済み
     action_logs:
       action_types:
-        assigned_to_self_report: 通報の担当者に設定
+        assigned_to_self_report: 通報を割り当て
         change_email_user: ユーザーのメールアドレスを変更
         confirm_user: ユーザーの確認
         create_account_warning: 警告を作成
@@ -235,12 +239,14 @@ ja:
         memorialize_account: 追悼アカウント化
         promote_user: ユーザーを昇格
         remove_avatar_user: アイコンを削除
-        reopen_report: 通報を再度開く
+        reopen_report: 通報を再び開く
         reset_password_user: パスワードをリセット
         resolve_report: 通報を解決済みにする
+        sensitive_account: アカウントのメディアを閲覧注意にマーク
         silence_account: アカウントをサイレンス
         suspend_account: アカウントを停止
-        unassigned_report: 通報の担当を解除
+        unassigned_report: 通報の割り当てを解除
+        unsensitive_account: アカウントのメディアの閲覧注意マークを解除
         unsilence_account: アカウントのサイレンスを解除
         unsuspend_account: アカウントの停止を解除
         update_announcement: お知らせを更新
@@ -276,21 +282,23 @@ ja:
         reopen_report: "%{name} さんが通報 %{target} を再び開きました"
         reset_password_user: "%{name} さんが %{target} さんのパスワードをリセットしました"
         resolve_report: "%{name} さんが通報 %{target} を解決済みにしました"
+        sensitive_account: "%{name} さんが %{target} さんのメディアを閲覧注意にマークしました"
         silence_account: "%{name} さんが %{target} さんをサイレンスにしました"
         suspend_account: "%{name} さんが %{target} さんを停止しました"
         unassigned_report: "%{name} さんが通報 %{target} の担当を外しました"
+        unsensitive_account: "%{name} さんが %{target} さんのメディアの閲覧注意を解除しました"
         unsilence_account: "%{name} さんが %{target} さんのサイレンスを解除しました"
         unsuspend_account: "%{name} さんが %{target} さんの停止を解除しました"
         update_announcement: "%{name} さんがお知らせ %{target} を更新しました"
         update_custom_emoji: "%{name} さんがカスタム絵文字 %{target} を更新しました"
         update_status: "%{name} さんが %{target} さんのトゥートを更新しました"
       deleted_status: "(削除済)"
-      empty: ログが見つかりませんでした
-      filter_by_action: アクションでフィルター
-      filter_by_user: ユーザーでフィルター
+      empty: 操作履歴が見つかりませんでした。
+      filter_by_action: アクションで絞り込み
+      filter_by_user: ユーザーで絞り込み
       title: 操作履歴
     announcements:
-      destroyed_msg: お知らせが削除されました
+      destroyed_msg: お知らせを削除しました！
       edit:
         title: お知らせを編集
       empty: お知らせはありません
@@ -326,7 +334,7 @@ ja:
       listed: 表示
       new:
         title: 新規カスタム絵文字の追加
-      not_permitted: この操作を実行する権限がありません。
+      not_permitted: この操作を実行する権限がありません
       overwrite: 上書き
       shortcode: ショートコード
       shortcode_hint: 2文字以上の半角英数字とアンダーバーのみ利用できます
@@ -838,7 +846,7 @@ ja:
   filters:
     contexts:
       account: プロフィール
-      home: ホームタイムライン
+      home: ホームおよびリスト
       notifications: 通知
       public: 公開タイムライン
       thread: 会話
@@ -863,7 +871,7 @@ ja:
     changes_saved_msg: 正常に変更されました！
     copy: コピー
     delete: 削除
-    no_batch_actions_available: このページに一括操作はありません
+    no_batch_actions_available: 利用可能なバッチアクションはありません
     order_by: 並び順
     save_changes: 変更を保存
     validation_errors:
@@ -887,7 +895,7 @@ ja:
     publicize_checkbox: 'そしてこれをトゥートします:'
     publicize_toot: 'It is proven! I am %{username} on %{service}: %{url}'
     remove: アカウントから証明書を削除
-    removed: アカウントから証明書を削除することに成功しました
+    removed: アカウントから証明書を削除しました
     status: 認証状態
     view_proof: 証明を表示
   imports:
@@ -932,7 +940,7 @@ ja:
   media_attachments:
     validations:
       images_and_video: 既に画像が追加されているため、動画を追加することはできません
-      not_ready: ファイルのアップロードに失敗しました。しばらくしてからもう一度お試しください！
+      not_ready: 処理が完了していないファイルは追加できません。しばらく待ってからやり直してください。
       too_many: 追加できるファイルは4つまでです
   migrations:
     acct: 引っ越し先の ユーザー名@ドメイン
@@ -1019,7 +1027,8 @@ ja:
           trillion: T
   otp_authentication:
     code_hint: 続行するには認証アプリで表示されたコードを入力してください
-    description_html: "<strong>二要素認証</strong>を有効にすると、ログイン時に認証アプリからコードを入力する必要があります。"
+    description_html: 認証アプリを使用して<strong>二段階認証</strong>を有効にすると、ログインする際トークンを生成する携帯電話を所持している必要があります。
+    enable: 有効化
     instructions_html: "<strong>Google Authenticatorか、もしくはほかのTOTPアプリでこのQRコードをスキャンしてください。</strong>これ以降、ログインするときはそのアプリで生成されるコードが必要になります。"
     manual_instructions: 'QRコードがスキャンできず、手動での登録を希望の場合はこのシークレットコードを利用してください。:'
     setup: セットアップ
@@ -1052,6 +1061,7 @@ ja:
   relationships:
     activity: 活動
     dormant: 非アクティブ
+    follow_selected_followers: 選択したフォロワーをフォロー
     followers: フォロワー
     following: フォロー中
     invited: 招待済み
@@ -1165,7 +1175,7 @@ ja:
     disallowed_hashtags:
       other: '許可されていないハッシュタグが含まれています: %{tags}'
     errors:
-      in_reply_not_found: あなたが返信しようとしているトゥートは存在しないようです。
+      in_reply_not_found: 返信先のトゥートを見つけられませんでした。
     language_detection: 自動検出
     open_in_web: Webで開く
     over_character_limit: 上限は %{max}文字までです
@@ -1181,8 +1191,8 @@ ja:
         other: "%{count}票"
       vote: 投票
     show_more: もっと見る
-    show_newer: 新しいものから表示
-    show_older: 古いものから表示
+    show_newer: 新しいものを表示
+    show_older: 古いものを表示
     show_thread: スレッドを表示
     sign_in_to_participate: ログインして会話に参加
     title: '%{name}: "%{quote}"'
@@ -1292,8 +1302,8 @@ ja:
       month: "%Y年 %b"
   two_factor_authentication:
     add: 追加
-    disable: 無効化
-    disabled_success: 二要素認証が更新されました
+    disable: 二段階認証を無効化
+    disabled_success: 二段階認証が無効になりました
     edit: 編集
     enabled: 二段階認証は有効になっています
     enabled_success: 二段階認証が有効になりました
@@ -1319,7 +1329,7 @@ ja:
     warning:
       explanation:
         disable: あなたのアカウントはログインが禁止され使用できなくなりました。しかしアカウントのデータはそのまま残っています。
-        sensitive: アップロードされたメディアファイルとリンクされたメディアは閲覧注意として扱われます。
+        sensitive: あなたのアップロードしたメディアファイルとリンク先のメディアは、閲覧注意として扱われます。
         silence: あなたのアカウントは制限されましたがそのまま使用できます。ただし既にフォローしている人はあなたのトゥートを見ることができますが、様々な公開タイムラインには表示されない場合があります。また他のユーザーは今後も手動であなたをフォローすることができます。
         suspend: あなたのアカウントは使用できなくなりプロフィールやその他データにアクセスできなくなりました。アカウントが完全に削除されるまではログインしてデータのエクスポートをリクエストできます。証拠隠滅を防ぐため一部のデータは削除されず残ります。
       get_in_touch: このメールに返信することで %{instance} のスタッフと連絡を取ることができます。
@@ -1328,13 +1338,13 @@ ja:
       subject:
         disable: あなたのアカウント %{acct} は凍結されました
         none: "%{acct} に対する警告"
-        sensitive: あなたのアカウント %{acct} が投稿したメディアは閲覧注意にマークされました
+        sensitive: あなたのアカウント %{acct} の投稿メディアは閲覧注意とマークされました
         silence: あなたのアカウント %{acct} はサイレンスにされました
         suspend: あなたのアカウント %{acct} は停止されました
       title:
         disable: アカウントが凍結されました
         none: 警告
-        sensitive: あなたのメディアが閲覧注意に指定されました
+        sensitive: あなたのメディアが閲覧注意とマークされました
         silence: アカウントがサイレンスにされました
         suspend: アカウントが停止されました
     welcome:
@@ -1355,17 +1365,17 @@ ja:
       tips: 豆知識
       title: ようこそ、%{name}！
   users:
-    blocked_email_provider: このメールプロバイダは許可されていません
+    blocked_email_provider: 指定されたメールプロバイダーの利用は許可されていません
     follow_limit_reached: あなたは現在 %{limit} 人以上フォローできません
-    generic_access_help_html: アクセスできませんか？ %{email} に問い合わせることができます。
+    generic_access_help_html: ログインできませんか？%{email} に連絡を取ると解決できるかもしれません
     invalid_email: メールアドレスが無効です
-    invalid_email_mx: メールアドレスが存在しないようです
+    invalid_email_mx: 指定されたメールアドレスは実在しないようです
     invalid_otp_token: 二段階認証コードが間違っています
-    invalid_sign_in_token: 無効なセキュリティコードです
+    invalid_sign_in_token: セキュリティコードが間違っています
     otp_lost_help_html: どちらも使用できない場合、%{email} に連絡を取ると解決できるかもしれません
     seamless_external_login: あなたは外部サービスを介してログインしているため、パスワードとメールアドレスの設定は利用できません。
     signed_in_as: '下記でログイン中:'
-    suspicious_sign_in_confirmation: おかえりなさい。このデバイスからのアクセスは初めてなので、セキュリティ確保のためにメールでセキュリティーコードを送信しました。
+    suspicious_sign_in_confirmation: おかえりなさい。しばらくこの端末からのアクセスがなかったので、セキュリティ確保のためにメールでセキュリティーコードを送信しました。
   verification:
     explanation_html: <strong>プロフィール内のリンクの所有者であることを認証することができます</strong>。そのためにはリンクされたウェブサイトにMastodonプロフィールへのリンクが含まれている必要があります。リンクには<code>rel="me"</code>属性を<strong>必ず</strong>与えなければなりません。リンクのテキストについては重要ではありません。以下は例です：
     verification: 認証
