@@ -1061,7 +1061,7 @@ ja:
   relationships:
     activity: 活動
     dormant: 非アクティブ
-    follow_selected_followers: 選択したユーザーをフォロー
+    follow_selected_followers: 選択したフォロワーをフォロー
     followers: フォロワー
     following: フォロー中
     invited: 招待済み
