@@ -845,8 +845,8 @@ ja:
     hint_html: "<strong>注目のハッシュタグとは？</strong>プロフィールページに目立つ形で表示され、そのハッシュタグのついたあなたの公開投稿だけを抽出して閲覧できるようにします。クリエイティブな仕事や長期的なプロジェクトを追うのに優れた機能です。"
   filters:
     contexts:
-      account: プロフィールタイムライン
-      home: ホームタイムライン
+      account: プロフィール
+      home: ホームおよびリスト
       notifications: 通知
       public: 公開タイムライン
       thread: 会話
@@ -1027,6 +1027,9 @@ ja:
           trillion: T
   otp_authentication:
     code_hint: 続行するには認証アプリで表示されたコードを入力してください
+    instructions_html: "<strong>Google Authenticatorか、もしくはほかのTOTPアプリでこのQRコードをスキャンしてください。</strong>これ以降、ログインするときはそのアプリで生成されるコードが必要になります。"
+    manual_instructions: 'QRコードがスキャンできず、手動での登録を希望の場合はこのシークレットコードを利用してください。:'
+    description_html: 認証アプリを使用して<strong>二段階認証</strong>を有効にすると、ログインする際トークンを生成する携帯電話を所持している必要があります。
     enable: 有効化
     setup: セットアップ
     wrong_code: コードが間違っています。サーバーとデバイスの時計にずれがあるかもしれません。
@@ -1058,6 +1061,7 @@ ja:
   relationships:
     activity: 活動
     dormant: 非アクティブ
+    follow_selected_followers: 選択したユーザーをフォロー
     followers: フォロワー
     following: フォロー中
     invited: 招待済み
@@ -1187,8 +1191,8 @@ ja:
         other: "%{count}票"
       vote: 投票
     show_more: もっと見る
-    show_newer: 新しいものから表示
-    show_older: 古いものから表示
+    show_newer: 新しいものを表示
+    show_older: 古いものを表示
     show_thread: スレッドを表示
     sign_in_to_participate: ログインして会話に参加
     title: '%{name}: "%{quote}"'
@@ -1303,7 +1307,7 @@ ja:
       month: "%Y年 %b"
   two_factor_authentication:
     add: 追加
-    disable: 無効化
+    disable: 二段階認証を無効化
     disabled_success: 二段階認証が無効になりました
     edit: 編集
     enabled: 二段階認証は有効になっています
@@ -1330,7 +1334,7 @@ ja:
     warning:
       explanation:
         disable: あなたのアカウントはログインが禁止され使用できなくなりました。しかしアカウントのデータはそのまま残っています。
-        sensitive: アップロードされたメディアファイルとリンクされたメディアは閲覧注意として扱われます。
+        sensitive: あなたのアップロードしたメディアファイルとリンク先のメディアは、閲覧注意として扱われます。
         silence: あなたのアカウントは制限されましたがそのまま使用できます。ただし既にフォローしている人はあなたのトゥートを見ることができますが、様々な公開タイムラインには表示されない場合があります。また他のユーザーは今後も手動であなたをフォローすることができます。
         suspend: あなたのアカウントは使用できなくなりプロフィールやその他データにアクセスできなくなりました。アカウントが完全に削除されるまではログインしてデータのエクスポートをリクエストできます。証拠隠滅を防ぐため一部のデータは削除されず残ります。
       get_in_touch: このメールに返信することで %{instance} のスタッフと連絡を取ることができます。
@@ -1339,13 +1343,13 @@ ja:
       subject:
         disable: あなたのアカウント %{acct} は凍結されました
         none: "%{acct} に対する警告"
-        sensitive: あなたのアカウント %{acct} が投稿したメディアは閲覧注意にマークされました
+        sensitive: あなたのアカウント %{acct} の投稿メディアは閲覧注意とマークされました
         silence: あなたのアカウント %{acct} はサイレンスにされました
         suspend: あなたのアカウント %{acct} は停止されました
       title:
         disable: アカウントが凍結されました
         none: 警告
-        sensitive: あなたのメディアが閲覧注意に指定されました
+        sensitive: あなたのメディアが閲覧注意とマークされました
         silence: アカウントがサイレンスにされました
         suspend: アカウントが停止されました
     welcome:
