@@ -90,7 +90,10 @@ class Status extends ImmutablePureComponent {
     cachedMediaWidth: PropTypes.number,
     scrollKey: PropTypes.string,
     deployPictureInPicture: PropTypes.func,
-    usingPiP: PropTypes.bool,
+    pictureInPicture: PropTypes.shape({
+      inUse: PropTypes.bool,
+      available: PropTypes.bool,
+    }),
   };
 
   // Avoid checking props that are functions (and whose equality will always
@@ -101,7 +104,7 @@ class Status extends ImmutablePureComponent {
     'muted',
     'hidden',
     'unread',
-    'usingPiP',
+    'pictureInPicture',
   ];
 
   state = {
@@ -270,7 +273,7 @@ class Status extends ImmutablePureComponent {
     let media = null;
     let statusAvatar, prepend, rebloggedByText;
 
-    const { intl, hidden, featured, otherAccounts, unread, showThread, scrollKey, usingPiP } = this.props;
+    const { intl, hidden, featured, otherAccounts, unread, showThread, scrollKey, pictureInPicture } = this.props;
 
     let { status, account, ...other } = this.props;
 
@@ -341,7 +344,7 @@ class Status extends ImmutablePureComponent {
       status  = status.get('reblog');
     }
 
-    if (usingPiP) {
+    if (pictureInPicture.inUse) {
       media = <PictureInPicturePlaceholder width={this.props.cachedMediaWidth} />;
     } else if (status.get('media_attachments').size > 0) {
       if (this.props.muted) {
@@ -368,7 +371,7 @@ class Status extends ImmutablePureComponent {
                 width={this.props.cachedMediaWidth}
                 height={110}
                 cacheWidth={this.props.cacheMediaWidth}
-                deployPictureInPicture={this.handleDeployPictureInPicture}
+                deployPictureInPicture={pictureInPicture.available ? this.handleDeployPictureInPicture : undefined}
               />
             )}
           </Bundle>
@@ -390,7 +393,7 @@ class Status extends ImmutablePureComponent {
                 sensitive={status.get('sensitive')}
                 onOpenVideo={this.handleOpenVideo}
                 cacheWidth={this.props.cacheMediaWidth}
-                deployPictureInPicture={this.handleDeployPictureInPicture}
+                deployPictureInPicture={pictureInPicture.available ? this.handleDeployPictureInPicture : undefined}
                 visible={this.state.showMedia}
                 onToggleVisibility={this.handleToggleMediaVisibility}
               />
