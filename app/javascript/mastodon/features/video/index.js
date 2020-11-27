@@ -99,6 +99,7 @@ class Video extends React.PureComponent {
 
   static propTypes = {
     preview: PropTypes.string,
+    frameRate: PropTypes.string,
     src: PropTypes.string.isRequired,
     alt: PropTypes.string,
     width: PropTypes.number,
@@ -117,10 +118,13 @@ class Video extends React.PureComponent {
     deployPictureInPicture: PropTypes.func,
     intl: PropTypes.object.isRequired,
     blurhash: PropTypes.string,
-    link: PropTypes.node,
     autoPlay: PropTypes.bool,
     volume: PropTypes.number,
     muted: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    frameRate: 25,
   };
 
   state = {
@@ -288,7 +292,7 @@ class Video extends React.PureComponent {
   }
 
   handleKeyDown = e => {
-    const frameTime = 1 / 25;
+    const frameTime = 1 / this.getFrameRate();
 
     switch(e.key) {
     case 'k':
@@ -517,8 +521,19 @@ class Video extends React.PureComponent {
     this.props.onCloseVideo();
   }
 
+  getFrameRate () {
+    if (this.props.frameRate && isNaN(this.props.frameRate)) {
+      // The frame rate is returned as a fraction string so we
+      // need to convert it to a number
+
+      return this.props.frameRate.split('/').reduce((p, c) => p / c);
+    }
+
+    return this.props.frameRate;
+  }
+
   render () {
-    const { preview, src, inline, onOpenVideo, onCloseVideo, intl, alt, detailed, sensitive, link, editable, blurhash } = this.props;
+    const { preview, src, inline, onOpenVideo, onCloseVideo, intl, alt, detailed, sensitive, editable, blurhash } = this.props;
     const { containerWidth, currentTime, duration, volume, buffer, dragging, paused, fullscreen, hovered, muted, revealed } = this.state;
     const progress = Math.min((currentTime / duration) * 100, 100);
     const playerStyle = {};
@@ -632,8 +647,6 @@ class Video extends React.PureComponent {
                   <span className='video-player__time-total'>{formatTime(Math.floor(duration))}</span>
                 </span>
               )}
-
-              {link && <span className='video-player__link'>{link}</span>}
             </div>
 
             <div className='video-player__buttons right'>
