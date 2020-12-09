@@ -90,7 +90,7 @@ class Status extends ImmutablePureComponent {
     cachedMediaWidth: PropTypes.number,
     scrollKey: PropTypes.string,
     deployPictureInPicture: PropTypes.func,
-    pictureInPicture: PropTypes.shape({
+    pictureInPicture: ImmutablePropTypes.contains({
       inUse: PropTypes.bool,
       available: PropTypes.bool,
     }),
@@ -196,15 +196,15 @@ class Status extends ImmutablePureComponent {
 
   handleHotkeyOpenMedia = e => {
     const { onOpenMedia, onOpenVideo } = this.props;
-    const statusId = this._properStatus().get('id');
+    const status = this._properStatus();
 
     e.preventDefault();
 
     if (status.get('media_attachments').size > 0) {
       if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
-        onOpenVideo(statusId, status.getIn(['media_attachments', 0]), { startTime: 0 });
+        onOpenVideo(status.get('id'), status.getIn(['media_attachments', 0]), { startTime: 0 });
       } else {
-        onOpenMedia(statusId, status.get('media_attachments'), 0);
+        onOpenMedia(status.get('id'), status.get('media_attachments'), 0);
       }
     }
   }
@@ -347,7 +347,7 @@ class Status extends ImmutablePureComponent {
       status  = status.get('reblog');
     }
 
-    if (pictureInPicture.inUse) {
+    if (pictureInPicture.get('inUse')) {
       media = <PictureInPicturePlaceholder width={this.props.cachedMediaWidth} />;
     } else if (status.get('media_attachments').size > 0) {
       if (this.props.muted) {
@@ -374,7 +374,7 @@ class Status extends ImmutablePureComponent {
                 width={this.props.cachedMediaWidth}
                 height={110}
                 cacheWidth={this.props.cacheMediaWidth}
-                deployPictureInPicture={pictureInPicture.available ? this.handleDeployPictureInPicture : undefined}
+                deployPictureInPicture={pictureInPicture.get('available') ? this.handleDeployPictureInPicture : undefined}
               />
             )}
           </Bundle>
@@ -397,7 +397,7 @@ class Status extends ImmutablePureComponent {
                 sensitive={status.get('sensitive')}
                 onOpenVideo={this.handleOpenVideo}
                 cacheWidth={this.props.cacheMediaWidth}
-                deployPictureInPicture={pictureInPicture.available ? this.handleDeployPictureInPicture : undefined}
+                deployPictureInPicture={pictureInPicture.get('available') ? this.handleDeployPictureInPicture : undefined}
                 visible={this.state.showMedia}
                 onToggleVisibility={this.handleToggleMediaVisibility}
               />
@@ -425,7 +425,7 @@ class Status extends ImmutablePureComponent {
     } else if (status.get('spoiler_text').length === 0 && status.get('card')) {
       media = (
         <Card
-          onOpenMedia={this.props.onOpenMedia}
+          onOpenMedia={this.handleOpenMedia}
           card={status.get('card')}
           compact
           cacheWidth={this.props.cacheMediaWidth}
