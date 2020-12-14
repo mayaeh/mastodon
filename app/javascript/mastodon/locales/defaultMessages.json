@@ -653,6 +653,10 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Account suspended",
+        "id": "empty_column.account_suspended"
+      },
+      {
         "defaultMessage": "Profile unavailable",
         "id": "empty_column.account_unavailable"
       }
@@ -711,6 +715,10 @@
       {
         "defaultMessage": "Older toots",
         "id": "timeline_hint.resources.statuses"
+      },
+      {
+        "defaultMessage": "Account suspended",
+        "id": "empty_column.account_suspended"
       },
       {
         "defaultMessage": "Profile unavailable",

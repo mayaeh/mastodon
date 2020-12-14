@@ -149,6 +149,7 @@
   "emoji_button.search_results": "Search results",
   "emoji_button.symbols": "Symbols",
   "emoji_button.travel": "Travel & Places",
+  "empty_column.account_suspended": "Account suspended",
   "empty_column.account_timeline": "No toots here!",
   "empty_column.account_unavailable": "Profile unavailable",
   "empty_column.blocks": "You haven't blocked any users yet.",
