@@ -2281,6 +2281,10 @@
         "id": "notifications.permission_denied"
       },
       {
+        "defaultMessage": "Desktop notifications are unavailable because the required permission has not been granted.",
+        "id": "notifications.permission_required"
+      },
+      {
         "defaultMessage": "Quick filter bar",
         "id": "notifications.column_settings.filter_bar.category"
       },
@@ -2360,6 +2364,15 @@
       }
     ],
     "path": "app/javascript/mastodon/features/notifications/components/follow_request.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Grant permission.",
+        "id": "notifications.grant_permission"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/notifications/components/grant_permission_button.json"
   },
   {
     "descriptors": [
