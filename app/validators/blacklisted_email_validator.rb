@@ -6,7 +6,7 @@ class BlacklistedEmailValidator < ActiveModel::Validator
 
     @email = user.email
 
-    user.errors.add(:email, I18n.t('users.invalid_email')) if blocked_email?
+    user.errors.add(:email, I18n.t('users.blocked_email_provider')) if blocked_email?
   end
 
   private
@@ -22,7 +22,7 @@ class BlacklistedEmailValidator < ActiveModel::Validator
     domains = Rails.configuration.x.email_domains_blacklist.gsub('.', '\.')
     regexp  = Regexp.new("@(.+\\.)?(#{domains})", true)
 
-    @email =~ regexp
+    regexp.match?(@email)
   end
 
   def not_on_whitelist?

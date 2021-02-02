@@ -29,7 +29,7 @@ module Twitter
       (                                                                                     #   $1 total match
         (#{REGEXEN[:valid_url_preceding_chars]})                                            #   $2 Preceding character
         (                                                                                   #   $3 URL
-          ((?:https?|dat|dweb|ipfs|ipns|ssb|gopher):\/\/)?                                  #   $4 Protocol (optional)
+          ((?:https?|dat|dweb|ipfs|ipns|ssb|gopher|gemini):\/\/)?                           #   $4 Protocol (optional)
           (#{REGEXEN[:valid_domain]})                                                       #   $5 Domain(s)
           (?::(#{REGEXEN[:valid_port_number]}))?                                            #   $6 Port number (optional)
           (/#{REGEXEN[:valid_url_path]}*)?                                                  #   $7 URL Path and anchor
@@ -75,7 +75,7 @@ module Twitter
     # XMPP or magnet URIs an empty array will be returned.
     #
     # If a block is given then it will be called for each XMPP URI.
-    def extract_extra_uris_with_indices(text, options = {}) # :yields: uri, start, end
+    def extract_extra_uris_with_indices(text, _options = {}) # :yields: uri, start, end
       return [] unless text && text.index(":")
       urls = []
 

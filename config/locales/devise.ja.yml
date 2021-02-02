@@ -32,7 +32,7 @@ ja:
         title: 新しいメールアドレス
       password_change:
         explanation: パスワードが変更されました。
-        extra: パスワードの変更をご自身で行っていない場合、他の誰かがあなたのアカウントにアクセスした可能性があります。すぐにパスワードを再変更するか、アカウントがロックされている場合はサーバー管理者に連絡してください。
+        extra: パスワードの変更をご自身で行っていない場合、他の誰かがあなたのアカウントにアクセスした可能性があります。すぐにパスワードを変更するか、アカウントがロックされている場合はサーバー管理者に連絡してください。
         subject: 'Mastodon: パスワードが変更されました'
         title: パスワードの変更
       reconfirmation_instructions:
@@ -60,6 +60,23 @@ ja:
         title: 二段階認証のリカバリーコードが変更されました
       unlock_instructions:
         subject: 'Mastodon: アカウントのロックの解除'
+      webauthn_credential:
+        added:
+          explanation: 次のセキュリティキーが追加されました
+          subject: 'Mastodon: セキュリティキーが追加されました'
+          title: セキュリティキーが追加されました
+        deleted:
+          explanation: 次のセキュリティキーが削除されました
+          subject: 'Mastodon: セキュリティキーが削除されました'
+          title: セキュリティキーが削除されました
+      webauthn_disabled:
+        explanation: セキュリティキーによる認証が無効になりました。ログインには登録した認証アプリのコードのみ利用できます。
+        subject: 'Mastodon: セキュリティキー認証が無効になりました'
+        title: セキュリティキーによる認証が無効になりました
+      webauthn_enabled:
+        explanation: セキュリティキーによる認証が有効になりました。次回ログイン時からは認証アプリによるコードの代わりにセキュリティキーを利用できます。
+        subject: 'Mastodon: セキュリティキー認証が有効になりました'
+        title: セキュリティキーによる認証が有効になりました
     omniauth_callbacks:
       failure: "%{reason}によって%{kind}からのアクセスを認証できませんでした。"
       success: "%{kind}からのアクセスは正常に認証されました。"
