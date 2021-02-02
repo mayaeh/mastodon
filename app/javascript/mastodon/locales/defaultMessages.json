@@ -1422,6 +1422,10 @@
         "id": "navigation_bar.short.community_timeline"
       },
       {
+        "defaultMessage": "Lists",
+        "id": "navigation_bar.short.lists"
+      },
+      {
         "defaultMessage": "Pref.",
         "id": "navigation_bar.short.preferences"
       },
@@ -1444,6 +1448,10 @@
       {
         "defaultMessage": "Federated timeline",
         "id": "navigation_bar.public_timeline"
+      },
+      {
+        "defaultMessage": "Lists",
+        "id": "navigation_bar.lists"
       },
       {
         "defaultMessage": "Local timeline",
@@ -3244,6 +3252,14 @@
       {
         "defaultMessage": "FTL",
         "id": "navigation_bar.short.public_timeline"
+      },
+      {
+        "defaultMessage": "Lists",
+        "id": "tabs_bar.lists"
+      },
+      {
+        "defaultMessage": "List",
+        "id": "navigation_bar.short.lists"
       },
       {
         "defaultMessage": "Search",
