@@ -311,6 +311,7 @@
   "navigation_bar.short.notifications": "通知",
   "navigation_bar.short.preferences": "設定",
   "navigation_bar.short.public_timeline": "連合",
+  "navigation_bar.short.search": "検索",
   "notification.favourite": "{name}さんがあなたのトゥートをお気に入りに登録しました",
   "notification.follow": "{name}さんにフォローされました",
   "notification.follow_request": "{name} さんがあなたにフォローリクエストしました",
