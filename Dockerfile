@@ -1,10 +1,10 @@
 FROM ubuntu:20.04 as build-dep
 
 # Use bash for the shell
-SHELL ["bash", "-c"]
+SHELL ["/usr/bin/bash", "-c"]
 
 # Install Node v12 (LTS)
-ENV NODE_VER="12.20.0"
+ENV NODE_VER="12.20.1"
 RUN ARCH= && \
     dpkgArch="$(dpkg --print-architecture)" && \
   case "${dpkgArch##*-}" in \
