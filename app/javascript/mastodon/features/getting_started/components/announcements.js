@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import IconButton from 'mastodon/components/icon_button';
 import Icon from 'mastodon/components/icon';
 import { defineMessages, injectIntl, FormattedMessage, FormattedDate } from 'react-intl';
-import { autoPlayGif, reduceMotion } from 'mastodon/initial_state';
+import { autoPlayGif, reduceMotion, disableSwiping } from 'mastodon/initial_state';
 import elephantUIPlane from 'mastodon/../images/elephant_ui_plane.svg';
 import { mascot } from 'mastodon/initial_state';
 import unicodeMapping from 'mastodon/features/emoji/emoji_unicode_mapping_light';
@@ -15,6 +15,7 @@ import EmojiPickerDropdown from 'mastodon/features/compose/containers/emoji_pick
 import AnimatedNumber from 'mastodon/components/animated_number';
 import TransitionMotion from 'react-motion/lib/TransitionMotion';
 import spring from 'react-motion/lib/spring';
+import { assetHost } from 'mastodon/utils/config';
 
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
@@ -38,35 +39,10 @@ class Content extends ImmutablePureComponent {
 
   componentDidMount () {
     this._updateLinks();
-    this._updateEmojis();
   }
 
   componentDidUpdate () {
     this._updateLinks();
-    this._updateEmojis();
-  }
-
-  _updateEmojis () {
-    const node = this.node;
-
-    if (!node || autoPlayGif) {
-      return;
-    }
-
-    const emojis = node.querySelectorAll('.custom-emoji');
-
-    for (var i = 0; i < emojis.length; i++) {
-      let emoji = emojis[i];
-
-      if (emoji.classList.contains('status-emoji')) {
-        continue;
-      }
-
-      emoji.classList.add('status-emoji');
-
-      emoji.addEventListener('mouseenter', this.handleEmojiMouseEnter, false);
-      emoji.addEventListener('mouseleave', this.handleEmojiMouseLeave, false);
-    }
   }
 
   _updateLinks () {
@@ -95,6 +71,10 @@ class Content extends ImmutablePureComponent {
       } else if (link.textContent[0] === '#' || (link.previousSibling && link.previousSibling.textContent && link.previousSibling.textContent[link.previousSibling.textContent.length - 1] === '#')) {
         link.addEventListener('click', this.onHashtagClick.bind(this, link.text), false);
       } else {
+        let status = this.props.announcement.get('statuses').find(item => link.href === item.get('url'));
+        if (status) {
+          link.addEventListener('click', this.onStatusClick.bind(this, status), false);
+        }
         link.setAttribute('title', link.href);
         link.classList.add('unhandled-link');
       }
@@ -120,12 +100,37 @@ class Content extends ImmutablePureComponent {
     }
   }
 
-  handleEmojiMouseEnter = ({ target }) => {
-    target.src = target.getAttribute('data-original');
+  onStatusClick = (status, e) => {
+    if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      this.context.router.history.push(`/statuses/${status.get('id')}`);
+    }
   }
 
-  handleEmojiMouseLeave = ({ target }) => {
-    target.src = target.getAttribute('data-static');
+  handleMouseEnter = ({ currentTarget }) => {
+    if (autoPlayGif) {
+      return;
+    }
+
+    const emojis = currentTarget.querySelectorAll('.custom-emoji');
+
+    for (var i = 0; i < emojis.length; i++) {
+      let emoji = emojis[i];
+      emoji.src = emoji.getAttribute('data-original');
+    }
+  }
+
+  handleMouseLeave = ({ currentTarget }) => {
+    if (autoPlayGif) {
+      return;
+    }
+
+    const emojis = currentTarget.querySelectorAll('.custom-emoji');
+
+    for (var i = 0; i < emojis.length; i++) {
+      let emoji = emojis[i];
+      emoji.src = emoji.getAttribute('data-static');
+    }
   }
 
   render () {
@@ -133,16 +138,16 @@ class Content extends ImmutablePureComponent {
 
     return (
       <div
-        className='announcements__item__content'
+        className='announcements__item__content translate'
         ref={this.setRef}
         dangerouslySetInnerHTML={{ __html: announcement.get('contentHtml') }}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
       />
     );
   }
 
 }
-
-const assetHost = process.env.CDN_HOST || '';
 
 class Emoji extends React.PureComponent {
 
@@ -367,6 +372,14 @@ class Announcements extends ImmutablePureComponent {
     index: 0,
   };
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.announcements.size > 0 && state.index >= props.announcements.size) {
+      return { index: props.announcements.size - 1 };
+    } else {
+      return null;
+    }
+  }
+
   componentDidMount () {
     this._markAnnouncementAsRead();
   }
@@ -378,7 +391,7 @@ class Announcements extends ImmutablePureComponent {
   _markAnnouncementAsRead () {
     const { dismissAnnouncement, announcements } = this.props;
     const { index } = this.state;
-    const announcement = announcements.get(index);
+    const announcement = announcements.get(announcements.size - 1 - index);
     if (!announcement.get('read')) dismissAnnouncement(announcement.get('id'));
   }
 
@@ -417,8 +430,9 @@ class Announcements extends ImmutablePureComponent {
                 removeReaction={this.props.removeReaction}
                 intl={intl}
                 selected={index === idx}
+                disabled={disableSwiping}
               />
-            ))}
+            )).reverse()}
           </ReactSwipeableViews>
 
           {announcements.size > 1 && (

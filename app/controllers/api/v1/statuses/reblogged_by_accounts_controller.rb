@@ -7,8 +7,6 @@ class Api::V1::Statuses::RebloggedByAccountsController < Api::BaseController
   before_action :set_status
   after_action :insert_pagination_headers
 
-  respond_to :json
-
   def index
     @accounts = load_accounts
     render json: @accounts, each_serializer: REST::AccountSerializer
@@ -23,7 +21,7 @@ class Api::V1::Statuses::RebloggedByAccountsController < Api::BaseController
   end
 
   def default_accounts
-    Account.includes(:statuses, :account_stat).references(:statuses)
+    Account.without_suspended.includes(:statuses, :account_stat).references(:statuses)
   end
 
   def paginated_statuses

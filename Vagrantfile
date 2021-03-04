@@ -72,10 +72,12 @@ bundle install
 yarn install
 
 # Build Mastodon
+export RAILS_ENV=development 
 export $(cat ".env.vagrant" | xargs)
 bundle exec rails db:setup
 
 # Configure automatic loading of environment variable
+echo 'export RAILS_ENV=development' >> ~/.bash_profile
 echo 'export $(cat "/vagrant/.env.vagrant" | xargs)' >> ~/.bash_profile
 
 SCRIPT
@@ -91,7 +93,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "ubuntu/bionic64"
 
   config.vm.provider :virtualbox do |vb|
     vb.name = "mastodon"

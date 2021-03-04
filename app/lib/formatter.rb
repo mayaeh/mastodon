@@ -135,6 +135,7 @@ class Formatter
     end
   end
 
+  # rubocop:disable Metrics/BlockNesting
   def encode_custom_emojis(html, emojis, animate = false)
     return html if emojis.empty?
 
@@ -189,6 +190,7 @@ class Formatter
 
     html
   end
+  # rubocop:enable Metrics/BlockNesting
 
   def rewrite(text, entities)
     text = text.to_s
@@ -220,7 +222,7 @@ class Formatter
 
     escaped = text.chars.map do |c|
       output = begin
-        if c.ord.to_s(16).length > 2 && UNICODE_ESCAPE_BLACKLIST_RE.match(c).nil?
+        if c.ord.to_s(16).length > 2 && !UNICODE_ESCAPE_BLACKLIST_RE.match?(c)
           CGI.escape(c)
         else
           c
@@ -258,7 +260,7 @@ class Formatter
 
     html_attrs[:rel] = "me #{html_attrs[:rel]}" if options[:me]
 
-    Twitter::Autolink.send(:link_to_text, entity, link_html(entity[:url]), url, html_attrs)
+    Twitter::TwitterText::Autolink.send(:link_to_text, entity, link_html(entity[:url]), url, html_attrs)
   rescue Addressable::URI::InvalidURIError, IDN::Idna::IdnaError
     encode(entity[:url])
   end
