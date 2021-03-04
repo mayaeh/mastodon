@@ -544,22 +544,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Public",
-        "id": "privacy.public.short"
-      },
-      {
-        "defaultMessage": "Unlisted",
-        "id": "privacy.unlisted.short"
-      },
-      {
-        "defaultMessage": "Followers-only",
-        "id": "privacy.private.short"
-      },
-      {
-        "defaultMessage": "Direct",
-        "id": "privacy.direct.short"
-      },
-      {
         "defaultMessage": "Filtered",
         "id": "status.filtered"
       },
@@ -2721,27 +2705,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Public",
-        "id": "privacy.public.short"
-      },
-      {
-        "defaultMessage": "Unlisted",
-        "id": "privacy.unlisted.short"
-      },
-      {
-        "defaultMessage": "Followers-only",
-        "id": "privacy.private.short"
-      },
-      {
-        "defaultMessage": "Direct",
-        "id": "privacy.direct.short"
-      }
-    ],
-    "path": "app/javascript/mastodon/features/status/components/detailed_status.json"
-  },
-  {
-    "descriptors": [
-      {
         "defaultMessage": "Delete",
         "id": "confirmations.delete.confirm"
       },
@@ -2847,22 +2810,6 @@
       {
         "defaultMessage": "Boost",
         "id": "status.reblog"
-      },
-      {
-        "defaultMessage": "Public",
-        "id": "privacy.public.short"
-      },
-      {
-        "defaultMessage": "Unlisted",
-        "id": "privacy.unlisted.short"
-      },
-      {
-        "defaultMessage": "Followers-only",
-        "id": "privacy.private.short"
-      },
-      {
-        "defaultMessage": "Direct",
-        "id": "privacy.direct.short"
       },
       {
         "defaultMessage": "You can press {combo} to skip this next time",

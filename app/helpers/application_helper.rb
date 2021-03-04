@@ -84,18 +84,6 @@ module ApplicationHelper
     content_tag(:i, nil, attributes.merge(class: class_names.join(' ')))
   end
 
-  def visibility_icon(status)
-    if status.public_visibility?
-      fa_icon('globe', title: I18n.t('statuses.visibilities.public'))
-    elsif status.unlisted_visibility?
-      fa_icon('unlock', title: I18n.t('statuses.visibilities.unlisted'))
-    elsif status.private_visibility? || status.limited_visibility?
-      fa_icon('lock', title: I18n.t('statuses.visibilities.private'))
-    elsif status.direct_visibility?
-      fa_icon('envelope', title: I18n.t('statuses.visibilities.direct'))
-    end
-  end
-
   def interrelationships_icon(relationships, account_id)
     if relationships.following[account_id] && relationships.followed_by[account_id]
       fa_icon('exchange', title: I18n.t('relationships.mutual'), class: 'fa-fw active passive')

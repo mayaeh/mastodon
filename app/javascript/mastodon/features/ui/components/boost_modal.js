@@ -18,10 +18,6 @@ import { changeBoostPrivacy } from 'mastodon/actions/boosts';
 const messages = defineMessages({
   cancel_reblog: { id: 'status.cancel_reblog_private', defaultMessage: 'Unboost' },
   reblog: { id: 'status.reblog', defaultMessage: 'Boost' },
-  public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },
-  unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
-  private_short: { id: 'privacy.private.short', defaultMessage: 'Followers-only' },
-  direct_short: { id: 'privacy.direct.short', defaultMessage: 'Direct' },
 });
 
 const mapStateToProps = state => {
@@ -84,23 +80,13 @@ class BoostModal extends ImmutablePureComponent {
     const { status, privacy, intl } = this.props;
     const buttonText = status.get('reblogged') ? messages.cancel_reblog : messages.reblog;
 
-    const visibilityIconInfo = {
-      'public': { icon: 'globe', text: intl.formatMessage(messages.public_short) },
-      'unlisted': { icon: 'unlock', text: intl.formatMessage(messages.unlisted_short) },
-      'private': { icon: 'lock', text: intl.formatMessage(messages.private_short) },
-      'direct': { icon: 'envelope', text: intl.formatMessage(messages.direct_short) },
-    };
-
-    const visibilityIcon = visibilityIconInfo[status.get('visibility')];
-
     return (
       <div className='modal-root__modal boost-modal'>
         <div className='boost-modal__container'>
-          <div className={classNames('status', `status-${status.get('visibility')}`, 'light')}>
+          <div className='status light'>
             <div className='boost-modal__status-header'>
               <div className='boost-modal__status-time'>
                 <a href={status.get('url')} className='status__relative-time' target='_blank' rel='noopener noreferrer'>
-                  <span className='status__visibility-icon'><Icon id={visibilityIcon.icon} title={visibilityIcon.text} /></span>
                   <RelativeTimestamp timestamp={status.get('created_at')} /></a>
               </div>
 
