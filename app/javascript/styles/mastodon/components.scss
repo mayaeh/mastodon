@@ -1041,8 +1041,7 @@
   }
 
   &.light {
-    .status__relative-time,
-    .status__visibility-icon {
+    .status__relative-time {
       color: $light-text-color;
     }
 
@@ -1083,10 +1082,6 @@
   float: right;
   font-size: 14px;
   padding-bottom: 1px;
-}
-
-.status__visibility-icon {
-  padding: 0 4px;
 }
 
 .status__display-name {
