@@ -180,7 +180,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
     }
 
     if (['private', 'direct'].includes(status.get('visibility'))) {
-      reblogLink = '<Icon id={reblogIcon} />';
+      reblogLink = <Icon id={reblogIcon} />;
     } else if (this.context.router) {
       reblogLink = (
         <Link to={`/statuses/${status.get('id')}/reblogs`} className='detailed-status__link'>
