@@ -85,7 +85,7 @@ gem 'sanitize', '~> 5.2'
 gem 'scenic', '~> 1.5'
 gem 'sidekiq', '~> 6.1'
 gem 'sidekiq-scheduler', '~> 3.0'
-gem 'sidekiq-unique-jobs', '~> 6.0'
+gem 'sidekiq-unique-jobs', '~> 7.0'
 gem 'sidekiq-bulk', '~>0.2.0'
 gem 'simple-navigation', '~> 4.1'
 gem 'simple_form', '~> 5.1'
@@ -138,7 +138,7 @@ group :development do
   gem 'letter_opener', '~> 1.7'
   gem 'letter_opener_web', '~> 1.4'
   gem 'memory_profiler'
-  gem 'rubocop', '~> 1.9', require: false
+  gem 'rubocop', '~> 1.11', require: false
   gem 'rubocop-rails', '~> 2.9', require: false
   gem 'brakeman', '~> 4.10', require: false
   gem 'bundler-audit', '~> 0.7', require: false
