@@ -2285,6 +2285,10 @@
         "id": "notifications.permission_required"
       },
       {
+        "defaultMessage": "Unread notification markers",
+        "id": "notifications.column_settings.unread_markers.category"
+      },
+      {
         "defaultMessage": "Quick filter bar",
         "id": "notifications.column_settings.filter_bar.category"
       },
