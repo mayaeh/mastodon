@@ -1,11 +1,9 @@
 :ruby
   hide_show_thread ||= false
 
-.status{ class: "status-#{status.visibility}" }
+.status
   .status__info
     = link_to ActivityPub::TagManager.instance.url_for(status), class: 'status__relative-time u-url u-uid', target: stream_link_target, rel: 'noopener noreferrer' do
-      %span.status__visibility-icon><
-        = visibility_icon status
       %time.time-ago{ datetime: status.created_at.iso8601, title: l(status.created_at) }= l(status.created_at)
     %data.dt-published{ value: status.created_at.to_time.iso8601 }
 
@@ -62,8 +60,10 @@
         = fa_icon 'reply-all fw'
       %span.icon-button__counter= obscured_counter status.replies_count
     = link_to remote_interaction_path(status, type: :reblog), class: 'status__action-bar-button icon-button modal-button' do
-      - if status.distributable?
+      - if status.public_visibility?
         = fa_icon 'retweet fw'
+      - elsif status.unlisted_visibility?
+        = fa_icon 'unlock fw'
       - elsif status.private_visibility? || status.limited_visibility?
         = fa_icon 'lock fw'
       - else
