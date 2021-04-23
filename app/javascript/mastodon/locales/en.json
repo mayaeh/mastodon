@@ -289,7 +289,6 @@
   "navigation_bar.preferences": "Preferences",
   "navigation_bar.public_timeline": "Federated timeline",
   "navigation_bar.security": "Security",
-<<<<<<< HEAD
   "navigation_bar.trending_tags": "Trending now",
   "navigation_bar.short.community_timeline": "LTL",
   "navigation_bar.short.getting_started": "Started",
@@ -299,10 +298,7 @@
   "navigation_bar.short.preferences": "Pref.",
   "navigation_bar.short.public_timeline": "FTL",
   "navigation_bar.short.search": "Search",
-  "notification.favourite": "{name} favourited your toot",
-=======
   "notification.favourite": "{name} favourited your post",
->>>>>>> main
   "notification.follow": "{name} followed you",
   "notification.follow_request": "{name} has requested to follow you",
   "notification.mention": "{name} mentioned you",
