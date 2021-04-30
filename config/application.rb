@@ -29,6 +29,7 @@ require_relative '../lib/webpacker/helper_extensions'
 require_relative '../lib/action_dispatch/cookie_jar_extensions'
 require_relative '../lib/rails/engine_extensions'
 require_relative '../lib/active_record/database_tasks_extensions'
+require_relative '../lib/active_record/batches'
 
 Dotenv::Railtie.load
 
@@ -53,6 +54,7 @@ module Mastodon
     # All translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.available_locales = [
+      :af,
       :ar,
       :ast,
       :bg,
@@ -75,6 +77,7 @@ module Mastodon
       :fi,
       :fr,
       :ga,
+      :gd,
       :gl,
       :he,
       :hi,
@@ -109,6 +112,7 @@ module Mastodon
       :ru,
       :sa,
       :sc,
+      :si,
       :sk,
       :sl,
       :sq,
