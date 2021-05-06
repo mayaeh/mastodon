@@ -17,12 +17,10 @@ gem 'makara', '~> 0.5'
 gem 'pghero', '~> 2.8'
 gem 'dotenv-rails', '~> 2.7'
 
-gem 'aws-sdk-s3', '~> 1.93', require: false
+gem 'aws-sdk-s3', '~> 1.94', require: false
 gem 'fog-core', '<= 2.1.0'
 gem 'fog-openstack', '~> 0.3', require: false
 gem 'paperclip', '~> 6.0'
-gem 'paperclip-av-transcoder', '~> 0.6'
-gem 'streamio-ffmpeg', '~> 3.0'
 gem 'blurhash', '~> 0.1'
 
 gem 'active_model_serializers', '~> 0.10'
@@ -136,7 +134,7 @@ group :development do
   gem 'letter_opener', '~> 1.7'
   gem 'letter_opener_web', '~> 1.4'
   gem 'memory_profiler'
-  gem 'rubocop', '~> 1.12', require: false
+  gem 'rubocop', '~> 1.13', require: false
   gem 'rubocop-rails', '~> 2.9', require: false
   gem 'brakeman', '~> 5.0', require: false
   gem 'bundler-audit', '~> 0.8', require: false
@@ -157,3 +155,5 @@ gem 'concurrent-ruby', require: false
 gem 'connection_pool', require: false
 
 gem 'xorcist', '~> 1.1'
+
+gem 'resolv', '~> 0.1.0'
