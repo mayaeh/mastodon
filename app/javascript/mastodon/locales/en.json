@@ -159,6 +159,7 @@
   "empty_column.domain_blocks": "There are no blocked domains yet.",
   "empty_column.favourited_statuses": "You don't have any favourite posts yet. When you favourite one, it will show up here.",
   "empty_column.favourites": "No one has favourited this post yet. When someone does, they will show up here.",
+  "empty_column.follow_recommendations": "Looks like no suggestions could be generated for you. You can try using search to look for people you might know or explore trending hashtags.",
   "empty_column.follow_requests": "You don't have any follow requests yet. When you receive one, it will show up here.",
   "empty_column.hashtag": "There is nothing in this hashtag yet.",
   "empty_column.home": "Your home timeline is empty! Visit {public} or use search to get started and meet other users.",
