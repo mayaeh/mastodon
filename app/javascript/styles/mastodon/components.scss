@@ -1302,6 +1302,29 @@
     overflow: hidden;
     text-decoration: none;
     font-size: 14px;
+
+    &--with-note {
+      strong {
+        display: inline;
+      }
+    }
+  }
+
+  &__note {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $ui-secondary-color;
+  }
+}
+
+.follow-recommendations-account {
+  .icon-button {
+    color: $ui-primary-color;
+
+    &.active {
+      color: $valid-value-color;
+    }
   }
 }
 
@@ -2054,8 +2077,32 @@ a.account__display-name {
   .tabs-bar {
     margin-bottom: 0;
 
-    @media screen and (min-width: $no-gap-breakpoint) {
-      margin-bottom: 10px;
+    @media screen and (max-width: 600px + (285px * 2) + (10px * 2)) {
+      &.bottom-bar {
+        position: fixed;
+        bottom: 0;
+        width: calc(100% - 20px);
+        max-width: 580px;
+      }
+    }
+
+    @media screen and (max-width: $no-gap-breakpoint) {
+      &.bottom-bar {
+        width: 100%;
+      }
+    }
+
+    @media screen and (min-width: 600px + (285px * 2) + (10px * 2)) {
+      padding-bottom: 10px;
+    }
+  }
+}
+
+.swipeable-view__wrapper {
+  @media screen and (max-width: 600px + (285px * 2) + (10px * 2)) {
+    &.bottom-bar {
+      padding-bottom: 48px;
+      padding-bottom: calc(env(safe-area-inset-bottom) + 48px);
     }
   }
 }
@@ -2106,6 +2153,7 @@ a.account__display-name {
 
 .drawer__tab {
   display: block;
+  width: 100%;
   flex: 1 1 auto;
   padding: 15px 5px 13px;
   color: $darker-text-color;
@@ -2113,6 +2161,25 @@ a.account__display-name {
   text-align: center;
   font-size: 16px;
   border-bottom: 2px solid transparent;
+
+  .drawer__tab__short-label {
+    display: none;
+  }
+
+  &.short-label {
+    padding: 0;
+
+    i {
+      margin: 10px 5px 0;
+    }
+
+    .drawer__tab__short-label {
+      font-size: 10px;
+      overflow-x: hidden;
+      white-space: nowrap;
+      display: block;
+    }
+  }
 }
 
 .column,
@@ -2162,8 +2229,7 @@ a.account__display-name {
 .tabs-bar__link {
   display: block;
   flex: 1 1 auto;
-  padding: 15px 10px;
-  padding-bottom: 13px;
+  min-width: 40px;
   color: $primary-text-color;
   text-decoration: none;
   text-align: center;
@@ -2192,16 +2258,98 @@ a.account__display-name {
     color: $highlight-text-color;
   }
 
-  span {
+  &.hamburger {
+    flex: 0 0 30px;
+  }
+
+  &__full-label {
     margin-left: 5px;
+    white-space: nowrap;
+    display: none;
+  }
+
+  &__short-label {
     display: none;
   }
 }
 
+@media screen and (max-width: 600px - 1px) {
+  .tabs-bar {
+    .tabs-bar__link {
+      &,
+      &.hamburger,
+      &.hamburger.short-label {
+        padding: 15px 10px 13px;
+      }
+
+      &.hamburger.short-label {
+        i {
+          margin: 0;
+        }
+      }
+
+      &.short-label {
+        padding: 0;
+
+        i {
+          margin: 10px 5px 0;
+        }
+
+        .tabs-bar__link__short-label {
+          font-size: 10px;
+          overflow-x: hidden;
+          white-space: nowrap;
+          display: block;
+        }
+      }
+    }
+  }
+
+  .tabs-bar.bottom-bar {
+    .tabs-bar__link {
+      &,
+      &.hamburger {
+        padding-bottom: calc(env(safe-area-inset-bottom) + 13px);
+      }
+
+      &.short-label,
+      &.hamburger.short-label {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+    }
+  }
+}
+
 @media screen and (min-width: 600px) {
-  .tabs-bar__link {
-    span {
-      display: inline;
+  .tabs-bar {
+    .tabs-bar__link {
+      &,
+      &.hamburger {
+        padding: 15px 10px 13px;
+      }
+
+      & {
+        &__full-label {
+          display: inline;
+        }
+
+        &__short-label {
+          display: none;
+        }
+
+        i {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .tabs-bar.bottom-bar {
+    .tabs-bar__link {
+      &,
+      &.hamburger {
+        padding-bottom: calc(env(safe-area-inset-bottom) + 13px);
+      }
     }
   }
 }
@@ -2211,6 +2359,10 @@ a.account__display-name {
   width: 100%;
   height: 100%;
   margin: 0 auto;
+
+  &.bottom-bar {
+    padding-bottom: 48px;
+  }
 
   .column,
   .drawer {
@@ -2370,6 +2522,10 @@ a.account__display-name {
   text-decoration: none;
   box-shadow: 2px 3px 9px rgba($base-shadow-color, 0.4);
 
+  &.bottom-bar {
+    bottom: calc(env(safe-area-inset-bottom) + 1.3125rem + 48px);
+  }
+
   &:hover,
   &:focus,
   &:active {
@@ -2453,6 +2609,72 @@ a.account__display-name {
 
 .column-link--transparent .icon-with-badge__badge {
   border-color: darken($ui-base-color, 8%);
+}
+
+.column-title {
+  text-align: center;
+  padding: 40px;
+
+  .logo {
+    fill: $primary-text-color;
+    width: 50px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+  }
+
+  h3 {
+    font-size: 24px;
+    line-height: 1.5;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: $darker-text-color;
+  }
+}
+
+.follow-recommendations-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.column-actions {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  padding: 40px;
+  padding-top: 40px;
+  padding-bottom: 200px;
+  flex-grow: 1;
+  position: relative;
+
+  &__background {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 220px;
+    width: auto;
+  }
+}
+
+.column-list {
+  margin: 0 20px;
+  border: 1px solid lighten($ui-base-color, 8%);
+  background: darken($ui-base-color, 2%);
+  border-radius: 4px;
+
+  &__empty-message {
+    padding: 40px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: $darker-text-color;
+  }
 }
 
 .compose-panel {
@@ -2588,6 +2810,13 @@ a.account__display-name {
   margin-bottom: 10px;
   display: flex;
   flex-direction: row;
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   a {
     transition: background 100ms ease-in;
@@ -4206,6 +4435,7 @@ a.status-card.compact:hover {
   border-radius: 4px;
   margin-left: 40px;
   overflow: hidden;
+  z-index: 2;
 
   &.top {
     transform-origin: 50% 100%;
@@ -4214,6 +4444,15 @@ a.status-card.compact:hover {
   &.bottom {
     transform-origin: 50% 0;
   }
+}
+
+.modal-root__container .privacy-dropdown {
+  flex-grow: 0;
+}
+
+.modal-root__container .privacy-dropdown__dropdown {
+  pointer-events: auto;
+  z-index: 9999;
 }
 
 .privacy-dropdown__option {
@@ -4459,6 +4698,7 @@ a.status-card.compact:hover {
   right: 0;
   bottom: 0;
   background: rgba($base-overlay-background, 0.7);
+  transition: background 0.5s;
 }
 
 .modal-root__container {
@@ -5201,9 +5441,10 @@ a.status-card.compact:hover {
 .report-modal__target {
   padding: 15px;
 
-  .media-modal__close {
-    top: 14px;
-    right: 15px;
+  .report-modal__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
 }
 
@@ -6666,6 +6907,17 @@ noscript {
       padding: 20px 15px;
       padding-bottom: 5px;
       color: $primary-text-color;
+
+      .columns-area--mobile & {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+
+    .account__header__joined {
+      font-size: 14px;
+      padding: 5px 15px;
+      color: $darker-text-color;
 
       .columns-area--mobile & {
         padding-left: 20px;
