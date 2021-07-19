@@ -33,7 +33,7 @@ module Mastodon
     end
 
     def repository
-      ENV.fetch('GITHUB_REPOSITORY', 'mayaeh/mastodon')
+      ENV.fetch('GITHUB_REPOSITORY', 'ffxiv-mastodon/mastodon')
     end
 
     def source_base_url
