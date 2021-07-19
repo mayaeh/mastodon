@@ -7426,6 +7426,7 @@ noscript {
     &__account {
       display: flex;
       text-decoration: none;
+      overflow: hidden;
     }
 
     .account__avatar {
