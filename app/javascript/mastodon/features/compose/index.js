@@ -104,10 +104,10 @@ class Compose extends React.PureComponent {
     if (!columns.some(column => column.get('id') === id)) {
       const tabParams = {
         'START':         { to: '/getting-started',        title: formatMessage(messages.start),         label: formatMessage(messages.short_start),         icon_id: 'bars' },
-        'HOME':          { to: '/timelines/home',         title: formatMessage(messages.home_timeline), label: formatMessage(messages.short_home_timeline), icon_id: 'home' },
+        'HOME':          { to: '/home',                   title: formatMessage(messages.home_timeline), label: formatMessage(messages.short_home_timeline), icon_id: 'home' },
         'NOTIFICATIONS': { to: '/notifications',          title: formatMessage(messages.notifications), label: formatMessage(messages.short_notifications), icon_id: 'bell' },
-        'COMMUNITY':     { to: '/timelines/public/local', title: formatMessage(messages.community),     label: formatMessage(messages.short_community),     icon_id: 'users' },
-        'PUBLIC':        { to: '/timelines/public',       title: formatMessage(messages.public),        label: formatMessage(messages.short_public),        icon_id: 'globe' },
+        'COMMUNITY':     { to: '/public/local',           title: formatMessage(messages.community),     label: formatMessage(messages.short_community),     icon_id: 'users' },
+        'PUBLIC':        { to: '/public',                 title: formatMessage(messages.public),        label: formatMessage(messages.short_public),        icon_id: 'globe' },
         'PREFERENCES':   { href: '/settings/preferences', title: formatMessage(messages.preferences),   label: formatMessage(messages.short_preferences),   icon_id: 'cog' },
         'SIGN_OUT':      { href: '/auth/sign_out',        title: formatMessage(messages.logout),        label: formatMessage(messages.short_logout),        icon_id: 'sign-out', method: 'delete' },
       };
