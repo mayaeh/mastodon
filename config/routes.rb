@@ -460,6 +460,7 @@ Rails.application.routes.draw do
         member do
           post :follow
           post :unfollow
+          post :remove_from_followers
           post :block
           post :unblock
           post :mute
