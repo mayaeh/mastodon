@@ -4,11 +4,11 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { connect } from 'react-redux';
 import { injectIntl, defineMessages } from 'react-intl';
-import Column from '../ui/components/column';
-import ColumnHeader from '../../components/column_header';
-import Hashtag from '../../components/hashtag';
+import Column from 'mastodon/features/ui/components/column';
+import ColumnHeader from 'mastodon/components/column_header';
+import { ImmutableHashtag as Hashtag } from 'mastodon/components/hashtag';
 import classNames from 'classnames';
-import { fetchTrends } from '../../actions/trends';
+import { fetchTrends } from 'mastodon/actions/trends';
 import Icon from 'mastodon/components/icon';
 
 const messages = defineMessages({

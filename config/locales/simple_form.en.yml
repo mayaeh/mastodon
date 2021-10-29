@@ -35,7 +35,8 @@ en:
         current_password: For security purposes please enter the password of the current account
         current_username: To confirm, please enter the username of the current account
         digest: Only sent after a long period of inactivity and only if you have received any personal messages in your absence
-        discoverable: Allow your account to be discovered by strangers through recommendations and other features
+        discoverable: Allow your account to be discovered by strangers through recommendations, profile directory and other features
+        discoverable_no_directory: Allow your account to be discovered by strangers through recommendations and other features
         email: You will be sent a confirmation e-mail
         fields: You can have up to 4 items displayed as a table on your profile
         header: PNG, GIF or JPG. At most %{size}. Will be downscaled to %{dimensions}px
@@ -52,7 +53,7 @@ en:
         setting_display_media_hide_all: Always hide media
         setting_display_media_show_all: Always show media
         setting_hide_network: Who you follow and who follows you will be hidden on your profile
-        setting_noindex: Affects your public profile and status pages
+        setting_noindex: Affects your public profile and post pages
         setting_place_tab_bar_at_bottom: When using a touch device, you can operate tabs within the reach of your fingers.
         setting_show_application: The application you use to post will be displayed in the detailed view of your posts
         setting_show_tab_bar_label: When adding a list etc. to the tab bar, it is recommended to display the label because it is not possible to distinguish by the icon alone
@@ -201,12 +202,12 @@ en:
         severity: Rule
       notification_emails:
         digest: Send digest e-mails
-        favourite: Someone favourited your status
+        favourite: Someone favourited your post
         follow: Someone followed you
         follow_request: Someone requested to follow you
         mention: Someone mentioned you
         pending_account: New account needs review
-        reblog: Someone boosted your status
+        reblog: Someone boosted your post
         report: New report is submitted
         trending_tag: An unreviewed hashtag is trending
       rule:

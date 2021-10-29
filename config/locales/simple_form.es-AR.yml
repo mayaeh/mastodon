@@ -36,6 +36,7 @@ es-AR:
         current_username: Para confirmar, por favor, ingresá el nombre de usuario de la cuenta actual
         digest: Sólo enviado tras un largo periodo de inactividad, y sólo si recibiste mensajes personales en tu ausencia
         discoverable: Permití que tu cuenta sea descubierta por extraños a través de recomendaciones y otras funciones
+        discoverable_no_directory: Permití que tu cuenta sea descubierta por extraños a través de recomendaciones y otras funciones
         email: Se te enviará un correo electrónico de confirmación
         fields: Podés tener hasta 4 elementos mostrados en una tabla en tu perfil
         header: 'PNG, GIF o JPG. Máximo: %{size}. Será subescalado a %{dimensions} píxeles'
@@ -52,7 +53,7 @@ es-AR:
         setting_display_media_hide_all: Siempre ocultar todos los medios
         setting_display_media_show_all: Siempre mostrar todos los medios
         setting_hide_network: Las cuentas que seguís y tus seguidores serán ocultados en tu perfil
-        setting_noindex: Afecta a tu perfil público y páginas de estado
+        setting_noindex: Afecta a tu perfil público y páginas de mensajes
         setting_show_application: La aplicación que usás para enviar mensajes se mostrará en la vista detallada de tus mensajes
         setting_use_blurhash: Los gradientes se basan en los colores de las imágenes ocultas pero haciendo borrosos los detalles
         setting_use_pending_items: Ocultar actualizaciones de la línea temporal detrás de un clic en lugar de desplazar automáticamente el flujo
