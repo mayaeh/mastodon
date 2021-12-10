@@ -4,8 +4,8 @@ class Trends::Links < Trends::Base
   PREFIX = 'trending_links'
 
   self.default_options = {
-    threshold: 15,
-    review_threshold: 10,
+    threshold: 5,
+    review_threshold: 4,
     max_score_cooldown: 2.days.freeze,
     max_score_halflife: 8.hours.freeze,
   }
