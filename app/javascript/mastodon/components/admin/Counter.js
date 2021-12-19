@@ -55,7 +55,7 @@ export default class Counter extends React.PureComponent {
   }
 
   render () {
-    const { label, href } = this.props;
+    const { label, href, target } = this.props;
     const { loading, data } = this.state;
 
     let content;
