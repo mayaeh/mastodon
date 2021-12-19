@@ -33,6 +33,7 @@ export default class Counter extends React.PureComponent {
     label: PropTypes.string.isRequired,
     href: PropTypes.string,
     params: PropTypes.object,
+    target: PropTypes.string,
   };
 
   state = {
