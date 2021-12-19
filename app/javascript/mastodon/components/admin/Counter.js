@@ -102,7 +102,7 @@ export default class Counter extends React.PureComponent {
     if (href) {
       if (target) {
         return (
-          <a href={href} className='sparkline' target='{target}'>
+          <a href={href} className='sparkline' target={target}>
             {inner}
           </a>
         );
