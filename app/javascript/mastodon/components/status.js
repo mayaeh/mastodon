@@ -10,7 +10,7 @@ import StatusContent from './status_content';
 import StatusActionBar from './status_action_bar';
 import AttachmentList from './attachment_list';
 import Card from '../features/status/components/card';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { MediaGallery, Video, Audio } from '../features/ui/util/async-components';
 import { HotKeys } from 'react-hotkeys';
@@ -51,6 +51,10 @@ export const defaultMediaVisibility = (status) => {
 
   return (displayMedia !== 'hide_all' && !status.get('sensitive') || displayMedia === 'show_all');
 };
+
+const messages = defineMessages({
+  edited: { id: 'status.edited', defaultMessage: 'Edited {date}' },
+});
 
 export default @injectIntl
 class Status extends ImmutablePureComponent {
