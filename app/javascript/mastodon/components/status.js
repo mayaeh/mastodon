@@ -10,7 +10,7 @@ import StatusContent from './status_content';
 import StatusActionBar from './status_action_bar';
 import AttachmentList from './attachment_list';
 import Card from '../features/status/components/card';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { MediaGallery, Video, Audio } from '../features/ui/util/async-components';
 import { HotKeys } from 'react-hotkeys';
@@ -51,6 +51,10 @@ export const defaultMediaVisibility = (status) => {
 
   return (displayMedia !== 'hide_all' && !status.get('sensitive') || displayMedia === 'show_all');
 };
+
+const messages = defineMessages({
+  edited: { id: 'status.edited', defaultMessage: 'Edited {date}' },
+});
 
 export default @injectIntl
 class Status extends ImmutablePureComponent {
@@ -466,7 +470,7 @@ class Status extends ImmutablePureComponent {
 
             <div className='status__info'>
               <a onClick={this.handleClick} href={status.get('url')} className='status__relative-time' target='_blank' rel='noopener noreferrer'>
-                <RelativeTimestamp timestamp={status.get('created_at')} />
+                <RelativeTimestamp timestamp={status.get('created_at')} />{status.get('edited_at') && <abbr title={intl.formatMessage(messages.edited, { date: intl.formatDate(status.get('edited_at'), { hour12: false, year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }) })}> *</abbr>}
               </a>
 
               <a onClick={this.handleAccountClick} href={status.getIn(['account', 'url'])} title={status.getIn(['account', 'acct'])} className='status__display-name' target='_blank' rel='noopener noreferrer'>
