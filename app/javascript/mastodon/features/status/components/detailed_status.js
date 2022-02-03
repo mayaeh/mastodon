@@ -6,7 +6,7 @@ import DisplayName from '../../../components/display_name';
 import StatusContent from '../../../components/status_content';
 import MediaGallery from '../../../components/media_gallery';
 import { Link } from 'react-router-dom';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import Card from './card';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import Video from '../../video';
@@ -108,6 +108,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
     let reblogLink = '';
     let reblogIcon = 'retweet';
     let favouriteLink = '';
+    let edited = '';
 
     if (this.props.measureHeight) {
       outerStyle.height = `${this.state.height}px`;
@@ -221,6 +222,15 @@ export default class DetailedStatus extends ImmutablePureComponent {
       );
     }
 
+    if (status.get('edited_at')) {
+      edited = (
+        <React.Fragment>
+          <React.Fragment> · </React.Fragment>
+          <FormattedMessage id='status.edited' defaultMessage='Edited {date}' values={{ date: intl.formatDate(status.get('edited_at'), { hour12: false, month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }) }} />
+        </React.Fragment>
+      );
+    }
+
     return (
       <div style={outerStyle}>
         <div ref={this.setRef} className={classNames('detailed-status', { compact })}>
@@ -236,7 +246,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
           <div className='detailed-status__meta'>
             <a className='detailed-status__datetime' href={status.get('url')} target='_blank' rel='noopener noreferrer'>
               <FormattedDate value={new Date(status.get('created_at'))} hour12={false} year='numeric' month='short' day='2-digit' hour='2-digit' minute='2-digit' />
-            </a>{applicationLink} · {reblogLink} · {favouriteLink}
+            </a>{edited}{applicationLink} · {reblogLink} · {favouriteLink}
           </div>
         </div>
       </div>
