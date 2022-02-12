@@ -318,15 +318,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Loading...",
-        "id": "loading_indicator.label"
-      }
-    ],
-    "path": "app/javascript/mastodon/components/loading_indicator.json"
-  },
-  {
-    "descriptors": [
-      {
         "defaultMessage": "{number, plural, one {Hide image} other {Hide images}}",
         "id": "media_gallery.toggle_visible"
       },
@@ -2436,6 +2427,10 @@
       {
         "defaultMessage": "New toots:",
         "id": "notifications.column_settings.status"
+      },
+      {
+        "defaultMessage": "Edits:",
+        "id": "notifications.column_settings.update"
       }
     ],
     "path": "app/javascript/mastodon/features/notifications/components/column_settings.json"
@@ -2520,6 +2515,10 @@
       {
         "defaultMessage": "{name} just posted",
         "id": "notification.status"
+      },
+      {
+        "defaultMessage": "{name} edited a post",
+        "id": "notification.update"
       },
       {
         "defaultMessage": "{name} has requested to follow you",
