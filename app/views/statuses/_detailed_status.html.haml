@@ -46,7 +46,7 @@
     - if status.edited?
       = t('statuses.edited_at', date: l(status.edited_at))
       ·
-    - if status.application && @account.user&.setting_show_application
+    - if status.application && status.account.user&.setting_show_application
       - if status.application.website.blank?
         %strong.detailed-status__application= status.application.name
       - else
