@@ -214,8 +214,12 @@ class ActionBar extends React.PureComponent {
     if (writtenByMe) {
       if (pinnableStatus) {
         menu.push({ text: intl.formatMessage(status.get('pinned') ? messages.unpin : messages.pin), action: this.handlePinClick });
-        menu.push(null);
       }
+      if (status.get('visibility') === 'private') {
+        menu.push({ text: intl.formatMessage(status.get('reblogged') ? messages.cancel_reblog_private : messages.reblog_private), action: this.handleReblogClick });
+      }
+
+      menu.push(null);
 
       menu.push({ text: intl.formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation), action: this.handleConversationMuteClick });
       menu.push(null);
