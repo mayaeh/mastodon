@@ -17,8 +17,8 @@ const messages = defineMessages({
 });
 
 const mapStateToProps = state => ({
-  trends: state.getIn(['trends', 'items']),
-  loading: state.getIn(['trends', 'isLoading']),
+  trends: state.getIn(['trends', 'tags', 'items']),
+  loading: state.getIn(['trends', 'tags', 'isLoading']),
 });
 
 const mapDispatchToProps = dispatch => ({
