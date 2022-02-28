@@ -8,7 +8,7 @@ import Column from 'mastodon/features/ui/components/column';
 import ColumnHeader from 'mastodon/components/column_header';
 import { ImmutableHashtag as Hashtag } from 'mastodon/components/hashtag';
 import classNames from 'classnames';
-import { fetchTrends } from 'mastodon/actions/trends';
+import { fetchTrendingHashtags } from 'mastodon/actions/trends';
 import Icon from 'mastodon/components/icon';
 
 const messages = defineMessages({
@@ -17,12 +17,12 @@ const messages = defineMessages({
 });
 
 const mapStateToProps = state => ({
-  trends: state.getIn(['trends', 'items']),
-  loading: state.getIn(['trends', 'isLoading']),
+  trends: state.getIn(['trends', 'tags', 'items']),
+  loading: state.getIn(['trends', 'tags', 'isLoading']),
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchTrends: () => dispatch(fetchTrends()),
+  fetchTrends: () => dispatch(fetchTrendingHashtags()),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
