@@ -1953,6 +1953,10 @@
         "id": "navigation_bar.community_timeline"
       },
       {
+        "defaultMessage": "Explore",
+        "id": "navigation_bar.explore"
+      },
+      {
         "defaultMessage": "Direct messages",
         "id": "navigation_bar.direct"
       },
@@ -2007,10 +2011,6 @@
       {
         "defaultMessage": "Getting started",
         "id": "getting_started.heading"
-      },
-      {
-        "defaultMessage": "Profile directory",
-        "id": "getting_started.directory"
       }
     ],
     "path": "app/javascript/mastodon/features/getting_started/index.json"
@@ -3390,6 +3390,10 @@
         "id": "navigation_bar.info"
       },
       {
+        "defaultMessage": "Profile directory",
+        "id": "getting_started.directory"
+      },
+      {
         "defaultMessage": "Mobile apps",
         "id": "navigation_bar.apps"
       },
@@ -3515,10 +3519,6 @@
       {
         "defaultMessage": "Lists",
         "id": "navigation_bar.lists"
-      },
-      {
-        "defaultMessage": "Profile directory",
-        "id": "getting_started.directory"
       },
       {
         "defaultMessage": "Preferences",
