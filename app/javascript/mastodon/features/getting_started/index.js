@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { me, showTrends } from '../../initial_state';
+import { me, profile_directory, showTrends } from '../../initial_state';
 import { fetchFollowRequests } from 'mastodon/actions/accounts';
 import { List as ImmutableList } from 'immutable';
 import NavigationContainer from '../compose/containers/navigation_container';
@@ -37,6 +37,7 @@ const messages = defineMessages({
   security: { id: 'navigation_bar.security', defaultMessage: 'Security' },
   trending_tags: { id: 'navigation_bar.trending_tags', defaultMessage:'Trending now' },
   menu: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
+  profile_directory: { id: 'getting_started.directory', defaultMessage: 'Profile directory' },
 });
 
 const mapStateToProps = state => ({
@@ -106,13 +107,27 @@ class GettingStarted extends ImmutablePureComponent {
 
       height += 34 + 48*3;
 
+      if (profile_directory) {
+        navItems.push(
+          <ColumnLink key='directory' icon='address-book' text={intl.formatMessage(messages.profile_directory)} to='/directory' />,
+        );
+
+        height += 48;
+      }
+
       navItems.push(
         <ColumnLink key='trending_tags' icon='fire' text={intl.formatMessage(messages.trending_tags)} to='/trends' />,
         <ColumnSubheading key='header-personal' text={intl.formatMessage(messages.personal)} />,
       );
 
       height += 34 + 48;
+    } else if (profile_directory) {
+      navItems.push(
+        <ColumnLink key='directory' icon='address-book' text={intl.formatMessage(messages.profile_directory)} to='/directory' />,
+        navItems.push(<ColumnLink key='trending_tags' icon='fire' text={intl.formatMessage(messages.trending_tags)} to='/trends' />);
+      );
 
+      height += 48*2;
     } else {
       navItems.push(<ColumnLink key='trending_tags' icon='fire' text={intl.formatMessage(messages.trending_tags)} to='/trends' />);
       height += 48;
