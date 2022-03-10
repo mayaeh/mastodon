@@ -1122,7 +1122,7 @@
   .media-gallery,
   .audio-player,
   .video-player {
-    margin-top: 8px;
+    margin-top: 15px;
     max-width: 250px;
   }
 
@@ -5745,6 +5745,12 @@ a.status-card.compact:hover {
       border: 0;
       margin: 20px 0;
     }
+  }
+
+  .media-gallery,
+  .audio-player,
+  .video-player {
+    margin-top: 15px;
   }
 }
 
