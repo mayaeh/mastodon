@@ -1344,10 +1344,6 @@
         "id": "suggestions.header"
       },
       {
-        "defaultMessage": "Trending now",
-        "id": "trends.header"
-      },
-      {
         "defaultMessage": "People",
         "id": "search_results.accounts"
       },
@@ -1430,6 +1426,10 @@
       {
         "defaultMessage": "Edit",
         "id": "upload_form.edit"
+      },
+      {
+        "defaultMessage": "No description added",
+        "id": "upload_form.description_missing"
       }
     ],
     "path": "app/javascript/mastodon/features/compose/components/upload.json"
@@ -3155,19 +3155,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Trending now",
-        "id": "trends.header"
-      },
-      {
-        "defaultMessage": "Refresh trends",
-        "id": "trends.refresh"
-      }
-    ],
-    "path": "app/javascript/mastodon/features/trends/index.json"
-  },
-  {
-    "descriptors": [
-      {
         "defaultMessage": "Are you sure you want to block {name}?",
         "id": "confirmations.block.message"
       },
@@ -3511,10 +3498,6 @@
       {
         "defaultMessage": "Federated",
         "id": "tabs_bar.federated_timeline"
-      },
-      {
-        "defaultMessage": "Trending now",
-        "id": "navigation_bar.trending_tags"
       },
       {
         "defaultMessage": "Direct messages",

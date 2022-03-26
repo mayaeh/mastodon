@@ -70,7 +70,7 @@ export default class Trends extends ImmutablePureComponent {
 
         {showTrends && <div className='getting-started__scrollable'>
           {trends.take(3).map(hashtag => <Hashtag key={hashtag.get('name')} hashtag={hashtag} />)}
-          <Link to='/trends' className='load-more'><FormattedMessage id='status.load_more' defaultMessage='Load more' /></Link>
+          <Link to='/explore/tags' className='load-more'><FormattedMessage id='status.load_more' defaultMessage='Load more' /></Link>
         </div>}
       </div>
     );
