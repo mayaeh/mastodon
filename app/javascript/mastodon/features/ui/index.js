@@ -49,7 +49,6 @@ import {
   Mutes,
   PinnedStatuses,
   Lists,
-  Trends,
   Directory,
   Explore,
   FollowRecommendations,
@@ -167,7 +166,6 @@ class SwitchingColumnsArea extends React.PureComponent {
           <WrappedRoute path='/bookmarks' component={BookmarkedStatuses} content={children} />
           <WrappedRoute path='/pinned' component={PinnedStatuses} content={children} />
 
-          <WrappedRoute path='/trends' component={Trends} content={children} />
           <WrappedRoute path='/start' component={FollowRecommendations} content={children} />
           <WrappedRoute path='/directory' component={Directory} content={children} />
           <WrappedRoute path={['/explore', '/search']} component={Explore} content={children} />

@@ -33,7 +33,7 @@ class TabsBar extends React.PureComponent {
   static propTypes = {
     intl: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
-  };
+  }
 
   setRef = ref => {
     this.node = ref;

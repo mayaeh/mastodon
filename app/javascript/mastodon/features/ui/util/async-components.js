@@ -138,10 +138,6 @@ export function ListAdder () {
   return import(/*webpackChunkName: "features/list_adder" */'../../list_adder');
 }
 
-export function Trends () {
-  return import(/* webpackChunkName: "features/trends" */'../../trends');
-}
-
 export function Tesseract () {
   return import(/*webpackChunkName: "tesseract" */'tesseract.js');
 }
