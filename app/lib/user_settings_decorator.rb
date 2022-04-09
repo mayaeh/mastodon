@@ -141,6 +141,7 @@ class UserSettingsDecorator
 
   def show_tab_bar_label_preference
     boolean_cast_setting 'setting_show_tab_bar_label'
+  end
 
   def always_send_emails_preference
     boolean_cast_setting 'setting_always_send_emails'
