@@ -243,7 +243,7 @@ class FeedManager
     account.following.includes(:account_stat).find_each do |target_account|
       if redis.zcard(timeline_key) >= limit
         oldest_home_score = redis.zrange(timeline_key, 0, 0, with_scores: true).first.last.to_i
-        last_status_score = Mastodon::Snowflake.id_at(account.last_status_at)
+        last_status_score = Mastodon::Snowflake.id_at(target_account.last_status_at)
 
         # If the feed is full and this account has not posted more recently
         # than the last item on the feed, then we can skip the whole account
@@ -442,16 +442,8 @@ class FeedManager
     return false if active_filters.empty?
 
     combined_regex = Regexp.union(active_filters)
-    status         = status.reblog if status.reblog?
 
-    combined_text = [
-      Formatter.instance.plaintext(status),
-      status.spoiler_text,
-      status.preloadable_poll ? status.preloadable_poll.options.join("\n\n") : nil,
-      status.media_attachments.map(&:description).join("\n\n"),
-    ].compact.join("\n\n")
-
-    combined_regex.match?(combined_text)
+    combined_regex.match?(status.proper.searchable_text)
   end
 
   # Adds a status to an account's feed, returning true if a status was

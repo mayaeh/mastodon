@@ -17,10 +17,10 @@ class RemoveStatusService < BaseService
     @account  = status.account
     @options  = options
 
-    @status.discard
-
     RedisLock.acquire(lock_options) do |lock|
       if lock.acquired?
+        @status.discard
+
         remove_from_self if @account.local?
         remove_from_followers
         remove_from_lists
@@ -40,7 +40,7 @@ class RemoveStatusService < BaseService
           remove_reblogs
           remove_from_hashtags
           remove_from_public
-          remove_from_media if @status.media_attachments.any?
+          remove_from_media if @status.with_media?
           remove_media
         end
 

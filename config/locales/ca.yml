@@ -1,7 +1,7 @@
 ---
 ca:
   about:
-    about_hashtag_html: Aquests són tuts públics etiquetats amb <strong>#%{hashtag}</strong>. Pots interactuar amb elles si tens un compte a qualsevol lloc del fedivers.
+    about_hashtag_html: Aquests són publicacions públiques etiquetades amb <strong>#%{hashtag}</strong>. Pots interactuar amb elles si tens un compte a qualsevol lloc del fedivers.
     about_mastodon_html: 'La xarxa social del futur: sense anuncis, sense vigilància corporativa, disseny ètic i descentralització. Posseeix les teves dades amb Mastodon!'
     about_this: Quant a
     active_count_after: actiu
@@ -16,6 +16,7 @@ ca:
     contact: Contacte
     contact_missing: No configurat
     contact_unavailable: N/D
+    continue_to_web: Continua a l'aplicació web
     discover_users: Descobrir usuaris
     documentation: Documentació
     federation_hint_html: Amb un compte de %{instance} podràs seguir persones de qualsevol servidor Mastodon i altres.
@@ -24,7 +25,9 @@ ca:
     instance_actor_flash: |
       Aquest compte és un actor virtual utilitzat per a representar al propi servidor i no cap usuari individual.
       S'utilitza per a propòsits de federació i no ha de ser bloquejat si no voleu bloquejar tota la instància, en aquest cas hauríeu d'utilitzar un bloqueig de domini.
-    learn_more: Més informació
+    learn_more: Aprèn més
+    logged_in_as_html: Actualment has iniciat sessió com a %{username}.
+    logout_before_registering: Ja has iniciat sessió.
     privacy_policy: Política de privadesa
     rules: Normes del servidor
     rules_html: 'El de sota és un resum de les normes que has de seguir si vols tenir un compte en aquest servidor de Mastodon:'
@@ -32,12 +35,12 @@ ca:
     server_stats: 'Estadístiques del servidor:'
     source_code: Codi font
     status_count_after:
-      one: estat
-      other: tuts
-    status_count_before: Que han escrit
+      one: publicació
+      other: publicacions
+    status_count_before: Que han publicat
     tagline: Segueix els teus amics i descobreix-ne de nous
     terms: Termes del servei
-    unavailable_content: Contingut no disponible
+    unavailable_content: Servidors moderats
     unavailable_content_description:
       domain: Servidor
       reason: Raó
@@ -69,17 +72,16 @@ ca:
     media: Mèdia
     moved_html: "%{name} s'ha mogut a %{new_profile_link}:"
     network_hidden: Aquesta informació no està disponible
-    never_active: Mai
     nothing_here: No hi ha res aquí!
     people_followed_by: Usuaris seguits per %{name}
     people_who_follow: Usuaris que segueixen %{name}
     pin_errors:
       following: Has d'estar seguint la persona que vulguis avalar
     posts:
-      one: Tut
-      other: Tuts
-    posts_tab_heading: Tuts
-    posts_with_replies: Tuts i respostes
+      one: Publicació
+      other: Publicacions
+    posts_tab_heading: Publicacions
+    posts_with_replies: Publicacions i respostes
     roles:
       admin: Administrador
       bot: Bot
@@ -96,7 +98,7 @@ ca:
       created_msg: La nota de moderació s'ha creat correctament!
       destroyed_msg: Nota de moderació destruïda amb èxit!
     accounts:
-      add_email_domain_block: Afegir el domini de correu a la llista negra
+      add_email_domain_block: Bloquejar el domini de l'adreça de correu electrònic
       approve: Aprova
       approved_msg: L’aplicació del registre de %{username} s’ha aprovat amb èxit
       are_you_sure: N'estàs segur?
@@ -166,7 +168,6 @@ ca:
       previous_strikes_description_html:
         one: Aquest compte té <strong>una</strong> acció.
         other: Aquest compte té <strong>%{count}</strong> accions.
-        zero: Aquest compte està <strong>al dia</strong>.
       promote: Promociona
       protocol: Protocol
       public: Públic
@@ -198,7 +199,6 @@ ca:
       security_measures:
         only_password: Només contrasenya
         password_and_2fa: Contrasenya i 2FA
-        password_and_sign_in_token: Contrasenya i token per correu
       sensitive: Sensible
       sensitized: marcar com a sensible
       shared_inbox_url: URL de la safata d'entrada compartida
@@ -371,7 +371,7 @@ ca:
       enable: Habilita
       enabled: Activat
       enabled_msg: S'ha habilitat amb èxit emoji
-      image_hint: PNG de fins a 50 KB
+      image_hint: PNG or GIF fins a %{size}
       list: Llista
       listed: Enumerat
       new:
@@ -448,21 +448,6 @@ ca:
       reject_media_hint: Elimina els fitxers multimèdia emmagatzemats localment i impedeix baixar-ne cap en el futur. Irrellevant en les suspensions
       reject_reports: Rebutja informes
       reject_reports_hint: Ignora tots els informes procedents d'aquest domini. No és rellevant per a les suspensions
-      rejecting_media: rebutjant els fitxers multimèdia
-      rejecting_reports: rebutjant els informes
-      severity:
-        silence: silenciat
-        suspend: suspès
-      show:
-        affected_accounts:
-          one: Un compte afectat en la base de dades
-          other: "%{count} comptes afectats en la base de dades"
-          zero: Cap compte afectat en la base de dades
-        retroactive:
-          silence: Desfés el silenci a tots els comptes existents d'aquest domini
-          suspend: Desfés la suspensió de tots els comptes d'aquest domini
-        title: Desfés el bloqueig de domini de %{domain}
-        undo: Desfés
       undo: Desfés el bloqueig del domini
       view: Veure el bloqueig del domini
     email_domain_blocks:
@@ -493,23 +478,48 @@ ca:
       title: Seguir les recomanacions
       unsuppress: Restaurar les recomanacions de seguiment
     instances:
+      availability:
+        description_html:
+          one: Si la tramesa cap el domini falla <strong>%{count} dia</strong> sense èxit, no es faran més intents d'entrega a no ser que es rebi una tramesa <em>des de</em> el domini.
+          other: Si la tramesa cap el domini falla durant <strong>%{count} diferents dies</strong> sense èxit, no es faran més intents a no se que es rebi una tramesa <em>des de</em> el domini.
+        failure_threshold_reached: Llindar de fallada assolit el %{date}.
+        failures_recorded:
+          one: Inten fallit en %{count} dia.
+          other: Intents fallits en %{count} diferents dies.
+        no_failures_recorded: Sense errors registrats.
+        title: Disponibilitat
+        warning: El darrer intent de connectar a aquest servidor no ha tingut èxit
       back_to_all: Totes
       back_to_limited: Limitades
       back_to_warning: Avís
       by_domain: Domini
       confirm_purge: Estàs segur que vols eliminar permanentment les dades d'aquest domini?
+      content_policies:
+        comment: Nota interna
+        description_html: Pots definir polítiques de contingut que seran aplicades a tots els comptes d'aquest domini i a qualsevol dels seus subdominis.
+        policies:
+          reject_media: Rebutja mèdia
+          reject_reports: Rebutja informes
+          silence: Límit
+          suspend: Suspèn
+        policy: Política
+        reason: Raó pública
+        title: Polítiques de contingut
+      dashboard:
+        instance_accounts_dimension: Comptes més seguits
+        instance_accounts_measure: comptes desats
+        instance_followers_measure: els nostres seguidors d'allà
+        instance_follows_measure: els seus seguidors d'aquí
+        instance_languages_dimension: Idiomes principals
+        instance_media_attachments_measure: adjunts multimèdia desats
+        instance_reports_measure: informes sobre ells
+        instance_statuses_measure: publicacions desades
       delivery:
         all: Totes
         clear: Neteja els errors de lliurament
         restart: Reinicia el lliurament
         stop: Atura el lliurament
-        title: Lliurament
         unavailable: No disponible
-        unavailable_message: El lliurament no està disponible
-        warning: Avís
-        warning_message:
-          one: Fallada de lliurament %{count} dia
-          other: Fallada de lliurament %{count} dies
       delivery_available: El lliurament està disponible
       delivery_error_days: Dies de fallades de lliurament
       delivery_error_hint: Si el lliurament no és possible per %{count} dies, serà automàticament marcat com a no lliurable.
@@ -518,7 +528,6 @@ ca:
       known_accounts:
         one: "%{count} compte conegut"
         other: "%{count} comptes coneguts"
-        zero: Cap compte conegut
       moderation:
         all: Totes
         limited: Limitades
@@ -526,12 +535,14 @@ ca:
       private_comment: Comentari privat
       public_comment: Comentari públic
       purge: Purga
+      purge_description_html: Si creus que aquest domini està fora de línia per sempre, pots esborrar tots els seus comptes i dades relacionades del teu emmagatzematge. Això pot trigar una estona.
       title: Federació
       total_blocked_by_us: Bloquejats per nosaltres
       total_followed_by_them: Seguits per ells
       total_followed_by_us: Seguits per nosaltres
       total_reported: Informes sobre ells
       total_storage: Adjunts multimèdia
+      totals_time_period_hint_html: Els totals mostrats a sota incloeixen dades de tots els temps.
     invites:
       deactivate_all: Desactiva-ho tot
       filter:
@@ -586,6 +597,7 @@ ca:
       action_taken_by: Mesures adoptades per
       actions:
         delete_description_html: Les publicacions reportades seran eliminades i un cop serà gravat per ajudar-te a escalar en futures infraccions des d'el mateix compte.
+        mark_as_sensitive_description_html: Els mèdia de les publicacions reportades seran marcats com a sensibles i una acció serà gravada per ajudar a escalar en futures infraccions del mateix compte.
         other_description_html: Veu més opcions controlant el comportament del compte i personalitza la comunicació al compte reportat.
         resolve_description_html: No serà presa cap acció contra el compte reportat, cap cop serà gravat i l'informe es tancarà.
         silence_description_html: El perfil serà visible només per aquells que ja el seguien o en cerca manual, limitant severament el seu alcanç. Sempre pot ser revertit.
@@ -606,6 +618,7 @@ ca:
       forwarded: Reenviat
       forwarded_to: Reenviat a %{domain}
       mark_as_resolved: Marca com a resolt
+      mark_as_sensitive: Marca com a sensible
       mark_as_unresolved: Marcar com a sense resoldre
       no_one_assigned: Ningú
       notes:
@@ -749,6 +762,7 @@ ca:
       actions:
         delete_statuses: "%{name} ha eliminat les publicacions de %{target}"
         disable: "%{name} ha congelat el compte de %{target}"
+        mark_statuses_as_sensitive: "%{name} ha marcat les publicacions de %{target} com a sensibles"
         none: "%{name} ha enviat un avís a %{target}"
         sensitive: "%{name} ha marcat el compte de %{target} com a sensible"
         silence: "%{name} ha limitat el compte de %{target}"
@@ -758,6 +772,11 @@ ca:
     system_checks:
       database_schema_check:
         message_html: Hi ha pendents migracions de la base de dades. Si us plau executa-les per a assegurar que l'aplicació es comporta com s'espera
+      elasticsearch_running_check:
+        message_html: No s'ha pogut connectar a Elasticsearch. Si us plau verifica que estigui funcionant o desactiva la cerca de text complet
+      elasticsearch_version_check:
+        message_html: 'Versió incompatible de Elasticsearch: %{value}'
+        version_comparison: Elasticsearch %{running_version} està funcionant mentre %{required_version} és requerida
       rules_check:
         action: Gestiona les normes del servidor
         message_html: No has definit cap norma del servidor.
@@ -774,25 +793,28 @@ ca:
       links:
         allow: Permet enllaç
         allow_provider: Permet mitjà
+        description_html: Aquests son enllaços que ara mateix s'estan compartint molt per els comptes que el teu servidor en veu les publicacions. Poden ajudar als teus usuaris a trobar què està passant en el món. Cap dels enllaços es mostra publicament fins que no aprovis el mitjà. També pots aceptar o rebutjar enllaços individuals.
         disallow: No permetre l'enllaç
         disallow_provider: No permetre el mitjà
         shared_by_over_week:
-          one: Compartit per un usuari en la darrera setmana
-          other: Compartit per %{count} usuaris en la darrera setmana
-          zero: Compartit per ningú en la darrera setmana
+          one: Compartit per una persona en la darrera setmana
+          other: Compartit per %{count} persones en la darrera setmana
         title: Enllaços en tendència
         usage_comparison: Compartit %{today} vegades avui, comparat amb %{yesterday} d'ahir
       pending_review: Revisió pendent
       preview_card_providers:
         allowed: Els enllaços d'aquest mitjà poden estar en tendència
+        description_html: Aquest son els dominis des d´els quals es comparteixen sovint enllaços en el teu servidor. Els enllaços no seran tendència pública fins que el domini del enllaç s'aprovi. La teva aprovació (o rebuig) es fa extensible als subdominis.
         rejected: Els enllaços d'aquest mitjà no poden estar en tendència
         title: Mitjans
       rejected: Rebutjat
       statuses:
         allow: Permet publicació
         allow_account: Permet autor
+        description_html: Aquestes son publicacions que el teu servidor veu i que ara mateix s'estan compartint i afavorint molt. Poden ajudar als teus nous usuaris i als que retornen a trobar més gent a qui seguir. Cap publicació es mostra publicament fins que no aprovis l'autor i l'autor permeti que el seu compte sigui sugerit a altres. També pots aceptar o rebutjar publicacions individuals.
         disallow: Rebutja publicació
         disallow_account: Rebutja autor
+        not_discoverable: L'autor no ha activat poder ser detectable
         shared_by:
           one: Compartit o afavorit una vegada
           other: Compartit i afavorit %{friendly_count} vegades
@@ -805,6 +827,7 @@ ca:
           tag_servers_dimension: Els millors servidors
           tag_servers_measure: diferents servidors
           tag_uses_measure: total usos
+        description_html: Aquestes son etiquetes que ara mateix estan apareixen en moltes publicacions que el teu servidor veu. Poden ajudar als teus usuaris a trobar de què està parlant majoritariament la gent en aquest moment. Cap etiqueta es mostra publicament fins que no l'aprovis.
         listable: Es pot suggerir
         not_listable: No es pot suggerir
         not_trendable: No apareixeran en les tendències
@@ -816,9 +839,8 @@ ca:
         usable: Pot ser emprat
         usage_comparison: Usat %{today} vegades avui, comparat amb %{yesterday} d'ahir
         used_by_over_week:
-          one: Emprat per un usuari en la darrera setmana
-          other: Emprat per %{count} usuaris en la darrera setmana
-          zero: Emprat per ningú en la darrera setmana
+          one: Emprat per una persona en la darrera setmana
+          other: Emprat per %{count} persones en la darrera setmana
       title: Tendència
     warning_presets:
       add_new: Afegir-ne un de nou
@@ -831,6 +853,7 @@ ca:
       actions:
         delete_statuses: eliminar les seves publicacions
         disable: congelar els seus comptes
+        mark_statuses_as_sensitive: marcar les seves publicacions com a sensibles
         none: un avís
         sensitive: marcar els seus comptes com a sensibles
         silence: limitar els seus comptes
@@ -933,8 +956,10 @@ ca:
     status:
       account_status: Estat del compte
       confirming: Esperant que es completi la confirmació del correu electrònic.
+      functional: El teu compte està completament operatiu.
       pending: La vostra sol·licitud està pendent de revisió pel nostre personal. Això pot trigar una mica. Rebreu un correu electrònic quan sigui aprovada.
       redirecting_to: El teu compte és inactiu perquè actualment està redirigint a %{acct}.
+      view_strikes: Veure accions del passat contra el teu compte
     too_fast: Formulari enviat massa ràpid, torna a provar-ho.
     trouble_logging_in: Problemes per iniciar la sessió?
     use_security_key: Usa clau de seguretat
@@ -1010,6 +1035,7 @@ ca:
         submit: Apel·lació emesa
       associated_report: Informe associat
       created_at: Datada
+      description_html: Aquestes son accions preses contra el teu compte i avisos que se t'han enviat per l'equip de %{instance}.
       recipient: Dirigida a
       status: 'Publicació #%{id}'
       status_removed: Publicació ja esborrada del sistema
@@ -1017,8 +1043,9 @@ ca:
       title_actions:
         delete_statuses: Eliminació de publicació
         disable: Congelació del compte
+        mark_statuses_as_sensitive: Marcatge de les publicacions com a sensibles
         none: Avís
-        sensitive: Marcant com a sensible el compte
+        sensitive: Marcatge del compte com a sensible
         silence: Limitació del compte
         suspend: Suspensió del compte
       your_appeal_approved: La teva apel·lació s'ha aprovat
@@ -1209,8 +1236,8 @@ ca:
         one: A més, has adquirit un nou seguidor durant la teva absència! Visca!
         other: A més, has adquirit %{count} nous seguidors mentre estaves fora! Increïble!
       subject:
-        one: "1 notificació nova des de la darrera visita \U0001F418"
-        other: "%{count} notificacions noves des de la darrera visita \U0001F418"
+        one: "1 notificació nova des de la darrera visita 🐘"
+        other: "%{count} notificacions noves des de la darrera visita 🐘"
       title: Durant la teva absència…
     favourite:
       body: "%{name} ha marcat com a favorit el teu estat:"
@@ -1390,6 +1417,7 @@ ca:
     profile: Perfil
     relationships: Seguits i seguidors
     statuses_cleanup: Esborrat automàtic de publicacions
+    strikes: Accions de mediació
     two_factor_authentication: Autenticació de dos factors
     webauthn_authentication: Claus de seguretat
   statuses:
@@ -1410,7 +1438,7 @@ ca:
     disallowed_hashtags:
       one: 'conté una etiqueta no permesa: %{tags}'
       other: 'conté les etiquetes no permeses: %{tags}'
-    edited_at: Editat %{date}
+    edited_at_html: Editat %{date}
     errors:
       in_reply_not_found: El tut al qual intentes respondre sembla que no existeix.
     open_in_web: Obre en la web
@@ -1469,6 +1497,7 @@ ca:
       '2629746': 1 mes
       '31556952': 1 any
       '5259492': 2 mesos
+      '604800': 1 setmana
       '63113904': 2 anys
       '7889238': 3 mesos
     min_age_label: Llindar d'edat
@@ -1603,12 +1632,13 @@ ca:
       explanation: Has sol·licitat una copia completa del teu compte Mastodon. Ara ja està a punt per a descàrrega!
       subject: El teu arxiu està preparat per a descàrrega
       title: Recollida del arxiu
-    sign_in_token:
-      details: 'Aquí es mostren els detalls del intent:'
-      explanation: 'Hem detectat un intent d’inici de sessió al teu compte des d’una IP desconeguda. Si ets tu, si us plau introdueix el codi de seguretat a sota, en la pàgina de desafiament d’inici de sessió:'
-      further_actions: 'Si no has estat tu, si us plau canvia la contrasenya i activa l’autenticació de dos factors del teu compte. Pots fer-ho aquí:'
-      subject: Si us plau confirma l’intent d’inici de sessió
-      title: Intent d’inici de sessió
+    suspicious_sign_in:
+      change_password: canvia la teva contrasenya
+      details: 'Aquí estan els detalls del inici de sessió:'
+      explanation: Hem detectat un inici de sessió del teu compte des d'una nova adreça IP.
+      further_actions_html: Si no has estat tu, recomanem que tu %{action} immediatament i activis l'autenticació de dos-factors per a mantenir el teu compte segur.
+      subject: El teu compte ha estat accedit des d'una nova adreça IP
+      title: Un nou inici de sessió
     warning:
       appeal: Trametre una apel·lació
       appeal_description: Si creus que això és un error pots emetre una apel·lació al equip de %{instance}.
@@ -1616,17 +1646,18 @@ ca:
         spam: Contingut brossa
         violation: El contingut viola les següents guies de la comunitat
       explanation:
-        delete_statuses: Algunes de les teves publicacions han estat trobades que violen les guies de la comunitat i han estat per tant esborrades per els moderadors de %{instance}. Futures violacions podrien resultar en accions més punitives contra el teu compte.
+        delete_statuses: Algunes de les teves publicacions s'han trobat que violen una o més directrius de la comunitat i per tant han estat eliminades per els moderadors de %{instance}.
         disable: Ja no pots utilitzar el teu compte però el teu perfil i altres dades segueixen intactes. Pots demanar una copia de les teves dades, canviar els ajustaments del teu compte o esborrar-lo.
+        mark_statuses_as_sensitive: Algunes de les teves publicacions han estat marcades com a sensibles per els moderadors de %{instance}. Això significa que la gent necessitarà tocar els mèdia en les publicacions per a que la previsualització sigui mostrada. Tu mateix pots marcar els teus mèdia com a sensibles quan publiquis en el futur.
         sensitive: A partir d'ara, tots els mèdia pujats seran marcats com a sensibles i ocultats darrera un avís.
         silence: Encara pots fer servir el teu compte però només la gent que ja t'està seguint veuran les teves publicacions en aquest servidor i tu podries ser exclòs de les diverses opcions de descobriment. De totes maneres altres podrien encara seguir-te manualment.
         suspend: Ja no pots utilitzar el teu compte i el teu perfil i altres dades ja no son accessibles. Encara pots iniciar sessió per a demanar una copia de les teves dades fins que siguin totalment eliminades als 30 dies però es mantindran les dades bàsiques per evitar que esquivis la suspensió.
-      get_in_touch: Si tu creus que això és un error pots respondre aquest correu electrònic per a contactar amb l'equip de %{instance}.
       reason: 'Raó:'
-      statuses: 'Publicacions que han estat trobades com a violació:'
+      statuses: 'Publicacions citades:'
       subject:
         delete_statuses: Les teves publicacions de %{acct} han estat esborrades
         disable: S'ha congelat el teu compte %{acct}
+        mark_statuses_as_sensitive: Les teves publicacions de %{acct} han estat marcades com a sensibles
         none: Avís per a %{acct}
         sensitive: Els teus mèdia de %{acct} seran marcades com a sensibles a partir d'ara
         silence: El teu compte %{acct} ha estat limitat
@@ -1634,8 +1665,9 @@ ca:
       title:
         delete_statuses: Publicacions esborrades
         disable: Compte congelat
+        mark_statuses_as_sensitive: Publicacions marcades com a sensibles
         none: Avís
-        sensitive: Mèdia ocult
+        sensitive: Compte marcat com a sensible
         silence: Compte limitat
         suspend: Compte suspès
     welcome:
@@ -1657,13 +1689,10 @@ ca:
       title: Benvingut a bord, %{name}!
   users:
     follow_limit_reached: No pots seguir més de %{limit} persones
-    generic_access_help_html: Problemes accedint al teu compte? Pots contactar amb %{email} per a demanar assistència
     invalid_otp_token: El codi de dos factors no és correcte
-    invalid_sign_in_token: Codi de seguretat invàlid
     otp_lost_help_html: Si has perdut l'accés a tots dos pots contactar per %{email}
     seamless_external_login: Has iniciat sessió via un servei extern per tant els ajustos de contrasenya i correu electrònic no estan disponibles.
     signed_in_as: 'Sessió iniciada com a:'
-    suspicious_sign_in_confirmation: Aparentment no has iniciat sessió des d’aquest dispositiu abans i no ho has fet des de fa cert temps per tant t’enviarem un codi de seguretat al teu correu electrònic per a confirmar que ets tu.
   verification:
     explanation_html: 'Pots <strong>verificar-te com a propietari dels enllaços a les metadades del teu perfil</strong>. Per això, el lloc web enllaçat ha de contenir un enllaç al teu perfil de Mastodon. El vincle <strong>ha de</strong> tenir l''atribut <code>rel="me"</code>. El contingut del text de l''enllaç no importa. Aquí tens un exemple:'
     verification: Verificació

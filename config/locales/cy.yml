@@ -77,7 +77,6 @@ cy:
     media: Cyfryngau
     moved_html: 'Mae %{name} wedi symud i %{new_profile_link}:'
     network_hidden: Nid yw'r wybodaeth hyn ar gael
-    never_active: Peidiwch byth
     nothing_here: Does dim byd yma!
     people_followed_by: Pobl y mae %{name} yn ei ddilyn
     people_who_follow: Pobl sy'n dilyn %{name}
@@ -279,7 +278,6 @@ cy:
       enable: Galluogi
       enabled: Wedi ei alluogi
       enabled_msg: Llwyddwyd i alluogi yr emoji hwnnw
-      image_hint: PNG hyd at 50KB
       list: Rhestr
       listed: Rhestredig
       new:
@@ -328,17 +326,6 @@ cy:
       reject_media_hint: Dileu dogfennau cyfryngau wedi eu cadw yn lleol ac yn gwrthod i lawrlwytho unrhyw rai yn y dyfodol. Amherthnasol i ataliadau
       reject_reports: Gwrthod adroddiadau
       reject_reports_hint: Anwybyddu'r holl adroddiadau sy'n dod o'r parth hwn. Amherthnasol i ataliadau
-      rejecting_media: Yn gwrthod ffeiliau cyfryngau
-      rejecting_reports: Yn gwrthod adroddiadau
-      severity:
-        silence: tawelu
-        suspend: ataliedig
-      show:
-        retroactive:
-          silence: Dad-dawelu pob cyfri presennol o'r parth hwn
-          suspend: Dad-atal pob cyfrif o'r parth hwn sy'n bodoli
-        title: Dadwneud blocio parth ar gyfer %{domain}
-        undo: Dadwneud
       undo: Dadwneud bloc parth
       view: Gweld bloc parth
     email_domain_blocks:
@@ -1164,12 +1151,6 @@ cy:
       explanation: Fe wnaethoch chi gais am gopi wrth gefn llawn o'ch cyfrif Mastodon. Mae nawr yn barod i'w lawrlwytho!
       subject: Mae eich archif yn barod i'w lawrlwytho
       title: Allfudo archif
-    sign_in_token:
-      details: 'Dyma''r manylion o''r ceisiad:'
-      explanation: 'Wnaethom ni synhwyro ceisiad i fewngofnodi i''ch cyfrif o gyfeiriad IP anabyddiedig. Os mae hyn yn chi, mewnbynnwch y cod diogelwch isod i fewn i''r dudalen herio mewngofnodiad:'
-      further_actions: 'Os nad oedd hyn yn chi, newidwch eich cyfrinair ac alluogi awdurdodi dauffactor ar eich cyfrif. Gallwch gwneud hyn fama:'
-      subject: Cadarnhewch yr ymgais mewngofnodi
-      title: Ymgais mewngofnodi
     warning:
       subject:
         disable: Mae'ch cyfrif %{acct} wedi'i rewi
@@ -1200,13 +1181,10 @@ cy:
       title: Croeso, %{name}!
   users:
     follow_limit_reached: Nid oes modd i chi ddilyn mwy na %{limit} o bobl
-    generic_access_help_html: Cael trafferth yn cyrchu eich cyfrif? Efallai hoffwch cysylltu â %{email} am gymorth
     invalid_otp_token: Côd dau-ffactor annilys
-    invalid_sign_in_token: Cod diogelwch annilys
     otp_lost_help_html: Os colloch chi fynediad i'r ddau, mae modd i chi gysylltu a %{email}
     seamless_external_login: Yr ydych wedi'ch mewngofnodi drwy wasanaeth allanol, felly nid yw gosodiadau cyfrinair ac e-bost ar gael.
     signed_in_as: 'Wedi mewngofnodi fel:'
-    suspicious_sign_in_confirmation: Mae'n edrych fel nad ydych wedi mewngofnodi o'r dyfais hyn o'r blaen, a nid ydych wedi mewngofnodi am sbel, felly rydym yn anfon cod diogelwch i'ch cyfeiriad ebost i gadarnhau bod chi yw hi.
   verification:
     explanation_html: 'Mae modd i chi <strong>ddilysu eich hun fel perchenog y dolenni yn metadata eich proffil</strong>. Rhaid i''r wefan a dolen iddi gynnwys dolen yn ôl i''ch proffil Mastodon. <strong>Rhaid</strong> i''r ddolen yn ôl gael nodwedd <code>rel="fi"</code>. Nid oes ots beth yw cynnwys testun y ddolen. Dyma enghraifft:'
     verification: Dilysu

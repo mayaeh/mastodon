@@ -16,6 +16,7 @@ sl:
     contact: Kontakt
     contact_missing: Ni nastavljeno
     contact_unavailable: Ni na voljo
+    continue_to_web: Nadaljuj v spletno aplikacijo
     discover_users: Odkrijte uporabnike
     documentation: Dokumentacija
     federation_hint_html: Z računom na %{instance} boste lahko spremljali ljudi na kateremkoli Mastodon strežniku.
@@ -25,6 +26,8 @@ sl:
       Ta račun je navidezni igralec, ki predstavlja strežnik in ne posameznega uporabnika.
       Uporablja se za namene federacije in se ne blokira, če ne želite blokirati celotne instance. V tem primeru blokirajte domeno.
     learn_more: Nauči se več
+    logged_in_as_html: Trenutno ste prijavljeni kot %{username}.
+    logout_before_registering: Ste že prijavljeni.
     privacy_policy: Pravilnik o zasebnosti
     rules: Pravila strežnika
     rules_html: 'Spodaj je povzetek pravil, ki jim morate slediti, če želite imeti račun na tem strežniku Mastodon:'
@@ -66,7 +69,6 @@ sl:
     media: Mediji
     moved_html: "%{name} se je prestavil na %{new_profile_link}:"
     network_hidden: Ta informacija ni na voljo
-    never_active: Nikoli
     nothing_here: Tukaj ni ničesar!
     people_followed_by: Ljudje, ki jim sledi %{name}
     people_who_follow: Ljudje, ki sledijo %{name}
@@ -209,6 +211,8 @@ sl:
         create_ip_block: Ustvari pravilo IP
         create_unavailable_domain: Ustvari domeno, ki ni na voljo
         destroy_announcement: Izbriši obvestilo
+        destroy_domain_allow: Izbriši odobritev domene
+        destroy_domain_block: Izbriši blokado domene
         destroy_ip_block: Izbriši pravilo IP
         destroy_status: Izbriši objavo
         disable_user: Onemogoči uporabnika
@@ -253,7 +257,7 @@ sl:
       enable: Omogoči
       enabled: Omogočeno
       enabled_msg: Ta emotikon je uspešno omogočen
-      image_hint: PNG do 50KB
+      image_hint: PNG ali GIF do %{size}
       list: Seznam
       listed: Navedeno
       new:
@@ -303,17 +307,6 @@ sl:
       reject_media_hint: Odstrani lokalno shranjene predstavnostne datoteke in zavrača prenašanje le-teh v prihodnosti. Za suspenzije ni pomembno
       reject_reports: Zavrnjene prijave
       reject_reports_hint: Prezri vse prijave, ki pridejo iz te domene. Za suspenzije ni pomembno
-      rejecting_media: zavrnitev predstavnostnih datotek
-      rejecting_reports: zavrnitev prijav
-      severity:
-        silence: utišani
-        suspend: suspendirani
-      show:
-        retroactive:
-          silence: Prekliči utišanje za vse obstoječe račune iz te domene
-          suspend: Aktiviraj vse obstoječe račune iz te domene
-        title: Razveljavi domenski blok za %{domain}
-        undo: Razveljavi
       undo: Razveljavi domenski blok
     email_domain_blocks:
       add_new: Dodaj novo
@@ -334,17 +327,39 @@ sl:
       language: Za jezik
       status: Stanje
     instances:
+      availability:
+        failure_threshold_reached: Prag neuspelih poskusov dosežen %{date}.
+        no_failures_recorded: Ni zabeleženih neuspelih poskusov.
+        title: Razpoložljivost
       back_to_all: Vse
       back_to_limited: Omejeno
       back_to_warning: Opozorilo
       by_domain: Domena
+      content_policies:
+        comment: Interna opomba
+        description_html: Določite lahko pravila (t.i. politike), ki bodo veljale za vse račune te domene ter vseh njenih poddomen.
+        policies:
+          reject_media: Zavrni večpredstavnost
+          reject_reports: Zarvni poročila
+          silence: Omeji
+          suspend: Suspendiraj
+        policy: Pravila
+        reason: Javni razlog
+        title: Pravila glede vsebine
+      dashboard:
+        instance_accounts_dimension: Najpogosteje sledeni računi
+        instance_accounts_measure: shranjenih računov
+        instance_followers_measure: naših sledilcev tukaj
+        instance_follows_measure: njihovih sledilcev tukaj
+        instance_languages_dimension: Naj jeziki
+        instance_media_attachments_measure: shranjenih predstavnostnih priponk
+        instance_reports_measure: poročil o njih
+        instance_statuses_measure: shanjenih objav
       delivery:
         all: Vse
         clear: Počisti napake dostave
         stop: Ustavi dostavo
-        title: Dostava
         unavailable: Ni na voljo
-        warning: Opozorilo
       delivery_available: Na voljo je dostava
       moderation:
         all: Vse
@@ -352,12 +367,14 @@ sl:
         title: Moderiranje
       private_comment: Zasebni komentar
       public_comment: Javni komentar
+      purge_description_html: Če menite, da je ta domena trajno nedosegljiva, lahko v svoji shrambi izbrišete vse zapise računov in povezane podatke iz te domene. To lahko vzame nekaj časa.
       title: Federacija
       total_blocked_by_us: Blokirano iz naše strani
       total_followed_by_them: Oni ti sledijo
       total_followed_by_us: Mi ti sledimo
       total_reported: Poročila o njih
       total_storage: Predstavnostne priloge
+      totals_time_period_hint_html: Spodaj prikazani seštevki vključujejo podatke za celotno obdobje.
     invites:
       deactivate_all: Onemogoči vse
       filter:
@@ -603,6 +620,7 @@ sl:
     status:
       account_status: Stanje računa
       confirming: Čakanje na potrditev e-pošte.
+      functional: Vaš račun je polno opravilen.
       pending: Naše osebje preverja vašo prijavo. To lahko traja nekaj časa. Če bo vaša prijava odobrena, boste prejeli e-pošto.
     trouble_logging_in: Težave pri prijavi?
     use_security_key: Uporabi varnostni ključ
@@ -781,10 +799,10 @@ sl:
         other: Prav tako ste pridobili %{count} novih sledilcev, ko ste bili odsotni! Juhu!
         two: Prav tako ste pridobili %{count} nova sledilca, ko ste bili odsotni! Juhu!
       subject:
-        few: "%{count} nova obvestila od vašega zadnjega obiska \U0001F418"
-        one: "1 novo obvestilo od vašega zadnjega obiska \U0001F418"
-        other: "%{count} novih obvestil od vašega zadnjega obiska \U0001F418"
-        two: "%{count} novi obvestili od vašega zadnjega obiska \U0001F418"
+        few: "%{count} nova obvestila od vašega zadnjega obiska 🐘"
+        one: "1 novo obvestilo od vašega zadnjega obiska 🐘"
+        other: "%{count} novih obvestil od vašega zadnjega obiska 🐘"
+        two: "%{count} novi obvestili od vašega zadnjega obiska 🐘"
       title: V vaši odsotnosti...
     favourite:
       body: "%{name} je vzljubil/a vaše stanje:"
@@ -951,7 +969,7 @@ sl:
       one: 'vsebuje nedovoljeni ključnik: %{tags}'
       other: 'vsebuje nedovoljenih ključnikov: %{tags}'
       two: 'vsebuje nedovoljena ključnika: %{tags}'
-    edited_at: Urejeno %{date}
+    edited_at_html: Urejeno %{date}
     open_in_web: Odpri na spletu
     over_character_limit: omejitev %{max} znakov je presežena
     pin_errors:
@@ -986,6 +1004,7 @@ sl:
       '2629746': 1 mesec
       '31556952': 1 leto
       '5259492': 2 meseca
+      '604800': 1 week
       '63113904': 2 leti
       '7889238': 3 mesece
     min_age_label: Starostna meja
@@ -1097,8 +1116,6 @@ sl:
       explanation: Zahtevali ste popolno varnostno kopijo računa Mastodon. Zdaj je pripravljen za prenos!
       subject: Vaš arhiv je pripravljen za prenos
       title: Prevzem arhiva
-    sign_in_token:
-      title: Poskus prijave
     warning:
       reason: 'Razlog:'
       subject:
@@ -1110,7 +1127,6 @@ sl:
         delete_statuses: Objave odstranjene
         disable: Račun je zamrznjen
         none: Opozorilo
-        sensitive: Mediji so skriti
         silence: Račun je omejen
         suspend: Račun je suspendiran
     welcome:
@@ -1133,7 +1149,6 @@ sl:
   users:
     follow_limit_reached: Ne morete spremljati več kot %{limit} ljudi
     invalid_otp_token: Neveljavna dvofaktorska koda
-    invalid_sign_in_token: Neveljavna varnostna koda
     otp_lost_help_html: Če ste izgubili dostop do obeh, stopite v stik z %{email}
     seamless_external_login: Prijavljeni ste prek zunanje storitve, tako da nastavitve gesla in e-pošte niso na voljo.
     signed_in_as: 'Vpisani kot:'

@@ -75,7 +75,6 @@ pl:
     media: Zawartość multimedialna
     moved_html: "%{name} korzysta teraz z konta %{new_profile_link}:"
     network_hidden: Ta informacja nie jest dostępna
-    never_active: Nigdy
     nothing_here: Niczego tu nie ma!
     people_followed_by: Konta śledzone przez %{name}
     people_who_follow: Osoby, które śledzą konto %{name}
@@ -171,10 +170,6 @@ pl:
       pending: Oczekuje na przegląd
       perform_full_suspension: Zawieś
       previous_strikes: Poprzednie ostrzeżenia
-      previous_strikes_description_html:
-        one: To konto ma <strong>jedno</strong> ostrzeżenie.
-        other: To konto ma <strong>%{count}</strong> ostrzeżeń.
-        zero: To konto jest <strong>w dobrym stanie</strong>.
       promote: Podnieś uprawnienia
       protocol: Protokół
       public: Publiczne
@@ -206,7 +201,6 @@ pl:
       security_measures:
         only_password: Tylko hasło
         password_and_2fa: Hasło i 2FA
-        password_and_sign_in_token: Hasło i token e-mail
       sensitive: Wrażliwe
       sensitized: oznaczono jako wrażliwe
       shared_inbox_url: Adres udostępnianej skrzynki
@@ -379,7 +373,6 @@ pl:
       enable: Włącz
       enabled: Włączone
       enabled_msg: Pomyślnie przywrócono emoji
-      image_hint: Plik PNG ważący do 50KB
       list: Dodaj do listy
       listed: Widoczne
       new:
@@ -464,17 +457,6 @@ pl:
       reject_media_hint: Usuwa przechowywane lokalnie pliki multimedialne i nie pozwala na ich pobieranie. Nieprzydatne przy zawieszeniu
       reject_reports: Odrzucaj zgłoszenia
       reject_reports_hint: Zgłoszenia z tej instancji będą ignorowane. Nieprzydatne przy zawieszeniu
-      rejecting_media: pliki multimedialne są odrzucane
-      rejecting_reports: zgłoszenia są odrzucane
-      severity:
-        silence: wyciszono
-        suspend: zawieszono
-      show:
-        retroactive:
-          silence: Odwołaj wyciszenie wszystkich kont w tej domenie
-          suspend: Odwołaj zawieszenie wszystkich kont w tej domenie
-        title: Odwołaj blokadę dla domeny %{domain}
-        undo: Cofnij
       undo: Cofnij
       view: Zobacz blokadę domeny
     email_domain_blocks:
@@ -512,15 +494,7 @@ pl:
         clear: Wyczyść błędy w doręczaniu
         restart: Uruchom ponownie doręczenie
         stop: Zatrzymaj doręczanie
-        title: Doręczanie
         unavailable: Niedostępne
-        unavailable_message: Doręczaniei niedostępne
-        warning: Ostrzeżenie
-        warning_message:
-          few: "%{count} dni niepowodzenia doręczenia"
-          many: "%{count} dni niepowodzenia doręczenia"
-          one: "%{count} dzień niepowodzenia doręczenia"
-          other: "%{count} dni niepowodzenia doręczenia"
       delivery_available: Doręczanie jest dostępne
       delivery_error_days: Dni błędów doręczenia
       delivery_error_hint: Jeżeli doręczanie nie będzie możliwe przez %{count} dni, zostanie automatycznie oznaczona jako nie do doręczania.
@@ -595,6 +569,7 @@ pl:
       action_taken_by: Działanie podjęte przez
       actions:
         delete_description_html: Zgłoszone posty zostaną usunięte, a zdarzenie zostanie zapisane, aby pomóc w eskalacji przyszłych wykroczeń na tym samym koncie.
+        mark_as_sensitive_description_html: Media w zgłaszanych postach zostaną oznaczone jako wrażliwe, a ostrzeżenie zostanie nagrane, aby pomóc w eskalacji przyszłych przewinień na tym samym koncie.
         other_description_html: Zobacz więcej opcji do kontrolowania zachowania konta i dostosuj komunikację do zgłoszonego konta.
         resolve_description_html: Nie zostaną podjęte żadne działania przeciwko zgłoszonemu sprawozdaniu, zdarzenie nie zostanie zarejestrowane, a zgłoszenie zostanie zamknięte.
         silence_description_html: Profil będzie widoczny tylko dla tych, którzy go już obserwują lub szukaj ręcznie, poważnie ograniczając jego zasięg. Może być zawsze cofnięty.
@@ -615,6 +590,7 @@ pl:
       forwarded: Przekazano
       forwarded_to: Przekazano do %{domain}
       mark_as_resolved: Oznacz jako rozwiązane
+      mark_as_sensitive: Oznacz jako wrażliwe
       mark_as_unresolved: Oznacz jako nierozwiązane
       no_one_assigned: Nikt nie
       notes:
@@ -757,6 +733,7 @@ pl:
       actions:
         delete_statuses: "%{name} usunął(-ęła) posty %{target}"
         disable: "%{name} zamroził(a) konto %{target}"
+        mark_statuses_as_sensitive: "%{name} oznaczył/a wiadomości %{target} jako wrażliwe"
         none: "%{name} wysłał(a) ostrzeżenie do %{target}"
         sensitive: "%{name} oznaczył(-a) konto %{target} jako wrażliwe"
         silence: "%{name} ograniczył(-a) konto %{target}"
@@ -766,6 +743,11 @@ pl:
     system_checks:
       database_schema_check:
         message_html: Istnieją oczekujące migracje bazy danych. Uruchom je, aby upewnić się, że aplikacja działa tak, jak powinna
+      elasticsearch_running_check:
+        message_html: Nie można połączyć się z Elasticsearch. Sprawdź czy jest uruchomiony lub wyłącz wyszukiwanie pełnotekstowe
+      elasticsearch_version_check:
+        message_html: 'Niekompatybilna wersja Elasticsearch: %{value}'
+        version_comparison: Elasticsearch w wersji %{running_version} jest uruchomiony, ale wymagana wersja to %{required_version}
       rules_check:
         action: Zarządzaj regułami serwera
         message_html: Nie zdefiniowano żadnych reguł serwera.
@@ -782,6 +764,7 @@ pl:
       links:
         allow: Zezwól na link
         allow_provider: Zezwalaj na wydawcę
+        description_html: Są to linki, które są obecnie często udostępniane przez konta, z których Twój serwer widzi posty. Może to pomóc Twoim użytkownikom dowiedzieć się, co dzieje się na świecie. Żadne linki nie są wyświetlane publicznie dopóki nie zaakceptujesz wydawcy. Możesz również zezwolić lub odrzucić indywidualne linki.
         disallow: Nie zezwalaj na link
         disallow_provider: Nie zezwalaj na wydawcę
         title: Popularne linki
@@ -828,6 +811,7 @@ pl:
       actions:
         delete_statuses: aby usunąć ich wpisy
         disable: aby zamrozić jego/jej konto
+        mark_statuses_as_sensitive: aby oznaczyć swoje posty jako wrażliwe
         none: ostrzeżenie
         sensitive: aby oznaczyć konto jako wrażliwe
         silence: aby ograniczyć swoje konto
@@ -1003,8 +987,9 @@ pl:
       title_actions:
         delete_statuses: Usuwanie postów
         disable: Zamrażanie konta
+        mark_statuses_as_sensitive: Oznaczanie postów jako wrażliwych
         none: Ostrzeżenie
-        sensitive: Oznaczenie konta jako wrażliwe
+        sensitive: Oznaczanie konta jako wrażliwe
         silence: Ograniczenie konta
         suspend: Zawieszenie konta
       your_appeal_approved: Twoje odwołanie zostało zatwierdzone
@@ -1201,10 +1186,10 @@ pl:
         one: Dodatkowo, w czasie nieobecności zaczęła śledzić Cię jedna osoba Gratulacje!
         other: Dodatkowo, zaczęło Cię śledzić %{count} nowych osób! Wspaniale!
       subject:
-        few: "%{count} nowe powiadomienia od Twojej ostatniej wizyty \U0001F418"
-        many: "%{count} nowych powiadomień od Twojej ostatniej wizyty \U0001F418"
-        one: "1 nowe powiadomienie od Twojej ostatniej wizyty \U0001F418"
-        other: "%{count} nowych powiadomień od Twojej ostatniej wizyty \U0001F418"
+        few: "%{count} nowe powiadomienia od Twojej ostatniej wizyty 🐘"
+        many: "%{count} nowych powiadomień od Twojej ostatniej wizyty 🐘"
+        one: "1 nowe powiadomienie od Twojej ostatniej wizyty 🐘"
+        other: "%{count} nowych powiadomień od Twojej ostatniej wizyty 🐘"
       title: W trakcie Twojej nieobecności…
     favourite:
       body: 'Twój wpis został polubiony przez %{name}:'
@@ -1410,7 +1395,6 @@ pl:
       many: 'zawiera niedozwolone hashtagi: %{tags}'
       one: 'zawiera niedozwolony hashtag: %{tags}'
       other: 'zawiera niedozwolone hashtagi: %{tags}'
-    edited_at: Edytowano %{date}
     errors:
       in_reply_not_found: Post, na który próbujesz odpowiedzieć, nie istnieje.
     open_in_web: Otwórz w przeglądarce
@@ -1473,6 +1457,7 @@ pl:
       '2629746': 1 miesiąc
       '31556952': 1 rok
       '5259492': 2 miesiące
+      '604800': 1 week
       '63113904': 2 lata
       '7889238': 3 miesiące
     min_age_label: Próg wieku
@@ -1600,37 +1585,39 @@ pl:
       explanation: Zażądałeś pełnej kopii zapasowej konta na Mastodonie. Jest ona dostępna do pobrania!
       subject: Twoje archiwum jest gotowe do pobrania
       title: Odbiór archiwum
-    sign_in_token:
-      details: 'Oto szczegóły próby:'
-      explanation: 'Wykryliśmy próbę zalogowania na Twoje konto z adresu IP którego nie możemy rozpoznać. Jeżeli to Ty, wprowadź poniższy kod na stronie logowania:'
-      further_actions: 'Jeśli to nie Ty, zmień swoje hasło i włącz weryfikację dwuetapową na swoim koncie. Możesz to zrobić tutaj:'
-      subject: Potwierdź próbę zalogowania
-      title: Próba logowania
+    suspicious_sign_in:
+      change_password: zmień hasło
+      details: 'Oto szczegóły logowania:'
+      explanation: Wykryliśmy logowanie na Twoje konto z nowego adresu IP.
+      further_actions_html: Jeśli to nie Ty, zalecamy %{action} natychmiastowo i włącz uwierzytelnianie dwuetapowe, aby Twoje konto było bezpieczne.
+      subject: Uzyskano dostęp do twojego konta z nowego adresu IP
+      title: Nowe logowanie
     warning:
       categories:
         spam: Spam
         violation: Zawartość narusza następujące wytyczne społeczności
       explanation:
-        delete_statuses: Stwierdzono, że niektóre z Twoich postów naruszają jedną lub więcej wytycznych dla społeczności i zostały usunięte przez moderatorów %{instance}. Przyszłe naruszenia mogą skutkować ostrzejszymi działaniami karnymi w stosunku do Twojego konta.
         disable: Nie możesz już używać swojego konta, ale Twój profil i inne dane pozostają nienaruszone. Możesz poprosić o kopię swoich danych, zmienić ustawienia konta lub usunąć swoje konto.
+        mark_statuses_as_sensitive: Niektóre z Twoich postów zostały oznaczone jako wrażliwe przez moderatorów %{instance}. Oznacza to, że ludzie będą musieli dotknąć mediów w postach przed wyświetleniem podglądu. Możesz oznaczyć media jako wrażliwe podczas publikowania w przyszłości.
         sensitive: Od teraz wszystkie przesłane pliki multimedialne będą oznaczone jako wrażliwe i ukryte za ostrzeżeniem kliknięcia.
         silence: Kiedy Twoje konto jest ograniczone, tylko osoby, które je śledzą, będą widzieć Twoje wpisy. Może ono też przestać być widoczne w funkcjach odkrywania. Inni wciąż mogą zacząć Cię śledzić.
         suspend: Nie możesz już używać Twojego konta, a Twój profil i inne dane nie są już dostępne. Zanim w pełni usuniemy Twoje dane po około 30 dniach, możesz nadal zalogować się, aby uzyskać ich kopię. Zachowamy pewne podstawowe dane, aby zapobiegać obchodzeniu przez Ciebie zawieszenia.
-      get_in_touch: Jeżeli uważasz to za błąd, możesz odpowiedzieć na ten e-mail, aby skontaktować się z prowadzącymi %{instance}.
       reason: 'Powód:'
-      statuses: 'Wpisy uznane za naruszające wytyczne:'
+      statuses: 'Cytowane posty:'
       subject:
         delete_statuses: Twoje wpisy na %{acct} zostały usunięte
         disable: Twoje konto %{acct} zostało wyłączone
+        mark_statuses_as_sensitive: Twoje posty na %{acct} zostały oznaczone jako wrażliwe
         none: Ostrzeżenie dla %{acct}
-        sensitive: Twoje multimedia na %{acct} będą od teraz oznaczane jako wrażliwe
+        sensitive: Twoje posty na %{acct} będą od teraz oznaczone jako wrażliwe
         silence: Twoje konto %{acct} zostało ograniczone
         suspend: Twoje konto %{acct} zostało zawieszone
       title:
         delete_statuses: Wpisy usunięte
         disable: Konto wyłączone
+        mark_statuses_as_sensitive: Posty oznaczone jako wrażliwe
         none: Ostrzeżenie
-        sensitive: Media ukryte
+        sensitive: Konto oznaczone jako wrażliwe
         silence: Konto ograniczone
         suspend: Konto zawieszone
     welcome:
@@ -1652,13 +1639,10 @@ pl:
       title: Witaj na pokładzie, %{name}!
   users:
     follow_limit_reached: Nie możesz śledzić więcej niż %{limit} osób
-    generic_access_help_html: Nie możesz uzyskać dostępu do konta? Skontaktuj się z %{email} aby uzyskać pomoc
     invalid_otp_token: Kod uwierzytelniający jest niepoprawny
-    invalid_sign_in_token: Nieprawidłowy kod zabezpieczający
     otp_lost_help_html: Jeżeli utracisz dostęp do obu, możesz skontaktować się z %{email}
     seamless_external_login: Zalogowano z użyciem zewnętrznej usługi, więc ustawienia hasła i adresu e-mail nie są dostępne.
     signed_in_as: 'Zalogowany jako:'
-    suspicious_sign_in_confirmation: Wygląda na to, że nie logowałeś się wcześniej z tego urządzenia i przez jakiś czas nie logowałeś się, więc wysłaliśmy na Twój adres e-mail kod zabezpieczający, aby potwierdzić, że to Ty.
   verification:
     explanation_html: 'Możesz <strong>zweryfikować siebie jako właściciela stron, do których odnośniki znajdują się w metadanych</strong>. Aby to zrobić, strona musi zawierać odnośnik do Twojego profilu na Mastodonie. Odnośnik <strong>musi</strong> zawierać atrybut <code>rel="me"</code>. Jego zawartość nie ma znaczenia. Przykład:'
     verification: Weryfikacja

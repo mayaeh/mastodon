@@ -23,8 +23,6 @@ class SearchResults extends ImmutablePureComponent {
     fetchSuggestions: PropTypes.func.isRequired,
     expandSearch: PropTypes.func.isRequired,
     dismissSuggestion: PropTypes.func.isRequired,
-    trends: ImmutablePropTypes.list,
-    fetchTrends: PropTypes.func.isRequired,
     searchTerm: PropTypes.string,
     intl: PropTypes.object.isRequired,
   };
@@ -32,7 +30,6 @@ class SearchResults extends ImmutablePureComponent {
   componentDidMount () {
     if (this.props.searchTerm === '') {
       this.props.fetchSuggestions();
-      this.props.fetchTrends();
     }
   }
 
@@ -49,7 +46,7 @@ class SearchResults extends ImmutablePureComponent {
   handleLoadMoreHashtags = () => this.props.expandSearch('hashtags');
 
   render () {
-    const { intl, results, suggestions, dismissSuggestion, trends, searchTerm } = this.props;
+    const { intl, results, suggestions, dismissSuggestion, searchTerm } = this.props;
 
     if (searchTerm === '' && !suggestions.isEmpty()) {
       return (
@@ -76,21 +73,6 @@ class SearchResults extends ImmutablePureComponent {
 
     let accounts, statuses, hashtags;
     let count = 0;
-
-    if (results.isEmpty()) {
-      return (
-        <div className='search-results'>
-          <div className='trends'>
-            <div className='trends__header'>
-              <Icon id='fire' fixedWidth />
-              <FormattedMessage id='trends.header' defaultMessage='Trending now' />
-            </div>
-
-            {trends && trends.map(hashtag => <Hashtag key={hashtag.get('name')} hashtag={hashtag} />)}
-          </div>
-        </div>
-      );
-    }
 
     if (results.get('accounts') && results.get('accounts').size > 0) {
       count   += results.get('accounts').size;

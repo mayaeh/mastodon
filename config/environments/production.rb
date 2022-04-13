@@ -91,12 +91,15 @@ Rails.application.configure do
 
   # E-mails
   outgoing_email_address = ENV.fetch('SMTP_FROM_ADDRESS', 'notifications@localhost')
-  outgoing_mail_domain   = Mail::Address.new(outgoing_email_address).domain
+  outgoing_email_domain  = Mail::Address.new(outgoing_email_address).domain
+
   config.action_mailer.default_options = {
     from: outgoing_email_address,
-    reply_to: ENV['SMTP_REPLY_TO'],
-    'Message-ID': -> { "<#{Mail.random_tag}@#{outgoing_mail_domain}>" },
+    message_id: -> { "<#{Mail.random_tag}@#{outgoing_email_domain}>" },
   }
+
+  config.action_mailer.default_options[:reply_to]    = ENV['SMTP_REPLY_TO'] if ENV['SMTP_REPLY_TO'].present?
+  config.action_mailer.default_options[:return_path] = ENV['SMTP_RETURN_PATH'] if ENV['SMTP_RETURN_PATH'].present?
 
   config.action_mailer.smtp_settings = {
     :port                 => ENV['SMTP_PORT'],
