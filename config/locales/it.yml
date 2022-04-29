@@ -517,6 +517,7 @@ it:
       delivery:
         all: Tutto
         clear: Cancella errori di consegna
+        failing: Con errori
         restart: Riavvia la consegna
         stop: Interrompi consegna
         unavailable: Non disponibile
@@ -895,7 +896,7 @@ it:
     advanced_web_interface_hint: |-
       Se vuoi utilizzare l'intera larghezza dello schermo, l'interfaccia web avanzata ti consente di configurare varie colonne per mostrare più informazioni allo stesso tempo, secondo le tue preferenze:
       Home, notifiche, timeline federata, qualsiasi numero di liste e etichette.
-    animations_and_accessibility: Animazioni e accessibiiltà
+    animations_and_accessibility: Animazioni e accessibilità
     confirmation_dialogs: Dialoghi di conferma
     discovery: Scoperta
     localization:
