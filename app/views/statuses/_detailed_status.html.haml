@@ -63,7 +63,7 @@
     ·
     - if status.direct_visibility?
       %span.detailed-status__link<
-        = fa_icon('envelope')
+        = fa_icon('at')
     - elsif status.private_visibility? || status.limited_visibility?
       %span.detailed-status__link<
         = fa_icon('lock')
