@@ -174,7 +174,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
     }
 
     if (status.get('visibility') === 'direct') {
-      reblogIcon = 'envelope';
+      reblogIcon = 'at';
     } else if (status.get('visibility') === 'private') {
       reblogIcon = 'lock';
     } else if (status.get('visibility') === 'unlisted') {
