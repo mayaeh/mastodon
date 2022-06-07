@@ -26,7 +26,6 @@
 #  otp_required_for_login    :boolean          default(FALSE), not null
 #  last_emailed_at           :datetime
 #  otp_backup_codes          :string           is an Array
-#  filtered_languages        :string           default([]), not null, is an Array
 #  account_id                :bigint(8)        not null
 #  disabled                  :boolean          default(FALSE), not null
 #  moderator                 :boolean          default(FALSE), not null
@@ -48,11 +47,13 @@ class User < ApplicationRecord
     current_sign_in_ip
     last_sign_in_ip
     skip_sign_in_token
+    filtered_languages
   )
 
   include Settings::Extend
   include UserRoles
   include Redisable
+  include LanguagesHelper
 
   # The home and list feeds will be stored in Redis for this amount
   # of time, and status fan-out to followers will include only people
@@ -250,7 +251,7 @@ class User < ApplicationRecord
   end
 
   def preferred_posting_language
-    settings.default_language || locale
+    valid_locale_cascade(settings.default_language, locale)
   end
 
   def setting_default_privacy
