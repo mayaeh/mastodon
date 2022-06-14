@@ -1568,6 +1568,7 @@ ja:
     contrast: Mastodon (ハイコントラスト)
     default: Mastodon (ダーク)
     mastodon-light: Mastodon (ライト)
+    mastodon-previous: Mastodon (旧ダーク)
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"
