@@ -1657,6 +1657,7 @@ en:
     contrast: Mastodon (High contrast)
     default: Mastodon (Dark)
     mastodon-light: Mastodon (Light)
+    mastodon-previous: Mastodon (Previous Dark)
     slack-like-mastodon: like-slack (Uncheck advanced web interface)
   time:
     formats:
