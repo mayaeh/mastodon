@@ -1631,6 +1631,7 @@ en:
   themes:
     contrast: Mastodon (High contrast)
     default: Mastodon (Dark)
+    mastodon-brand2022: Mastodon (2022's color)
     mastodon-light: Mastodon (Light)
   time:
     formats:

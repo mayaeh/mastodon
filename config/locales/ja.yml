@@ -1578,6 +1578,7 @@ ja:
   themes:
     contrast: Mastodon (ハイコントラスト)
     default: Mastodon (ダーク)
+    mastodon-brand2022: Mastodon (2022'sカラー)
     mastodon-light: Mastodon (ライト)
   time:
     formats:
