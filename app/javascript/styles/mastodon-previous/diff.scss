@@ -1,2 +1,155 @@
 // Notes!
 // Sass color functions, "darken" and "lighten" are automatically replaced.
+
+// admin.scss
+.admin-wrapper {
+  .sidebar {
+    .simple-navigation-active-leaf a {
+      background-color: $ui-highlight-color;
+
+      &:hover {
+        background-color: lighten($ui-highlight-color, 5%);
+      }
+    }
+  }
+}
+
+.admin-account-bio {
+  a {
+    color: lighten($ui-highlight-color, 8%);
+  }
+}
+
+// components.scss
+.button {
+  background-color: $ui-highlight-color;
+  transition: all 100ms ease-in;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: lighten($ui-highlight-color, 10%);
+    transition: all 200ms ease-out;
+  }
+
+  &--destructive {
+    transition: none;
+  }
+}
+
+.status__content,
+.reply-indicator__content {
+  a.unhandled-link {
+    color: lighten($ui-highlight-color, 8%);
+  }
+
+  a {
+    &.unhandled-link {
+      color: lighten($ui-highlight-color, 8%);
+    }
+  }
+}
+
+.status__content__read-more-button {
+  color: lighten($ui-highlight-color, 8%);
+}
+
+.floating-action-button {
+  background: darken($ui-highlight-color, 3%);
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: lighten($ui-highlight-color, 7%);
+  }
+}
+
+.react-toggle--checked .react-toggle-track {
+  background-color: $ui-highlight-color;
+}
+
+.react-toggle--checked:is(:hover, :focus-within):not(.react-toggle--disabled) .react-toggle-track {
+  background-color: lighten($ui-highlight-color, 10%);
+}
+
+.column-link {
+  &--transparent {
+    &.active {
+      color: $ui-highlight-color;
+    }
+  }
+}
+
+.timeline-hint {
+  a {
+    color: lighten($ui-highlight-color, 8%);
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: lighten($ui-highlight-color, 12%);
+    }
+  }
+}
+
+.radio-button {
+  &__input {
+    &.checked {
+      border-color: lighten($ui-highlight-color, 8%);
+      background: lighten($ui-highlight-color, 8%);
+    }
+  }
+}
+
+// containers.scss
+.public-layout {
+  .public-account-bio {
+    .account__header__fields {
+      a {
+        color: lighten($ui-highlight-color, 8%);
+      }
+    }
+  }
+}
+
+// dashboard.scss
+.dashboard {
+  &__quick-access {
+    background: $ui-highlight-color;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: lighten($ui-highlight-color, 10%);
+    }
+  }
+}
+
+// forms.scss
+.simple_form {
+  button,
+  .button,
+  .block-button {
+    background: $ui-highlight-color;
+
+    &:hover {
+      background-color: lighten($ui-highlight-color, 5%);
+    }
+
+    &:active,
+    &:focus {
+      background-color: darken($ui-highlight-color, 5%);
+    }
+  }
+}
+
+// statuses.scss
+.button.logo-button {
+  background: $ui-highlight-color;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background: lighten($ui-highlight-color, 10%);
+  }
+}
