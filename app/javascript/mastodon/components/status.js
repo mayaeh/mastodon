@@ -338,7 +338,12 @@ class Status extends ImmutablePureComponent {
       );
     }
 
-    const matchedFilters = status.get('filtered') || status.getIn(['reblog', 'filtered']);
+    const matchedFilters = false;
+    if (status.get('filtered')) {
+      matchedFilters = status.get('filtered');
+    } else if (status.getIn(['reblog', 'filtered'])) {
+      matchedFilters = status.getIn(['reblog', 'filtered']);
+    }
     if (this.state.forceFilter === undefined ? matchedFilters : this.state.forceFilter) {
       const minHandlers = this.props.muted ? {} : {
         moveUp: this.handleHotkeyMoveUp,
