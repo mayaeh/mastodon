@@ -339,7 +339,7 @@ class Status extends ImmutablePureComponent {
     }
 
     const matchedFilters = status.get('filtered') || status.getIn(['reblog', 'filtered']);
-    if (this.state.forceFilter === undefined ? matchedFilters : this.state.forceFilter) {
+    if (this.state.forceFilter === undefined ? matchedFilters.length : this.state.forceFilter) {
       const minHandlers = this.props.muted ? {} : {
         moveUp: this.handleHotkeyMoveUp,
         moveDown: this.handleHotkeyMoveDown,
