@@ -13,7 +13,7 @@ gem 'thor', '~> 1.2'
 gem 'rack', '~> 2.2.3'
 
 gem 'hamlit-rails', '~> 0.2'
-gem 'pg', '~> 1.3'
+gem 'pg', '~> 1.4'
 gem 'makara', '~> 0.5'
 gem 'pghero', '~> 2.8'
 gem 'dotenv-rails', '~> 2.7'
@@ -53,7 +53,7 @@ gem 'fastimage'
 gem 'hiredis', '~> 0.6'
 gem 'redis-namespace', '~> 1.8'
 gem 'htmlentities', '~> 4.3'
-gem 'http', '~> 5.0'
+gem 'http', '~> 5.1'
 gem 'http_accept_language', '~> 2.1'
 gem 'httplog', '~> 1.5.0'
 gem 'idn-ruby', require: 'idn'
@@ -99,7 +99,7 @@ gem 'json-ld-preloaded', '~> 3.2'
 gem 'rdf-normalize', '~> 0.5'
 
 group :development, :test do
-  gem 'fabrication', '~> 2.28'
+  gem 'fabrication', '~> 2.29'
   gem 'fuubar', '~> 2.5'
   gem 'i18n-tasks', '~> 1.0', require: false
   gem 'pry-byebug', '~> 3.9'
@@ -153,3 +153,5 @@ gem 'concurrent-ruby', require: false
 gem 'connection_pool', require: false
 
 gem 'xorcist', '~> 1.1'
+
+gem 'cocoon', '~> 1.2'
