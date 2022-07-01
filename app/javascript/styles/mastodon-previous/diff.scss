@@ -37,6 +37,13 @@
   }
 }
 
+.button .confirmation-modal__secondary-button,
+.confirmation-modal__cancel-button,
+.mute-modal__cancel-button,
+.block-modal__cancel-button {
+  background-color: transparent;
+}
+
 .status__content,
 .reply-indicator__content {
   a.unhandled-link {
