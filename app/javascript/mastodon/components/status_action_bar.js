@@ -6,7 +6,9 @@ import IconButton from './icon_button';
 import DropdownMenuContainer from '../containers/dropdown_menu_container';
 import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { me, isStaff } from '../initial_state';
+import { me } from '../initial_state';
+import classNames from 'classnames';
+import { PERMISSION_MANAGE_USERS } from 'mastodon/permissions';
 
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
@@ -37,6 +39,7 @@ const messages = defineMessages({
   admin_account: { id: 'status.admin_account', defaultMessage: 'Open moderation interface for @{name}' },
   admin_status: { id: 'status.admin_status', defaultMessage: 'Open this status in the moderation interface' },
   copy: { id: 'status.copy', defaultMessage: 'Copy link to status' },
+  hide: { id: 'status.hide', defaultMessage: 'Hide toot' },
   blockDomain: { id: 'account.block_domain', defaultMessage: 'Block domain {domain}' },
   unblockDomain: { id: 'account.unblock_domain', defaultMessage: 'Unblock domain {domain}' },
   unmute: { id: 'account.unmute', defaultMessage: 'Unmute @{name}' },
@@ -53,6 +56,7 @@ class StatusActionBar extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
+    identity: PropTypes.object,
   };
 
   static propTypes = {
@@ -75,6 +79,7 @@ class StatusActionBar extends ImmutablePureComponent {
     onMuteConversation: PropTypes.func,
     onPin: PropTypes.func,
     onBookmark: PropTypes.func,
+    onFilter: PropTypes.func,
     withDismiss: PropTypes.bool,
     withCounters: PropTypes.bool,
     scrollKey: PropTypes.string,
@@ -206,6 +211,10 @@ class StatusActionBar extends ImmutablePureComponent {
     this.props.onMuteConversation(this.props.status);
   }
 
+  handleFilter = () => {
+    this.props.onFilter();
+  }
+
   handleCopy = () => {
     const url      = this.props.status.get('url');
     const textarea = document.createElement('textarea');
@@ -223,6 +232,11 @@ class StatusActionBar extends ImmutablePureComponent {
     } finally {
       document.body.removeChild(textarea);
     }
+  }
+
+
+  handleFilterClick = () => {
+    this.props.onFilter();
   }
 
   render () {
@@ -302,7 +316,7 @@ class StatusActionBar extends ImmutablePureComponent {
         }
       }
 
-      if (isStaff) {
+      if ((this.context.identity.permissions & PERMISSION_MANAGE_USERS) === PERMISSION_MANAGE_USERS) {
         menu.push(null);
         menu.push({ text: intl.formatMessage(messages.admin_account, { name: account.get('username') }), href: `/admin/accounts/${status.getIn(['account', 'id'])}` });
         menu.push({ text: intl.formatMessage(messages.admin_status), href: `/admin/accounts/${status.getIn(['account', 'id'])}/statuses?id=${status.get('id')}` });
@@ -329,6 +343,10 @@ class StatusActionBar extends ImmutablePureComponent {
       <IconButton className='status__action-bar-button' title={intl.formatMessage(messages.share)} icon='share-alt' onClick={this.handleShareClick} />
     );
 
+    const filterButton = this.props.onFilter && (
+      <IconButton className='status__action-bar-button' title={intl.formatMessage(messages.hide)} icon='eye' onClick={this.handleFilterClick} />
+    );
+
     return (
       <div className='status__action-bar'>
         <IconButton className='status__action-bar-button' title={replyTitle} icon={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? 'reply' : replyIcon} onClick={this.handleReplyClick} counter={status.get('replies_count')} obfuscateCount />
@@ -336,6 +354,8 @@ class StatusActionBar extends ImmutablePureComponent {
         <IconButton className='status__action-bar-button star-icon' animate active={status.get('favourited')} pressed={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
 
         {shareButton}
+
+        {filterButton}
 
         <div className='status__action-bar-dropdown'>
           <DropdownMenuContainer
