@@ -442,7 +442,7 @@
   "report.thanks.title_actionable": "ご報告ありがとうございます、追って確認します。",
   "report.unfollow": "@{name}さんのフォローを解除",
   "report.unfollow_explanation": "このアカウントをフォローしています。ホームフィードに彼らの投稿を表示しないようにするには、彼らのフォローを外してください。",
-  "report_notification.attached_statuses": "{count, plural, one {{count} post} other {{count} posts}} attached",
+  "report_notification.attached_statuses": "{count, plural, one {{count} 件の投稿} other {{count} 件の投稿}}が添付されました。",
   "report_notification.categories.other": "その他",
   "report_notification.categories.spam": "スパム",
   "report_notification.categories.violation": "ルール違反",
