@@ -516,6 +516,7 @@ ru:
         comment: Внутренняя заметка
         policies:
           reject_media: Отклонить медиа
+          reject_reports: Отклонять жалобы
           silence: Лимит
           suspend: Приостановить
         policy: Политика
@@ -691,6 +692,8 @@ ru:
         invite_users_description: Позволяет пользователям приглашать новых людей на сервер
         manage_announcements: Управление объявлениями
         manage_announcements_description: Позволяет пользователям управлять объявлениями на сервере
+        view_dashboard: Открыть панель управления
+        view_devops: DevOps
       title: Роли
     rules:
       add_new: Добавить правило

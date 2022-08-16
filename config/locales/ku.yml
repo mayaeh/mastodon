@@ -663,8 +663,34 @@ ku:
         moderation: Çavdêrî
         special: Taybet
       delete: Jê bibe
+      description_html: Bi <strong>rolên bikarhêner</strong>, tu dikarî fonksiyon û deverên Mastodon ku bikarhênerên wê dikarin xwe bigihînin kesane bikî.
+      edit: Rolê '%{name}' serrast bike
+      everyone: Mafdayînên berdest
+      everyone_full_description_html: Ev <strong>rola bingehîn</strong> bandorê li <strong>hemû bikarhêneran</strong> dike, tevî yên bêyî rolek diyarkirî jî. Hemû rolên din mafdayînan jê digirin.
+      permissions_count:
+        one: "%{count} mafdayîn"
+        other: "%{count} mafdayîn"
       privileges:
+        administrator: Rêvebir
+        administrator_description: Bikarhênerên xwediyê vê mafdayînan wê her mafdayîn derbas bike
+        delete_user_data: Daneyên bikarhêner jê bibe
+        delete_user_data_description: Mafê dide bikarhêneran ku daneyên bikarhênerên din bêyî derengxisitn jê bibin
+        invite_users: Bikarhêneran vexwîne
+        invite_users_description: Mafê dide bikarhêneran ku mirovên nû vexwîne bo rajekarê
+        manage_announcements: Reklaman bi rê be bibe
+        manage_announcements_description: Mafê dide bikarhêneran ku reklaman bi rê ve bibin li ser vê rajekarê
+        manage_appeals: Îtîrazan bi rê ve bibe
+        manage_appeals_description: Mafê dide bikarhêneran ku îtîrazan binirxînin li dijî çalakiyên çavdêriyê
+        manage_blocks: Astengkirinan bi rê ve bibe
+        manage_blocks_description: Mafê dide bikarhêneran ku peydakarê e-nameyê û navnîşanên IP asteng bike
+        manage_custom_emojis: Emojiyên kesane bi rêve bibe
+        manage_custom_emojis_description: Mafê dide bikarhêneran ku îmojî kesane bikin li ser vê rajekarê
+        manage_invites: Vexwendinan bi rêve bibe
+        manage_roles: Rolan bi rêve bibe
+        manage_rules: Rolan bi rêve bibe
         manage_settings: Sazkariyan bi rê ve bibe
+        manage_users: Bikarhêneran bi rêve bibe
+      title: Rol
     rules:
       add_new: Rêbazekê tevlî bike
       delete: Jê bibe
@@ -1134,6 +1160,7 @@ ku:
       public: Demnameya gelemperî
       thread: Axaftin
     edit:
+      keywords: Peyvkilît
       title: Parzûnê serrast bike
     errors:
       invalid_context: Naverok tune ye yan jî nederbasdar tê peydakirin
