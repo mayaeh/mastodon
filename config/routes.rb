@@ -597,6 +597,7 @@ Rails.application.routes.draw do
 
         resources :domain_allows, only: [:index, :show, :create, :destroy]
         resources :domain_blocks, only: [:index, :show, :update, :create, :destroy]
+        resources :email_domain_blocks, only: [:index, :show, :create, :destroy]
         resources :ip_blocks, only: [:index, :show, :update, :create, :destroy]
 
         namespace :trends do
@@ -608,6 +609,12 @@ Rails.application.routes.draw do
         post :measures, to: 'measures#create'
         post :dimensions, to: 'dimensions#create'
         post :retention, to: 'retention#create'
+
+        resources :canonical_email_blocks, only: [:index, :create, :show, :destroy] do
+          collection do
+            post :test
+          end
+        end
       end
     end
 
