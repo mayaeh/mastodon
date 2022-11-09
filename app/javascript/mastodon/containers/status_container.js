@@ -25,6 +25,8 @@ import {
   revealStatus,
   toggleStatusCollapse,
   editStatus,
+  translateStatus,
+  undoStatusTranslation,
 } from '../actions/statuses';
 import {
   unmuteAccount,
@@ -150,6 +152,14 @@ const mapDispatchToProps = (dispatch, { intl, contextType }) => ({
     dispatch(editStatus(status.get('id'), history));
   },
 
+  onTranslate (status) {
+    if (status.get('translation')) {
+      dispatch(undoStatusTranslation(status.get('id')));
+    } else {
+      dispatch(translateStatus(status.get('id')));
+    }
+  },
+
   onDirect (account, router) {
     dispatch(directCompose(account, router));
   },
@@ -225,6 +235,14 @@ const mapDispatchToProps = (dispatch, { intl, contextType }) => ({
 
   deployPictureInPicture (status, type, mediaProps) {
     dispatch(deployPictureInPicture(status.get('id'), status.getIn(['account', 'id']), type, mediaProps));
+  },
+
+  onInteractionModal (type, status) {
+    dispatch(openModal('INTERACTION', {
+      type,
+      accountId: status.getIn(['account', 'id']),
+      url: status.get('url'),
+    }));
   },
 
 });

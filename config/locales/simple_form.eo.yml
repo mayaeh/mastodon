@@ -61,7 +61,7 @@ eo:
       domain_allow:
         domain: Ĉi tiu domajno povos akiri datumon de ĉi tiu servilo kaj envenanta datumo estos prilaborita kaj konservita
       featured_tag:
-        name: 'Vi povus uzi iun el la jenaj:'
+        name: 'Jen kelkaj el la kradvortoj, kiujn vi uzis lastatempe:'
       filters:
         actions:
           warn: Kaŝi la enhavon filtritan malantaŭ averto mencianta la nomon de la filtro
