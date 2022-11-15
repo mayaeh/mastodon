@@ -21,6 +21,10 @@
 }
 
 // components.scss
+.ui__header {
+  display: none;
+}
+
 .button {
   background-color: $ui-highlight-color;
   transition: all 100ms ease-in;
