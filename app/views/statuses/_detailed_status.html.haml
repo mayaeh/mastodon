@@ -68,7 +68,7 @@
       %span.detailed-status__link<
         = fa_icon('lock')
     - else
-      = link_to remote_interaction_path(status, type: :reblog), class: 'modal-button detailed-status__link' do
+      %span.detailed-status__link
         - if status.public_visibility?
           = fa_icon('retweet')
         - else
