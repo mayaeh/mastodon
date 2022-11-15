@@ -66,6 +66,14 @@ RSpec.describe Account::Field, type: :model do
         end
       end
 
+      context 'for an IDN URL' do
+        let(:value) { 'http://twitter.com∕dougallj∕status∕1590357240443437057.ê.cc/twitter.html' }
+
+        it 'returns false' do
+          expect(subject.verifiable?).to be false
+        end
+      end
+
       context 'for text that is not a URL' do
         let(:value) { 'Hello world' }
 
@@ -76,6 +84,14 @@ RSpec.describe Account::Field, type: :model do
 
       context 'for text that contains a URL' do
         let(:value) { 'Hello https://example.com world' }
+
+        it 'returns false' do
+          expect(subject.verifiable?).to be false
+        end
+      end
+      
+      context 'for text which is blank' do
+        let(:value) { '' }
 
         it 'returns false' do
           expect(subject.verifiable?).to be false
@@ -120,6 +136,14 @@ RSpec.describe Account::Field, type: :model do
 
       context 'for text that is a URL but is not linked' do
         let(:value) { 'https://example.com/foo' }
+
+        it 'returns false' do
+          expect(subject.verifiable?).to be false
+        end
+      end
+      
+      context 'for text which is blank' do
+        let(:value) { '' }
 
         it 'returns false' do
           expect(subject.verifiable?).to be false
