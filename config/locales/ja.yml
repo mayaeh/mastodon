@@ -1206,7 +1206,7 @@ ja:
   media_attachments:
     validations:
       images_and_video: 既に画像が追加されているため、動画を追加することはできません
-      not_ready: 処理が完了していないファイルは追加できません。しばらく待ってからやり直してください。
+      not_ready: ファイルのアップロードに失敗しました。しばらくしてからもう一度お試しください
       too_many: 追加できるファイルは4つまでです
   migrations:
     acct: 引っ越し先
@@ -1297,7 +1297,7 @@ ja:
           trillion: T
   otp_authentication:
     code_hint: 続行するには認証アプリで表示されたコードを入力してください
-    description_html: 認証アプリを使用して<strong>二段階認証</strong>を有効にすると、ログインする際トークンを生成する携帯電話を所持している必要があります。
+    description_html: "<strong>二要素認証</strong>を有効にすると、ログイン時に認証アプリからコードを入力する必要があります。"
     enable: 有効化
     instructions_html: "<strong>Google Authenticatorか、もしくはほかのTOTPアプリでこのQRコードをスキャンしてください。</strong>これ以降、ログインするときはそのアプリで生成されるコードが必要になります。"
     manual_instructions: 'QRコードがスキャンできず、手動での登録を希望の場合はこのシークレットコードを利用してください。:'

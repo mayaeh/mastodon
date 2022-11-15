@@ -133,21 +133,10 @@ class UserSettingsDecorator
     boolean_cast_setting 'setting_crop_images'
   end
 
-<<<<<<< HEAD
-  def place_tab_bar_at_bottom_preference
-    boolean_cast_setting 'setting_place_tab_bar_at_bottom'
-  end
-
-  def show_tab_bar_label_preference
-    boolean_cast_setting 'setting_show_tab_bar_label'
-  end
-
   def always_send_emails_preference
     boolean_cast_setting 'setting_always_send_emails'
   end
 
-=======
->>>>>>> parent of 1bcc2c0a3 (Add place tab bar at bottom and add short label)
   def boolean_cast_setting(key)
     ActiveModel::Type::Boolean.new.cast(settings[key])
   end
