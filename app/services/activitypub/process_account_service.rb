@@ -40,7 +40,8 @@ class ActivityPub::ProcessAccountService < BaseService
 
     unless @options[:only_key] || @account.suspended?
       check_featured_collection! if @account.featured_collection_url.present?
-      check_links! unless @account.fields.empty?
+      check_featured_tags_collection! if @json['featuredTags'].present?
+      check_links! if @account.fields.any?(&:requires_verification?)
     end
 
     @account
@@ -150,7 +151,11 @@ class ActivityPub::ProcessAccountService < BaseService
   end
 
   def check_featured_collection!
-    ActivityPub::SynchronizeFeaturedCollectionWorker.perform_async(@account.id)
+    ActivityPub::SynchronizeFeaturedCollectionWorker.perform_async(@account.id, { 'hashtag' => @json['featuredTags'].blank? })
+  end
+
+  def check_featured_tags_collection!
+    ActivityPub::SynchronizeFeaturedTagsCollectionWorker.perform_async(@account.id, @json['featuredTags'])
   end
 
   def check_links!

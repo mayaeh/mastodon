@@ -28,7 +28,7 @@ class TranslationService::DeepL < TranslationService
   private
 
   def request(text, source_language, target_language)
-    req = Request.new(:post, endpoint_url, form: { text: text, source_lang: source_language.upcase, target_lang: target_language, tag_handling: 'html' })
+    req = Request.new(:post, endpoint_url, form: { text: text, source_lang: source_language&.upcase, target_lang: target_language, tag_handling: 'html' })
     req.add_headers('Authorization': "DeepL-Auth-Key #{@api_key}")
     req
   end
@@ -46,7 +46,7 @@ class TranslationService::DeepL < TranslationService
 
     raise UnexpectedResponseError unless json.is_a?(Hash)
 
-    Translation.new(text: json.dig('translations', 0, 'text'), detected_source_language: json.dig('translations', 0, 'detected_source_language')&.downcase)
+    Translation.new(text: json.dig('translations', 0, 'text'), detected_source_language: json.dig('translations', 0, 'detected_source_language')&.downcase, provider: 'DeepL.com')
   rescue Oj::ParseError
     raise UnexpectedResponseError
   end
