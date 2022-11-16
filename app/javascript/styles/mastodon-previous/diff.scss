@@ -25,6 +25,10 @@
   display: none;
 }
 
+.tabs-bar__wrapper {
+  top: inherit;
+}
+
 .button {
   background-color: $ui-highlight-color;
   transition: all 100ms ease-in;
