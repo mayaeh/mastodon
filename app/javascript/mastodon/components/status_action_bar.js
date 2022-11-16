@@ -342,6 +342,19 @@ class StatusActionBar extends ImmutablePureComponent {
       replyTitle = intl.formatMessage(messages.replyAll);
     }
 
+    const reblogPrivate = status.getIn(['account', 'id']) === me && status.get('visibility') === 'private';
+
+    let reblogTitle = '';
+    if (status.get('reblogged')) {
+      reblogTitle = intl.formatMessage(messages.cancel_reblog_private);
+    } else if (publicStatus) {
+      reblogTitle = intl.formatMessage(messages.reblog);
+    } else if (reblogPrivate) {
+      reblogTitle = intl.formatMessage(messages.reblog_private);
+    } else {
+      reblogTitle = intl.formatMessage(messages.cannot_reblog);
+    }
+
     const shareButton = ('share' in navigator) && publicStatus && (
       <IconButton className='status__action-bar__button' title={intl.formatMessage(messages.share)} icon='share-alt' onClick={this.handleShareClick} />
     );
@@ -353,7 +366,7 @@ class StatusActionBar extends ImmutablePureComponent {
     return (
       <div className='status__action-bar'>
         <IconButton className='status__action-bar-button' title={replyTitle} icon={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? 'reply' : replyIcon} onClick={this.handleReplyClick} counter={status.get('replies_count')} obfuscateCount />
-        <IconButton className='status__action-bar-button' disabled={!publicStatus} active={status.get('reblogged')} title={!publicStatus ? intl.formatMessage(messages.cannot_reblog) : intl.formatMessage(messages.reblog)} icon={reblogIcon} onClick={this.handleReblogClick} counter={withCounters ? status.get('reblogs_count') : undefined} />
+        <IconButton className='status__action-bar-button' disabled={!publicStatus && !reblogPrivate} active={status.get('reblogged')} title={reblogTitle} icon={reblogIcon} onClick={this.handleReblogClick} counter={withCounters ? status.get('reblogs_count') : undefined} />
         <IconButton className='status__action-bar-button star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
         <IconButton className='status__action-bar__button bookmark-icon' disabled={!signedIn} active={status.get('bookmarked')} title={intl.formatMessage(messages.bookmark)} icon='bookmark' onClick={this.handleBookmarkClick} />
 
