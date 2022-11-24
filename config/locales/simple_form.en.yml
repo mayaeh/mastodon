@@ -56,7 +56,6 @@ en:
         setting_display_media_show_all: Always show media
         setting_hide_network: Who you follow and who follows you will be hidden on your profile
         setting_noindex: Affects your public profile and post pages
-        setting_place_tab_bar_at_bottom: When using a touch device, you can operate tabs within the reach of your fingers.
         setting_show_application: The application you use to post will be displayed in the detailed view of your posts
         setting_use_blurhash: Gradients are based on the colors of the hidden visuals but obfuscate any details
         setting_use_pending_items: Hide timeline updates behind a click instead of automatically scrolling the feed
