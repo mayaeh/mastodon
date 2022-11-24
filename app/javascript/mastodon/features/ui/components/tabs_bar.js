@@ -6,8 +6,6 @@ import { debounce } from 'lodash';
 import { isUserTouching } from '../../../is_mobile';
 import Icon from 'mastodon/components/icon';
 import NotificationsCounterIcon from './notifications_counter_icon';
-import { place_tab_bar_at_bottom, show_tab_bar_label } from 'mastodon/initial_state';
-import classNames from 'classnames';
 
 export const links = [
   <NavLink className='tabs-bar__link' to='/home' data-preview-title-id='column.home' data-preview-icon='home' ><Icon id='home' fixedWidth /><span className='tabs-bar__link__full-label'><FormattedMessage id='tabs_bar.home' defaultMessage='Home' /></span><span className='tabs-bar__link__short-label'><FormattedMessage id='navigation_bar.short.home' defaultMessage='Home' /></span></NavLink>,
@@ -33,7 +31,7 @@ class TabsBar extends React.PureComponent {
   static propTypes = {
     intl: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
-  };
+  }
 
   setRef = ref => {
     this.node = ref;
@@ -76,8 +74,8 @@ class TabsBar extends React.PureComponent {
 
     return (
       <div className='tabs-bar__wrapper'>
-        <nav className={classNames('tabs-bar', { 'bottom-bar': place_tab_bar_at_bottom })} ref={this.setRef}>
-          {links.map(link => React.cloneElement(link, { key: link.props.to, className: classNames(link.props.className, { 'short-label': show_tab_bar_label }), onClick: this.handleClick, 'aria-label': formatMessage({ id: link.props['data-preview-title-id'] }) }))}
+        <nav className='tabs-bar' ref={this.setRef}>
+          {links.map(link => React.cloneElement(link, { key: link.props.to, onClick: this.handleClick, 'aria-label': formatMessage({ id: link.props['data-preview-title-id'] }) }))}
         </nav>
 
         <div id='tabs-bar__portal' />

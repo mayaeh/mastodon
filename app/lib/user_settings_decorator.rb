@@ -39,8 +39,6 @@ class UserSettingsDecorator
     user.settings['trends']                  = trends_preference if change?('setting_trends')
     user.settings['crop_images']             = crop_images_preference if change?('setting_crop_images')
     user.settings['always_send_emails']      = always_send_emails_preference if change?('setting_always_send_emails')
-    user.settings['place_tab_bar_at_bottom'] = place_tab_bar_at_bottom_preference if change?('setting_place_tab_bar_at_bottom')
-    user.settings['show_tab_bar_label']      = show_tab_bar_label_preference if change?('setting_show_tab_bar_label')
   end
 
   def merged_notification_emails
@@ -133,14 +131,6 @@ class UserSettingsDecorator
 
   def crop_images_preference
     boolean_cast_setting 'setting_crop_images'
-  end
-
-  def place_tab_bar_at_bottom_preference
-    boolean_cast_setting 'setting_place_tab_bar_at_bottom'
-  end
-
-  def show_tab_bar_label_preference
-    boolean_cast_setting 'setting_show_tab_bar_label'
   end
 
   def always_send_emails_preference

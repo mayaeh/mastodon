@@ -1587,34 +1587,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Started",
-        "id": "navigation_bar.short.getting_started"
-      },
-      {
-        "defaultMessage": "Home",
-        "id": "navigation_bar.short.home"
-      },
-      {
-        "defaultMessage": "Notif.",
-        "id": "navigation_bar.short.notifications"
-      },
-      {
-        "defaultMessage": "FTL",
-        "id": "navigation_bar.short.public_timeline"
-      },
-      {
-        "defaultMessage": "LTL",
-        "id": "navigation_bar.short.community_timeline"
-      },
-      {
-        "defaultMessage": "Pref.",
-        "id": "navigation_bar.short.preferences"
-      },
-      {
-        "defaultMessage": "Logout",
-        "id": "navigation_bar.short.logout"
-      },
-      {
         "defaultMessage": "Getting started",
         "id": "getting_started.heading"
       },
@@ -3806,40 +3778,20 @@
         "id": "tabs_bar.home"
       },
       {
-        "defaultMessage": "Home",
-        "id": "navigation_bar.short.home"
-      },
-      {
         "defaultMessage": "Notifications",
         "id": "tabs_bar.notifications"
-      },
-      {
-        "defaultMessage": "Notif.",
-        "id": "navigation_bar.short.notifications"
       },
       {
         "defaultMessage": "Local",
         "id": "tabs_bar.local_timeline"
       },
       {
-        "defaultMessage": "LTL",
-        "id": "navigation_bar.short.community_timeline"
-      },
-      {
         "defaultMessage": "Federated",
         "id": "tabs_bar.federated_timeline"
       },
       {
-        "defaultMessage": "FTL",
-        "id": "navigation_bar.short.public_timeline"
-      },
-      {
         "defaultMessage": "Search",
         "id": "tabs_bar.search"
-      },
-      {
-        "defaultMessage": "Search",
-        "id": "navigation_bar.short.search"
       }
     ],
     "path": "app/javascript/mastodon/features/ui/components/tabs_bar.json"

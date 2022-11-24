@@ -37,8 +37,6 @@ defaults: &defaults
   trends: true
   trendable_by_default: false
   crop_images: true
-  place_tab_bar_at_bottom: false
-  show_tab_bar_label: false
   notification_emails:
     follow: true
     reblog: false

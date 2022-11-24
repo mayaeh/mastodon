@@ -2179,32 +2179,8 @@ a.account__display-name {
   .tabs-bar {
     margin-bottom: 0;
 
-    @media screen and (max-width: 600px + (285px * 2) + (10px * 2)) {
-      &.bottom-bar {
-        position: fixed;
-        bottom: 0;
-        width: calc(100% - 20px);
-        max-width: 580px;
-      }
-    }
-
-    @media screen and (max-width: $no-gap-breakpoint) {
-      &.bottom-bar {
-        width: 100%;
-      }
-    }
-
-    @media screen and (min-width: 600px + (285px * 2) + (10px * 2)) {
-      padding-bottom: 10px;
-    }
-  }
-}
-
-.swipeable-view__wrapper {
-  @media screen and (max-width: 600px + (285px * 2) + (10px * 2)) {
-    &.bottom-bar {
-      padding-bottom: 48px;
-      padding-bottom: calc(env(safe-area-inset-bottom) + 48px);
+    @media screen and (min-width: $no-gap-breakpoint) {
+      margin-bottom: 10px;
     }
   }
 }
@@ -2255,7 +2231,6 @@ a.account__display-name {
 
 .drawer__tab {
   display: block;
-  width: 100%;
   flex: 1 1 auto;
   padding: 15px 5px 13px;
   color: $darker-text-color;
@@ -2263,25 +2238,6 @@ a.account__display-name {
   text-align: center;
   font-size: 16px;
   border-bottom: 2px solid transparent;
-
-  .drawer__tab__short-label {
-    display: none;
-  }
-
-  &.short-label {
-    padding: 0;
-
-    i {
-      margin: 10px 5px 0;
-    }
-
-    .drawer__tab__short-label {
-      font-size: 10px;
-      overflow-x: hidden;
-      white-space: nowrap;
-      display: block;
-    }
-  }
 }
 
 .column,
@@ -2331,7 +2287,8 @@ a.account__display-name {
 .tabs-bar__link {
   display: block;
   flex: 1 1 auto;
-  min-width: 40px;
+  padding: 15px 10px;
+  padding-bottom: 13px;
   color: $primary-text-color;
   text-decoration: none;
   text-align: center;
@@ -2360,98 +2317,16 @@ a.account__display-name {
     color: $highlight-text-color;
   }
 
-  &.hamburger {
-    flex: 0 0 30px;
-  }
-
-  &__full-label {
+  span {
     margin-left: 5px;
-    white-space: nowrap;
     display: none;
-  }
-
-  &__short-label {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 600px - 1px) {
-  .tabs-bar {
-    .tabs-bar__link {
-      &,
-      &.hamburger,
-      &.hamburger.short-label {
-        padding: 15px 10px 13px;
-      }
-
-      &.hamburger.short-label {
-        i {
-          margin: 0;
-        }
-      }
-
-      &.short-label {
-        padding: 0;
-
-        i {
-          margin: 10px 5px 0;
-        }
-
-        .tabs-bar__link__short-label {
-          font-size: 10px;
-          overflow-x: hidden;
-          white-space: nowrap;
-          display: block;
-        }
-      }
-    }
-  }
-
-  .tabs-bar.bottom-bar {
-    .tabs-bar__link {
-      &,
-      &.hamburger {
-        padding-bottom: calc(env(safe-area-inset-bottom) + 13px);
-      }
-
-      &.short-label,
-      &.hamburger.short-label {
-        padding-bottom: env(safe-area-inset-bottom);
-      }
-    }
   }
 }
 
 @media screen and (min-width: 600px) {
-  .tabs-bar {
-    .tabs-bar__link {
-      &,
-      &.hamburger {
-        padding: 15px 10px 13px;
-      }
-
-      & {
-        &__full-label {
-          display: inline;
-        }
-
-        &__short-label {
-          display: none;
-        }
-
-        i {
-          margin: 0;
-        }
-      }
-    }
-  }
-
-  .tabs-bar.bottom-bar {
-    .tabs-bar__link {
-      &,
-      &.hamburger {
-        padding-bottom: calc(env(safe-area-inset-bottom) + 13px);
-      }
+  .tabs-bar__link {
+    span {
+      display: inline;
     }
   }
 }
@@ -2461,10 +2336,6 @@ a.account__display-name {
   width: 100%;
   height: 100%;
   margin: 0 auto;
-
-  &.bottom-bar {
-    padding-bottom: 48px;
-  }
 
   .column,
   .drawer {
@@ -2623,10 +2494,6 @@ a.account__display-name {
   line-height: 21px;
   text-decoration: none;
   box-shadow: 2px 3px 9px rgba($base-shadow-color, 0.4);
-
-  &.bottom-bar {
-    bottom: calc(env(safe-area-inset-bottom) + 1.3125rem + 48px);
-  }
 
   &:hover,
   &:focus,
@@ -2914,13 +2781,6 @@ a.account__display-name {
   margin-bottom: 10px;
   display: flex;
   flex-direction: row;
-  overflow-x: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 
   a {
     transition: background 100ms ease-in;

@@ -58,7 +58,6 @@ en:
         setting_noindex: Affects your public profile and post pages
         setting_place_tab_bar_at_bottom: When using a touch device, you can operate tabs within the reach of your fingers.
         setting_show_application: The application you use to post will be displayed in the detailed view of your posts
-        setting_show_tab_bar_label: When adding a list etc. to the tab bar, it is recommended to display the label because it is not possible to distinguish by the icon alone
         setting_use_blurhash: Gradients are based on the colors of the hidden visuals but obfuscate any details
         setting_use_pending_items: Hide timeline updates behind a click instead of automatically scrolling the feed
         username: Your username will be unique on %{domain}
@@ -186,10 +185,8 @@ en:
         setting_expand_spoilers: Always expand posts marked with content warnings
         setting_hide_network: Hide your social graph
         setting_noindex: Opt-out of search engine indexing
-        setting_place_tab_bar_at_bottom: Place the tab bar at the bottom
         setting_reduce_motion: Reduce motion in animations
         setting_show_application: Disclose application used to send posts
-        setting_show_tab_bar_label: Show labels in the tab bar
         setting_system_font_ui: Use system's default font
         setting_theme: Site theme
         setting_trends: Show today's trends
