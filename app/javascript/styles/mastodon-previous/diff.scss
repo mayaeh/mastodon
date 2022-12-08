@@ -116,6 +116,10 @@
   }
 }
 
+.columns-area--mobile {
+  background: lighten($ui-base-color, 13%);
+}
+
 // containers.scss
 .public-layout {
   .public-account-bio {
