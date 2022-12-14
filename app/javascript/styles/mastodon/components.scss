@@ -7089,6 +7089,10 @@ noscript {
           font-weight: 400;
           overflow: hidden;
           text-overflow: ellipsis;
+
+          span {
+            user-select: all;
+          }
         }
       }
     }
