@@ -418,6 +418,13 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    resources :push_subscription_blocks, except: [:show] do
+      member do
+        post :enable
+        post :disable
+      end
+    end
   end
 
   get '/admin', to: redirect('/admin/dashboard', status: 302)
