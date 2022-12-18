@@ -530,6 +530,22 @@ ja:
         title: 新規IPルール
       no_ip_block_selected: 何も選択されていないためIPルールを変更しませんでした
       title: IPルール
+    push_subscription_blocks:
+      add_new: プッシュ通知ブロックを追加
+      delete: 削除
+      disable: 無効化
+      disabled: 無効
+      description_html: 停止・遅延しているプッシュ通知サーバーの利用をブロックします。
+      edit:
+        title: 編集
+      enable: 有効化
+      enabled: 有効
+      enable_hint: Sidekiqのデッドジョブを参考に、機能していないエンドポイントを指定します。前方一致でマッチするので、IDなどのユーザー固有部分を除いて指定してください。わかりやすい名前をつけておくことをおすすめしますが、必須ではありません。
+      endpoint: エンドポイント
+      name: 名前
+      save: 保存
+      setup: プッシュ通知ブロックを設定する
+      title: プッシュ通知ブロック
     relationships:
       title: "%{acct} さんのフォロー・フォロワー"
     relays:
