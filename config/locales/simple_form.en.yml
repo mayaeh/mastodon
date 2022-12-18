@@ -279,6 +279,9 @@ en:
         reblog: Someone boosted your post
         report: New report is submitted
         trending_tag: New trend requires review
+      push_subscription_blocks:
+        endpoint: End point
+        name: Name
       rule:
         text: Rule
       tag:

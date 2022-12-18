@@ -1,0 +1,24 @@
+%tr
+  %td.nowrap
+    %samp= push_subscription_block.name
+  %td.wrap
+    %samp= push_subscription_block.endpoint
+  %td.nowrap
+    - if push_subscription_block.enable?
+      %span.positive-hint
+        = fa_icon('check')
+        = ' '
+        = t 'admin.push_subscription_blocks.enabled'
+    - else
+      %span.negative-hint
+        = fa_icon('times')
+        = ' '
+        = t 'admin.push_subscription_blocks.disabled'
+  %td.nowrap
+    - if push_subscription_block.enable?
+      = table_link_to 'power-off', t('admin.push_subscription_blocks.disable'), disable_admin_push_subscription_block_path(push_subscription_block), method: :post, data: { confirm: t('admin.accounts.are_you_sure') }
+    - else
+      = table_link_to 'power-off', t('admin.push_subscription_blocks.enable'), enable_admin_push_subscription_block_path(push_subscription_block), method: :post, data: { confirm: t('admin.accounts.are_you_sure') }
+
+    = table_link_to 'pencil', t('admin.push_subscription_blocks.edit.title'), edit_admin_push_subscription_block_path(push_subscription_block)
+    = table_link_to 'times', t('admin.push_subscription_blocks.delete'), admin_push_subscription_block_path(push_subscription_block), method: :delete, data: { confirm: t('admin.accounts.are_you_sure') }
