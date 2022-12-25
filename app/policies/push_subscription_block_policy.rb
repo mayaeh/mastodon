@@ -2,6 +2,6 @@
 
 class PushSubscriptionBlockPolicy < ApplicationPolicy
   def update?
-    role.can?(:administrator)
+    admin?
   end
 end
