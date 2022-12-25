@@ -542,22 +542,6 @@ en:
         title: Create new IP rule
       no_ip_block_selected: No IP rules were changed as none were selected
       title: IP rules
-    push_subscription_blocks:
-      add_new: Add new block
-      delete: Delete
-      disable: Disable
-      disabled: Disabled
-      description_html: Block dead/delayed push notification servers.
-      edit:
-        title: Edit
-      enable: Enable
-      enabled: Enabled
-      enable_hint: Refer to Sidekiq's dead job and specify the non-functioning endpoint. Since it matches with a prefix match, specify it without user-specific parts such as ID. A meaningful name is recommended, but not required.
-      endpoint: End point
-      name: Name
-      save: Save
-      setup: Setup a push subscription block
-      title: Push subscription block
     relationships:
       title: "%{acct}'s relationships"
     relays:

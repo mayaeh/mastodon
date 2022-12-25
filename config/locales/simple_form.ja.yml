@@ -279,9 +279,6 @@ ja:
         reblog: 投稿がブーストされた時
         report: 新しい通報が送信された時
         trending_tag: 新しいトレンドのレビューをする必要がある時
-      push_subscription_block:
-        endpoint: エンドポイント
-        name: 名前
       rule:
         text: ルール
       tag:

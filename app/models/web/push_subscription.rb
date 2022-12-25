@@ -47,7 +47,7 @@ class Web::PushSubscription < ApplicationRecord
   end
 
   def pushable?(notification)
-    policy_allows_notification?(notification) && alert_enabled_for_notification_type?(notification) && PushSubscriptionBlock.allow?(endpoint)
+    policy_allows_notification?(notification) && alert_enabled_for_notification_type?(notification)
   end
 
   def associated_user

@@ -49,11 +49,6 @@
     }
   }
 
-  th.wrap,
-  td.wrap {
-    overflow-wrap: anywhere;
-  }
-
   &.inline-table {
     & > tbody > tr:nth-child(odd) {
       & > td,
