@@ -56,7 +56,6 @@ en:
         setting_display_media_show_all: Always show media
         setting_hide_network: Who you follow and who follows you will be hidden on your profile
         setting_navigation_panel_layout_bottom: Bottom
-        setting_navigation_panel_layout_hint: Navigation panel display position
         setting_navigation_panel_layout_right: Right (default)
         setting_navigation_panel_layout_top: Top
         setting_noindex: Affects your public profile and post pages
@@ -211,6 +210,7 @@ en:
         setting_display_media_show_all: Show all
         setting_expand_spoilers: Always expand posts marked with content warnings
         setting_hide_network: Hide your social graph
+        setting_navigation_panel_layout: Navigation panel display position
         setting_noindex: Opt-out of search engine indexing
         setting_reduce_motion: Reduce motion in animations
         setting_show_application: Disclose application used to send posts
