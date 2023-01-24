@@ -39,6 +39,7 @@ class UserSettingsDecorator
     user.settings['trends']              = trends_preference if change?('setting_trends')
     user.settings['crop_images']         = crop_images_preference if change?('setting_crop_images')
     user.settings['always_send_emails']  = always_send_emails_preference if change?('setting_always_send_emails')
+    user.settings['navigation_panel_layout'] = navigation_panel_layout_preference if change?('setting_navigation_panel_layout')
   end
 
   def merged_notification_emails
@@ -135,6 +136,10 @@ class UserSettingsDecorator
 
   def always_send_emails_preference
     boolean_cast_setting 'setting_always_send_emails'
+  end
+
+  def navigation_panel_layout_preference
+    settings['setting_navigation_panel_layout']
   end
 
   def boolean_cast_setting(key)
