@@ -56,6 +56,7 @@ ja:
         setting_display_media_show_all: メディアを常に表示する
         setting_hide_network: フォローとフォロワーの情報がプロフィールページで見られないようにします
         setting_navigation_panel_layout_bottom: 下
+        setting_navigation_panel_layout_hint: 上または下を選択するとナビゲーションパネルが移動し、また上部ヘッダーが非表示になります。
         setting_navigation_panel_layout_right: 右 (デフォルト)
         setting_navigation_panel_layout_top: 上
         setting_noindex: 公開プロフィールおよび各投稿ページに影響します
