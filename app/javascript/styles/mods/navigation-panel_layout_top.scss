@@ -30,15 +30,24 @@
     /* Publish button */
     .ui__header__links {
       display: none;
-      align-items: center;
-      gap: 10px;
-      padding: 5px 10px;
+    }
+
+    .navigation-panel__publish {
       position: fixed;
-      top: unset;
-      bottom: 50px;
-      flex-direction: row-reverse;
-      justify-content: space-between;
-      width: calc(100% - 20px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 3.9375rem;
+      height: 3.9375rem;
+      bottom: 3.9375rem;
+      right: 1.3125rem;
+      background: darken($ui-highlight-color, 3%);
+      color: $white;
+      border-radius: 50%;
+      font-size: 21px;
+      line-height: 21px;
+      text-decoration: none;
+      box-shadow: 2px 3px 9px rgba($base-shadow-color, 0.4);
     }
 
     /* Sidebar move from right to top */
