@@ -1,0 +1,88 @@
+.navigation-panel_layout_bottom {
+  .ui__header__logo {
+    display: none;
+  }
+
+  @media screen and (max-width: 1174px) {
+    .ui__header {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 630px) {
+    .ui__header {
+      display: flex;
+      background: none;
+      height: auto;
+    }
+    .columns-area__panels {
+      min-height: 100vh;
+      padding-bottom: 100px;
+    }
+    .tabs-bar__wrapper {
+      top: 0px;
+    }
+
+    /* Publish button */
+    .ui__header__links {
+      display: none;
+    }
+
+    .navigation-panel__publish {
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 3.9375rem;
+      height: 3.9375rem;
+      bottom: calc(env(safe-area-inset-bottom) + 1.3125rem + 48px);
+      right: 1.3125rem;
+      background: darken($ui-highlight-color, 3%);
+      color: $white;
+      border-radius: 50%;
+      font-size: 21px;
+      line-height: 21px;
+      text-decoration: none;
+      box-shadow: 2px 3px 9px rgba($base-shadow-color, 0.4);
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: lighten($ui-highlight-color, 7%);
+    }
+
+    /* Sidebar move from right to bottom */
+    .columns-area__panels__main {
+      width: 100%;
+    }
+    .columns-area__panels__pane--navigational {
+      width: 100%;
+      height: 50px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+    }
+    .columns-area__panels__pane--navigational .columns-area__panels__pane__inner {
+      width: 100%;
+      height: 50px;
+    }
+    .columns-area__panels__pane--navigational .column-link {
+      text-align: center;
+      width: 36px;
+    }
+    .columns-area__panels__pane--navigational .navigation-panel {
+      height: 50px;
+      display: flex;
+      flex-direction: row;
+      padding: 0;
+      scrollbar-width: none;
+    }
+    .columns-area__panels__pane--navigational .navigation-panel::-webkit-scrollbar {
+      display: none;
+    }
+    .navigation-panel__legal hr {
+      display: none;
+    }
+  }
+}

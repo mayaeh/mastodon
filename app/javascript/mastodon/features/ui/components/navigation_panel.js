@@ -108,7 +108,9 @@ class NavigationPanel extends React.Component {
           <React.Fragment>
             <ColumnLink transparent to='/getting-started' icon='bars' text={intl.formatMessage(messages.gettingStarted)} />
 
-            <ColumnLink transparent to='/publish' icon='pencil' text={intl.formatMessage(messages.publish)} />
+            <div className='navigation-panel__publish'>
+              <ColumnLink transparent to='/publish' icon='pencil' text={intl.formatMessage(messages.publish)} />
+            </div>
           </React.Fragment>
         )}
 
