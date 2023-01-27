@@ -48,6 +48,12 @@
       line-height: 21px;
       text-decoration: none;
       box-shadow: 2px 3px 9px rgba($base-shadow-color, 0.4);
+
+      &:hover,
+      &:focus,
+      &:active {
+        background: lighten($ui-highlight-color, 7%);
+      }
     }
 
     /* Sidebar move from right to top */
