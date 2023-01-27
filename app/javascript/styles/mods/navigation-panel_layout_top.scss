@@ -61,7 +61,7 @@
       flex-direction: row;
       padding: 0;
       scrollbar-width: none;
-      background: $darker-text-color;
+      background: lighten($ui-base-color, 13%);
     }
     .columns-area__panels__pane--navigational .navigation-panel::-webkit-scrollbar {
       display: none;
