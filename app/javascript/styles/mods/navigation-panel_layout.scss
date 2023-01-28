@@ -38,7 +38,7 @@
 
     .columns-area__panels__pane--navigational {
       width: 100%;
-      height: 50px;
+      height: 60px;
       position: fixed;
       bottom: 0;
       left: 0;
@@ -46,7 +46,7 @@
 
     .columns-area__panels__pane--navigational .columns-area__panels__pane__inner {
       width: 100%;
-      height: 50px;
+      height: 60px;
     }
 
     .columns-area__panels__pane--navigational .column-link {
@@ -55,7 +55,7 @@
     }
 
     .columns-area__panels__pane--navigational .navigation-panel {
-      height: 50px;
+      height: 60px;
       display: flex;
       flex-direction: row;
       padding: 0;
@@ -112,8 +112,17 @@
     }
 
     .columns-area__panels__pane--navigational {
+      height: 50px;
       top: 0;
       bottom: unset;
+    }
+
+    .columns-area__panels__pane--navigational .columns-area__panels__pane__inner {
+      height: 50px;
+    }
+
+    .columns-area__panels__pane--navigational .navigation-panel {
+      height: 50px;
     }
 
     .navigation-panel__publish {
