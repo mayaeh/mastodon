@@ -1,8 +1,4 @@
 .navigation-panel_layout_top, .navigation-panel_layout_bottom {
-  .ui__header__logo {
-    display: none;
-  }
-
   @media screen and (max-width: 1174px) {
     .ui__header {
       display: none;
@@ -14,6 +10,10 @@
       display: flex;
       background: none;
       height: auto;
+    }
+
+    .ui__header__logo {
+      display: none;
     }
 
     .columns-area__panels {
