@@ -91,18 +91,15 @@ class NavigationPanel extends React.Component {
             <ListPanel />
 
             <hr />
-            {/*
+
             <ColumnLink transparent href='/settings/preferences' icon='cog' text={intl.formatMessage(messages.preferences)} />
-            */}
           </React.Fragment>
         )}
 
-        {!signedIn && (
-          <div className='navigation-panel__legal'>
-            <hr />
-            <ColumnLink transparent to='/about' icon='ellipsis-h' text={intl.formatMessage(messages.about)} />
-          </div>
-        )}
+        <div className='navigation-panel__legal'>
+          <hr />
+          <ColumnLink transparent to='/about' icon='ellipsis-h' text={intl.formatMessage(messages.about)} />
+        </div>
 
         {signedIn && (
           <React.Fragment>
