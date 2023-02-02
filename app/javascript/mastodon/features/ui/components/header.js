@@ -1,12 +1,13 @@
 import React from 'react';
 import Logo from 'mastodon/components/logo';
 import { Link, withRouter } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages } from 'react-intl';
 import { registrationsOpen, me } from 'mastodon/initial_state';
 import Avatar from 'mastodon/components/avatar';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { openModal } from 'mastodon/actions/modal';
+import ColumnLink from './column_link';
 
 const Account = connect(state => ({
   account: state.getIn(['accounts', me]),
@@ -15,6 +16,10 @@ const Account = connect(state => ({
     <Avatar account={account} size={35} />
   </Link>
 ));
+
+const messages = defineMessages({
+  publish: { id: 'compose_form.publish', defaultMessage: 'Publish' },
+});
 
 const mapDispatchToProps = (dispatch) => ({
   openClosedRegistrationsModal() {
@@ -46,6 +51,11 @@ class Header extends React.PureComponent {
         <>
           {location.pathname !== '/publish' && <Link to='/publish' className='button'><FormattedMessage id='compose_form.publish_form' defaultMessage='Publish' /></Link>}
           <Account />
+          {location.pathname !== '/publish' && (
+            <div className='floating-action-button'>
+              <ColumnLink transparent to='/publish' icon='pencil' text={intl.formatMessage(messages.publish)} />
+            </div>
+          )}
         </>
       );
     } else {
