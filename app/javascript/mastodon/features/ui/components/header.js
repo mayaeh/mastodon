@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from 'mastodon/components/logo';
 import { Link, withRouter } from 'react-router-dom';
-import { FormattedMessage, defineMessages } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { registrationsOpen, me } from 'mastodon/initial_state';
 import Avatar from 'mastodon/components/avatar';
 import PropTypes from 'prop-types';
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default @connect(null, mapDispatchToProps)
-@withRouter
+@withRouter @injectIntl
 class Header extends React.PureComponent {
 
   static contextTypes = {
@@ -36,13 +36,14 @@ class Header extends React.PureComponent {
   };
 
   static propTypes = {
+    intl: PropTypes.object.isRequired,
     openClosedRegistrationsModal: PropTypes.func,
     location: PropTypes.object,
   };
 
   render () {
     const { signedIn } = this.context.identity;
-    const { location, openClosedRegistrationsModal } = this.props;
+    const { intl, location, openClosedRegistrationsModal } = this.props;
 
     let content;
 
