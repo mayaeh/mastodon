@@ -1,13 +1,12 @@
 import React from 'react';
 import Logo from 'mastodon/components/logo';
 import { Link, withRouter } from 'react-router-dom';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { registrationsOpen, me } from 'mastodon/initial_state';
 import Avatar from 'mastodon/components/avatar';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { openModal } from 'mastodon/actions/modal';
-import ColumnLink from './column_link';
 
 const Account = connect(state => ({
   account: state.getIn(['accounts', me]),
@@ -17,10 +16,6 @@ const Account = connect(state => ({
   </Link>
 ));
 
-const messages = defineMessages({
-  publish: { id: 'compose_form.publish', defaultMessage: 'Publish' },
-});
-
 const mapDispatchToProps = (dispatch) => ({
   openClosedRegistrationsModal() {
     dispatch(openModal('CLOSED_REGISTRATIONS'));
@@ -28,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default @connect(null, mapDispatchToProps)
-@withRouter @injectIntl
+@withRouter
 class Header extends React.PureComponent {
 
   static contextTypes = {
@@ -36,14 +31,13 @@ class Header extends React.PureComponent {
   };
 
   static propTypes = {
-    intl: PropTypes.object.isRequired,
     openClosedRegistrationsModal: PropTypes.func,
     location: PropTypes.object,
   };
 
   render () {
     const { signedIn } = this.context.identity;
-    const { intl, location, openClosedRegistrationsModal } = this.props;
+    const { location, openClosedRegistrationsModal } = this.props;
 
     let content;
 
@@ -52,11 +46,6 @@ class Header extends React.PureComponent {
         <>
           {location.pathname !== '/publish' && <Link to='/publish' className='button'><FormattedMessage id='compose_form.publish_form' defaultMessage='Publish' /></Link>}
           <Account />
-          {location.pathname !== '/publish' && (
-            <div className='floating-action-button'>
-              <ColumnLink transparent to='/publish' icon='pencil' text={intl.formatMessage(messages.publish)} />
-            </div>
-          )}
         </>
       );
     } else {
