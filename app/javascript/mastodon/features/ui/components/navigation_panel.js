@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Logo from 'mastodon/components/logo';
 import { timelinePreview, showTrends } from 'mastodon/initial_state';
 import ColumnLink from './column_link';
@@ -30,7 +30,7 @@ const messages = defineMessages({
   publish: { id: 'compose_form.publish', defaultMessage: 'Publish' },
 });
 
-export default @injectIntl
+export default @injectIntl @withRouter
 class NavigationPanel extends React.Component {
 
   static contextTypes = {
@@ -40,10 +40,11 @@ class NavigationPanel extends React.Component {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
+    location: PropTypes.object,
   };
 
   render () {
-    const { intl } = this.props;
+    const { intl, location } = this.props;
     const { signedIn, disabledAccountId } = this.context.identity;
 
     return (
@@ -102,13 +103,13 @@ class NavigationPanel extends React.Component {
         </div>
 
         {signedIn && (
-          <React.Fragment>
-            <ColumnLink transparent to='/getting-started' icon='bars' text={intl.formatMessage(messages.gettingStarted)} />
+          <ColumnLink transparent to='/getting-started' icon='bars' text={intl.formatMessage(messages.gettingStarted)} />
+        )}
 
-            <div className='navigation-panel__publish'>
-              <ColumnLink transparent to='/publish' icon='pencil' text={intl.formatMessage(messages.publish)} />
-            </div>
-          </React.Fragment>
+        {signedIn && location.pathname !== '/publish' && (
+          <div className='floating-action-button'>
+            <ColumnLink transparent to='/publish' icon='pencil' text={intl.formatMessage(messages.publish)} />
+          </div>
         )}
 
         <NavigationPortal />
