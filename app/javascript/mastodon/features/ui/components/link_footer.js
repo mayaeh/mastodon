@@ -95,6 +95,11 @@ class LinkFooter extends React.PureComponent {
           {DividingCircle}
           v{version}
         </p>
+        <p>
+          <strong>copyright</strong>:
+          {' '}
+          <span>(C) SQUARE ENIX CO., LTD. All Rights Reserved.</span>
+        </p>
       </div>
     );
   }
