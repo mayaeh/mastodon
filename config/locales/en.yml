@@ -1589,6 +1589,7 @@ en:
   themes:
     contrast: Mastodon (High contrast)
     default: Mastodon (Dark)
+    mastodon-2022color: Mastodon (Dark 2022)
     mastodon-light: Mastodon (Light)
   time:
     formats:

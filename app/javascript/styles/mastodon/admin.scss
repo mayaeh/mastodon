@@ -146,12 +146,12 @@ $content-width: 840px;
 
       .simple-navigation-active-leaf a {
         color: $primary-text-color;
-        background-color: darken($ui-highlight-color, 2%);
+        background-color: $ui-highlight-color;
         border-bottom: 0;
         border-radius: 0;
 
         &:hover {
-          background-color: $ui-highlight-color;
+          background-color: lighten($ui-highlight-color, 5%);
         }
       }
     }
@@ -949,7 +949,7 @@ a.name-tag,
     border: 0;
 
     a {
-      color: $highlight-text-color;
+      color: lighten($ui-highlight-color, 8%);
     }
 
     dl:first-child .verified {
