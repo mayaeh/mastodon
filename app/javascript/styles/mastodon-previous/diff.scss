@@ -86,7 +86,8 @@
   background-color: $ui-highlight-color;
 }
 
-.react-toggle--checked:is(:hover, :focus-within):not(.react-toggle--disabled) .react-toggle-track {
+.react-toggle--checked:is(:hover, :focus-within):not(.react-toggle--disabled)
+  .react-toggle-track {
   background-color: lighten($ui-highlight-color, 10%);
 }
 
