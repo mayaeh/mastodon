@@ -81,7 +81,7 @@
     display: flex;
     align-items: baseline;
     border-radius: 4px;
-    background: darken($ui-highlight-color, 2%);
+    background: $ui-highlight-color;
     color: $primary-text-color;
     transition: all 100ms ease-in;
     font-size: 14px;
@@ -94,7 +94,7 @@
     &:active,
     &:focus,
     &:hover {
-      background-color: $ui-highlight-color;
+      background-color: lighten($ui-highlight-color, 10%);
       transition: all 200ms ease-out;
     }
 

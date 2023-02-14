@@ -503,7 +503,7 @@ code {
     width: 100%;
     border: 0;
     border-radius: 4px;
-    background: darken($ui-highlight-color, 2%);
+    background: $ui-highlight-color;
     color: $primary-text-color;
     font-size: 18px;
     line-height: inherit;
@@ -523,10 +523,13 @@ code {
       margin-right: 0;
     }
 
-    &:active,
-    &:focus,
     &:hover {
-      background-color: $ui-highlight-color;
+      background-color: lighten($ui-highlight-color, 5%);
+    }
+
+    &:active,
+    &:focus {
+      background-color: darken($ui-highlight-color, 5%);
     }
 
     &:disabled:hover {

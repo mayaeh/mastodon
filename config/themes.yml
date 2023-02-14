@@ -1,3 +1,4 @@
 default: styles/application.scss
 contrast: styles/contrast.scss
 mastodon-light: styles/mastodon-light.scss
+mastodon-2022color: styles/mastodon-2022color.scss

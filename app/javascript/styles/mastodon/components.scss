@@ -47,7 +47,7 @@
 }
 
 .button {
-  background-color: darken($ui-highlight-color, 2%);
+  background-color: $ui-highlight-color;
   border: 10px none;
   border-radius: 4px;
   box-sizing: border-box;
@@ -71,7 +71,7 @@
   &:active,
   &:focus,
   &:hover {
-    background-color: $ui-highlight-color;
+    background-color: lighten($ui-highlight-color, 10%);
   }
 
   &--destructive {
@@ -924,7 +924,7 @@ body > [data-popper-placement] {
   }
 
   a.unhandled-link {
-    color: $highlight-text-color;
+    color: lighten($ui-highlight-color, 8%);
   }
 
   .status__content__spoiler-link {
@@ -994,7 +994,7 @@ body > [data-popper-placement] {
     }
 
     &.unhandled-link {
-      color: $highlight-text-color;
+      color: lighten($ui-highlight-color, 8%);
     }
   }
 }
@@ -1007,7 +1007,7 @@ body > [data-popper-placement] {
   display: block;
   font-size: 15px;
   line-height: 22px;
-  color: $highlight-text-color;
+  color: lighten($ui-highlight-color, 8%);
   border: 0;
   background: transparent;
   padding: 0;
@@ -3064,12 +3064,12 @@ $ui-header-height: 55px;
 }
 
 .react-toggle--checked .react-toggle-track {
-  background-color: darken($ui-highlight-color, 2%);
+  background-color: $ui-highlight-color;
 }
 
 .react-toggle--checked:is(:hover, :focus-within):not(.react-toggle--disabled)
   .react-toggle-track {
-  background-color: $ui-highlight-color;
+  background-color: darken($ui-base-color, 10%);
 }
 
 .react-toggle-track-check {
@@ -3160,7 +3160,7 @@ $ui-header-height: 55px;
     }
 
     &.active {
-      color: $highlight-text-color;
+      color: $ui-highlight-color;
     }
   }
 
@@ -6627,8 +6627,8 @@ a.status-card.compact:hover {
     vertical-align: middle;
 
     &.checked {
-      border-color: lighten($ui-highlight-color, 4%);
-      background: lighten($ui-highlight-color, 4%);
+      border-color: lighten($ui-highlight-color, 8%);
+      background: lighten($ui-highlight-color, 8%);
     }
   }
 }
