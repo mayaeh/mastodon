@@ -85,7 +85,7 @@ class BoostModal extends ImmutablePureComponent {
         <div className='boost-modal__container'>
           <div className='status light'>
             <div className='status__info'>
-              <a href={`/@${status.getIn(['account', 'acct'])}\/${status.get('id')}`} className='status__relative-time' target='_blank' rel='noopener noreferrer'>
+              <a href={`/@${status.getIn(['account', 'acct'])}/${status.get('id')}`} className='status__relative-time' target='_blank' rel='noopener noreferrer'>
                 <RelativeTimestamp timestamp={status.get('created_at')} />
               </a>
 
