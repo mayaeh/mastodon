@@ -1,34 +1,27 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import ComposeFormContainer from './containers/compose_form_container';
 import NavigationContainer from './containers/navigation_container';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
-import { mountCompose, unmountCompose } from '../../actions/compose';
+import { changeComposing, mountCompose, unmountCompose } from '../../actions/compose';
 import { Link } from 'react-router-dom';
 import { injectIntl, defineMessages } from 'react-intl';
 import SearchContainer from './containers/search_container';
 import Motion from '../ui/util/optional_motion';
 import spring from 'react-motion/lib/spring';
 import SearchResultsContainer from './containers/search_results_container';
-import { changeComposing } from '../../actions/compose';
 import { openModal } from 'mastodon/actions/modal';
 import elephantUIPlane from '../../../images/elephant_ui_plane.svg';
-import { mascot, show_tab_bar_label } from '../../initial_state';
+import { mascot } from '../../initial_state';
 import ModsAnnouncements from './components/mods_announcements';
 import Icon from 'mastodon/components/icon';
 import { logOut } from 'mastodon/utils/log_out';
-import NotificationsCounterIcon from '../ui/components/notifications_counter_icon';
-import classNames from 'classnames';
+import Column from 'mastodon/components/column';
+import { Helmet } from 'react-helmet';
+import { isMobile } from '../../is_mobile';
 
 const messages = defineMessages({
-  short_start: { id: 'navigation_bar.short.getting_started', defaultMessage: 'Started' },
-  short_home_timeline: { id: 'navigation_bar.short.home', defaultMessage: 'Home' },
-  short_notifications: { id: 'navigation_bar.short.notifications', defaultMessage: 'Notif.' },
-  short_public: { id: 'navigation_bar.short.public_timeline', defaultMessage: 'FTL' },
-  short_community: { id: 'navigation_bar.short.community_timeline', defaultMessage: 'LTL' },
-  short_preferences: { id: 'navigation_bar.short.preferences', defaultMessage: 'Pref.' },
-  short_logout: { id: 'navigation_bar.short.logout', defaultMessage: 'Logout' },
   start: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
   home_timeline: { id: 'tabs_bar.home', defaultMessage: 'Home' },
   notifications: { id: 'tabs_bar.notifications', defaultMessage: 'Notifications' },
@@ -43,7 +36,7 @@ const messages = defineMessages({
 
 const mapStateToProps = (state, ownProps) => ({
   columns: state.getIn(['settings', 'columns']),
-  showSearch: ownProps.multiColumn ? state.getIn(['search', 'submitted']) && !state.getIn(['search', 'hidden']) : ownProps.isSearchPage,
+  showSearch: ownProps.multiColumn ? state.getIn(['search', 'submitted']) && !state.getIn(['search', 'hidden']) : false,
 });
 
 export default @connect(mapStateToProps)
@@ -55,24 +48,17 @@ class Compose extends React.PureComponent {
     columns: ImmutablePropTypes.list.isRequired,
     multiColumn: PropTypes.bool,
     showSearch: PropTypes.bool,
-    isSearchPage: PropTypes.bool,
     intl: PropTypes.object.isRequired,
   };
 
   componentDidMount () {
-    const { isSearchPage } = this.props;
-
-    if (!isSearchPage) {
-      this.props.dispatch(mountCompose());
-    }
+    const { dispatch } = this.props;
+    dispatch(mountCompose());
   }
 
   componentWillUnmount () {
-    const { isSearchPage } = this.props;
-
-    if (!isSearchPage) {
-      this.props.dispatch(unmountCompose());
-    }
+    const { dispatch } = this.props;
+    dispatch(unmountCompose());
   }
 
   handleLogoutClick = e => {
@@ -89,91 +75,77 @@ class Compose extends React.PureComponent {
     }));
 
     return false;
-  }
+  };
 
   onFocus = () => {
     this.props.dispatch(changeComposing(true));
-  }
+  };
 
   onBlur = () => {
     this.props.dispatch(changeComposing(false));
-  }
-
-  tab (id) {
-    const { columns, intl: { formatMessage } } = this.props;
-
-    if (!columns.some(column => column.get('id') === id)) {
-      const tabParams = {
-        'START':         { to: '/getting-started',        title: formatMessage(messages.start),         label: formatMessage(messages.short_start),         icon_id: 'bars' },
-        'HOME':          { to: '/home',                   title: formatMessage(messages.home_timeline), label: formatMessage(messages.short_home_timeline), icon_id: 'home' },
-        'NOTIFICATIONS': { to: '/notifications',          title: formatMessage(messages.notifications), label: formatMessage(messages.short_notifications), icon_id: 'bell' },
-        'COMMUNITY':     { to: '/public/local',           title: formatMessage(messages.community),     label: formatMessage(messages.short_community),     icon_id: 'users' },
-        'PUBLIC':        { to: '/public',                 title: formatMessage(messages.public),        label: formatMessage(messages.short_public),        icon_id: 'globe' },
-        'PREFERENCES':   { href: '/settings/preferences', title: formatMessage(messages.preferences),   label: formatMessage(messages.short_preferences),   icon_id: 'cog' },
-        'SIGN_OUT':      { href: '/auth/sign_out',        title: formatMessage(messages.logout),        label: formatMessage(messages.short_logout),        icon_id: 'sign-out', method: 'delete' },
-      };
-
-      const { href, to, title, label, icon_id, method } = tabParams[id];
-
-      const icon = (id === 'NOTIFICATIONS') ? <NotificationsCounterIcon /> : <Icon id={icon_id} fixedWidth />;
-
-      if (href) {
-        return (
-          <a href={href} className={classNames('drawer__tab', { 'short-label': show_tab_bar_label })} title={title} aria-label={title} data-method={method}>{icon}<span className='drawer__tab__short-label'>{label}</span></a>
-        );
-      } else {
-        return (
-          <Link to={to} className={classNames('drawer__tab', { 'short-label': show_tab_bar_label })} title={title} aria-label={title}>{icon}<span className='drawer__tab__short-label'>{label}</span></Link>
-        );
-      }
-    }
-    return null;
-  }
+  };
 
   render () {
-    const { multiColumn, showSearch, isSearchPage, intl } = this.props;
-
-    let header = '';
+    const { multiColumn, showSearch, intl } = this.props;
 
     if (multiColumn) {
-      const defaultTabIds = ['START', 'HOME', 'NOTIFICATIONS', 'COMMUNITY', 'PUBLIC', 'PREFERENCES', 'SIGN_OUT'];
+      const { columns } = this.props;
 
-      let tabs = defaultTabIds;
+      return (
+        <div className='drawer' role='region' aria-label={intl.formatMessage(messages.compose)}>
+          <nav className='drawer__header'>
+            <Link to='/getting-started' className='drawer__tab' title={intl.formatMessage(messages.start)} aria-label={intl.formatMessage(messages.start)}><Icon id='bars' fixedWidth /></Link>
+            {!columns.some(column => column.get('id') === 'HOME') && (
+              <Link to='/home' className='drawer__tab' title={intl.formatMessage(messages.home_timeline)} aria-label={intl.formatMessage(messages.home_timeline)}><Icon id='home' fixedWidth /></Link>
+            )}
+            {!columns.some(column => column.get('id') === 'NOTIFICATIONS') && (
+              <Link to='/notifications' className='drawer__tab' title={intl.formatMessage(messages.notifications)} aria-label={intl.formatMessage(messages.notifications)}><Icon id='bell' fixedWidth /></Link>
+            )}
+            {!columns.some(column => column.get('id') === 'COMMUNITY') && (
+              <Link to='/public/local' className='drawer__tab' title={intl.formatMessage(messages.community)} aria-label={intl.formatMessage(messages.community)}><Icon id='users' fixedWidth /></Link>
+            )}
+            {!columns.some(column => column.get('id') === 'PUBLIC') && (
+              <Link to='/public' className='drawer__tab' title={intl.formatMessage(messages.public)} aria-label={intl.formatMessage(messages.public)}><Icon id='globe' fixedWidth /></Link>
+            )}
+            <a href='/settings/preferences' className='drawer__tab' title={intl.formatMessage(messages.preferences)} aria-label={intl.formatMessage(messages.preferences)}><Icon id='cog' fixedWidth /></a>
+            <a href='/auth/sign_out' className='drawer__tab' title={intl.formatMessage(messages.logout)} aria-label={intl.formatMessage(messages.logout)} onClick={this.handleLogoutClick}><Icon id='sign-out' fixedWidth /></a>
+          </nav>
 
-      header = (
-        <nav className='drawer__header'>
-          {tabs.map(tabId => (
-            <Fragment key={tabId}>{this.tab(tabId)}</Fragment>
-          ))}
-        </nav>
+          {multiColumn && <SearchContainer /> }
+
+          <div className='drawer__pager'>
+            <div className='drawer__inner' onFocus={this.onFocus}>
+              <NavigationContainer onClose={this.onBlur} />
+
+              <ComposeFormContainer autoFocus={!isMobile(window.innerWidth)} />
+              <ModsAnnouncements />
+
+              <div className='drawer__inner__mastodon'>
+                <img alt='' draggable='false' src={mascot || elephantUIPlane} />
+              </div>
+            </div>
+
+            <Motion defaultStyle={{ x: -100 }} style={{ x: spring(showSearch ? 0 : -100, { stiffness: 210, damping: 20 }) }}>
+              {({ x }) => (
+                <div className='drawer__inner darker' style={{ transform: `translateX(${x}%)`, visibility: x === -100 ? 'hidden' : 'visible' }}>
+                  <SearchResultsContainer />
+                </div>
+              )}
+            </Motion>
+          </div>
+        </div>
       );
     }
 
     return (
-      <div className='drawer' role='region' aria-label={intl.formatMessage(messages.compose)}>
-        {header}
+      <Column onFocus={this.onFocus}>
+        <NavigationContainer onClose={this.onBlur} />
+        <ComposeFormContainer />
 
-        {(multiColumn || isSearchPage) && <SearchContainer /> }
-
-        <div className='drawer__pager'>
-          {!isSearchPage && <div className='drawer__inner' onFocus={this.onFocus}>
-            <NavigationContainer onClose={this.onBlur} />
-            <ComposeFormContainer />
-            <ModsAnnouncements />
-            <div className='drawer__inner__mastodon'>
-              <img alt='' draggable='false' src={mascot || elephantUIPlane} />
-            </div>
-          </div>}
-
-          <Motion defaultStyle={{ x: isSearchPage ? 0 : -100 }} style={{ x: spring(showSearch || isSearchPage ? 0 : -100, { stiffness: 210, damping: 20 }) }}>
-            {({ x }) => (
-              <div className='drawer__inner darker' style={{ transform: `translateX(${x}%)`, visibility: x === -100 ? 'hidden' : 'visible' }}>
-                <SearchResultsContainer />
-              </div>
-            )}
-          </Motion>
-        </div>
-      </div>
+        <Helmet>
+          <meta name='robots' content='noindex' />
+        </Helmet>
+      </Column>
     );
   }
 

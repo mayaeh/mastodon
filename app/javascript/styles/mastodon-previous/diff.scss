@@ -21,6 +21,17 @@
 }
 
 // components.scss
+.layout-single-column .ui__header {
+  display: none;
+}
+.ui__header {
+  display: none;
+}
+
+.tabs-bar__wrapper {
+  top: inherit;
+}
+
 .button {
   background-color: $ui-highlight-color;
   transition: all 100ms ease-in;
@@ -106,6 +117,10 @@
       background: lighten($ui-highlight-color, 8%);
     }
   }
+}
+
+.columns-area--mobile {
+  background: lighten($ui-base-color, 13%);
 }
 
 // containers.scss

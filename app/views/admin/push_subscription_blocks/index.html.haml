@@ -1,0 +1,21 @@
+- content_for :page_title do
+  = t('admin.push_subscription_blocks.title')
+
+.simple_form
+  %p.hint= t('admin.push_subscription_blocks.description_html')
+  = link_to @push_subscription_blocks.empty? ? t('admin.push_subscription_blocks.setup') : t('admin.push_subscription_blocks.add_new'), new_admin_push_subscription_block_path, class: 'block-button'
+
+- unless @push_subscription_blocks.empty?
+  %hr.spacer
+
+  .table-wrapper
+    %table.table
+      %thead
+        %tr
+          %th= t('admin.push_subscription_blocks.name')
+          %th= t('admin.push_subscription_blocks.endpoint')
+          %th= t('admin.push_subscription_blocks.enable')
+          %th
+      %tbody
+        = render @push_subscription_blocks
+

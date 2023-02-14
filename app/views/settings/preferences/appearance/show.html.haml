@@ -32,13 +32,14 @@
     = f.input :setting_reduce_motion, as: :boolean, wrapper: :with_label
     = f.input :setting_disable_swiping, as: :boolean, wrapper: :with_label
     = f.input :setting_system_font_ui, as: :boolean, wrapper: :with_label
-    = f.input :setting_place_tab_bar_at_bottom, as: :boolean, wrapper: :with_label
-    = f.input :setting_show_tab_bar_label, as: :boolean, wrapper: :with_label
 
   %h4= t 'appearance.toot_layout'
 
   .fields-group
     = f.input :setting_crop_images, as: :boolean, wrapper: :with_label
+
+  .fields-group
+    = f.input :setting_navigation_panel_layout, collection: ['right', 'top', 'bottom'], label_method: lambda { |item| t("simple_form.hints.defaults.setting_navigation_panel_layout_#{item}") }, wrapper: :with_label, include_blank: false, hint: t('simple_form.hints.defaults.setting_navigation_panel_layout_hint')
 
   %h4= t 'appearance.discovery'
 

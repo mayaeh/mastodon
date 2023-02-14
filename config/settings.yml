@@ -35,10 +35,9 @@ defaults: &defaults
   use_blurhash: true
   use_pending_items: false
   trends: true
+  trends_as_landing_page: true
   trendable_by_default: false
   crop_images: true
-  place_tab_bar_at_bottom: false
-  show_tab_bar_label: false
   notification_emails:
     follow: true
     reblog: false
@@ -68,10 +67,11 @@ defaults: &defaults
   bootstrap_timeline_accounts: ''
   activity_api_enabled: true
   peers_api_enabled: true
-  show_known_fediverse_at_about_page: true
   show_domain_blocks: 'disabled'
   show_domain_blocks_rationale: 'disabled'
   require_invite_text: false
+  backups_retention_period: 7
+  navigation_panel_layout: 'right'
 
 development:
   <<: *defaults

@@ -10,7 +10,7 @@ import AccountContainer from 'mastodon/containers/account_container';
 import Report from './report';
 import FollowRequestContainer from '../containers/follow_request_container';
 import Icon from 'mastodon/components/icon';
-import Permalink from 'mastodon/components/permalink';
+import { Link } from 'react-router-dom';
 import RelativeTimestamp from 'mastodon/components/relative_timestamp';
 import classNames from 'classnames';
 
@@ -62,12 +62,12 @@ class Notification extends ImmutablePureComponent {
   handleMoveUp = () => {
     const { notification, onMoveUp } = this.props;
     onMoveUp(notification.get('id'));
-  }
+  };
 
   handleMoveDown = () => {
     const { notification, onMoveDown } = this.props;
     onMoveDown(notification.get('id'));
-  }
+  };
 
   handleOpen = () => {
     const { notification } = this.props;
@@ -77,34 +77,34 @@ class Notification extends ImmutablePureComponent {
     } else {
       this.handleOpenProfile();
     }
-  }
+  };
 
   handleOpenProfile = () => {
     const { notification } = this.props;
     this.context.router.history.push(`/@${notification.getIn(['account', 'acct'])}`);
-  }
+  };
 
   handleMention = e => {
     e.preventDefault();
 
     const { notification, onMention } = this.props;
     onMention(notification.get('account'), this.context.router.history);
-  }
+  };
 
   handleHotkeyFavourite = () => {
     const { status } = this.props;
     if (status) this.props.onFavourite(status);
-  }
+  };
 
   handleHotkeyBoost = e => {
     const { status } = this.props;
     if (status) this.props.onReblog(status, e);
-  }
+  };
 
   handleHotkeyToggleHidden = () => {
     const { status } = this.props;
     if (status) this.props.onToggleHidden(status);
-  }
+  };
 
   getHandlers () {
     return {
@@ -259,7 +259,11 @@ class Notification extends ImmutablePureComponent {
   }
 
   renderStatus (notification, link) {
-    const { intl, unread } = this.props;
+    const { intl, unread, status } = this.props;
+
+    if (!status) {
+      return null;
+    }
 
     return (
       <HotKeys handlers={this.getHandlers()}>
@@ -277,6 +281,7 @@ class Notification extends ImmutablePureComponent {
           <StatusContainer
             id={notification.get('status')}
             account={notification.get('account')}
+            contextType='notifications'
             muted
             withDismiss
             hidden={this.props.hidden}
@@ -291,7 +296,11 @@ class Notification extends ImmutablePureComponent {
   }
 
   renderUpdate (notification, link) {
-    const { intl, unread } = this.props;
+    const { intl, unread, status } = this.props;
+
+    if (!status) {
+      return null;
+    }
 
     return (
       <HotKeys handlers={this.getHandlers()}>
@@ -309,6 +318,7 @@ class Notification extends ImmutablePureComponent {
           <StatusContainer
             id={notification.get('status')}
             account={notification.get('account')}
+            contextType='notifications'
             muted
             withDismiss
             hidden={this.props.hidden}
@@ -323,9 +333,13 @@ class Notification extends ImmutablePureComponent {
   }
 
   renderPoll (notification, account) {
-    const { intl, unread } = this.props;
+    const { intl, unread, status } = this.props;
     const ownPoll  = me === account.get('id');
     const message  = ownPoll ? intl.formatMessage(messages.ownPoll) : intl.formatMessage(messages.poll);
+
+    if (!status) {
+      return null;
+    }
 
     return (
       <HotKeys handlers={this.getHandlers()}>
@@ -350,6 +364,7 @@ class Notification extends ImmutablePureComponent {
           <StatusContainer
             id={notification.get('status')}
             account={account}
+            contextType='notifications'
             muted
             withDismiss
             hidden={this.props.hidden}
@@ -388,9 +403,13 @@ class Notification extends ImmutablePureComponent {
   renderAdminReport (notification, account, link) {
     const { intl, unread, report } = this.props;
 
+    if (!report) {
+      return null;
+    }
+
     const targetAccount = report.get('target_account');
     const targetDisplayNameHtml = { __html: targetAccount.get('display_name_html') };
-    const targetLink = <bdi><Permalink className='notification__display-name' href={targetAccount.get('url')} title={targetAccount.get('acct')} to={`/@${targetAccount.get('acct')}`} dangerouslySetInnerHTML={targetDisplayNameHtml} /></bdi>;
+    const targetLink = <bdi><Link className='notification__display-name' title={targetAccount.get('acct')} to={`/@${targetAccount.get('acct')}`} dangerouslySetInnerHTML={targetDisplayNameHtml} /></bdi>;
 
     return (
       <HotKeys handlers={this.getHandlers()}>
@@ -415,7 +434,7 @@ class Notification extends ImmutablePureComponent {
     const { notification } = this.props;
     const account          = notification.get('account');
     const displayNameHtml  = { __html: account.get('display_name_html') };
-    const link             = <bdi><Permalink className='notification__display-name' href={account.get('url')} title={account.get('acct')} to={`/@${account.get('acct')}`} dangerouslySetInnerHTML={displayNameHtml} /></bdi>;
+    const link             = <bdi><Link className='notification__display-name' href={`/@${account.get('acct')}`} title={account.get('acct')} to={`/@${account.get('acct')}`} dangerouslySetInnerHTML={displayNameHtml} /></bdi>;
 
     switch(notification.get('type')) {
     case 'follow':

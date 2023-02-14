@@ -135,8 +135,7 @@ class User < ApplicationRecord
            :reduce_motion, :system_font_ui, :noindex, :theme, :display_media,
            :expand_spoilers, :default_language, :aggregate_reblogs, :show_application,
            :advanced_layout, :use_blurhash, :use_pending_items, :trends, :crop_images,
-           :disable_swiping, :always_send_emails,
-           :place_tab_bar_at_bottom, :show_tab_bar_label,
+           :disable_swiping, :always_send_emails, :navigation_panel_layout,
 
            to: :settings, prefix: :setting, allow_nil: false
 
@@ -197,10 +196,16 @@ class User < ApplicationRecord
 
     super
 
-    if new_user && approved?
-      prepare_new_user!
-    elsif new_user
-      notify_staff_about_pending_account!
+    if new_user
+      # Avoid extremely unlikely race condition when approving and confirming
+      # the user at the same time
+      reload unless approved?
+
+      if approved?
+        prepare_new_user!
+      else
+        notify_staff_about_pending_account!
+      end
     end
   end
 
@@ -211,7 +216,13 @@ class User < ApplicationRecord
     skip_confirmation!
     save!
 
-    prepare_new_user! if new_user && approved?
+    if new_user
+      # Avoid extremely unlikely race condition when approving and confirming
+      # the user at the same time
+      reload unless approved?
+
+      prepare_new_user! if approved?
+    end
   end
 
   def update_sign_in!(new_sign_in: false)
@@ -239,7 +250,11 @@ class User < ApplicationRecord
   end
 
   def functional?
-    confirmed? && approved? && !disabled? && !account.suspended? && !account.memorial? && account.moved_to_account_id.nil?
+    functional_or_moved? && account.moved_to_account_id.nil?
+  end
+
+  def functional_or_moved?
+    confirmed? && approved? && !disabled? && !account.suspended? && !account.memorial?
   end
 
   def unconfirmed?
@@ -251,14 +266,18 @@ class User < ApplicationRecord
   end
 
   def inactive_message
-    !approved? ? :pending : super
+    approved? ? super : :pending
   end
 
   def approve!
     return if approved?
 
     update!(approved: true)
-    prepare_new_user!
+
+    # Avoid extremely unlikely race condition when approving and confirming
+    # the user at the same time
+    reload unless confirmed?
+    prepare_new_user! if confirmed?
   end
 
   def otp_enabled?
@@ -283,8 +302,12 @@ class User < ApplicationRecord
     save!
   end
 
+  def prefers_noindex?
+    setting_noindex
+  end
+
   def preferred_posting_language
-    valid_locale_cascade(settings.default_language, locale)
+    valid_locale_cascade(settings.default_language, locale, I18n.locale)
   end
 
   def setting_default_privacy
@@ -371,6 +394,15 @@ class User < ApplicationRecord
     super
   end
 
+  def revoke_access!
+    Doorkeeper::AccessGrant.by_resource_owner(self).update_all(revoked_at: Time.now.utc)
+
+    Doorkeeper::AccessToken.by_resource_owner(self).in_batches do |batch|
+      batch.update_all(revoked_at: Time.now.utc)
+      Web::PushSubscription.where(access_token_id: batch).delete_all
+    end
+  end
+
   def reset_password!
     # First, change password to something random and deactivate all sessions
     transaction do
@@ -379,12 +411,7 @@ class User < ApplicationRecord
     end
 
     # Then, remove all authorized applications and connected push subscriptions
-    Doorkeeper::AccessGrant.by_resource_owner(self).in_batches.update_all(revoked_at: Time.now.utc)
-
-    Doorkeeper::AccessToken.by_resource_owner(self).in_batches do |batch|
-      batch.update_all(revoked_at: Time.now.utc)
-      Web::PushSubscription.where(access_token_id: batch).delete_all
-    end
+    revoke_access!
 
     # Finally, send a reset password prompt to the user
     send_reset_password_instructions
@@ -479,6 +506,7 @@ class User < ApplicationRecord
     BootstrapTimelineWorker.perform_async(account_id)
     ActivityTracker.increment('activity:accounts:local')
     UserMailer.welcome(self).deliver_later
+    TriggerWebhookWorker.perform_async('account.approved', 'Account', account_id)
   end
 
   def prepare_returning_user!
@@ -510,7 +538,7 @@ class User < ApplicationRecord
   end
 
   def invite_text_required?
-    Setting.require_invite_text && !invited? && !external? && !bypass_invite_request_check?
+    Setting.require_invite_text && !open_registrations? && !invited? && !external? && !bypass_invite_request_check?
   end
 
   def trigger_webhooks

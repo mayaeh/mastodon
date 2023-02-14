@@ -24,6 +24,8 @@ export default class Header extends ImmutablePureComponent {
     onEndorseToggle: PropTypes.func.isRequired,
     onAddToList: PropTypes.func.isRequired,
     onChangeLanguages: PropTypes.func.isRequired,
+    onInteractionModal: PropTypes.func.isRequired,
+    onOpenAvatar: PropTypes.func.isRequired,
     hideTabs: PropTypes.bool,
     domain: PropTypes.string.isRequired,
     hidden: PropTypes.bool,
@@ -35,35 +37,35 @@ export default class Header extends ImmutablePureComponent {
 
   handleFollow = () => {
     this.props.onFollow(this.props.account);
-  }
+  };
 
   handleBlock = () => {
     this.props.onBlock(this.props.account);
-  }
+  };
 
   handleMention = () => {
     this.props.onMention(this.props.account, this.context.router.history);
-  }
+  };
 
   handleDirect = () => {
     this.props.onDirect(this.props.account, this.context.router.history);
-  }
+  };
 
   handleReport = () => {
     this.props.onReport(this.props.account);
-  }
+  };
 
   handleReblogToggle = () => {
     this.props.onReblogToggle(this.props.account);
-  }
+  };
 
   handleNotifyToggle = () => {
     this.props.onNotifyToggle(this.props.account);
-  }
+  };
 
   handleMute = () => {
     this.props.onMute(this.props.account);
-  }
+  };
 
   handleBlockDomain = () => {
     const domain = this.props.account.get('acct').split('@')[1];
@@ -71,7 +73,7 @@ export default class Header extends ImmutablePureComponent {
     if (!domain) return;
 
     this.props.onBlockDomain(domain);
-  }
+  };
 
   handleUnblockDomain = () => {
     const domain = this.props.account.get('acct').split('@')[1];
@@ -79,23 +81,31 @@ export default class Header extends ImmutablePureComponent {
     if (!domain) return;
 
     this.props.onUnblockDomain(domain);
-  }
+  };
 
   handleEndorseToggle = () => {
     this.props.onEndorseToggle(this.props.account);
-  }
+  };
 
   handleAddToList = () => {
     this.props.onAddToList(this.props.account);
-  }
+  };
 
   handleEditAccountNote = () => {
     this.props.onEditAccountNote(this.props.account);
-  }
+  };
 
   handleChangeLanguages = () => {
     this.props.onChangeLanguages(this.props.account);
-  }
+  };
+
+  handleInteractionModal = () => {
+    this.props.onInteractionModal(this.props.account);
+  };
+
+  handleOpenAvatar = () => {
+    this.props.onOpenAvatar(this.props.account);
+  };
 
   render () {
     const { account, hidden, hideTabs, identity_proofs } = this.props;
@@ -125,6 +135,8 @@ export default class Header extends ImmutablePureComponent {
           onAddToList={this.handleAddToList}
           onEditAccountNote={this.handleEditAccountNote}
           onChangeLanguages={this.handleChangeLanguages}
+          onInteractionModal={this.handleInteractionModal}
+          onOpenAvatar={this.handleOpenAvatar}
           domain={this.props.domain}
           hidden={hidden}
         />
