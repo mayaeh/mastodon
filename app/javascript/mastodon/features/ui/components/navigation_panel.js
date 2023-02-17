@@ -11,6 +11,7 @@ import ListPanel from './list_panel';
 import NotificationsCounterIcon from './notifications_counter_icon';
 import SignInBanner from './sign_in_banner';
 import NavigationPortal from 'mastodon/components/navigation_portal';
+import Icon from 'mastodon/components/icon';
 
 const messages = defineMessages({
   home: { id: 'tabs_bar.home', defaultMessage: 'Home' },
@@ -107,7 +108,9 @@ class NavigationPanel extends React.Component {
         )}
 
         {signedIn && location.pathname !== '/publish' && (
-          <Link to='/publish' className='floating-action-button' aria-label={intl.formatMessage(messages.publish)}><Icon id='pencil' /></Link>
+          <Link to='/publish' className='floating-action-button' aria-label={intl.formatMessage(messages.publish)}>
+            <Icon id='pencil' />
+          </Link>
         )}
 
         <NavigationPortal />
