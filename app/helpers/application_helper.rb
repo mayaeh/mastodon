@@ -162,11 +162,24 @@ module ApplicationHelper
     content_tag(:div, nil, data: { 'admin-component': name.to_s.camelcase, props: Oj.dump({ locale: I18n.locale }.merge(props)) })
   end
 
+  NAVIGATION_PANEL_LAYOUT = {
+    'right'   => '',
+    'top'     => 'navigation-panel_layout_top',
+    'bottom'  => 'navigation-panel_layout_bottom',
+  }.freeze
+
+  FAB_LAYOUT = {
+    'right'   => '',
+    'left'    => 'fab_layout_left',
+  }.freeze
+
   def body_classes
     output = (@body_classes || '').split(' ')
     output << "theme-#{current_theme.parameterize}"
     output << 'system-font' if current_account&.user&.setting_system_font_ui
     output << (current_account&.user&.setting_reduce_motion ? 'reduce-motion' : 'no-reduce-motion')
+    output << NAVIGATION_PANEL_LAYOUT[current_account&.user&.setting_navigation_panel_layout]
+    output << FAB_LAYOUT[current_account&.user&.setting_fab_layout]
     output << 'rtl' if locale_direction == 'rtl'
     output.reject(&:blank?).join(' ')
   end

@@ -4221,6 +4221,14 @@
       {
         "defaultMessage": "Search",
         "id": "navigation_bar.search"
+      },
+      {
+        "defaultMessage": "Getting started",
+        "id": "getting_started.heading"
+      },
+      {
+        "defaultMessage": "Publish",
+        "id": "compose_form.publish"
       }
     ],
     "path": "app/javascript/mastodon/features/ui/components/navigation_panel.json"
