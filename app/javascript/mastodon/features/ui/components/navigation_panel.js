@@ -107,9 +107,7 @@ class NavigationPanel extends React.Component {
         )}
 
         {signedIn && location.pathname !== '/publish' && (
-          <div className='floating-action-button'>
-            <ColumnLink transparent to='/publish' icon='pencil' text={intl.formatMessage(messages.publish)} />
-          </div>
+          <Link to='/publish' className='floating-action-button' aria-label={intl.formatMessage(messages.publish)}><Icon id='pencil' /></Link>
         )}
 
         <NavigationPortal />
