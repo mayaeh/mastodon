@@ -54,6 +54,9 @@ en:
         setting_display_media_default: Hide media marked as sensitive
         setting_display_media_hide_all: Always hide media
         setting_display_media_show_all: Always show media
+        setting_fab_layout_hint: Only works if navigation panel display position is Top or Bottom
+        setting_fab_layout_left: Left
+        setting_fab_layout_right: Right (default)
         setting_hide_network: Who you follow and who follows you will be hidden on your profile
         setting_navigation_panel_layout_bottom: Bottom
         setting_navigation_panel_layout_hint: Selecting Top or Bottom moves the navigation panel and hides the top header.
@@ -211,6 +214,7 @@ en:
         setting_display_media_hide_all: Hide all
         setting_display_media_show_all: Show all
         setting_expand_spoilers: Always expand posts marked with content warnings
+        setting_fab_layout: Publish button display position on SmartPhone
         setting_hide_network: Hide your social graph
         setting_navigation_panel_layout: Navigation panel display position
         setting_noindex: Opt-out of search engine indexing

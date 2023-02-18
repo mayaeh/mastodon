@@ -72,6 +72,7 @@ defaults: &defaults
   require_invite_text: false
   backups_retention_period: 7
   navigation_panel_layout: 'right'
+  fab_layout: 'right'
 
 development:
   <<: *defaults
