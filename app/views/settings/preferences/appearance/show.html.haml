@@ -38,8 +38,11 @@
   .fields-group
     = f.input :setting_crop_images, as: :boolean, wrapper: :with_label
 
-  .fields-group
-    = f.input :setting_navigation_panel_layout, collection: ['right', 'top', 'bottom'], label_method: lambda { |item| t("simple_form.hints.defaults.setting_navigation_panel_layout_#{item}") }, wrapper: :with_label, include_blank: false, hint: t('simple_form.hints.defaults.setting_navigation_panel_layout_hint')
+  .fields-row
+    .fields-group.fields-row__column.fields-row__column-6
+      = f.input :setting_navigation_panel_layout, collection: ['right', 'top', 'bottom'], label_method: lambda { |item| t("simple_form.hints.defaults.setting_navigation_panel_layout_#{item}") }, wrapper: :with_label, include_blank: false, hint: t('simple_form.hints.defaults.setting_navigation_panel_layout_hint')
+    .fields-group.fields-row__column.fields-row__column-6
+      = f.input :setting_fab_layout, collection: ['right', 'left'], label_method: lambda { |item| t("simple_form.hints.defaults.setting_fab_layout_#{item}") }, wrapper: :with_label, include_blank: false
 
   %h4= t 'appearance.discovery'
 
