@@ -1,0 +1,133 @@
+// Notes!
+// Sass color functions, "darken" and "lighten" are automatically replaced.
+
+// admin.scss
+.admin-wrapper {
+  .sidebar {
+    .simple-navigation-active-leaf a {
+      background-color: darken($ui-highlight-color, 2%);
+
+      &:hover {
+        background-color: $ui-highlight-color;
+      }
+    }
+  }
+}
+
+.admin-account-bio {
+  a {
+    color: $highlight-text-color;
+  }
+}
+
+// components.scss
+.button {
+  background-color: darken($ui-highlight-color, 2%);
+
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: $ui-highlight-color;
+  }
+}
+
+.button .confirmation-modal__secondary-button,
+.confirmation-modal__cancel-button,
+.mute-modal__cancel-button,
+.block-modal__cancel-button {
+  background-color: transparent;
+}
+
+.status__content,
+.reply-indicator__content {
+  a.unhandled-link {
+    color: $highlight-text-color;
+  }
+
+  a {
+    &.unhandled-link {
+      color: $highlight-text-color;
+    }
+  }
+}
+
+.status__content__read-more-button {
+  color: $highlight-text-color;
+}
+
+.react-toggle--checked .react-toggle-track {
+  background-color: darken($ui-highlight-color, 2%);
+}
+
+.react-toggle--checked:is(:hover, :focus-within):not(.react-toggle--disabled)
+  .react-toggle-track {
+  background-color: $ui-highlight-color;
+}
+
+.column-link {
+  &--transparent {
+    &.active {
+      color: $highlight-text-color;
+    }
+  }
+}
+
+.timeline-hint {
+  a {
+    color: $highlight-text-color;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: lighten($highlight-text-color, 4%);
+    }
+  }
+}
+
+.radio-button {
+  &__input {
+    &.checked {
+      border-color: lighten($ui-highlight-color, 4%);
+      background: lighten($ui-highlight-color, 4%);
+    }
+  }
+}
+
+// dashboard.scss
+.dashboard {
+  &__quick-access {
+    background: darken($ui-highlight-color, 2%);
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: $ui-highlight-color;
+    }
+  }
+}
+
+// forms.scss
+.simple_form {
+  button,
+  .button,
+  .block-button {
+    background: darken($ui-highlight-color, 2%);
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: $ui-highlight-color;
+    }
+  }
+}
+
+// statuses.scss
+.button.logo-button {
+  background: $ui-highlight-color;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background: lighten($ui-highlight-color, 10%);
+  }
+}

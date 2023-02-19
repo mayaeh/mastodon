@@ -49,6 +49,16 @@
     }
   }
 
+  th.nowrap,
+  td.nowrap {
+    white-space: nowrap;
+  }
+
+  th.wrap,
+  td.wrap {
+    overflow-wrap: anywhere;
+  }
+
   &.inline-table {
     & > tbody > tr:nth-child(odd) {
       & > td,
@@ -178,6 +188,9 @@ a.table-action-link {
   }
 
   &__toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
     border: 1px solid darken($ui-base-color, 8%);
     background: $ui-base-color;
     border-radius: 4px 0 0;

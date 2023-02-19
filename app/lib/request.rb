@@ -30,7 +30,8 @@ class Request
     @verb        = verb
     @url         = Addressable::URI.parse(url).normalize
     @http_client = options.delete(:http_client)
-    @options     = options.merge(socket_class: use_proxy? ? ProxySocket : Socket)
+    @allow_local = options.delete(:allow_local)
+    @options     = options.merge(socket_class: use_proxy? || @allow_local ? ProxySocket : Socket)
     @options     = @options.merge(proxy_url) if use_proxy?
     @headers     = {}
 
@@ -62,8 +63,6 @@ class Request
     end
 
     begin
-      response = response.extend(ClientLimit)
-
       # If we are using a persistent connection, we have to
       # read every response to be able to move forward at all.
       # However, simply calling #to_s or #flush may not be safe,
@@ -155,9 +154,7 @@ class Request
   end
 
   module ClientLimit
-    def body_with_limit(limit = 1.megabyte)
-      raise Mastodon::LengthValidationError if content_length.present? && content_length > limit
-
+    def truncated_body(limit = 1.megabyte)
       if charset.nil?
         encoding = Encoding::BINARY
       else
@@ -174,10 +171,26 @@ class Request
         contents << chunk
         chunk.clear
 
-        raise Mastodon::LengthValidationError if contents.bytesize > limit
+        break if contents.bytesize > limit
       end
 
       contents
+    end
+
+    def body_with_limit(limit = 1.megabyte)
+      raise Mastodon::LengthValidationError if content_length.present? && content_length > limit
+
+      contents = truncated_body(limit)
+      raise Mastodon::LengthValidationError if contents.bytesize > limit
+      contents
+    end
+  end
+
+  if ::HTTP::Response.methods.include?(:body_with_limit) && !Rails.env.production?
+    abort 'HTTP::Response#body_with_limit is already defined, the monkey patch will not be applied'
+  else
+    class ::HTTP::Response
+      include Request::ClientLimit
     end
   end
 
@@ -193,7 +206,8 @@ class Request
         rescue IPAddr::InvalidAddressError
           Resolv::DNS.open do |dns|
             dns.timeouts = 5
-            addresses = dns.getaddresses(host).take(2)
+            addresses = dns.getaddresses(host)
+            addresses = addresses.filter { |addr| addr.is_a?(Resolv::IPv6) }.take(2) + addresses.filter { |addr| !addr.is_a?(Resolv::IPv6) }.take(2)
           end
         end
 
@@ -274,7 +288,7 @@ class Request
 
   class ProxySocket < Socket
     class << self
-      def check_private_address(_address)
+      def check_private_address(_address, _host)
         # Accept connections to private addresses as HTTP proxies will usually
         # be on local addresses
         nil

@@ -71,7 +71,7 @@ class SelectFilter extends React.PureComponent {
         <span className='language-dropdown__dropdown__results__item__native-name'>{filter[1]}</span> {warning}
       </div>
     );
-  }
+  };
 
   renderCreateNew (name) {
     return (
@@ -83,11 +83,11 @@ class SelectFilter extends React.PureComponent {
 
   handleSearchChange = ({ target }) => {
     this.setState({ searchValue: target.value });
-  }
+  };
 
   setListRef = c => {
     this.listNode = c;
-  }
+  };
 
   handleKeyDown = e => {
     const index = Array.from(this.listNode.childNodes).findIndex(node => node === e.currentTarget);
@@ -125,7 +125,7 @@ class SelectFilter extends React.PureComponent {
       e.preventDefault();
       e.stopPropagation();
     }
-  }
+  };
 
   handleSearchKeyDown = e => {
     let element = null;
@@ -143,11 +143,11 @@ class SelectFilter extends React.PureComponent {
 
       break;
     }
-  }
+  };
 
   handleClear = () => {
     this.setState({ searchValue: '' });
-  }
+  };
 
   handleItemClick = e => {
     const value = e.currentTarget.getAttribute('data-index');
@@ -155,7 +155,7 @@ class SelectFilter extends React.PureComponent {
     e.preventDefault();
 
     this.props.onSelectFilter(value);
-  }
+  };
 
   handleNewFilterClick = e => {
     e.preventDefault();
@@ -177,7 +177,7 @@ class SelectFilter extends React.PureComponent {
 
         <div className='emoji-mart-search'>
           <input type='search' value={searchValue} onChange={this.handleSearchChange} onKeyDown={this.handleSearchKeyDown} placeholder={intl.formatMessage(messages.search)} autoFocus />
-          <button className='emoji-mart-search-icon' disabled={!isSearching} aria-label={intl.formatMessage(messages.clear)} onClick={this.handleClear}>{!isSearching ? loupeIcon : deleteIcon}</button>
+          <button type='button' className='emoji-mart-search-icon' disabled={!isSearching} aria-label={intl.formatMessage(messages.clear)} onClick={this.handleClear}>{!isSearching ? loupeIcon : deleteIcon}</button>
         </div>
 
         <div className='language-dropdown__dropdown__results emoji-mart-scroll' role='listbox' ref={this.setListRef}>
