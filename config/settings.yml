@@ -71,7 +71,7 @@ defaults: &defaults
   show_domain_blocks_rationale: 'disabled'
   require_invite_text: false
   backups_retention_period: 7
-  navigation_panel_layout: 'right'
+  navigation_panel_layout: 'top'
   fab_layout: 'right'
 
 development:

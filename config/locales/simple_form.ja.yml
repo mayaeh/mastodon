@@ -60,8 +60,8 @@ ja:
         setting_hide_network: フォローとフォロワーの情報がプロフィールページで見られないようにします
         setting_navigation_panel_layout_bottom: 下
         setting_navigation_panel_layout_hint: 上または下を選択するとナビゲーションパネルが移動し、また上部ヘッダーが非表示になります。
-        setting_navigation_panel_layout_right: 右 (デフォルト)
-        setting_navigation_panel_layout_top: 上
+        setting_navigation_panel_layout_right: 右
+        setting_navigation_panel_layout_top: 上 (デフォルト)
         setting_noindex: 公開プロフィールおよび各投稿ページに影響します
         setting_show_application: 投稿するのに使用したアプリが投稿の詳細ビューに表示されるようになります
         setting_use_blurhash: ぼかしはメディアの色を元に生成されますが、細部は見えにくくなっています

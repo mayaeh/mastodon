@@ -60,8 +60,8 @@ en:
         setting_hide_network: Who you follow and who follows you will be hidden on your profile
         setting_navigation_panel_layout_bottom: Bottom
         setting_navigation_panel_layout_hint: Selecting Top or Bottom moves the navigation panel and hides the top header.
-        setting_navigation_panel_layout_right: Right (default)
-        setting_navigation_panel_layout_top: Top
+        setting_navigation_panel_layout_right: Right
+        setting_navigation_panel_layout_top: Top (default)
         setting_noindex: Affects your public profile and post pages
         setting_show_application: The application you use to post will be displayed in the detailed view of your posts
         setting_use_blurhash: Gradients are based on the colors of the hidden visuals but obfuscate any details
