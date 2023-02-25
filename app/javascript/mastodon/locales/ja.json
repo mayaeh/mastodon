@@ -620,7 +620,7 @@
   "timeline_hint.resources.statuses": "以前の投稿",
   "trends.header": "トレンドタグ",
   "trends.refresh": "更新",
-  "trends.counter_by_accounts": "過去{count}日に{days}人",
+  "trends.counter_by_accounts": "過去{days}日に{count}人",
   "trends.trending_now": "トレンドタグ",
   "ui.beforeunload": "Mastodonから離れると送信前の投稿は失われます。",
   "units.short.billion": "{count}B",
