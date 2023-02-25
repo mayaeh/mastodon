@@ -154,7 +154,7 @@ zh-TW:
           none: 什麼也不做
           sensitive: 敏感内容
           silence: 安靜
-          suspend: 停權並不可逆的刪除帳號資料
+          suspend: 停權並永久刪除帳號資料
         warning_preset_id: 使用警告預設
       announcement:
         all_day: 全天活動
@@ -181,7 +181,7 @@ zh-TW:
         fields: 個人檔案詮釋資料
         header: 封面圖片
         honeypot: "%{label} (請勿填寫)"
-        inbox_url: 中繼收件匣的 URL
+        inbox_url: 中繼收件匣 URL
         irreversible: 放棄而非隱藏
         locale: 介面語言
         locked: 鎖定帳號

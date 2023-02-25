@@ -39,9 +39,7 @@ class SearchService < BaseService
 
     definition = definition.order(created_at: { order: 'desc' })
 
-    if @options[:account_id].present?
-      definition = definition.filter(term: { account_id: @options[:account_id] })
-    end
+    definition = definition.filter(term: { account_id: @options[:account_id] }) if @options[:account_id].present?
 
     if @options[:min_id].present? || @options[:max_id].present?
       range      = {}

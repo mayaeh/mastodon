@@ -105,6 +105,7 @@ module ApplicationHelper
 
   def can?(action, record)
     return false if record.nil?
+
     policy(record).public_send("#{action}?")
   end
 
@@ -156,12 +157,18 @@ module ApplicationHelper
     'bottom'  => 'navigation-panel_layout_bottom',
   }.freeze
 
+  FAB_LAYOUT = {
+    'right'   => '',
+    'left'    => 'fab_layout_left',
+  }.freeze
+
   def body_classes
     output = (@body_classes || '').split(' ')
     output << "theme-#{current_theme.parameterize}"
     output << 'system-font' if current_account&.user&.setting_system_font_ui
     output << (current_account&.user&.setting_reduce_motion ? 'reduce-motion' : 'no-reduce-motion')
     output << NAVIGATION_PANEL_LAYOUT[current_account&.user&.setting_navigation_panel_layout]
+    output << FAB_LAYOUT[current_account&.user&.setting_fab_layout]
     output << 'rtl' if locale_direction == 'rtl'
     output.reject(&:blank?).join(' ')
   end
@@ -211,9 +218,7 @@ module ApplicationHelper
       state_params[:moved_to_account] = current_account.moved_to_account
     end
 
-    if single_user_mode?
-      state_params[:owner] = Account.local.without_suspended.where('id > 0').first
-    end
+    state_params[:owner] = Account.local.without_suspended.where('id > 0').first if single_user_mode?
 
     json = ActiveModelSerializers::SerializableResource.new(InitialStatePresenter.new(state_params), serializer: InitialStateSerializer).to_json
     # rubocop:disable Rails/OutputSafety
