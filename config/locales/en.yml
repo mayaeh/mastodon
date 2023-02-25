@@ -1250,7 +1250,7 @@ en:
     i_am_html: I am %{username} on %{service}.
     identity: Identity
     inactive: Inactive
-    publicize_checkbox: 'And toot this:'
+    publicize_checkbox: 'And post this:'
     publicize_toot: 'It is proven! I am %{username} on %{service}: %{url}'
     remove: Remove proof from account
     removed: Successfully removed proof from account
