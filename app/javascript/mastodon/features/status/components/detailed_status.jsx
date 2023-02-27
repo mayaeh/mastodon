@@ -131,6 +131,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
           <Audio
             src={attachment.get('url')}
             alt={attachment.get('description')}
+            lang={status.get('language')}
             duration={attachment.getIn(['meta', 'original', 'duration'], 0)}
             poster={attachment.get('preview_url') || status.getIn(['account', 'avatar_static'])}
             backgroundColor={attachment.getIn(['meta', 'colors', 'background'])}
@@ -153,6 +154,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
             blurhash={attachment.get('blurhash')}
             src={attachment.get('url')}
             alt={attachment.get('description')}
+            lang={status.get('language')}
             width={300}
             height={150}
             inline
@@ -168,6 +170,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
             standalone
             sensitive={status.get('sensitive')}
             media={status.get('media_attachments')}
+            lang={status.get('language')}
             height={300}
             onOpenMedia={this.props.onOpenMedia}
             visible={this.props.showMedia}
