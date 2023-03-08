@@ -124,17 +124,6 @@
   background: lighten($ui-base-color, 13%);
 }
 
-// containers.scss
-.public-layout {
-  .public-account-bio {
-    .account__header__fields {
-      a {
-        color: lighten($ui-highlight-color, 8%);
-      }
-    }
-  }
-}
-
 // dashboard.scss
 .dashboard {
   &__quick-access {
