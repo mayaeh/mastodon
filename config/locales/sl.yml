@@ -1238,8 +1238,6 @@ sl:
       index:
         hint: Ta filter se nanaša na posamezne objave ne glede na druge pogoje. Filtru lahko dodate več objav prek spletnega vmesnika.
         title: Filtrirane objave
-  footer:
-    trending_now: Zdaj v trendu
   generic:
     all: Vse
     all_items_on_page_selected_html:
@@ -1270,8 +1268,6 @@ sl:
       one: Nekaj še ni čisto v redu! Spodaj si oglejte napako
       other: Nekaj še ni čisto v redu! Spodaj si oglejte %{count} napak
       two: Nekaj še ni čisto v redu! Spodaj si oglejte %{count} napaki
-  html_validator:
-    invalid_markup: 'vsebuje neveljavno oznako HTML: %{error}'
   imports:
     errors:
       invalid_csv_file: 'Neveljavna datoteka CSV. Napaka: %{error}'
@@ -1461,6 +1457,7 @@ sl:
     confirm_remove_selected_followers: Ali ste prepričani, da želite odstraniti izbrane sledilce?
     confirm_remove_selected_follows: Ali ste prepričani, da želite odstraniti izbrana sledenja?
     dormant: Skrit
+    follow_failure: Nekaterim od izbranih računov ni bilo mogoče slediti.
     follow_selected_followers: Sledi izbranim sledilcem
     followers: Sledilci
     following: Sledi
@@ -1500,6 +1497,7 @@ sl:
       electron: Electron
       firefox: Firefox
       generic: Neznan brskalnik
+      huawei_browser: Brskalnik Huawei
       ie: Internet Explorer
       micro_messenger: MicroMessenger
       nokia: Brskalnik Nokia S40 Ovi
@@ -1509,6 +1507,7 @@ sl:
       qq: QQ Browser
       safari: Safari
       uc_browser: UC Browser
+      unknown_browser: Neznan brskalnik
       weibo: Weibo
     current_session: Trenutna seja
     description: "%{browser} na %{platform}"
@@ -1521,9 +1520,10 @@ sl:
       chrome_os: ChromeOS
       firefox_os: Firefox OS
       ios: iOS
+      kai_os: KaiOS
       linux: Linux
       mac: Mac
-      other: neznana platforma
+      unknown_platform: Neznana platforma
       windows: Windows
       windows_mobile: Windows Mobile
       windows_phone: Windows Phone

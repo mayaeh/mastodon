@@ -1280,8 +1280,6 @@ cy:
       index:
         hint: Mae'r hidlydd hwn yn berthnasol i ddethol postiadau unigol waeth beth fo'r meini prawf eraill. Gallwch ychwanegu mwy o bostiadau at yr hidlydd hwn o'r rhyngwyneb gwe.
         title: Postiadau wedi'u hidlo
-  footer:
-    trending_now: Trendiau
   generic:
     all: Popeth
     all_items_on_page_selected_html:
@@ -1320,8 +1318,6 @@ cy:
       other: Mae rhywbeth o'i le o hyd! Edrychwch ar y %{count} gwall isod, os gwelwch yn dda
       two: Mae rhywbeth o'i le o hyd! Edrychwch ar y %{count} wall isod, os gwelwch yn dda
       zero: Mae rhywbeth o'i le o hyd! Edrychwch ar y %{count} gwall isod os gwelwch yn dda
-  html_validator:
-    invalid_markup: 'yn cynnwys markup HTML annilys: %{error}'
   imports:
     errors:
       invalid_csv_file: 'Ffeil CSV annilys. Gwall: %{error}'
@@ -1513,6 +1509,7 @@ cy:
     confirm_remove_selected_followers: Ydych chi'n siŵr eich bod am ddileu'r dilynwyr a ddewiswyd?
     confirm_remove_selected_follows: Ydych chi'n siŵr eich bod am ddileu'r canlynol?
     dormant: Segur
+    follow_failure: Methu dilyn rhai o'r cyfrifon a ddewiswyd.
     follow_selected_followers: Dilynwch y dilynwyr a ddewiswyd
     followers: Dilynwyr
     following: Yn dilyn
@@ -1552,6 +1549,7 @@ cy:
       electron: Electron
       firefox: Firefox
       generic: Porwr anhysbys
+      huawei_browser: Porwr Huawei
       ie: Nid yw'r rhaglen hon yn gydnaws ag Internet Explorer
       micro_messenger: MicroMessenger
       nokia: Porwr Nokia S40 Ovi
@@ -1561,6 +1559,7 @@ cy:
       qq: Porwr QQ
       safari: Agor yn Safari
       uc_browser: UC Browser
+      unknown_browser: Porwr Anhysbys
       weibo: Weibo
     current_session: Sesiwn gyfredol
     description: "%{browser} ar %{platform}"
@@ -1573,9 +1572,10 @@ cy:
       chrome_os: ChromeOS
       firefox_os: OS Firefox
       ios: iOS
+      kai_os: KaiOS
       linux: Linux
       mac: Mac
-      other: platfform anhysbys
+      unknown_platform: Platfform Anhysbys
       windows: Windows
       windows_mobile: Windows Mobile
       windows_phone: Ffôn Windows

@@ -1146,8 +1146,6 @@ sco:
       index:
         hint: This filter applies tae select individual posts regairdless o ither criteria. Ye kin add mair posts tae this filter fae the wab interface.
         title: Filtert posts
-  footer:
-    trending_now: Trendin the noo
   generic:
     all: Aw
     all_items_on_page_selected_html:
@@ -1170,8 +1168,6 @@ sco:
     validation_errors:
       one: Somethin isnae quite richt yit! Please luik ower the error ablow
       other: Somethin isnae quite richt yit! Please review %{count} errors ablow
-  html_validator:
-    invalid_markup: 'contains invalid HTML mairkup: %{error}'
   imports:
     errors:
       invalid_csv_file: 'Invalid CSV file. Error: %{error}'
@@ -1415,7 +1411,6 @@ sco:
       ios: iOS
       linux: Linux
       mac: macOS
-      other: unkent platform
       windows: Windows
       windows_mobile: Windows Mobile
       windows_phone: Windows Phone

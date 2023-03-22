@@ -658,8 +658,6 @@ sc:
       title: Filtros
     new:
       title: Agiunghe unu filtru nou
-  footer:
-    trending_now: Est tendèntzia immoe
   generic:
     all: Totus
     changes_saved_msg: Modìficas sarvadas.
@@ -670,8 +668,6 @@ sc:
     validation_errors:
       one: Calicuna cosa ancora no est andende. Bide sa faddina in bàsciu
       other: Calicuna cosa ancora no est andende. Bide is %{count} faddinas in bàsciu
-  html_validator:
-    invalid_markup: 'cuntenet etichetas HTML non vàlidas: %{error}'
   imports:
     errors:
       over_rows_processing_limit: cuntenet prus de %{count} filas
@@ -880,7 +876,6 @@ sc:
       ios: iOS
       linux: Linux
       mac: macOS
-      other: prataforma disconnota
       windows: Windows
       windows_mobile: Windows Mobile
       windows_phone: Windows Phone

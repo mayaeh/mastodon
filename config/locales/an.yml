@@ -1159,8 +1159,6 @@ an:
       index:
         hint: Este filtro s'aplica a la selección de publicacions individuals independientment d'atros criterios. Puede anyadir mas publicacions a este filtro dende la interficie web.
         title: Publicacions filtradas
-  footer:
-    trending_now: Tendencia agora
   generic:
     all: Totz
     all_items_on_page_selected_html:
@@ -1183,8 +1181,6 @@ an:
     validation_errors:
       one: Bella cosa no ye bien! Per favor, revisa la error
       other: Bella cosa no ye bien! Per favor, revise %{count} errors mas abaixo
-  html_validator:
-    invalid_markup: 'contiene codigo HTML no valido: %{error}'
   imports:
     errors:
       invalid_csv_file: 'Fichero CSV no valido. Error: %{error}'
@@ -1431,7 +1427,6 @@ an:
       ios: iOS
       linux: Linux
       mac: Mac
-      other: plataforma desconoixida
       windows: Windows
       windows_mobile: Windows Mobile
       windows_phone: Windows Phone

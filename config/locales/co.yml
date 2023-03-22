@@ -704,8 +704,6 @@ co:
       title: Filtri
     new:
       title: Aghjunghje un novu filtru
-  footer:
-    trending_now: Tindenze d'avà
   generic:
     all: Tuttu
     changes_saved_msg: Cambiamenti salvati!
@@ -716,8 +714,6 @@ co:
     validation_errors:
       one: Qualcosa ùn và bè! Verificate u prublemu quì sottu
       other: Qualcosa ùn và bè! Verificate %{count} prublemi quì sottu
-  html_validator:
-    invalid_markup: 'cuntene codice HTML invalidu: %{error}'
   imports:
     errors:
       over_rows_processing_limit: cuntene più di %{count} filari
@@ -932,7 +928,6 @@ co:
       ios: iOS
       linux: Linux
       mac: macOS
-      other: piattaforma scunnisciuta
       windows: Windows
       windows_mobile: Windows Mobile
       windows_phone: Windows Phone
