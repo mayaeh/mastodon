@@ -34,8 +34,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default @connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class BoostModal extends ImmutablePureComponent {
 
   static contextTypes = {
@@ -126,3 +124,5 @@ class BoostModal extends ImmutablePureComponent {
   }
 
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(BoostModal));
