@@ -31,7 +31,6 @@ const messages = defineMessages({
   publish: { id: 'compose_form.publish', defaultMessage: 'Publish' },
 });
 
-export default @injectIntl @withRouter
 class NavigationPanel extends React.Component {
 
   static contextTypes = {
@@ -119,3 +118,5 @@ class NavigationPanel extends React.Component {
   }
 
 }
+
+export default injectIntl(withRouter(NavigationPanel));
