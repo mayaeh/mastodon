@@ -99,6 +99,14 @@ module HasUserSettings
     settings['web.disable_swiping']
   end
 
+  def setting_navigation_panel_layout
+    settings['web.navigation_panel_layout']
+  end
+
+  def setting_fab_layout
+    settings['web.fab_layout']
+  end
+
   def setting_always_send_emails
     settings['always_send_emails']
   end
