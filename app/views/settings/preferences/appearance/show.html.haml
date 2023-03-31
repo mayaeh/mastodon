@@ -41,9 +41,9 @@
 
     .fields-row
       .fields-group.fields-row__column.fields-row__column-6
-        = ff.input 'web.navigation_panel_layout', collection: ['right', 'top', 'bottom'], label_method: lambda { |item| t("simple_form.hints.defaults.setting_navigation_panel_layout_#{item}") }, wrapper: :with_label, include_blank: false, hint: t('simple_form.hints.defaults.setting_navigation_panel_layout_hint')
+        = ff.input :'web.navigation_panel_layout', collection: ['right', 'top', 'bottom'], label_method: lambda { |item| t("simple_form.hints.defaults.setting_navigation_panel_layout_#{item}") }, wrapper: :with_label, include_blank: false, hint: t('simple_form.hints.defaults.setting_navigation_panel_layout_hint')
       .fields-group.fields-row__column.fields-row__column-6
-        = ff.input 'web.fab_layout', collection: ['right', 'left'], label_method: lambda { |item| t("simple_form.hints.defaults.setting_fab_layout_#{item}") }, wrapper: :with_label, include_blank: false, hint: t('simple_form.hints.defaults.setting_fab_layout_hint')
+        = ff.input :'web.fab_layout', collection: ['right', 'left'], label_method: lambda { |item| t("simple_form.hints.defaults.setting_fab_layout_#{item}") }, wrapper: :with_label, include_blank: false, hint: t('simple_form.hints.defaults.setting_fab_layout_hint')
 
     %h4= t 'appearance.discovery'
 
