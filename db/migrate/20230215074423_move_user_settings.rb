@@ -25,6 +25,8 @@ class MoveUserSettings < ActiveRecord::Migration[6.1]
     use_blurhash: 'web.use_blurhash',
     use_pending_items: 'web.use_pending_items',
     crop_images: 'web.crop_images',
+    navigation_panel_layout: 'web.navigation_panel_layout',
+    fab_layout: 'web.fab_layout',
     notification_emails: {
       follow: 'notification_emails.follow',
       reblog: 'notification_emails.reblog',
