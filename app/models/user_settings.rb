@@ -31,6 +31,8 @@ class UserSettings
     setting :expand_content_warnings, default: false
     setting :display_media, default: 'default', in: %w(default show_all hide_all)
     setting :auto_play, default: false
+    setting :navigation_panel_layout, default: 'right'
+    setting :fab_layout, default: 'right'
   end
 
   namespace :notification_emails do
