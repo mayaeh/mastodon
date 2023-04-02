@@ -46,7 +46,7 @@ export function submitSearch(type) {
       params: {
         q: value,
         resolve: signedIn,
-        limit: 5,
+        limit: 20,
         type,
       },
     }).then(response => {
