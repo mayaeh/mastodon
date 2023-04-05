@@ -3684,6 +3684,15 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Private mention",
+        "id": "status.direct_indicator"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/status/components/detailed_status.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Delete",
         "id": "confirmations.delete.confirm"
       },
