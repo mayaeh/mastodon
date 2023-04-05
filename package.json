@@ -70,7 +70,7 @@
     "immutable": "^4.3.0",
     "imports-loader": "^1.2.0",
     "intl": "^1.2.5",
-    "intl-messageformat": "^2.2.0",
+    "intl-messageformat": "^10.3.3",
     "intl-relativeformat": "^6.4.3",
     "js-yaml": "^4.1.0",
     "jsdom": "^21.1.1",
