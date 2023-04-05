@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
@@ -13,7 +13,6 @@ const messages = defineMessages({
   violation: { id: 'report_notification.categories.violation', defaultMessage: 'Rule violation' },
 });
 
-export default @injectIntl
 class Report extends ImmutablePureComponent {
 
   static propTypes = {
@@ -32,9 +31,9 @@ class Report extends ImmutablePureComponent {
 
     if (hidden) {
       return (
-        <Fragment>
+        <React.Fragment>
           {report.get('id')}
-        </Fragment>
+        </React.Fragment>
       );
     }
 
@@ -60,3 +59,5 @@ class Report extends ImmutablePureComponent {
   }
 
 }
+
+export default injectIntl(Report);

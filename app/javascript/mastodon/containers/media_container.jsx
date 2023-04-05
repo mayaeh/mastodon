@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { IntlProvider, addLocaleData } from 'react-intl';
@@ -74,7 +74,7 @@ export default class MediaContainer extends PureComponent {
 
     return (
       <IntlProvider locale={locale} messages={messages}>
-        <Fragment>
+        <React.Fragment>
           {[].map.call(components, (component, i) => {
             const componentName = component.getAttribute('data-component');
             const Component = MEDIA_COMPONENTS[componentName];
@@ -113,7 +113,7 @@ export default class MediaContainer extends PureComponent {
               />
             )}
           </ModalRoot>
-        </Fragment>
+        </React.Fragment>
       </IntlProvider>
     );
   }
