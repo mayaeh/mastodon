@@ -513,7 +513,7 @@ body > [data-popper-placement] {
       outline: 0;
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
       font-size: 16px;
     }
   }
@@ -534,7 +534,7 @@ body > [data-popper-placement] {
       all: unset;
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
       height: 100px !important; // Prevent auto-resize textarea
       resize: vertical;
     }
@@ -2409,7 +2409,7 @@ $ui-header-height: 55px;
       display: none;
     }
 
-    @media screen and (min-width: 320px) {
+    @media screen and (width >= 320px) {
       .logo--wordmark {
         display: block;
       }
@@ -2521,7 +2521,7 @@ $ui-header-height: 55px;
   overflow: hidden;
 }
 
-@media screen and (min-width: 631px) {
+@media screen and (width >= 631px) {
   .columns-area {
     padding: 0;
   }
@@ -2581,7 +2581,7 @@ $ui-header-height: 55px;
   &:hover,
   &:focus,
   &:active {
-    @media screen and (min-width: 631px) {
+    @media screen and (width >= 631px) {
       background: lighten($ui-base-color, 14%);
       border-bottom-color: lighten($ui-base-color, 14%);
     }
@@ -2598,7 +2598,7 @@ $ui-header-height: 55px;
   }
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (width >= 600px) {
   .tabs-bar__link {
     span {
       display: inline;
@@ -2821,7 +2821,7 @@ $ui-header-height: 55px;
     color: $darker-text-color;
   }
 
-  @media screen and (min-width: 600px) {
+  @media screen and (width >= 600px) {
     padding: 40px;
   }
 }
@@ -2931,7 +2931,7 @@ $ui-header-height: 55px;
       height: 36px;
       color: $dark-text-color;
 
-      @media screen and (min-width: 600px) {
+      @media screen and (width >= 600px) {
         display: flex;
       }
     }
@@ -2983,7 +2983,7 @@ $ui-header-height: 55px;
   position: sticky;
   background: $ui-base-color;
 
-  @media screen and (min-width: 600) {
+  @media screen and (width >= 600) {
     padding: 0 40px;
   }
 
@@ -3251,7 +3251,7 @@ $ui-header-height: 55px;
     user-select: none;
   }
 
-  @media screen and (min-height: 640px) {
+  @media screen and (height >= 640px) {
     display: block;
   }
 }
@@ -3601,19 +3601,19 @@ $ui-header-height: 55px;
       }
     }
 
-    @media screen and (max-height: 810px) {
+    @media screen and (height <= 810px) {
       .trends__item:nth-of-type(3) {
         display: none;
       }
     }
 
-    @media screen and (max-height: 720px) {
+    @media screen and (height <= 720px) {
       .trends__item:nth-of-type(2) {
         display: none;
       }
     }
 
-    @media screen and (max-height: 670px) {
+    @media screen and (height <= 670px) {
       display: none;
     }
 
@@ -3697,7 +3697,7 @@ $ui-header-height: 55px;
     margin-bottom: 20px;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (width <= 600px) {
     font-size: 16px;
   }
 }
@@ -4493,7 +4493,7 @@ a.status-card.compact:hover {
         background: lighten($ui-base-color, 4%);
       }
 
-      @media screen and (max-width: 600px) {
+      @media screen and (width <= 600px) {
         font-size: 16px;
       }
     }
@@ -5828,7 +5828,7 @@ a.status-card.compact:hover {
     font-weight: 700;
     margin-bottom: 15px;
 
-    @media screen and (max-height: 800px) {
+    @media screen and (height <= 800px) {
       font-size: 22px;
     }
   }
@@ -6015,7 +6015,7 @@ a.status-card.compact:hover {
   display: flex;
   border-top: 1px solid $ui-secondary-color;
 
-  @media screen and (max-width: 480px) {
+  @media screen and (width <= 480px) {
     flex-wrap: wrap;
     overflow-y: auto;
   }
@@ -6026,7 +6026,7 @@ a.status-card.compact:hover {
   box-sizing: border-box;
   width: 50%;
 
-  @media screen and (max-width: 480px) {
+  @media screen and (width <= 480px) {
     width: 100%;
   }
 }
@@ -6048,13 +6048,13 @@ a.status-card.compact:hover {
     color: $inverted-text-color;
   }
 
-  @media screen and (max-width: 480px) {
+  @media screen and (width <= 480px) {
     max-height: 10vh;
   }
 }
 
 .focal-point-modal__content {
-  @media screen and (max-width: 480px) {
+  @media screen and (width <= 480px) {
     max-height: 40vh;
   }
 }
@@ -6105,7 +6105,7 @@ a.status-card.compact:hover {
     }
   }
 
-  @media screen and (max-width: 480px) {
+  @media screen and (width <= 480px) {
     padding: 10px;
     max-width: 100%;
     order: 2;
@@ -7134,7 +7134,7 @@ noscript {
   }
 }
 
-@media screen and (max-width: 630px) and (max-height: 400px) {
+@media screen and (width <= 630px) and (height <= 400px) {
   $duration: 400ms;
   $delay: 100ms;
 
@@ -7264,7 +7264,7 @@ noscript {
         background: lighten($ui-base-color, 4%);
       }
 
-      @media screen and (max-width: 600px) {
+      @media screen and (width <= 600px) {
         font-size: 16px;
       }
     }
@@ -7355,7 +7355,7 @@ noscript {
   width: 380px;
   overflow: hidden;
 
-  @media screen and (max-width: 420px) {
+  @media screen and (width <= 420px) {
     width: 90%;
   }
 
@@ -7410,7 +7410,7 @@ noscript {
   width: 380px;
   overflow: hidden;
 
-  @media screen and (max-width: 420px) {
+  @media screen and (width <= 420px) {
     width: 90%;
   }
 
@@ -7509,7 +7509,7 @@ noscript {
     }
   }
 
-  @media screen and (max-width: 480px) {
+  @media screen and (width <= 480px) {
     img,
     video {
       max-height: 100%;
@@ -9066,7 +9066,7 @@ noscript {
       margin-bottom: 20px;
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
       display: block;
 
       h4 {
