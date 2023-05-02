@@ -4,7 +4,7 @@
 
 .navigation-panel_layout_top,
 .navigation-panel_layout_bottom {
-  @media screen and (max-width: 630px) {
+  @media screen and (width <= 630px) {
     .ui__header {
       display: flex;
       background: none;
@@ -96,7 +96,7 @@
 }
 
 .navigation-panel_layout_top {
-  @media screen and (max-width: 630px) {
+  @media screen and (width <= 630px) {
     .tabs-bar__wrapper {
       top: 50px;
     }
