@@ -4,6 +4,9 @@ namespace :api, format: false do
   # OEmbed
   get '/oembed', to: 'oembed#show', as: :oembed
 
+  # Identity proofs
+  get :proofs, to: 'proofs#index'
+
   # JSON / REST API
   namespace :v1 do
     resources :statuses, only: [:create, :show, :update, :destroy] do

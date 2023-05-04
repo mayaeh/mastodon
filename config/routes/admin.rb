@@ -201,4 +201,11 @@ namespace :admin do
       end
     end
   end
+
+  resources :push_subscription_blocks, except: [:show] do
+    member do
+      post :enable
+      post :disable
+    end
+  end
 end
