@@ -27,31 +27,45 @@ describe ApplicationHelper do
     end
   end
 
-  describe 'locale_direction' do
-    around do |example|
-      current_locale = I18n.locale
-      example.run
-      I18n.locale = current_locale
-    end
+  describe 'body_classes' do
+    context 'with a body class string from a controller' do
+      before do
+        without_partial_double_verification do
+          allow(helper).to receive(:body_class_string).and_return('modal-layout compose-standalone')
+          allow(helper).to receive(:current_theme).and_return('default')
+          allow(helper).to receive(:current_account).and_return(Fabricate(:account))
+        end
+      end
 
+      it 'uses the controller body classes in the result' do
+        expect(helper.body_classes).to match(/modal-layout compose-standalone/)
+      end
+    end
+  end
+
+  describe 'locale_direction' do
     it 'adds rtl body class if locale is Arabic' do
-      I18n.locale = :ar
-      expect(helper.locale_direction).to eq 'rtl'
+      I18n.with_locale(:ar) do
+        expect(helper.locale_direction).to eq 'rtl'
+      end
     end
 
     it 'adds rtl body class if locale is Farsi' do
-      I18n.locale = :fa
-      expect(helper.locale_direction).to eq 'rtl'
+      I18n.with_locale(:fa) do
+        expect(helper.locale_direction).to eq 'rtl'
+      end
     end
 
     it 'adds rtl if locale is Hebrew' do
-      I18n.locale = :he
-      expect(helper.locale_direction).to eq 'rtl'
+      I18n.with_locale(:he) do
+        expect(helper.locale_direction).to eq 'rtl'
+      end
     end
 
     it 'does not add rtl if locale is Thai' do
-      I18n.locale = :th
-      expect(helper.locale_direction).to_not eq 'rtl'
+      I18n.with_locale(:th) do
+        expect(helper.locale_direction).to_not eq 'rtl'
+      end
     end
   end
 
