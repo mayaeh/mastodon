@@ -6,7 +6,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { ImmutableHashtag as Hashtag } from 'mastodon/components/hashtag';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import { Link } from 'react-router-dom';
-import Icon from 'mastodon/components/icon';
+import { Icon } from 'mastodon/components/icon';
 
 const messages = defineMessages({
   refresh_trends: { id: 'trends.refresh', defaultMessage: 'Refresh' },
