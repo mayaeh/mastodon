@@ -11,7 +11,7 @@ import Report from './report';
 import FollowRequestContainer from '../containers/follow_request_container';
 import { Icon }  from 'mastodon/components/icon';
 import { Link } from 'react-router-dom';
-import RelativeTimestamp from 'mastodon/components/relative_timestamp';
+import { RelativeTimestamp } from 'mastodon/components/relative_timestamp';
 import classNames from 'classnames';
 
 const messages = defineMessages({
