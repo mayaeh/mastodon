@@ -7,18 +7,20 @@ class Auth::SessionsController < Devise::SessionsController
   skip_before_action :require_functional!
   skip_before_action :update_user_sign_in
 
+  prepend_before_action :check_suspicious!, only: [:create]
+
   include TwoFactorAuthenticationConcern
-  include SignInTokenAuthenticationConcern
 
   before_action :set_instance_presenter, only: [:new]
   before_action :set_body_classes
 
-  def new
-    Devise.omniauth_configs.each do |provider, config|
-      return redirect_to(omniauth_authorize_path(resource_name, provider)) if config.strategy.redirect_at_sign_in
-    end
+  content_security_policy only: :new do |p|
+    p.form_action(false)
+  end
 
-    super
+  def check_suspicious!
+    user = find_user
+    @login_is_suspicious = suspicious_sign_in?(user) unless user.nil?
   end
 
   def create
@@ -50,9 +52,9 @@ class Auth::SessionsController < Devise::SessionsController
 
       session[:webauthn_challenge] = options_for_get.challenge
 
-      render json: options_for_get, status: :ok
+      render json: options_for_get, status: 200
     else
-      render json: { error: t('webauthn_credentials.not_enabled') }, status: :unauthorized
+      render json: { error: t('webauthn_credentials.not_enabled') }, status: 401
     end
   end
 
@@ -74,7 +76,7 @@ class Auth::SessionsController < Devise::SessionsController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :otp_attempt, :sign_in_token_attempt, credential: {})
+    params.require(:user).permit(:email, :password, :otp_attempt, credential: {})
   end
 
   def after_sign_in_path_for(resource)
@@ -85,14 +87,6 @@ class Auth::SessionsController < Devise::SessionsController
     else
       last_url || root_path
     end
-  end
-
-  def after_sign_out_path_for(_resource_or_scope)
-    Devise.omniauth_configs.each_value do |config|
-      return root_path if config.strategy.redirect_at_sign_in
-    end
-
-    super
   end
 
   def require_no_authentication
@@ -116,9 +110,7 @@ class Auth::SessionsController < Devise::SessionsController
   def home_paths(resource)
     paths = [about_path]
 
-    if single_user_mode? && resource.is_a?(User)
-      paths << short_account_path(username: resource.account)
-    end
+    paths << short_account_path(username: resource.account) if single_user_mode? && resource.is_a?(User)
 
     paths
   end
@@ -147,7 +139,7 @@ class Auth::SessionsController < Devise::SessionsController
 
     clear_attempt_from_session
 
-    user.update_sign_in!(request, new_sign_in: true)
+    user.update_sign_in!(new_sign_in: true)
     sign_in(user)
     flash.delete(:notice)
 
@@ -158,6 +150,12 @@ class Auth::SessionsController < Devise::SessionsController
       ip: request.remote_ip,
       user_agent: request.user_agent
     )
+
+    UserMailer.suspicious_sign_in(user, request.remote_ip, request.user_agent, Time.now.utc).deliver_later! if @login_is_suspicious
+  end
+
+  def suspicious_sign_in?(user)
+    SuspiciousSignInDetector.new(user).suspicious?(request)
   end
 
   def on_authentication_failure(user, security_measure, failure_reason)

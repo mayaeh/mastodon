@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Api::V1::SuggestionsController, type: :controller do
+RSpec.describe Api::V1::SuggestionsController do
   render_views
 
   let(:user)  { Fabricate(:user) }
@@ -29,7 +31,7 @@ RSpec.describe Api::V1::SuggestionsController, type: :controller do
       json = body_as_json
 
       expect(json.size).to be >= 1
-      expect(json.map { |i| i[:id] }).to include *[bob, jeff].map { |i| i.id.to_s }
+      expect(json.pluck(:id)).to include(*[bob, jeff].map { |i| i.id.to_s })
     end
   end
 end

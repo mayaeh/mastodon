@@ -33,12 +33,8 @@
       border-radius: 4px 4px 0 0;
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
       height: 200px;
-    }
-
-    @media screen and (max-width: $no-gap-breakpoint) {
-      display: none;
     }
   }
 
@@ -73,8 +69,8 @@
     }
 
     .display-name {
-      margin-left: 15px;
-      text-align: left;
+      margin-inline-start: 15px;
+      text-align: start;
 
       i[data-hidden] {
         display: none;
@@ -139,21 +135,21 @@
 
   .older {
     float: left;
-    padding-left: 0;
+    padding-inline-start: 0;
 
     .fa {
       display: inline-block;
-      margin-right: 5px;
+      margin-inline-end: 5px;
     }
   }
 
   .newer {
     float: right;
-    padding-right: 0;
+    padding-inline-end: 0;
 
     .fa {
       display: inline-block;
-      margin-left: 5px;
+      margin-inline-start: 5px;
     }
   }
 
@@ -162,7 +158,7 @@
     color: lighten($inverted-text-color, 10%);
   }
 
-  @media screen and (max-width: 700px) {
+  @media screen and (width <= 700px) {
     padding: 30px 20px;
 
     .page {
@@ -202,7 +198,8 @@
 }
 
 .account-role,
-.simple_form .recommended {
+.simple_form .recommended,
+.simple_form .not_recommended {
   display: inline-block;
   padding: 4px 6px;
   cursor: default;
@@ -210,9 +207,9 @@
   font-size: 12px;
   line-height: 12px;
   font-weight: 500;
-  color: $ui-secondary-color;
-  background-color: rgba($ui-secondary-color, 0.1);
-  border: 1px solid rgba($ui-secondary-color, 0.5);
+  color: var(--user-role-accent, $ui-secondary-color);
+  background-color: var(--user-role-background, rgba($ui-secondary-color, 0.1));
+  border: 1px solid var(--user-role-border, rgba($ui-secondary-color, 0.5));
 
   &.moderator {
     color: $success-green;
@@ -225,6 +222,12 @@
     background-color: rgba(lighten($error-red, 12%), 0.1);
     border-color: rgba(lighten($error-red, 12%), 0.5);
   }
+}
+
+.simple_form .not_recommended {
+  color: lighten($error-red, 12%);
+  background-color: rgba(lighten($error-red, 12%), 0.1);
+  border-color: rgba(lighten($error-red, 12%), 0.5);
 }
 
 .account__header__fields {
@@ -323,5 +326,53 @@
 
   &__body {
     margin-top: 10px;
+  }
+}
+
+.batch-table__row--muted {
+  color: lighten($ui-base-color, 26%);
+}
+
+.batch-table__row--muted .pending-account__header,
+.batch-table__row--muted .accounts-table,
+.batch-table__row--muted .name-tag {
+  &,
+  a,
+  strong {
+    color: lighten($ui-base-color, 26%);
+  }
+}
+
+.batch-table__row--muted .name-tag .avatar {
+  opacity: 0.5;
+}
+
+.batch-table__row--muted .accounts-table {
+  tbody td.accounts-table__extra,
+  &__count,
+  &__count small {
+    color: lighten($ui-base-color, 26%);
+  }
+}
+
+.batch-table__row--attention {
+  color: $gold-star;
+}
+
+.batch-table__row--attention .pending-account__header,
+.batch-table__row--attention .accounts-table,
+.batch-table__row--attention .name-tag {
+  &,
+  a,
+  strong {
+    color: $gold-star;
+  }
+}
+
+.batch-table__row--attention .accounts-table {
+  tbody td.accounts-table__extra,
+  &__count,
+  &__count small {
+    color: $gold-star;
   }
 }

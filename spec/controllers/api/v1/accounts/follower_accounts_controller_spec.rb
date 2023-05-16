@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Api::V1::Accounts::FollowerAccountsController do
   render_views
 
-  let(:user)    { Fabricate(:user, account: Fabricate(:account, username: 'alice')) }
+  let(:user)    { Fabricate(:user) }
   let(:token)   { Fabricate(:accessible_access_token, resource_owner_id: user.id, scopes: 'read:accounts') }
   let(:account) { Fabricate(:account) }
   let(:alice)   { Fabricate(:account) }
@@ -26,7 +28,7 @@ describe Api::V1::Accounts::FollowerAccountsController do
       get :index, params: { account_id: account.id, limit: 2 }
 
       expect(body_as_json.size).to eq 2
-      expect([body_as_json[0][:id], body_as_json[1][:id]]).to match_array([alice.id.to_s, bob.id.to_s])
+      expect([body_as_json[0][:id], body_as_json[1][:id]]).to contain_exactly(alice.id.to_s, bob.id.to_s)
     end
 
     it 'does not return blocked users' do
@@ -49,14 +51,14 @@ describe Api::V1::Accounts::FollowerAccountsController do
     end
 
     context 'when requesting user is the account owner' do
-      let(:user) { Fabricate(:user, account: account) }
+      let(:user) { account.user }
 
       it 'returns all accounts, including muted accounts' do
-        user.account.mute!(bob)
+        account.mute!(bob)
         get :index, params: { account_id: account.id, limit: 2 }
 
         expect(body_as_json.size).to eq 2
-        expect([body_as_json[0][:id], body_as_json[1][:id]]).to match_array([alice.id.to_s, bob.id.to_s])
+        expect([body_as_json[0][:id], body_as_json[1][:id]]).to contain_exactly(alice.id.to_s, bob.id.to_s)
       end
     end
   end

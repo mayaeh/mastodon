@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Api::V1::MarkersController, type: :controller do
+RSpec.describe Api::V1::MarkersController do
   render_views
 
-  let!(:user)  { Fabricate(:user, account: Fabricate(:account, username: 'alice')) }
+  let!(:user)  { Fabricate(:user) }
   let!(:token) { Fabricate(:accessible_access_token, resource_owner_id: user.id, scopes: 'read:statuses write:statuses') }
 
   before { allow(controller).to receive(:doorkeeper_token) { token } }
@@ -42,7 +44,7 @@ RSpec.describe Api::V1::MarkersController, type: :controller do
 
       it 'creates a marker' do
         expect(user.markers.first.timeline).to eq 'home'
-        expect(user.markers.first.last_read_id).to eq 69420
+        expect(user.markers.first.last_read_id).to eq 69_420
       end
     end
 
@@ -58,7 +60,7 @@ RSpec.describe Api::V1::MarkersController, type: :controller do
 
       it 'updates a marker' do
         expect(user.markers.first.timeline).to eq 'home'
-        expect(user.markers.first.last_read_id).to eq 70120
+        expect(user.markers.first.last_read_id).to eq 70_120
       end
     end
   end

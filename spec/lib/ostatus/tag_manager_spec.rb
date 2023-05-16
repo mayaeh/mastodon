@@ -15,15 +15,15 @@ describe OStatus::TagManager do
     end
 
     it 'returns nil if it is not local id' do
-      expect(OStatus::TagManager.instance.unique_tag_to_local_id('tag:remote,2000-01-01:objectId=12:objectType=Status', 'Status')).to eq nil
+      expect(OStatus::TagManager.instance.unique_tag_to_local_id('tag:remote,2000-01-01:objectId=12:objectType=Status', 'Status')).to be_nil
     end
 
     it 'returns nil if it is not expected type' do
-      expect(OStatus::TagManager.instance.unique_tag_to_local_id('tag:cb6e6126.ngrok.io,2000-01-01:objectId=12:objectType=Block', 'Status')).to eq nil
+      expect(OStatus::TagManager.instance.unique_tag_to_local_id('tag:cb6e6126.ngrok.io,2000-01-01:objectId=12:objectType=Block', 'Status')).to be_nil
     end
 
     it 'returns nil if it does not have object ID' do
-      expect(OStatus::TagManager.instance.unique_tag_to_local_id('tag:cb6e6126.ngrok.io,2000-01-01:objectType=Status', 'Status')).to eq nil
+      expect(OStatus::TagManager.instance.unique_tag_to_local_id('tag:cb6e6126.ngrok.io,2000-01-01:objectType=Status', 'Status')).to be_nil
     end
   end
 
@@ -40,30 +40,30 @@ describe OStatus::TagManager do
   describe '#uri_for' do
     subject { OStatus::TagManager.instance.uri_for(target) }
 
-    context 'comment object' do
+    context 'with comment object' do
       let(:target) { Fabricate(:status, created_at: '2000-01-01T00:00:00Z', reply: true) }
 
       it 'returns the unique tag for status' do
         expect(target.object_type).to eq :comment
-        is_expected.to eq target.uri
+        expect(subject).to eq target.uri
       end
     end
 
-    context 'note object' do
+    context 'with note object' do
       let(:target) { Fabricate(:status, created_at: '2000-01-01T00:00:00Z', reply: false, thread: nil) }
 
       it 'returns the unique tag for status' do
         expect(target.object_type).to eq :note
-        is_expected.to eq target.uri
+        expect(subject).to eq target.uri
       end
     end
 
-    context 'person object' do
+    context 'when person object' do
       let(:target) { Fabricate(:account, username: 'alice') }
 
       it 'returns the URL for account' do
         expect(target.object_type).to eq :person
-        is_expected.to eq 'https://cb6e6126.ngrok.io/users/alice'
+        expect(subject).to eq 'https://cb6e6126.ngrok.io/users/alice'
       end
     end
   end

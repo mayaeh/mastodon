@@ -6,7 +6,7 @@ class Api::V1::NotificationsController < Api::BaseController
   before_action :require_user!
   after_action :insert_pagination_headers, only: :index
 
-  DEFAULT_NOTIFICATIONS_LIMIT = 15
+  DEFAULT_NOTIFICATIONS_LIMIT = 40
 
   def index
     @notifications = load_notifications
@@ -24,24 +24,29 @@ class Api::V1::NotificationsController < Api::BaseController
   end
 
   def dismiss
-    current_account.notifications.find_by!(id: params[:id]).destroy!
+    current_account.notifications.find(params[:id]).destroy!
     render_empty
   end
 
   private
 
   def load_notifications
-    notifications = browserable_account_notifications.includes(from_account: :account_stat).to_a_paginated_by_id(
+    notifications = browserable_account_notifications.includes(from_account: [:account_stat, :user]).to_a_paginated_by_id(
       limit_param(DEFAULT_NOTIFICATIONS_LIMIT),
       params_slice(:max_id, :since_id, :min_id)
     )
+
     Notification.preload_cache_collection_target_statuses(notifications) do |target_statuses|
       cache_collection(target_statuses, Status)
     end
   end
 
   def browserable_account_notifications
-    current_account.notifications.without_suspended.browserable(exclude_types, from_account)
+    current_account.notifications.without_suspended.browserable(
+      types: Array(browserable_params[:types]),
+      exclude_types: Array(browserable_params[:exclude_types]),
+      from_account_id: browserable_params[:account_id]
+    )
   end
 
   def target_statuses_from_notifications
@@ -53,15 +58,11 @@ class Api::V1::NotificationsController < Api::BaseController
   end
 
   def next_path
-    unless @notifications.empty?
-      api_v1_notifications_url pagination_params(max_id: pagination_max_id)
-    end
+    api_v1_notifications_url pagination_params(max_id: pagination_max_id) unless @notifications.empty?
   end
 
   def prev_path
-    unless @notifications.empty?
-      api_v1_notifications_url pagination_params(min_id: pagination_since_id)
-    end
+    api_v1_notifications_url pagination_params(min_id: pagination_since_id) unless @notifications.empty?
   end
 
   def pagination_max_id
@@ -72,17 +73,11 @@ class Api::V1::NotificationsController < Api::BaseController
     @notifications.first.id
   end
 
-  def exclude_types
-    val = params.permit(exclude_types: [])[:exclude_types] || []
-    val = [val] unless val.is_a?(Enumerable)
-    val
-  end
-
-  def from_account
-    params[:account_id]
+  def browserable_params
+    params.permit(:account_id, types: [], exclude_types: [])
   end
 
   def pagination_params(core_params)
-    params.slice(:limit, :exclude_types).permit(:limit, exclude_types: []).merge(core_params)
+    params.slice(:limit, :account_id, :types, :exclude_types).permit(:limit, :account_id, types: [], exclude_types: []).merge(core_params)
   end
 end

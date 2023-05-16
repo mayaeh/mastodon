@@ -2,8 +2,27 @@
 
 class LinkDetailsExtractor
   include ActionView::Helpers::TagHelper
+  include LanguagesHelper
+
+  # Some publications wrap their JSON-LD data in their <script> tags
+  # in commented-out CDATA blocks, they need to be removed before
+  # attempting to parse JSON
+  CDATA_JUNK_PATTERN = %r{^[\s]*(
+    (/\*[\s]*<!\[CDATA\[[\s]*\*/) # Block comment style opening
+    |
+    (//[\s]*<!\[CDATA\[) # Single-line comment style opening
+    |
+    (/\*[\s]*\]\]>[\s]*\*/) # Block comment style closing
+    |
+    (//[\s]*\]\]>) # Single-line comment style closing
+  )[\s]*$}x
 
   class StructuredData
+    SUPPORTED_TYPES = %w(
+      NewsArticle
+      WebPage
+    ).freeze
+
     def initialize(data)
       @data = data
     end
@@ -14,6 +33,14 @@ class LinkDetailsExtractor
 
     def description
       json['description']
+    end
+
+    def language
+      json['inLanguage']
+    end
+
+    def type
+      json['@type']
     end
 
     def image
@@ -44,6 +71,14 @@ class LinkDetailsExtractor
       publisher['name']
     end
 
+    def publisher_logo
+      publisher.dig('logo', 'url')
+    end
+
+    def valid?
+      json.present?
+    end
+
     private
 
     def author
@@ -58,8 +93,12 @@ class LinkDetailsExtractor
       arr.is_a?(Array) ? arr.first : arr
     end
 
+    def root_array(root)
+      root.is_a?(Array) ? root : [root]
+    end
+
     def json
-      @json ||= first_of_value(Oj.load(@data))
+      @json ||= root_array(Oj.load(@data)).find { |obj| SUPPORTED_TYPES.include?(obj['@type']) } || {}
     end
   end
 
@@ -75,6 +114,7 @@ class LinkDetailsExtractor
       description: description || '',
       image_remote_url: image,
       type: type,
+      link_type: link_type,
       width: width || 0,
       height: height || 0,
       html: html || '',
@@ -83,11 +123,20 @@ class LinkDetailsExtractor
       author_name: author_name || '',
       author_url: author_url || '',
       embed_url: embed_url || '',
+      language: language,
     }
   end
 
   def type
     player_url.present? ? :video : :link
+  end
+
+  def link_type
+    if structured_data&.type == 'NewsArticle' || opengraph_tag('og:type') == 'article'
+      :article
+    else
+      :unknown
+    end
   end
 
   def html
@@ -103,11 +152,11 @@ class LinkDetailsExtractor
   end
 
   def title
-    structured_data&.headline || opengraph_tag('og:title') || document.xpath('//title').map(&:content).first
+    html_entities.decode(structured_data&.headline || opengraph_tag('og:title') || document.xpath('//title').map(&:content).first)
   end
 
   def description
-    structured_data&.description || opengraph_tag('og:description') || meta_tag('description')
+    html_entities.decode(structured_data&.description || opengraph_tag('og:description') || meta_tag('description'))
   end
 
   def image
@@ -115,11 +164,11 @@ class LinkDetailsExtractor
   end
 
   def canonical_url
-    valid_url_or_nil(opengraph_tag('og:url') || link_tag('canonical'), same_origin_only: true) || @original_url.to_s
+    valid_url_or_nil(link_tag('canonical') || opengraph_tag('og:url'), same_origin_only: true) || @original_url.to_s
   end
 
   def provider_name
-    structured_data&.publisher_name || opengraph_tag('og:site_name')
+    html_entities.decode(structured_data&.publisher_name || opengraph_tag('og:site_name'))
   end
 
   def provider_url
@@ -127,7 +176,7 @@ class LinkDetailsExtractor
   end
 
   def author_name
-    structured_data&.author_name || opengraph_tag('og:author') || opengraph_tag('og:author:username')
+    html_entities.decode(structured_data&.author_name || opengraph_tag('og:author') || opengraph_tag('og:author:username'))
   end
 
   def author_url
@@ -136,6 +185,14 @@ class LinkDetailsExtractor
 
   def embed_url
     valid_url_or_nil(opengraph_tag('twitter:player:stream'))
+  end
+
+  def language
+    valid_locale_or_nil(structured_data&.language || opengraph_tag('og:locale') || document.xpath('//html').pick('lang'))
+  end
+
+  def icon
+    valid_url_or_nil(structured_data&.publisher_icon || link_tag('apple-touch-icon') || link_tag('shortcut icon'))
   end
 
   private
@@ -151,7 +208,7 @@ class LinkDetailsExtractor
   end
 
   def valid_url_or_nil(str, same_origin_only: false)
-    return if str.blank?
+    return if str.blank? || str == 'null'
 
     url = @original_url + Addressable::URI.parse(str)
 
@@ -163,24 +220,36 @@ class LinkDetailsExtractor
   end
 
   def link_tag(name)
-    document.xpath("//link[@rel=\"#{name}\"]").map { |link| link['href'] }.first
+    document.xpath("//link[@rel=\"#{name}\"]").pick('href')
   end
 
   def opengraph_tag(name)
-    document.xpath("//meta[@property=\"#{name}\" or @name=\"#{name}\"]").map { |meta| meta['content'] }.first
+    document.xpath("//meta[@property=\"#{name}\" or @name=\"#{name}\"]").pick('content')
   end
 
   def meta_tag(name)
-    document.xpath("//meta[@name=\"#{name}\"]").map { |meta| meta['content'] }.first
+    document.xpath("//meta[@name=\"#{name}\"]").pick('content')
   end
 
   def structured_data
-    @structured_data ||= begin
-      json_ld = document.xpath('//script[@type="application/ld+json"]').map(&:content).first
-      json_ld.present? ? StructuredData.new(json_ld) : nil
-    rescue Oj::ParseError
-      nil
-    end
+    # Some publications have more than one JSON-LD definition on the page,
+    # and some of those definitions aren't valid JSON either, so we have
+    # to loop through here until we find something that is the right type
+    # and doesn't break
+    @structured_data ||= document.xpath('//script[@type="application/ld+json"]').filter_map do |element|
+      json_ld = element.content&.gsub(CDATA_JUNK_PATTERN, '')
+
+      next if json_ld.blank?
+
+      structured_data = StructuredData.new(html_entities.decode(json_ld))
+
+      next unless structured_data.valid?
+
+      structured_data
+    rescue Oj::ParseError, EncodingError
+      Rails.logger.debug { "Invalid JSON-LD in #{@original_url}" }
+      next
+    end.first
   end
 
   def document
@@ -198,5 +267,9 @@ class LinkDetailsExtractor
     @detector ||= CharlockHolmes::EncodingDetector.new.tap do |detector|
       detector.strip_tags = true
     end
+  end
+
+  def html_entities
+    @html_entities ||= HTMLEntities.new
   end
 end

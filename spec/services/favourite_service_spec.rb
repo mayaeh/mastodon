@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe FavouriteService, type: :service do
-  let(:sender) { Fabricate(:account, username: 'alice') }
-
   subject { FavouriteService.new }
 
+  let(:sender) { Fabricate(:account, username: 'alice') }
+
   describe 'local' do
-    let(:bob)    { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+    let(:bob)    { Fabricate(:account) }
     let(:status) { Fabricate(:status, account: bob) }
 
     before do
@@ -19,11 +21,11 @@ RSpec.describe FavouriteService, type: :service do
   end
 
   describe 'remote ActivityPub' do
-    let(:bob)    { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, protocol: :activitypub, username: 'bob', domain: 'example.com', inbox_url: 'http://example.com/inbox')).account }
+    let(:bob)    { Fabricate(:account, protocol: :activitypub, username: 'bob', domain: 'example.com', inbox_url: 'http://example.com/inbox') }
     let(:status) { Fabricate(:status, account: bob) }
 
     before do
-      stub_request(:post, "http://example.com/inbox").to_return(:status => 200, :body => "", :headers => {})
+      stub_request(:post, 'http://example.com/inbox').to_return(status: 200, body: '', headers: {})
       subject.call(sender, status)
     end
 
@@ -32,7 +34,7 @@ RSpec.describe FavouriteService, type: :service do
     end
 
     it 'sends a like activity' do
-      expect(a_request(:post, "http://example.com/inbox")).to have_been_made.once
+      expect(a_request(:post, 'http://example.com/inbox')).to have_been_made.once
     end
   end
 end

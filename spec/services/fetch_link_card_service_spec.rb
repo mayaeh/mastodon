@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe FetchLinkCardService, type: :service do
@@ -16,7 +18,7 @@ RSpec.describe FetchLinkCardService, type: :service do
     subject.call(status)
   end
 
-  context 'in a local status' do
+  context 'with a local status' do
     context do
       let(:status) { Fabricate(:status, text: 'Check out http://example.中国') }
 
@@ -30,7 +32,7 @@ RSpec.describe FetchLinkCardService, type: :service do
 
       it 'works with SJIS' do
         expect(a_request(:get, 'http://example.com/sjis')).to have_been_made.at_least_once
-        expect(status.preview_cards.first.title).to eq("SJISのページ")
+        expect(status.preview_cards.first.title).to eq('SJISのページ')
       end
     end
 
@@ -39,7 +41,7 @@ RSpec.describe FetchLinkCardService, type: :service do
 
       it 'works with SJIS even with wrong charset header' do
         expect(a_request(:get, 'http://example.com/sjis_with_wrong_charset')).to have_been_made.at_least_once
-        expect(status.preview_cards.first.title).to eq("SJISのページ")
+        expect(status.preview_cards.first.title).to eq('SJISのページ')
       end
     end
 
@@ -48,7 +50,7 @@ RSpec.describe FetchLinkCardService, type: :service do
 
       it 'works with koi8-r' do
         expect(a_request(:get, 'http://example.com/koi8-r')).to have_been_made.at_least_once
-        expect(status.preview_cards.first.title).to eq("Московя начинаетъ только въ XVI ст. привлекать внимане иностранцевъ.")
+        expect(status.preview_cards.first.title).to eq('Московя начинаетъ только въ XVI ст. привлекать внимане иностранцевъ.')
       end
     end
 
@@ -66,7 +68,7 @@ RSpec.describe FetchLinkCardService, type: :service do
 
       it 'works with Japanese path string' do
         expect(a_request(:get, 'http://example.com/日本語')).to have_been_made.at_least_once
-        expect(status.preview_cards.first.title).to eq("SJISのページ")
+        expect(status.preview_cards.first.title).to eq('SJISのページ')
       end
     end
 
@@ -87,7 +89,7 @@ RSpec.describe FetchLinkCardService, type: :service do
     end
   end
 
-  context 'in a remote status' do
+  context 'with a remote status' do
     let(:status) { Fabricate(:status, account: Fabricate(:account, domain: 'example.com'), text: 'Habt ihr ein paar gute Links zu <a>foo</a> #<span class="tag"><a href="https://quitter.se/tag/wannacry" target="_blank" rel="tag noopener noreferrer" title="https://quitter.se/tag/wannacry">Wannacry</a></span> herumfliegen?   Ich will mal unter <br> <a href="https://github.com/qbi/WannaCry" target="_blank" rel="noopener noreferrer" title="https://github.com/qbi/WannaCry">https://github.com/qbi/WannaCry</a> was sammeln. !<a href="http://sn.jonkman.ca/group/416/id" target="_blank" rel="noopener noreferrer" title="http://sn.jonkman.ca/group/416/id">security</a>&nbsp;') }
 
     it 'parses out URLs' do

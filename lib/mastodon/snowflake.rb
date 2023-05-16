@@ -84,10 +84,7 @@ module Mastodon::Snowflake
               -- Take the first two bytes (four hex characters)
               substr(
                 -- Of the MD5 hash of the data we documented
-                md5(table_name ||
-                  '#{SecureRandom.hex(16)}' ||
-                  time_part::text
-                ),
+                md5(table_name || '#{SecureRandom.hex(16)}' || time_part::text),
                 1, 4
               )
             -- And turn it into a bigint
@@ -118,7 +115,7 @@ module Mastodon::Snowflake
         # And only those that are using timestamp_id.
         next unless (data = DEFAULT_REGEX.match(id_col.default_function))
 
-        seq_name = data[:seq_prefix] + '_id_seq'
+        seq_name = "#{data[:seq_prefix]}_id_seq"
 
         # If we were on Postgres 9.5+, we could do CREATE SEQUENCE IF
         # NOT EXISTS, but we can't depend on that. Instead, catch the
@@ -149,7 +146,7 @@ module Mastodon::Snowflake
     private
 
     def already_defined?
-      connection.execute(<<~SQL).values.first.first
+      connection.execute(<<~SQL.squish).values.first.first
         SELECT EXISTS(
           SELECT * FROM pg_proc WHERE proname = 'timestamp_id'
         );

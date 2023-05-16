@@ -1,3 +1,5 @@
+/* eslint-disable import/no-commonjs --
+   We need to use CommonJS here due to preval */
 // @preval
 // http://www.unicode.org/Public/emoji/5.0/emoji-test.txt
 // This file contains the compressed version of the emoji data from
@@ -90,7 +92,7 @@ Object.keys(emojiIndex.emojis).forEach(key => {
   let { short_names, search, unified } = emojiMartData.emojis[key];
 
   if (short_names[0] !== key) {
-    throw new Error('The compresser expects the first short_code to be the ' +
+    throw new Error('The compressor expects the first short_code to be the ' +
       'key. It may need to be rewritten if the emoji change such that this ' +
       'is no longer the case.');
   }

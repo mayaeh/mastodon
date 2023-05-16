@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Admin::AccountModerationNotesController, type: :controller do
+RSpec.describe Admin::AccountModerationNotesController do
   render_views
 
-  let(:user) { Fabricate(:user, admin: true) }
+  let(:user) { Fabricate(:user, role: UserRole.find_by(name: 'Admin')) }
   let(:target_account) { Fabricate(:account) }
 
   before do
@@ -26,7 +28,7 @@ RSpec.describe Admin::AccountModerationNotesController, type: :controller do
       let(:params) { { account_moderation_note: { target_account_id: target_account.id, content: '' } } }
 
       it 'falls to create a note' do
-        expect { subject }.not_to change { AccountModerationNote.count }
+        expect { subject }.to_not change { AccountModerationNote.count }
         expect(subject).to render_template 'admin/accounts/show'
       end
     end

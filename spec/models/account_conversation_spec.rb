@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe AccountConversation, type: :model do
+RSpec.describe AccountConversation do
   let!(:alice) { Fabricate(:account, username: 'alice') }
   let!(:bob)   { Fabricate(:account, username: 'bob') }
   let!(:mark)  { Fabricate(:account, username: 'mark') }

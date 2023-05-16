@@ -1,3 +1,6 @@
+/* eslint-disable import/no-commonjs --
+   We need to use CommonJS here as its imported into a preval file (`emoji_compressed.js`) */
+
 /* @preval */
 
 const fs   = require('fs');
@@ -20,6 +23,9 @@ filenames.forEach(filename => {
     'notification.mention': full['notification.mention'] || '',
     'notification.reblog': full['notification.reblog'] || '',
     'notification.poll': full['notification.poll'] || '',
+    'notification.status': full['notification.status'] || '',
+    'notification.update': full['notification.update'] || '',
+    'notification.admin.sign_up': full['notification.admin.sign_up'] || '',
 
     'status.show_more': full['status.show_more'] || '',
     'status.reblog': full['status.reblog'] || '',

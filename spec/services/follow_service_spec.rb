@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe FollowService, type: :service do
-  let(:sender) { Fabricate(:account, username: 'alice') }
-
   subject { FollowService.new }
 
-  context 'local account' do
+  let(:sender) { Fabricate(:account, username: 'alice') }
+
+  context 'when local account' do
     describe 'locked account' do
-      let(:bob) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, locked: true, username: 'bob')).account }
+      let(:bob) { Fabricate(:account, locked: true, username: 'bob') }
 
       before do
         subject.call(sender, bob)
@@ -19,7 +21,7 @@ RSpec.describe FollowService, type: :service do
     end
 
     describe 'locked account, no reblogs' do
-      let(:bob) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, locked: true, username: 'bob')).account }
+      let(:bob) { Fabricate(:account, locked: true, username: 'bob') }
 
       before do
         subject.call(sender, bob, reblogs: false)
@@ -31,7 +33,7 @@ RSpec.describe FollowService, type: :service do
     end
 
     describe 'unlocked account, from silenced account' do
-      let(:bob) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+      let(:bob) { Fabricate(:account, username: 'bob') }
 
       before do
         sender.touch(:silenced_at)
@@ -44,7 +46,7 @@ RSpec.describe FollowService, type: :service do
     end
 
     describe 'unlocked account, from a muted account' do
-      let(:bob) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+      let(:bob) { Fabricate(:account, username: 'bob') }
 
       before do
         bob.mute!(sender)
@@ -58,7 +60,7 @@ RSpec.describe FollowService, type: :service do
     end
 
     describe 'unlocked account' do
-      let(:bob) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+      let(:bob) { Fabricate(:account, username: 'bob') }
 
       before do
         subject.call(sender, bob)
@@ -71,7 +73,7 @@ RSpec.describe FollowService, type: :service do
     end
 
     describe 'unlocked account, no reblogs' do
-      let(:bob) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+      let(:bob) { Fabricate(:account, username: 'bob') }
 
       before do
         subject.call(sender, bob, reblogs: false)
@@ -84,7 +86,7 @@ RSpec.describe FollowService, type: :service do
     end
 
     describe 'already followed account' do
-      let(:bob) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+      let(:bob) { Fabricate(:account, username: 'bob') }
 
       before do
         sender.follow!(bob)
@@ -97,7 +99,7 @@ RSpec.describe FollowService, type: :service do
     end
 
     describe 'already followed account, turning reblogs off' do
-      let(:bob) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+      let(:bob) { Fabricate(:account, username: 'bob') }
 
       before do
         sender.follow!(bob, reblogs: true)
@@ -110,7 +112,7 @@ RSpec.describe FollowService, type: :service do
     end
 
     describe 'already followed account, turning reblogs on' do
-      let(:bob) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+      let(:bob) { Fabricate(:account, username: 'bob') }
 
       before do
         sender.follow!(bob, reblogs: false)
@@ -121,13 +123,26 @@ RSpec.describe FollowService, type: :service do
         expect(sender.muting_reblogs?(bob)).to be false
       end
     end
+
+    describe 'already followed account, changing languages' do
+      let(:bob) { Fabricate(:account, username: 'bob') }
+
+      before do
+        sender.follow!(bob)
+        subject.call(sender, bob, languages: %w(en es))
+      end
+
+      it 'changes languages' do
+        expect(Follow.find_by(account: sender, target_account: bob)&.languages).to match_array %w(en es)
+      end
+    end
   end
 
-  context 'remote ActivityPub account' do
-    let(:bob) { Fabricate(:user, account: Fabricate(:account, username: 'bob', domain: 'example.com', protocol: :activitypub, inbox_url: 'http://example.com/inbox')).account }
+  context 'when remote ActivityPub account' do
+    let(:bob) { Fabricate(:account, username: 'bob', domain: 'example.com', protocol: :activitypub, inbox_url: 'http://example.com/inbox') }
 
     before do
-      stub_request(:post, "http://example.com/inbox").to_return(:status => 200, :body => "", :headers => {})
+      stub_request(:post, 'http://example.com/inbox').to_return(status: 200, body: '', headers: {})
       subject.call(sender, bob)
     end
 

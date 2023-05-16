@@ -6,7 +6,7 @@ require 'pundit/rspec'
 RSpec.describe StatusPolicy, type: :model do
   subject { described_class }
 
-  let(:admin) { Fabricate(:user, admin: true) }
+  let(:admin) { Fabricate(:user, role: UserRole.find_by(name: 'Admin')) }
   let(:alice) { Fabricate(:account, username: 'alice') }
   let(:bob) { Fabricate(:account, username: 'bob') }
   let(:status) { Fabricate(:status, account: alice) }
@@ -37,6 +37,14 @@ RSpec.describe StatusPolicy, type: :model do
       status.mentions = [Fabricate(:mention, account: alice)]
 
       expect(subject).to permit(alice, status)
+    end
+
+    it 'grants access when direct and non-owner viewer is mentioned and mentions are loaded' do
+      status.visibility = :direct
+      status.mentions = [Fabricate(:mention, account: bob)]
+      status.mentions.load
+
+      expect(subject).to permit(bob, status)
     end
 
     it 'denies access when direct and viewer is not mentioned' do
@@ -96,10 +104,6 @@ RSpec.describe StatusPolicy, type: :model do
       expect(subject).to permit(status.account, status)
     end
 
-    it 'grants access when account is admin' do
-      expect(subject).to permit(admin.account, status)
-    end
-
     it 'denies access when account is not deleter' do
       expect(subject).to_not permit(bob, status)
     end
@@ -125,13 +129,9 @@ RSpec.describe StatusPolicy, type: :model do
     end
   end
 
-  permissions :index?, :update? do
-    it 'grants access if staff' do
-      expect(subject).to permit(admin.account)
-    end
-
-    it 'denies access unless staff' do
-      expect(subject).to_not permit(alice)
+  permissions :update? do
+    it 'grants access if owner' do
+      expect(subject).to permit(status.account, status)
     end
   end
 end

@@ -2,6 +2,7 @@
 
 class REST::AccountSerializer < ActiveModel::Serializer
   include RoutingHelper
+  include FormattingHelper
 
   attributes :id, :username, :acct, :display_name, :locked, :bot, :discoverable, :group, :created_at,
              :note, :url, :avatar, :avatar_static, :header, :header_static,
@@ -12,12 +13,38 @@ class REST::AccountSerializer < ActiveModel::Serializer
   has_many :emojis, serializer: REST::CustomEmojiSerializer
 
   attribute :suspended, if: :suspended?
+  attribute :silenced, key: :limited, if: :silenced?
+  attribute :noindex, if: :local?
+
+  attribute :memorial, if: :memorial?
+
+  class AccountDecorator < SimpleDelegator
+    def self.model_name
+      Account.model_name
+    end
+
+    def moved?
+      false
+    end
+  end
+
+  class RoleSerializer < ActiveModel::Serializer
+    attributes :id, :name, :color
+
+    def id
+      object.id.to_s
+    end
+  end
+
+  has_many :roles, serializer: RoleSerializer, if: :local?
 
   class FieldSerializer < ActiveModel::Serializer
+    include FormattingHelper
+
     attributes :name, :value, :verified_at
 
     def value
-      Formatter.instance.format_field(object.account, object.value)
+      account_field_value_format(object)
     end
   end
 
@@ -32,7 +59,7 @@ class REST::AccountSerializer < ActiveModel::Serializer
   end
 
   def note
-    object.suspended? ? '' : Formatter.instance.simplified_format(object)
+    object.suspended? ? '' : account_bio_format(object)
   end
 
   def url
@@ -80,7 +107,7 @@ class REST::AccountSerializer < ActiveModel::Serializer
   end
 
   def moved_to_account
-    object.suspended? ? nil : object.moved_to_account
+    object.suspended? ? nil : AccountDecorator.new(object.moved_to_account)
   end
 
   def emojis
@@ -95,9 +122,29 @@ class REST::AccountSerializer < ActiveModel::Serializer
     object.suspended?
   end
 
-  delegate :suspended?, to: :object
+  def silenced
+    object.silenced?
+  end
+
+  def memorial
+    object.memorial?
+  end
+
+  def roles
+    if object.suspended? || object.user.nil?
+      []
+    else
+      [object.user.role].compact.filter(&:highlighted?)
+    end
+  end
+
+  def noindex
+    object.user_prefers_noindex?
+  end
+
+  delegate :suspended?, :silenced?, :local?, :memorial?, to: :object
 
   def moved_and_not_nested?
-    object.moved? && object.moved_to_account.moved_to_account_id.nil?
+    object.moved?
   end
 end

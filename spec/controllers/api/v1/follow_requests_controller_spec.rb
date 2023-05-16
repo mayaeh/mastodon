@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Api::V1::FollowRequestsController, type: :controller do
+RSpec.describe Api::V1::FollowRequestsController do
   render_views
 
-  let(:user)     { Fabricate(:user, account: Fabricate(:account, username: 'alice', locked: true)) }
+  let(:user)     { Fabricate(:user, account_attributes: { locked: true }) }
   let(:token)    { Fabricate(:accessible_access_token, resource_owner_id: user.id, scopes: scopes) }
-  let(:follower) { Fabricate(:account, username: 'bob') }
+  let(:follower) { Fabricate(:account) }
 
   before do
     FollowService.new.call(follower, user.account)

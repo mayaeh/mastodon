@@ -37,6 +37,7 @@ module.exports = {
     filename: 'js/[name]-[chunkhash].js',
     chunkFilename: 'js/[name]-[chunkhash].chunk.js',
     hotUpdateChunkFilename: 'js/[id]-[hash].hot-update.js',
+    hashFunction: 'sha256',
     path: output.path,
     publicPath: output.publicPath,
   },
@@ -54,7 +55,7 @@ module.exports = {
           chunks: 'all',
           minChunks: 2,
           minSize: 0,
-          test: /^(?!.*[\\\/]node_modules[\\\/]react-intl[\\\/]).+$/,
+          test: /^(?!.*[\\/]node_modules[\\/]react-intl[\\/]).+$/,
         },
       },
     },
@@ -63,6 +64,7 @@ module.exports = {
 
   module: {
     rules: Object.keys(rules).map(key => rules[key]),
+    strictExportPresence: true,
   },
 
   plugins: [

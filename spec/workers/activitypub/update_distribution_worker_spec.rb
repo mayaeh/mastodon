@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe ActivityPub::UpdateDistributionWorker do
@@ -8,13 +10,12 @@ describe ActivityPub::UpdateDistributionWorker do
 
   describe '#perform' do
     before do
-      allow(ActivityPub::DeliveryWorker).to receive(:push_bulk)
       follower.follow!(account)
     end
 
     it 'delivers to followers' do
+      expect_push_bulk_to_match(ActivityPub::DeliveryWorker, [[kind_of(String), account.id, 'http://example.com', anything]])
       subject.perform(account.id)
-      expect(ActivityPub::DeliveryWorker).to have_received(:push_bulk).with(['http://example.com'])
     end
   end
 end

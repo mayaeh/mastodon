@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: preview_cards
@@ -24,13 +25,18 @@
 #  embed_url                    :string           default(""), not null
 #  image_storage_schema_version :integer
 #  blurhash                     :string
+#  language                     :string
+#  max_score                    :float
+#  max_score_at                 :datetime
+#  trendable                    :boolean
+#  link_type                    :integer
 #
 
 class PreviewCard < ApplicationRecord
   include Attachmentable
 
-  IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif'].freeze
-  LIMIT = 1.megabytes
+  IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'].freeze
+  LIMIT = 2.megabytes
 
   BLURHASH_OPTIONS = {
     x_comp: 4,
@@ -39,11 +45,13 @@ class PreviewCard < ApplicationRecord
 
   self.inheritance_column = false
 
-  enum type: [:link, :photo, :video, :rich]
+  enum type: { link: 0, photo: 1, video: 2, rich: 3 }
+  enum link_type: { unknown: 0, article: 1 }
 
   has_and_belongs_to_many :statuses
+  has_one :trend, class_name: 'PreviewCardTrend', inverse_of: :preview_card, dependent: :destroy
 
-  has_attached_file :image, processors: [:thumbnail, :blurhash_transcoder], styles: ->(f) { image_styles(f) }, convert_options: { all: '-quality 80 -strip' }, validate_media_type: false
+  has_attached_file :image, processors: [:thumbnail, :blurhash_transcoder], styles: ->(f) { image_styles(f) }, convert_options: { all: '-quality 90 +profile "!icc,*" +set modify-date +set create-date' }, validate_media_type: false
 
   validates :url, presence: true, uniqueness: true
   validates_attachment_content_type :image, content_type: IMAGE_MIME_TYPES
@@ -53,6 +61,40 @@ class PreviewCard < ApplicationRecord
   scope :cached, -> { where.not(image_file_name: [nil, '']) }
 
   before_save :extract_dimensions, if: :link?
+
+  def appropriate_for_trends?
+    link? && article? && title.present? && description.present? && image.present? && provider_name.present?
+  end
+
+  def domain
+    @domain ||= Addressable::URI.parse(url).normalized_host
+  end
+
+  def provider
+    @provider ||= PreviewCardProvider.matching_domain(domain)
+  end
+
+  def trendable?
+    if attributes['trendable'].nil?
+      provider&.trendable?
+    else
+      attributes['trendable']
+    end
+  end
+
+  def requires_review?
+    attributes['trendable'].nil? && (provider.nil? || provider.requires_review?)
+  end
+
+  def requires_review_notification?
+    attributes['trendable'].nil? && (provider.nil? || provider.requires_review_notification?)
+  end
+
+  def decaying?
+    max_score_at && max_score_at >= Trends.links.options[:max_score_cooldown].ago && max_score_at < 1.day.ago
+  end
+
+  attr_writer :provider
 
   def local?
     false
@@ -69,24 +111,26 @@ class PreviewCard < ApplicationRecord
     save!
   end
 
+  def history
+    @history ||= Trends::History.new('links', id)
+  end
+
   class << self
     private
 
-    # rubocop:disable Naming/MethodParameterName
-    def image_styles(f)
+    def image_styles(file)
       styles = {
         original: {
-          geometry: '400x400>',
+          pixels: 230_400, # 640x360px
           file_geometry_parser: FastGeometryParser,
-          convert_options: '-coalesce -strip',
+          convert_options: '-coalesce',
           blurhash: BLURHASH_OPTIONS,
         },
       }
 
-      styles[:original][:format] = 'jpg' if f.instance.image_content_type == 'image/gif'
+      styles[:original][:format] = 'jpg' if file.instance.image_content_type == 'image/gif'
       styles
     end
-    # rubocop:enable Naming/MethodParameterName
   end
 
   private

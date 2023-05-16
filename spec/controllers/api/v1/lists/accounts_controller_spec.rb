@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Api::V1::Lists::AccountsController do
   render_views
 
-  let(:user)  { Fabricate(:user, account: Fabricate(:account, username: 'alice')) }
+  let(:user)  { Fabricate(:user) }
   let(:token) { Fabricate(:accessible_access_token, resource_owner_id: user.id, scopes: scopes) }
   let(:list)  { Fabricate(:list, account: user.account) }
 
@@ -27,17 +29,48 @@ describe Api::V1::Lists::AccountsController do
     let(:scopes) { 'write:lists' }
     let(:bob) { Fabricate(:account, username: 'bob') }
 
-    before do
-      user.account.follow!(bob)
-      post :create, params: { list_id: list.id, account_ids: [bob.id] }
+    context 'when the added account is followed' do
+      before do
+        user.account.follow!(bob)
+        post :create, params: { list_id: list.id, account_ids: [bob.id] }
+      end
+
+      it 'returns http success' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'adds account to the list' do
+        expect(list.accounts.include?(bob)).to be true
+      end
     end
 
-    it 'returns http success' do
-      expect(response).to have_http_status(200)
+    context 'when the added account has been sent a follow request' do
+      before do
+        user.account.follow_requests.create!(target_account: bob)
+        post :create, params: { list_id: list.id, account_ids: [bob.id] }
+      end
+
+      it 'returns http success' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'adds account to the list' do
+        expect(list.accounts.include?(bob)).to be true
+      end
     end
 
-    it 'adds account to the list' do
-      expect(list.accounts.include?(bob)).to be true
+    context 'when the added account is not followed' do
+      before do
+        post :create, params: { list_id: list.id, account_ids: [bob.id] }
+      end
+
+      it 'returns http not found' do
+        expect(response).to have_http_status(404)
+      end
+
+      it 'does not add the account to the list' do
+        expect(list.accounts.include?(bob)).to be false
+      end
     end
   end
 

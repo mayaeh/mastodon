@@ -7,6 +7,7 @@ require_relative 'cli_helper'
 module Mastodon
   class FeedsCLI < Thor
     include CLIHelper
+    include Redisable
 
     def self.exit_on_failure?
       true
@@ -51,12 +52,8 @@ module Mastodon
 
     desc 'clear', 'Remove all home and list feeds from Redis'
     def clear
-      keys = Redis.current.keys('feed:*')
-
-      Redis.current.pipelined do
-        keys.each { |key| Redis.current.del(key) }
-      end
-
+      keys = redis.keys('feed:*')
+      redis.del(keys)
       say('OK', :green)
     end
   end

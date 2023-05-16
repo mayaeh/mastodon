@@ -11,7 +11,7 @@
   h_class           = microformats_h_class(status, is_predecessor, is_successor, include_threads)
   style_classes     = style_classes(status, is_predecessor, is_successor, include_threads)
   mf_classes        = microformats_classes(status, is_direct_parent, is_direct_child)
-  entry_classes     = h_class + ' ' + mf_classes + ' ' + style_classes
+  entry_classes     = "#{h_class} #{mf_classes} #{style_classes}"
 
 - if status.reply? && include_threads
   - if @next_ancestor
@@ -56,6 +56,6 @@
 
 - if include_threads && !embedded_view? && !user_signed_in?
   .entry{ class: entry_classes }
-    = link_to new_user_session_path, class: 'load-more load-gap' do
+    = link_to_login class: 'load-more load-gap' do
       = fa_icon 'comments'
       = t('statuses.sign_in_to_participate')

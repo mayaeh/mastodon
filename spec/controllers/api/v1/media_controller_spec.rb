@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Api::V1::MediaController, type: :controller do
+RSpec.describe Api::V1::MediaController do
   render_views
 
-  let(:user)  { Fabricate(:user, account: Fabricate(:account, username: 'alice')) }
+  let(:user)  { Fabricate(:user) }
   let(:token) { Fabricate(:accessible_access_token, resource_owner_id: user.id, scopes: 'write:media') }
 
   before do
@@ -19,7 +21,7 @@ RSpec.describe Api::V1::MediaController, type: :controller do
         end
 
         it 'returns http 422' do
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(422)
         end
       end
 
@@ -35,7 +37,7 @@ RSpec.describe Api::V1::MediaController, type: :controller do
       end
     end
 
-    context 'image/jpeg' do
+    context 'with image/jpeg' do
       before do
         post :create, params: { file: fixture_file_upload('attachment.jpg', 'image/jpeg') }
       end
@@ -57,7 +59,7 @@ RSpec.describe Api::V1::MediaController, type: :controller do
       end
     end
 
-    context 'image/gif' do
+    context 'with image/gif' do
       before do
         post :create, params: { file: fixture_file_upload('attachment.gif', 'image/gif') }
       end
@@ -79,7 +81,7 @@ RSpec.describe Api::V1::MediaController, type: :controller do
       end
     end
 
-    context 'video/webm' do
+    context 'with video/webm' do
       before do
         post :create, params: { file: fixture_file_upload('attachment.webm', 'video/webm') }
       end
@@ -106,25 +108,28 @@ RSpec.describe Api::V1::MediaController, type: :controller do
 
       it 'returns http not found' do
         put :update, params: { id: media.id, description: 'Lorem ipsum!!!' }
-        expect(response).to have_http_status(:not_found)
+        expect(response).to have_http_status(404)
       end
     end
 
-    context 'when not attached to a status' do
-      let(:media) { Fabricate(:media_attachment, status: nil, account: user.account) }
+    context 'when the author \'s' do
+      let(:status) { nil }
+      let(:media)  { Fabricate(:media_attachment, status: status, account: user.account) }
+
+      before do
+        put :update, params: { id: media.id, description: 'Lorem ipsum!!!' }
+      end
 
       it 'updates the description' do
-        put :update, params: { id: media.id, description: 'Lorem ipsum!!!' }
         expect(media.reload.description).to eq 'Lorem ipsum!!!'
       end
-    end
 
-    context 'when attached to a status' do
-      let(:media) { Fabricate(:media_attachment, status: Fabricate(:status), account: user.account) }
+      context 'when already attached to a status' do
+        let(:status) { Fabricate(:status, account: user.account) }
 
-      it 'returns http not found' do
-        put :update, params: { id: media.id, description: 'Lorem ipsum!!!' }
-        expect(response).to have_http_status(:not_found)
+        it 'returns http not found' do
+          expect(response).to have_http_status(404)
+        end
       end
     end
   end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -10,12 +11,9 @@
 #  encrypted_password        :string           default(""), not null
 #  reset_password_token      :string
 #  reset_password_sent_at    :datetime
-#  remember_created_at       :datetime
 #  sign_in_count             :integer          default(0), not null
 #  current_sign_in_at        :datetime
 #  last_sign_in_at           :datetime
-#  current_sign_in_ip        :inet
-#  last_sign_in_ip           :inet
 #  admin                     :boolean          default(FALSE), not null
 #  confirmation_token        :string
 #  confirmed_at              :datetime
@@ -29,12 +27,10 @@
 #  otp_required_for_login    :boolean          default(FALSE), not null
 #  last_emailed_at           :datetime
 #  otp_backup_codes          :string           is an Array
-#  filtered_languages        :string           default([]), not null, is an Array
 #  account_id                :bigint(8)        not null
 #  disabled                  :boolean          default(FALSE), not null
 #  moderator                 :boolean          default(FALSE), not null
 #  invite_id                 :bigint(8)
-#  remember_token            :string
 #  chosen_languages          :string           is an Array
 #  created_by_application_id :bigint(8)
 #  approved                  :boolean          default(TRUE), not null
@@ -42,12 +38,23 @@
 #  sign_in_token_sent_at     :datetime
 #  webauthn_id               :string
 #  sign_up_ip                :inet
-#  skip_sign_in_token        :boolean
+#  role_id                   :bigint(8)
+#  settings                  :text
 #
 
 class User < ApplicationRecord
-  include Settings::Extend
-  include UserRoles
+  self.ignored_columns += %w(
+    remember_created_at
+    remember_token
+    current_sign_in_ip
+    last_sign_in_ip
+    skip_sign_in_token
+    filtered_languages
+  )
+
+  include Redisable
+  include LanguagesHelper
+  include HasUserSettings
 
   # The home and list feeds will be stored in Redis for this amount
   # of time, and status fan-out to followers will include only people
@@ -74,6 +81,7 @@ class User < ApplicationRecord
   belongs_to :account, inverse_of: :user
   belongs_to :invite, counter_cache: :uses, optional: true
   belongs_to :created_by_application, class_name: 'Doorkeeper::Application', optional: true
+  belongs_to :role, class_name: 'UserRole', optional: true
   accepts_nested_attributes_for :account
 
   has_many :applications, class_name: 'Doorkeeper::Application', as: :owner
@@ -81,22 +89,24 @@ class User < ApplicationRecord
   has_many :invites, inverse_of: :user
   has_many :markers, inverse_of: :user, dependent: :destroy
   has_many :webauthn_credentials, dependent: :destroy
+  has_many :ips, class_name: 'UserIp', inverse_of: :user
 
   has_one :invite_request, class_name: 'UserInviteRequest', inverse_of: :user, dependent: :destroy
   accepts_nested_attributes_for :invite_request, reject_if: ->(attributes) { attributes['text'].blank? && !Setting.require_invite_text }
   validates :invite_request, presence: true, on: :create, if: :invite_text_required?
 
   validates :locale, inclusion: I18n.available_locales.map(&:to_s), if: :locale?
-  validates_with BlacklistedEmailValidator, on: :create
+  validates_with BlacklistedEmailValidator, if: -> { ENV['EMAIL_DOMAIN_LISTS_APPLY_AFTER_CONFIRMATION'] == 'true' || !confirmed? }
   validates_with EmailMxValidator, if: :validate_email_dns?
   validates :agreement, acceptance: { allow_nil: false, accept: [true, 'true', '1'] }, on: :create
 
-  # Those are honeypot/antispam fields
+  # Honeypot/anti-spam fields
   attr_accessor :registration_form_time, :website, :confirm_password
 
   validates_with RegistrationFormTimeValidator, on: :create
   validates :website, absence: true, on: :create
   validates :confirm_password, absence: true, on: :create
+  validate :validate_role_elevation
 
   scope :recent, -> { order(id: :desc) }
   scope :pending, -> { where(approved: false) }
@@ -107,12 +117,14 @@ class User < ApplicationRecord
   scope :inactive, -> { where(arel_table[:current_sign_in_at].lt(ACTIVE_DURATION.ago)) }
   scope :active, -> { confirmed.where(arel_table[:current_sign_in_at].gteq(ACTIVE_DURATION.ago)).joins(:account).where(accounts: { suspended_at: nil }) }
   scope :matches_email, ->(value) { where(arel_table[:email].matches("#{value}%")) }
-  scope :matches_ip, ->(value) { left_joins(:session_activations).where('users.current_sign_in_ip <<= ?', value).or(left_joins(:session_activations).where('users.sign_up_ip <<= ?', value)).or(left_joins(:session_activations).where('users.last_sign_in_ip <<= ?', value)).or(left_joins(:session_activations).where('session_activations.ip <<= ?', value)) }
+  scope :matches_ip, ->(value) { left_joins(:ips).where('user_ips.ip <<= ?', value).group('users.id') }
   scope :emailable, -> { confirmed.enabled.joins(:account).merge(Account.searchable) }
 
   before_validation :sanitize_languages
+  before_validation :sanitize_role
   before_create :set_approved
   after_commit :send_pending_devise_notifications
+  after_create_commit :trigger_webhooks
 
   # This avoids a deprecation warning from Rails 5.1
   # It seems possible that a future release of devise-two-factor will
@@ -121,15 +133,28 @@ class User < ApplicationRecord
 
   has_many :session_activations, dependent: :destroy
 
-  delegate :auto_play_gif, :default_sensitive, :unfollow_modal, :boost_modal, :delete_modal,
-           :reduce_motion, :system_font_ui, :noindex, :theme, :display_media, :hide_network,
-           :expand_spoilers, :default_language, :aggregate_reblogs, :show_application,
-           :advanced_layout, :use_blurhash, :use_pending_items, :trends, :crop_images,
-           :disable_swiping,
-           to: :settings, prefix: :setting, allow_nil: false
+  delegate :can?, to: :role
 
-  attr_reader :invite_code, :sign_in_token_attempt
-  attr_writer :external, :bypass_invite_request_check
+  attr_reader :invite_code
+  attr_writer :external, :bypass_invite_request_check, :current_account
+
+  def self.those_who_can(*any_of_privileges)
+    matching_role_ids = UserRole.that_can(*any_of_privileges).map(&:id)
+
+    if matching_role_ids.empty?
+      none
+    else
+      where(role_id: matching_role_ids)
+    end
+  end
+
+  def role
+    if role_id.nil?
+      UserRole.everyone
+    else
+      super
+    end
+  end
 
   def confirmed?
     confirmed_at.present?
@@ -151,16 +176,30 @@ class User < ApplicationRecord
     update!(disabled: false)
   end
 
+  def to_log_human_identifier
+    account.acct
+  end
+
+  def to_log_route_param
+    account_id
+  end
+
   def confirm
     new_user      = !confirmed?
     self.approved = true if open_registrations? && !sign_up_from_ip_requires_approval?
 
     super
 
-    if new_user && approved?
-      prepare_new_user!
-    elsif new_user
-      notify_staff_about_pending_account!
+    if new_user
+      # Avoid extremely unlikely race condition when approving and confirming
+      # the user at the same time
+      reload unless approved?
+
+      if approved?
+        prepare_new_user!
+      else
+        notify_staff_about_pending_account!
+      end
     end
   end
 
@@ -171,17 +210,21 @@ class User < ApplicationRecord
     skip_confirmation!
     save!
 
-    prepare_new_user! if new_user && approved?
+    if new_user
+      # Avoid extremely unlikely race condition when approving and confirming
+      # the user at the same time
+      reload unless approved?
+
+      prepare_new_user! if approved?
+    end
   end
 
-  def update_sign_in!(request, new_sign_in: false)
-    old_current, new_current = current_sign_in_at, Time.now.utc
+  def update_sign_in!(new_sign_in: false)
+    old_current = current_sign_in_at
+    new_current = Time.now.utc
+
     self.last_sign_in_at     = old_current || new_current
     self.current_sign_in_at  = new_current
-
-    old_current, new_current = current_sign_in_ip, request.remote_ip
-    self.last_sign_in_ip     = old_current || new_current
-    self.current_sign_in_ip  = new_current
 
     if new_sign_in
       self.sign_in_count ||= 0
@@ -200,27 +243,35 @@ class User < ApplicationRecord
     !account.memorial?
   end
 
-  def suspicious_sign_in?(ip)
-    !otp_required_for_login? && !skip_sign_in_token? && current_sign_in_at.present? && !recent_ip?(ip)
+  def functional?
+    functional_or_moved? && account.moved_to_account_id.nil?
   end
 
-  def functional?
-    confirmed? && approved? && !disabled? && !account.suspended? && !account.memorial? && account.moved_to_account_id.nil?
+  def functional_or_moved?
+    confirmed? && approved? && !disabled? && !account.suspended? && !account.memorial?
+  end
+
+  def unconfirmed?
+    !confirmed?
   end
 
   def unconfirmed_or_pending?
-    !(confirmed? && approved?)
+    unconfirmed? || pending?
   end
 
   def inactive_message
-    !approved? ? :pending : super
+    approved? ? super : :pending
   end
 
   def approve!
     return if approved?
 
     update!(approved: true)
-    prepare_new_user!
+
+    # Avoid extremely unlikely race condition when approving and confirming
+    # the user at the same time
+    reload unless confirmed?
+    prepare_new_user! if confirmed?
   end
 
   def otp_enabled?
@@ -245,61 +296,26 @@ class User < ApplicationRecord
     save!
   end
 
-  def setting_default_privacy
-    settings.default_privacy || (account.locked? ? 'private' : 'public')
-  end
+  def token_for_app(app)
+    return nil if app.nil? || app.owner != self
 
-  def allows_digest_emails?
-    settings.notification_emails['digest']
-  end
-
-  def allows_report_emails?
-    settings.notification_emails['report']
-  end
-
-  def allows_pending_account_emails?
-    settings.notification_emails['pending_account']
-  end
-
-  def allows_trending_tag_emails?
-    settings.notification_emails['trending_tag']
-  end
-
-  def hides_network?
-    @hides_network ||= settings.hide_network
-  end
-
-  def aggregates_reblogs?
-    @aggregates_reblogs ||= settings.aggregate_reblogs
-  end
-
-  def shows_application?
-    @shows_application ||= settings.show_application
-  end
-
-  # rubocop:disable Naming/MethodParameterName
-  def token_for_app(a)
-    return nil if a.nil? || a.owner != self
-    Doorkeeper::AccessToken.find_or_create_by(application_id: a.id, resource_owner_id: id) do |t|
-      t.scopes = a.scopes
-      t.expires_in = Doorkeeper.configuration.access_token_expires_in
+    Doorkeeper::AccessToken.find_or_create_by(application_id: app.id, resource_owner_id: id) do |t|
+      t.scopes            = app.scopes
+      t.expires_in        = Doorkeeper.configuration.access_token_expires_in
       t.use_refresh_token = Doorkeeper.configuration.refresh_token_enabled?
     end
   end
-  # rubocop:enable Naming/MethodParameterName
 
   def activate_session(request)
-    session_activations.activate(session_id: SecureRandom.hex,
-                                 user_agent: request.user_agent,
-                                 ip: request.remote_ip).session_id
+    session_activations.activate(
+      session_id: SecureRandom.hex,
+      user_agent: request.user_agent,
+      ip: request.remote_ip
+    ).session_id
   end
 
   def clear_other_sessions(id)
     session_activations.exclusive(id)
-  end
-
-  def session_active?(id)
-    session_activations.active? id
   end
 
   def web_push_subscription(session)
@@ -336,57 +352,27 @@ class User < ApplicationRecord
     super
   end
 
-  def reset_password!
-    # First, change password to something random, invalidate the remember-me token,
-    # and deactivate all sessions
-    transaction do
-      update(remember_token: nil, remember_created_at: nil, password: SecureRandom.hex)
-      session_activations.destroy_all
-    end
-
-    # Then, remove all authorized applications and connected push subscriptions
-    Doorkeeper::AccessGrant.by_resource_owner(self).in_batches.update_all(revoked_at: Time.now.utc)
+  def revoke_access!
+    Doorkeeper::AccessGrant.by_resource_owner(self).update_all(revoked_at: Time.now.utc)
 
     Doorkeeper::AccessToken.by_resource_owner(self).in_batches do |batch|
       batch.update_all(revoked_at: Time.now.utc)
       Web::PushSubscription.where(access_token_id: batch).delete_all
     end
+  end
+
+  def reset_password!
+    # First, change password to something random and deactivate all sessions
+    transaction do
+      update(password: SecureRandom.hex)
+      session_activations.destroy_all
+    end
+
+    # Then, remove all authorized applications and connected push subscriptions
+    revoke_access!
 
     # Finally, send a reset password prompt to the user
     send_reset_password_instructions
-  end
-
-  def show_all_media?
-    setting_display_media == 'show_all'
-  end
-
-  def hide_all_media?
-    setting_display_media == 'hide_all'
-  end
-
-  def recent_ips
-    @recent_ips ||= begin
-      arr = []
-
-      session_activations.each do |session_activation|
-        arr << [session_activation.updated_at, session_activation.ip]
-      end
-
-      arr << [current_sign_in_at, current_sign_in_ip] if current_sign_in_ip.present?
-      arr << [last_sign_in_at, last_sign_in_ip] if last_sign_in_ip.present?
-      arr << [created_at, sign_up_ip] if sign_up_ip.present?
-
-      arr.sort_by { |pair| pair.first || Time.now.utc }.uniq(&:last).reverse!
-    end
-  end
-
-  def sign_in_token_expired?
-    sign_in_token_sent_at.nil? || sign_in_token_sent_at < 5.minutes.ago
-  end
-
-  def generate_sign_in_token
-    self.sign_in_token         = Devise.friendly_token(6)
-    self.sign_in_token_sent_at = Time.now.utc
   end
 
   protected
@@ -409,10 +395,6 @@ class User < ApplicationRecord
   end
 
   private
-
-  def recent_ip?(ip)
-    recent_ips.any? { |(_, recent_ip)| recent_ip == ip }
-  end
 
   def send_pending_devise_notifications
     pending_devise_notifications.each do |notification, args, kwargs|
@@ -461,30 +443,42 @@ class User < ApplicationRecord
 
   def sanitize_languages
     return if chosen_languages.nil?
-    chosen_languages.reject!(&:blank?)
+
+    chosen_languages.compact_blank!
     self.chosen_languages = nil if chosen_languages.empty?
+  end
+
+  def sanitize_role
+    return if role.nil?
+
+    self.role = nil if role.everyone?
   end
 
   def prepare_new_user!
     BootstrapTimelineWorker.perform_async(account_id)
     ActivityTracker.increment('activity:accounts:local')
+    ActivityTracker.record('activity:logins', id)
     UserMailer.welcome(self).deliver_later
+    TriggerWebhookWorker.perform_async('account.approved', 'Account', account_id)
   end
 
   def prepare_returning_user!
+    return unless confirmed?
+
     ActivityTracker.record('activity:logins', id)
     regenerate_feed! if needs_feed_update?
   end
 
   def notify_staff_about_pending_account!
-    User.staff.includes(:account).find_each do |u|
+    User.those_who_can(:manage_users).includes(:account).find_each do |u|
       next unless u.allows_pending_account_emails?
+
       AdminMailer.new_pending_account(u.account, self).deliver_later
     end
   end
 
   def regenerate_feed!
-    RegenerationWorker.perform_async(account_id) if Redis.current.set("account:#{account_id}:regeneration", true, nx: true, ex: 1.day.seconds)
+    RegenerationWorker.perform_async(account_id) if redis.set("account:#{account_id}:regeneration", true, nx: true, ex: 1.day.seconds)
   end
 
   def needs_feed_update?
@@ -495,7 +489,15 @@ class User < ApplicationRecord
     email_changed? && !external? && !(Rails.env.test? || Rails.env.development?)
   end
 
+  def validate_role_elevation
+    errors.add(:role_id, :elevated) if defined?(@current_account) && role&.overrides?(@current_account&.user_role)
+  end
+
   def invite_text_required?
-    Setting.require_invite_text && !invited? && !external? && !bypass_invite_request_check?
+    Setting.require_invite_text && !open_registrations? && !invited? && !external? && !bypass_invite_request_check?
+  end
+
+  def trigger_webhooks
+    TriggerWebhookWorker.perform_async('account.created', 'Account', account_id)
   end
 end

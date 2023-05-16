@@ -3,20 +3,35 @@
 require 'rails_helper'
 
 describe SettingsHelper do
-  describe 'the HUMAN_LOCALES constant' do
-    it 'includes all I18n locales' do
-      options = I18n.available_locales
+  describe 'session_device_icon' do
+    context 'with a mobile device' do
+      let(:session) { SessionActivation.new(user_agent: 'Mozilla/5.0 (iPhone)') }
 
-      expect(described_class::HUMAN_LOCALES.keys).to include(*options)
+      it 'detects the device and returns a descriptive string' do
+        result = helper.session_device_icon(session)
+
+        expect(result).to eq('mobile')
+      end
     end
-  end
 
-  describe 'human_locale' do
-    it 'finds the human readable local description from a key' do
-      # Ensure the value is as we expect
-      expect(described_class::HUMAN_LOCALES[:en]).to eq('English')
+    context 'with a tablet device' do
+      let(:session) { SessionActivation.new(user_agent: 'Mozilla/5.0 (iPad)') }
 
-      expect(helper.human_locale(:en)).to eq('English')
+      it 'detects the device and returns a descriptive string' do
+        result = helper.session_device_icon(session)
+
+        expect(result).to eq('tablet')
+      end
+    end
+
+    context 'with a desktop device' do
+      let(:session) { SessionActivation.new(user_agent: 'Mozilla/5.0 (Macintosh)') }
+
+      it 'detects the device and returns a descriptive string' do
+        result = helper.session_device_icon(session)
+
+        expect(result).to eq('desktop')
+      end
     end
   end
 end

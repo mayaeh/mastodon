@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: account_conversations
@@ -14,13 +15,14 @@
 #
 
 class AccountConversation < ApplicationRecord
+  include Redisable
+
+  before_validation :set_last_status
   after_commit :push_to_streaming_api
 
   belongs_to :account
   belongs_to :conversation
   belongs_to :last_status, class_name: 'Status'
-
-  before_validation :set_last_status
 
   def participant_account_ids=(arr)
     self[:participant_account_ids] = arr.sort
@@ -105,11 +107,12 @@ class AccountConversation < ApplicationRecord
 
   def push_to_streaming_api
     return if destroyed? || !subscribed_to_timeline?
+
     PushConversationWorker.perform_async(id)
   end
 
   def subscribed_to_timeline?
-    Redis.current.exists?("subscribed:#{streaming_channel}")
+    redis.exists?("subscribed:#{streaming_channel}")
   end
 
   def streaming_channel

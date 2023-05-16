@@ -13,6 +13,7 @@ require_relative 'mastodon/preview_cards_cli'
 require_relative 'mastodon/cache_cli'
 require_relative 'mastodon/upgrade_cli'
 require_relative 'mastodon/email_domain_blocks_cli'
+require_relative 'mastodon/canonical_email_blocks_cli'
 require_relative 'mastodon/ip_blocks_cli'
 require_relative 'mastodon/maintenance_cli'
 require_relative 'mastodon/version'
@@ -61,6 +62,9 @@ module Mastodon
 
     desc 'ip_blocks SUBCOMMAND ...ARGS', 'Manage IP blocks'
     subcommand 'ip_blocks', Mastodon::IpBlocksCLI
+
+    desc 'canonical_email_blocks SUBCOMMAND ...ARGS', 'Manage canonical e-mail blocks'
+    subcommand 'canonical_email_blocks', Mastodon::CanonicalEmailBlocksCLI
 
     desc 'maintenance SUBCOMMAND ...ARGS', 'Various maintenance utilities'
     subcommand 'maintenance', Mastodon::MaintenanceCLI
@@ -117,7 +121,7 @@ module Mastodon
 
       prompt.warn('Do NOT interrupt this process...')
 
-      delete_account = ->(account) do
+      delete_account = lambda do |account|
         payload = ActiveModelSerializers::SerializableResource.new(
           account,
           serializer: ActivityPub::DeleteActorSerializer,
@@ -127,7 +131,7 @@ module Mastodon
         json = Oj.dump(ActivityPub::LinkedDataSignature.new(payload).sign!(account))
 
         unless options[:dry_run]
-          ActivityPub::DeliveryWorker.push_bulk(inboxes) do |inbox_url|
+          ActivityPub::DeliveryWorker.push_bulk(inboxes, limit: 1_000) do |inbox_url|
             [json, account.id, inbox_url]
           end
 

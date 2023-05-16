@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Api::V1::Timelines::ListController do
   render_views
 
-  let(:user) { Fabricate(:user, account: Fabricate(:account, username: 'alice')) }
+  let(:user) { Fabricate(:user) }
   let(:list) { Fabricate(:list, account: user.account) }
 
   before do
@@ -30,13 +30,13 @@ describe Api::V1::Timelines::ListController do
   end
 
   context 'with the wrong user context' do
-    let(:other_user) { Fabricate(:user, account: Fabricate(:account, username: 'bob')) }
+    let(:other_user) { Fabricate(:user) }
     let(:token)      { Fabricate(:accessible_access_token, resource_owner_id: other_user.id, scopes: 'read') }
 
     describe 'GET #show' do
       it 'returns http not found' do
         get :show, params: { id: list.id }
-        expect(response).to have_http_status(:not_found)
+        expect(response).to have_http_status(404)
       end
     end
   end
@@ -48,7 +48,7 @@ describe Api::V1::Timelines::ListController do
       it 'returns http unprocessable entity' do
         get :show, params: { id: list.id }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(422)
         expect(response.headers['Link']).to be_nil
       end
     end

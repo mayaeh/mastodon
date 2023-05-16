@@ -22,12 +22,10 @@ require 'mail'
 Bundler.require(*Rails.groups)
 
 require_relative '../lib/exceptions'
-require_relative '../lib/enumerable'
 require_relative '../lib/sanitize_ext/sanitize_config'
 require_relative '../lib/redis/namespace_extensions'
 require_relative '../lib/paperclip/url_generator_extensions'
 require_relative '../lib/paperclip/attachment_extensions'
-require_relative '../lib/paperclip/storage_extensions'
 require_relative '../lib/paperclip/lazy_thumbnail'
 require_relative '../lib/paperclip/gif_transcoder'
 require_relative '../lib/paperclip/transcoder'
@@ -36,15 +34,19 @@ require_relative '../lib/paperclip/response_with_limit_adapter'
 require_relative '../lib/terrapin/multi_pipe_extensions'
 require_relative '../lib/mastodon/snowflake'
 require_relative '../lib/mastodon/version'
+require_relative '../lib/mastodon/rack_middleware'
+require_relative '../lib/public_file_server_middleware'
 require_relative '../lib/devise/two_factor_ldap_authenticatable'
 require_relative '../lib/devise/two_factor_pam_authenticatable'
-require_relative '../lib/chewy/strategy/custom_sidekiq'
+require_relative '../lib/chewy/strategy/mastodon'
+require_relative '../lib/chewy/strategy/bypass_with_warning'
 require_relative '../lib/webpacker/manifest_extensions'
 require_relative '../lib/webpacker/helper_extensions'
-require_relative '../lib/action_dispatch/cookie_jar_extensions'
 require_relative '../lib/rails/engine_extensions'
+require_relative '../lib/action_controller/conditional_get_extensions'
 require_relative '../lib/active_record/database_tasks_extensions'
 require_relative '../lib/active_record/batches'
+require_relative '../lib/simple_navigation/item_extensions'
 
 Dotenv::Railtie.load
 
@@ -70,12 +72,16 @@ module Mastodon
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.available_locales = [
       :af,
+      :an,
       :ar,
       :ast,
+      :be,
       :bg,
       :bn,
       :br,
+      :bs,
       :ca,
+      :ckb,
       :co,
       :cs,
       :cy,
@@ -83,6 +89,7 @@ module Mastodon
       :de,
       :el,
       :en,
+      :'en-GB',
       :eo,
       :es,
       :'es-AR',
@@ -91,7 +98,10 @@ module Mastodon
       :eu,
       :fa,
       :fi,
+      :fo,
       :fr,
+      :'fr-QC',
+      :fy,
       :ga,
       :gd,
       :gl,
@@ -101,6 +111,7 @@ module Mastodon
       :hu,
       :hy,
       :id,
+      :ig,
       :io,
       :is,
       :it,
@@ -108,20 +119,23 @@ module Mastodon
       :ka,
       :kab,
       :kk,
-      :kmr,
       :kn,
       :ko,
       :ku,
+      :kw,
+      :la,
       :lt,
       :lv,
       :mk,
       :ml,
       :mr,
       :ms,
+      :my,
       :nl,
       :nn,
       :no,
       :oc,
+      :pa,
       :pl,
       :'pt-BR',
       :'pt-PT',
@@ -129,6 +143,7 @@ module Mastodon
       :ru,
       :sa,
       :sc,
+      :sco,
       :si,
       :sk,
       :sl,
@@ -136,10 +151,13 @@ module Mastodon
       :sr,
       :'sr-Latn',
       :sv,
+      :szl,
       :ta,
       :te,
       :th,
       :tr,
+      :tt,
+      :ug,
       :uk,
       :ur,
       :vi,
@@ -149,19 +167,28 @@ module Mastodon
       :'zh-TW',
     ]
 
-    config.i18n.default_locale = ENV['DEFAULT_LOCALE']&.to_sym
+    config.i18n.default_locale = begin
+      custom_default_locale = ENV['DEFAULT_LOCALE']&.to_sym
 
-    unless config.i18n.available_locales.include?(config.i18n.default_locale)
-      config.i18n.default_locale = :en
+      if config.i18n.available_locales.include?(custom_default_locale)
+        custom_default_locale
+      else
+        :en
+      end
     end
 
     # config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     # config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
 
     config.active_job.queue_adapter = :sidekiq
+    config.action_mailer.deliver_later_queue_name = 'mailers'
 
+    # We use our own middleware for this
+    config.public_file_server.enabled = false
+
+    config.middleware.use PublicFileServerMiddleware if Rails.env.development? || ENV['RAILS_SERVE_STATIC_FILES'] == 'true'
     config.middleware.use Rack::Attack
-    config.middleware.use Rack::Deflater
+    config.middleware.use Mastodon::RackMiddleware
 
     config.to_prepare do
       Doorkeeper::AuthorizationsController.layout 'modal'
@@ -169,7 +196,6 @@ module Mastodon
       Doorkeeper::Application.send :include, ApplicationExtension
       Doorkeeper::AccessToken.send :include, AccessTokenExtension
       Devise::FailureApp.send :include, AbstractController::Callbacks
-      Devise::FailureApp.send :include, HttpAcceptLanguage::EasyAccess
       Devise::FailureApp.send :include, Localized
     end
   end

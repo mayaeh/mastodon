@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Status, type: :model do
+RSpec.describe Status do
+  subject { Fabricate(:status, account: alice) }
+
   let(:alice) { Fabricate(:account, username: 'alice') }
   let(:bob)   { Fabricate(:account, username: 'bob') }
   let(:other) { Fabricate(:status, account: bob, text: 'Skulls for the skull god! The enemy\'s gates are sideways!') }
-
-  subject { Fabricate(:status, account: alice) }
 
   describe '#local?' do
     it 'returns true when no remote URI is set' do
@@ -47,22 +49,22 @@ RSpec.describe Status, type: :model do
   end
 
   describe '#verb' do
-    context 'if destroyed?' do
+    context 'when destroyed?' do
       it 'returns :delete' do
         subject.destroy!
         expect(subject.verb).to be :delete
       end
     end
 
-    context 'unless destroyed?' do
-      context 'if reblog?' do
+    context 'when not destroyed?' do
+      context 'when reblog?' do
         it 'returns :share' do
           subject.reblog = other
           expect(subject.verb).to be :share
         end
       end
 
-      context 'unless reblog?' do
+      context 'when not reblog?' do
         it 'returns :post' do
           subject.reblog = nil
           expect(subject.verb).to be :post
@@ -83,28 +85,28 @@ RSpec.describe Status, type: :model do
   end
 
   describe '#hidden?' do
-    context 'if private_visibility?' do
+    context 'when private_visibility?' do
       it 'returns true' do
         subject.visibility = :private
         expect(subject.hidden?).to be true
       end
     end
 
-    context 'if direct_visibility?' do
+    context 'when direct_visibility?' do
       it 'returns true' do
         subject.visibility = :direct
         expect(subject.hidden?).to be true
       end
     end
 
-    context 'if public_visibility?' do
+    context 'when public_visibility?' do
       it 'returns false' do
         subject.visibility = :public
         expect(subject.hidden?).to be false
       end
     end
 
-    context 'if unlisted_visibility?' do
+    context 'when unlisted_visibility?' do
       it 'returns false' do
         subject.visibility = :unlisted
         expect(subject.hidden?).to be false
@@ -204,10 +206,10 @@ RSpec.describe Status, type: :model do
   end
 
   describe '.mutes_map' do
+    subject { Status.mutes_map([status.conversation.id], account) }
+
     let(:status)  { Fabricate(:status) }
     let(:account) { Fabricate(:account) }
-
-    subject { Status.mutes_map([status.conversation.id], account) }
 
     it 'returns a hash' do
       expect(subject).to be_a Hash
@@ -220,10 +222,10 @@ RSpec.describe Status, type: :model do
   end
 
   describe '.favourites_map' do
+    subject { Status.favourites_map([status], account) }
+
     let(:status)  { Fabricate(:status) }
     let(:account) { Fabricate(:account) }
-
-    subject { Status.favourites_map([status], account) }
 
     it 'returns a hash' do
       expect(subject).to be_a Hash
@@ -236,10 +238,10 @@ RSpec.describe Status, type: :model do
   end
 
   describe '.reblogs_map' do
+    subject { Status.reblogs_map([status], account) }
+
     let(:status)  { Fabricate(:status) }
     let(:account) { Fabricate(:account) }
-
-    subject { Status.reblogs_map([status], account) }
 
     it 'returns a hash' do
       expect(subject).to be_a Hash
@@ -251,72 +253,84 @@ RSpec.describe Status, type: :model do
     end
   end
 
-  describe '.in_chosen_languages' do
-    context 'for accounts with language filters' do
-      let(:user) { Fabricate(:user, chosen_languages: ['en']) }
+  describe '.tagged_with' do
+    let(:tag1)     { Fabricate(:tag) }
+    let(:tag2)     { Fabricate(:tag) }
+    let(:tag3)     { Fabricate(:tag) }
+    let!(:status1) { Fabricate(:status, tags: [tag1]) }
+    let!(:status2) { Fabricate(:status, tags: [tag2]) }
+    let!(:status3) { Fabricate(:status, tags: [tag3]) }
+    let!(:status4) { Fabricate(:status, tags: []) }
+    let!(:status5) { Fabricate(:status, tags: [tag1, tag2, tag3]) }
 
-      it 'does not include statuses in not in chosen languages' do
-        status = Fabricate(:status, language: 'de')
-        expect(Status.in_chosen_languages(user.account)).not_to include status
+    context 'when given one tag' do
+      it 'returns the expected statuses' do
+        expect(Status.tagged_with([tag1.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status1.id, status5.id)
+        expect(Status.tagged_with([tag2.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status2.id, status5.id)
+        expect(Status.tagged_with([tag3.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status3.id, status5.id)
       end
+    end
 
-      it 'includes status with unknown language' do
-        status = Fabricate(:status, language: nil)
-        expect(Status.in_chosen_languages(user.account)).to include status
+    context 'when given multiple tags' do
+      it 'returns the expected statuses' do
+        expect(Status.tagged_with([tag1.id, tag2.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status1.id, status2.id, status5.id)
+        expect(Status.tagged_with([tag1.id, tag3.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status1.id, status3.id, status5.id)
+        expect(Status.tagged_with([tag2.id, tag3.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status2.id, status3.id, status5.id)
       end
     end
   end
 
-  describe '.permitted_for' do
-    subject { described_class.permitted_for(target_account, account).pluck(:visibility) }
+  describe '.tagged_with_all' do
+    let(:tag1)     { Fabricate(:tag) }
+    let(:tag2)     { Fabricate(:tag) }
+    let(:tag3)     { Fabricate(:tag) }
+    let!(:status1) { Fabricate(:status, tags: [tag1]) }
+    let!(:status2) { Fabricate(:status, tags: [tag2]) }
+    let!(:status3) { Fabricate(:status, tags: [tag3]) }
+    let!(:status4) { Fabricate(:status, tags: []) }
+    let!(:status5) { Fabricate(:status, tags: [tag1, tag2]) }
 
-    let(:target_account) { alice }
-    let(:account) { bob }
-    let!(:public_status) { Fabricate(:status, account: target_account, visibility: 'public') }
-    let!(:unlisted_status) { Fabricate(:status, account: target_account, visibility: 'unlisted') }
-    let!(:private_status) { Fabricate(:status, account: target_account, visibility: 'private') }
-
-    let!(:direct_status) do
-      Fabricate(:status, account: target_account, visibility: 'direct').tap do |status|
-        Fabricate(:mention, status: status, account: account)
+    context 'when given one tag' do
+      it 'returns the expected statuses' do
+        expect(Status.tagged_with_all([tag1.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status1.id, status5.id)
+        expect(Status.tagged_with_all([tag2.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status2.id, status5.id)
+        expect(Status.tagged_with_all([tag3.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status3.id)
       end
     end
 
-    let!(:other_direct_status) do
-      Fabricate(:status, account: target_account, visibility: 'direct').tap do |status|
-        Fabricate(:mention, status: status)
+    context 'when given multiple tags' do
+      it 'returns the expected statuses' do
+        expect(Status.tagged_with_all([tag1.id, tag2.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status5.id)
+        expect(Status.tagged_with_all([tag1.id, tag3.id]).reorder(:id).pluck(:id).uniq).to eq []
+        expect(Status.tagged_with_all([tag2.id, tag3.id]).reorder(:id).pluck(:id).uniq).to eq []
+      end
+    end
+  end
+
+  describe '.tagged_with_none' do
+    let(:tag1)     { Fabricate(:tag) }
+    let(:tag2)     { Fabricate(:tag) }
+    let(:tag3)     { Fabricate(:tag) }
+    let!(:status1) { Fabricate(:status, tags: [tag1]) }
+    let!(:status2) { Fabricate(:status, tags: [tag2]) }
+    let!(:status3) { Fabricate(:status, tags: [tag3]) }
+    let!(:status4) { Fabricate(:status, tags: []) }
+    let!(:status5) { Fabricate(:status, tags: [tag1, tag2, tag3]) }
+
+    context 'when given one tag' do
+      it 'returns the expected statuses' do
+        expect(Status.tagged_with_none([tag1.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status2.id, status3.id, status4.id)
+        expect(Status.tagged_with_none([tag2.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status1.id, status3.id, status4.id)
+        expect(Status.tagged_with_none([tag3.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status1.id, status2.id, status4.id)
       end
     end
 
-    context 'given nil' do
-      let(:account) { nil }
-      let(:direct_status) { nil }
-      it { is_expected.to eq(%w(unlisted public)) }
-    end
-
-    context 'given blocked account' do
-      before do
-        target_account.block!(account)
+    context 'when given multiple tags' do
+      it 'returns the expected statuses' do
+        expect(Status.tagged_with_none([tag1.id, tag2.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status3.id, status4.id)
+        expect(Status.tagged_with_none([tag1.id, tag3.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status2.id, status4.id)
+        expect(Status.tagged_with_none([tag2.id, tag3.id]).reorder(:id).pluck(:id).uniq).to contain_exactly(status1.id, status4.id)
       end
-
-      it { is_expected.to be_empty }
-    end
-
-    context 'given same account' do
-      let(:account) { target_account }
-      it { is_expected.to eq(%w(direct direct private unlisted public)) }
-    end
-
-    context 'given followed account' do
-      before do
-        account.follow!(target_account)
-      end
-
-      it { is_expected.to eq(%w(direct private unlisted public)) }
-    end
-
-    context 'given unfollowed account' do
-      it { is_expected.to eq(%w(direct unlisted public)) }
     end
   end
 

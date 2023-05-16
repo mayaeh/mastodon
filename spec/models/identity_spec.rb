@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Identity, type: :model do
+RSpec.describe Identity do
   describe '.find_for_oauth' do
     let(:auth) { Fabricate(:identity, user: Fabricate(:user)) }
 

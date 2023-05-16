@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Api::V1::Accounts::RelationshipsController do
   render_views
 
-  let(:user)  { Fabricate(:user, account: Fabricate(:account, username: 'alice')) }
+  let(:user)  { Fabricate(:user) }
   let(:token) { Fabricate(:accessible_access_token, resource_owner_id: user.id, scopes: 'read:follows') }
 
   before do
@@ -11,15 +13,15 @@ describe Api::V1::Accounts::RelationshipsController do
   end
 
   describe 'GET #index' do
-    let(:simon) { Fabricate(:user, email: 'simon@example.com', account: Fabricate(:account, username: 'simon')).account }
-    let(:lewis) { Fabricate(:user, email: 'lewis@example.com', account: Fabricate(:account, username: 'lewis')).account }
+    let(:simon) { Fabricate(:account) }
+    let(:lewis) { Fabricate(:account) }
 
     before do
       user.account.follow!(simon)
       lewis.follow!(user.account)
     end
 
-    context 'provided only one ID' do
+    context 'when provided only one ID' do
       before do
         get :index, params: { id: simon.id }
       end
@@ -37,7 +39,7 @@ describe Api::V1::Accounts::RelationshipsController do
       end
     end
 
-    context 'provided multiple IDs' do
+    context 'when provided multiple IDs' do
       before do
         get :index, params: { id: [simon.id, lewis.id] }
       end

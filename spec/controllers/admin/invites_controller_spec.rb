@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Admin::InvitesController do
   render_views
 
-  let(:user) { Fabricate(:user, admin: true) }
+  let(:user) { Fabricate(:user, role: UserRole.find_by(name: 'Admin')) }
 
   before do
     sign_in user, scope: :user
@@ -33,9 +33,9 @@ describe Admin::InvitesController do
   end
 
   describe 'DELETE #destroy' do
-    let!(:invite) { Fabricate(:invite, expires_at: nil) }
-
     subject { delete :destroy, params: { id: invite.id } }
+
+    let!(:invite) { Fabricate(:invite, expires_at: nil) }
 
     it 'expires invite' do
       expect(subject).to redirect_to admin_invites_path
