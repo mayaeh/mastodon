@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import { List as ImmutableList } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { FormattedMessage } from 'react-intl';
 import { fetchAccountIdentityProofs } from '../../actions/identity_proofs';
 import { connect } from 'react-redux';
 
