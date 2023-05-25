@@ -1,16 +1,17 @@
 // @ts-check
 
+const fs = require('fs');
+const http = require('http');
+const url = require('url');
+
 const dotenv = require('dotenv');
 const express = require('express');
-const http = require('http');
-const redis = require('redis');
-const pg = require('pg');
-const log = require('npmlog');
-const url = require('url');
-const uuid = require('uuid');
-const fs = require('fs');
-const WebSocket = require('ws');
 const { JSDOM } = require('jsdom');
+const log = require('npmlog');
+const pg = require('pg');
+const redis = require('redis');
+const uuid = require('uuid');
+const WebSocket = require('ws');
 
 const environment = process.env.NODE_ENV || 'development';
 

@@ -1,9 +1,6 @@
 import classNames from 'classnames';
-import React from 'react';
-import ImmutablePureComponent from 'react-immutable-pure-component';
 import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { ImmutableHashtag as Hashtag } from 'mastodon/components/hashtag';
+
 import { FormattedMessage, defineMessages } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Icon } from 'mastodon/components/icon';
@@ -11,6 +8,11 @@ import { Icon } from 'mastodon/components/icon';
 const messages = defineMessages({
   refresh_trends: { id: 'trends.refresh', defaultMessage: 'Refresh' },
 });
+
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
+
+import { ImmutableHashtag as Hashtag } from 'mastodon/components/hashtag';
 
 export default class Trends extends ImmutablePureComponent {
 
