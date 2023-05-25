@@ -1,13 +1,18 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { IconButton } from '../../../components/icon_button';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import DropdownMenuContainer from '../../../containers/dropdown_menu_container';
+import { PureComponent } from 'react';
+
 import { defineMessages, injectIntl } from 'react-intl';
-import { me } from '../../../initial_state';
+
 import classNames from 'classnames';
+
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import { connect } from 'react-redux';
+
 import { PERMISSION_MANAGE_USERS, PERMISSION_MANAGE_FEDERATION } from 'mastodon/permissions';
+
+import { IconButton } from '../../../components/icon_button';
+import DropdownMenuContainer from '../../../containers/dropdown_menu_container';
+import { me } from '../../../initial_state';
 
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
@@ -33,9 +38,9 @@ const messages = defineMessages({
   unpin: { id: 'status.unpin', defaultMessage: 'Unpin from profile' },
   embed: { id: 'status.embed', defaultMessage: 'Embed' },
   admin_account: { id: 'status.admin_account', defaultMessage: 'Open moderation interface for @{name}' },
-  admin_status: { id: 'status.admin_status', defaultMessage: 'Open this status in the moderation interface' },
+  admin_status: { id: 'status.admin_status', defaultMessage: 'Open this post in the moderation interface' },
   admin_domain: { id: 'status.admin_domain', defaultMessage: 'Open moderation interface for {domain}' },
-  copy: { id: 'status.copy', defaultMessage: 'Copy link to status' },
+  copy: { id: 'status.copy', defaultMessage: 'Copy link to post' },
   blockDomain: { id: 'account.block_domain', defaultMessage: 'Block domain {domain}' },
   unblockDomain: { id: 'account.unblock_domain', defaultMessage: 'Unblock domain {domain}' },
   unmute: { id: 'account.unmute', defaultMessage: 'Unmute @{name}' },
@@ -47,7 +52,7 @@ const mapStateToProps = (state, { status }) => ({
   relationship: state.getIn(['relationships', status.getIn(['account', 'id'])]),
 });
 
-class ActionBar extends React.PureComponent {
+class ActionBar extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
@@ -164,7 +169,6 @@ class ActionBar extends React.PureComponent {
 
   handleShare = () => {
     navigator.share({
-      text: this.props.status.get('search_index'),
       url: this.props.status.get('url'),
     });
   };
@@ -197,6 +201,11 @@ class ActionBar extends React.PureComponent {
       }
 
       menu.push({ text: intl.formatMessage(messages.copy), action: this.handleCopy });
+
+      if ('share' in navigator) {
+        menu.push({ text: intl.formatMessage(messages.share), action: this.handleShare });
+      }
+
       menu.push({ text: intl.formatMessage(messages.embed), action: this.handleEmbed });
       menu.push(null);
     } else {
@@ -264,10 +273,6 @@ class ActionBar extends React.PureComponent {
       }
     }
 
-    const shareButton = ('share' in navigator) && publicStatus && (
-      <div className='detailed-status__button'><IconButton title={intl.formatMessage(messages.share)} icon='share-alt' onClick={this.handleShare} /></div>
-    );
-
     let replyIcon;
     if (status.get('in_reply_to_id', null) === null) {
       replyIcon = 'reply';
@@ -286,8 +291,6 @@ class ActionBar extends React.PureComponent {
         <div className='detailed-status__button'><IconButton disabled={!publicStatus} active={status.get('reblogged')} title={!publicStatus ? intl.formatMessage(messages.cannot_reblog) : intl.formatMessage(messages.reblog)} icon={reblogIcon} onClick={this.handleReblogClick} /></div>
         <div className='detailed-status__button'><IconButton className='star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} /></div>
         <div className='detailed-status__button'><IconButton className='bookmark-icon' disabled={!signedIn} active={status.get('bookmarked')} title={intl.formatMessage(messages.bookmark)} icon='bookmark' onClick={this.handleBookmarkClick} /></div>
-
-        {shareButton}
 
         <div className='detailed-status__action-bar-dropdown'>
           <DropdownMenuContainer size={18} icon='ellipsis-h' disabled={!signedIn} status={status} items={menu} direction='left' title={intl.formatMessage(messages.more)} />
