@@ -131,6 +131,7 @@ group :test do
 
   # Test harness fo rack components
   gem 'rack-test', '~> 2.1'
+  gem 'rspec_junit_formatter', '~> 0.6'
 
   # Coverage formatter for RSpec test if DISABLE_SIMPLECOV is false
   gem 'simplecov', '~> 0.22', require: false
