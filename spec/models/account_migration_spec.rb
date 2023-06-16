@@ -7,7 +7,7 @@ RSpec.describe AccountMigration do
     let(:source_account) { Fabricate(:account) }
     let(:target_acct)    { target_account.acct }
 
-    let(:subject) { AccountMigration.new(account: source_account, acct: target_acct) }
+    let(:subject) { described_class.new(account: source_account, acct: target_acct) }
 
     context 'with valid properties' do
       let(:target_account) { Fabricate(:account, username: 'target', domain: 'remote.org') }
@@ -25,7 +25,7 @@ RSpec.describe AccountMigration do
       end
     end
 
-    context 'with unresolveable account' do
+    context 'with unresolvable account' do
       let(:target_acct) { 'target@remote' }
 
       before do
