@@ -171,7 +171,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/react-select": "^5.0.1",
     "@types/react-sparklines": "^1.7.2",
-    "@types/react-swipeable-views": "^0.13.1",
+    "@types/react-swipeable-views": "^0.13.2",
     "@types/react-test-renderer": "^18.0.0",
     "@types/react-textarea-autosize": "^8.0.0",
     "@types/react-toggle": "^4.0.3",
