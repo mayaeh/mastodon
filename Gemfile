@@ -151,7 +151,7 @@ group :development do
   gem 'annotate', '~> 3.2'
 
   # Enhanced error message pages for development
-  gem 'better_errors', '~> 2.9'
+  gem 'better_errors', '~> 2.10'
   gem 'binding_of_caller', '~> 1.0'
 
   # Preview mail in the browser
