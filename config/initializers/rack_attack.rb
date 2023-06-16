@@ -78,13 +78,8 @@ class Rack::Attack
     req.throttleable_remote_ip if req.api_request? && req.unauthenticated?
   end
 
-<<<<<<< HEAD
   throttle('throttle_api_media', limit: 100, period: 30.minutes) do |req|
-    req.authenticated_user_id if req.post? && req.path.match?(/\A\/api\/v\d+\/media\z/i)
-=======
-  throttle('throttle_api_media', limit: 30, period: 30.minutes) do |req|
     req.authenticated_user_id if req.post? && req.path.match?(%r{\A/api/v\d+/media\z}i)
->>>>>>> main
   end
 
   throttle('throttle_media_proxy', limit: 100, period: 10.minutes) do |req|
