@@ -138,6 +138,7 @@ en:
         position: Higher role decides conflict resolution in certain situations. Certain actions can only be performed on roles with a lower priority
       webhook:
         events: Select events to send
+        template: Compose your own JSON payload using variable interpolation. Leave blank for default JSON.
         url: Where events will be sent to
     labels:
       account:
@@ -174,7 +175,7 @@ en:
       defaults:
         autofollow: Invite to follow your account
         avatar: Avatar
-        bot: This is a bot account
+        bot: This is an automated account
         chosen_languages: Filter languages
         confirm_new_password: Confirm new password
         confirm_password: Confirm password
@@ -308,6 +309,7 @@ en:
         usable: Allow posts to use this hashtag
       user:
         role: Role
+        time_zone: Time zone
       user_role:
         color: Badge color
         highlighted: Display role as badge on user profiles
@@ -316,6 +318,7 @@ en:
         position: Priority
       webhook:
         events: Enabled events
+        template: Payload template
         url: Endpoint URL
     'no': 'No'
     not_recommended: Not recommended
