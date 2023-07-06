@@ -2,18 +2,6 @@
 // Sass color functions, "darken" and "lighten" are automatically replaced.
 
 // admin.scss
-.admin-wrapper {
-  .sidebar {
-    .simple-navigation-active-leaf a {
-      background-color: darken($ui-highlight-color, 2%);
-
-      &:hover {
-        background-color: $ui-highlight-color;
-      }
-    }
-  }
-}
-
 .admin-account-bio {
   a {
     color: $highlight-text-color;
@@ -22,12 +10,12 @@
 
 // components.scss
 .button {
-  background-color: darken($ui-highlight-color, 2%);
+  background-color: $ui-button-background-color;
 
   &:active,
   &:focus,
   &:hover {
-    background-color: $ui-highlight-color;
+    background-color: $ui-button-focus-background-color;
   }
 }
 
@@ -96,12 +84,12 @@
 // dashboard.scss
 .dashboard {
   &__quick-access {
-    background: darken($ui-highlight-color, 2%);
+    background: $ui-button-background-color;
 
     &:active,
     &:focus,
     &:hover {
-      background-color: $ui-highlight-color;
+      background-color: $ui-button-focus-background-color;
     }
   }
 }
@@ -111,23 +99,24 @@
   button,
   .button,
   .block-button {
-    background: darken($ui-highlight-color, 2%);
+    background: $ui-button-background-color;
+    color: $ui-button-color;
 
     &:active,
     &:focus,
     &:hover {
-      background-color: $ui-highlight-color;
+      background-color: $ui-button-focus-background-color;
     }
   }
 }
 
 // statuses.scss
 .button.logo-button {
-  background: $ui-highlight-color;
+  background: darken($ui-highlight-color, 2%);
 
   &:active,
   &:focus,
   &:hover {
-    background: lighten($ui-highlight-color, 10%);
+    background: $ui-highlight-color;
   }
 }
