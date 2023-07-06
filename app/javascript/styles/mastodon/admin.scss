@@ -128,7 +128,6 @@ $content-width: 840px;
         }
 
         &.selected {
-          background: darken($ui-base-color, 2%);
           border-radius: 4px 0 0;
         }
       }
@@ -149,10 +148,6 @@ $content-width: 840px;
         background-color: $ui-highlight-color;
         border-bottom: 0;
         border-radius: 0;
-
-        &:hover {
-          background-color: lighten($ui-highlight-color, 5%);
-        }
       }
     }
 

@@ -545,15 +545,12 @@ code {
     }
 
     &.negative {
-      background: $error-value-color;
+      background: $ui-button-destructive-background-color;
 
-      &:hover {
-        background-color: lighten($error-value-color, 5%);
-      }
-
+      &:hover,
       &:active,
       &:focus {
-        background-color: darken($error-value-color, 5%);
+        background-color: $ui-button-destructive-focus-background-color;
       }
     }
   }
