@@ -5,7 +5,7 @@ import { defineMessages, injectIntl } from 'react-intl';
 import { Link, withRouter } from 'react-router-dom';
 import { WordmarkLogo } from 'mastodon/components/logo';
 import NavigationPortal from 'mastodon/components/navigation_portal';
-import { timelinePreview, showTrends } from 'mastodon/initial_state';
+import { timelinePreview, trendsEnabled } from 'mastodon/initial_state';
 
 import ColumnLink from './column_link';
 import DisabledAccountBanner from './disabled_account_banner';
@@ -67,7 +67,7 @@ class NavigationPanel extends Component {
           </>
         )}
 
-        {showTrends ? (
+        {trendsEnabled ? (
           <ColumnLink transparent to='/explore' icon='hashtag' text={intl.formatMessage(messages.explore)} />
         ) : (
           <ColumnLink transparent to='/search' icon='search' text={intl.formatMessage(messages.search)} />
