@@ -109,14 +109,3 @@
     }
   }
 }
-
-// statuses.scss
-.button.logo-button {
-  background: darken($ui-highlight-color, 2%);
-
-  &:active,
-  &:focus,
-  &:hover {
-    background: $ui-highlight-color;
-  }
-}
