@@ -554,43 +554,37 @@ class Video extends PureComponent {
           preload={preload}
           role='button'
           tabIndex={0}
-        >
-          <Blurhash
-            hash={blurhash}
-            className={classNames('media-gallery__preview', {
-              'media-gallery__preview--hidden': revealed,
-            })}
-            dummy={!useBlurhash}
-          />
+          aria-label={alt}
+          title={alt}
+          lang={lang}
+          volume={volume}
+          onClick={this.togglePlay}
+          onKeyDown={this.handleVideoKeyDown}
+          onPlay={this.handlePlay}
+          onPause={this.handlePause}
+          onLoadedData={this.handleLoadedData}
+          onProgress={this.handleProgress}
+          onVolumeChange={this.handleVolumeChange}
+          style={{ ...playerStyle, width: '100%' }}
+        />}
 
-          {(revealed || editable) && <video
-            ref={this.setVideoRef}
-            src={src}
-            poster={preview}
-            preload={preload}
-            role='button'
-            tabIndex={0}
-            aria-label={alt}
-            title={alt}
-            lang={lang}
-            volume={volume}
-            onClick={this.togglePlay}
-            onKeyDown={this.handleVideoKeyDown}
-            onPlay={this.handlePlay}
-            onPause={this.handlePause}
-            onLoadedData={this.handleLoadedData}
-            onProgress={this.handleProgress}
-            onVolumeChange={this.handleVolumeChange}
-            style={{ width: '100%' }}
-          />}
+        <div className={classNames('spoiler-button', { 'spoiler-button--hidden': revealed || editable })}>
+          <button type='button' className='spoiler-button__overlay' onClick={this.toggleReveal}>
+            <span className='spoiler-button__overlay__label'>{warning}</span>
+          </button>
+        </div>
 
-          <div className={classNames('spoiler-button', { 'spoiler-button--hidden': revealed || editable })}>
-            <button type='button' className='spoiler-button__overlay' onClick={this.toggleReveal}>
-              <span className='spoiler-button__overlay__label'>
-                {warning}
-                <span className='spoiler-button__overlay__action'><FormattedMessage id='status.media.show' defaultMessage='Click to show' /></span>
-              </span>
-            </button>
+        <div className={classNames('video-player__controls', { active: paused || hovered })}>
+          <div className='video-player__seek' onMouseDown={this.handleMouseDown} ref={this.setSeekRef}>
+            <div className='video-player__seek__buffer' style={{ width: `${buffer}%` }} />
+            <div className='video-player__seek__progress' style={{ width: `${progress}%` }} />
+
+            <span
+              className={classNames('video-player__seek__handle', { active: dragging })}
+              tabIndex={0}
+              style={{ left: `${progress}%` }}
+              onKeyDown={this.handleVideoKeyDown}
+            />
           </div>
 
           <div className='video-player__buttons-bar'>
