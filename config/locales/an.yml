@@ -728,7 +728,6 @@ an:
           approved: Se requiere aprebación pa rechistrar-se
           none: Dengún puede rechistrar-se
           open: Qualsequiera puede rechistrar-se
-      title: Achustes d'o Servidor
     site_uploads:
       delete: Eliminar fichero puyau
       destroyed_msg: Carga d'o puesto eliminada con exito!
@@ -923,7 +922,6 @@ an:
       guide_link: https://crowdin.com/project/mastodon
       guide_link_text: Totz pueden contribuyir.
     sensitive_content: Conteniu sensible
-    toot_layout: Disenyo d'as publicacions
   application_mailer:
     notification_preferences: Cambiar preferencias de correu electronico
     salutation: "%{name}:"

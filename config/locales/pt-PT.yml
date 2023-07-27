@@ -770,7 +770,7 @@ pt-PT:
           approved: Registo sujeito a aprovação
           none: Ninguém se pode registar
           open: Qualquer pessoa se pode registar
-      title: Definições do Servidor
+      title: Definições do servidor
     site_uploads:
       delete: Eliminar arquivo carregado
       destroyed_msg: Envio de sítio na teia correctamente eliminado!
@@ -973,7 +973,6 @@ pt-PT:
       guide_link: https://pt.crowdin.com/project/mastodon/
       guide_link_text: Todos podem contribuir.
     sensitive_content: Conteúdo problemático
-    toot_layout: Disposição da publicação
   application_mailer:
     notification_preferences: Alterar preferências de e-mail
     salutation: "%{name},"

@@ -963,7 +963,6 @@ sv:
       guide_link: https://crowdin.com/project/mastodon
       guide_link_text: Alla kan bidra.
     sensitive_content: Känsligt innehåll
-    toot_layout: Inläggslayout
   application_mailer:
     notification_preferences: Ändra e-postinställningar
     salutation: "%{name},"
@@ -1020,6 +1019,7 @@ sv:
       back: Tillbaka
       preamble: Dessa bestäms och upprätthålls av moderatorerna för %{domain}.
       title: Några grundregler.
+      title_invited: Du har blivit inbjuden.
     security: Säkerhet
     set_new_password: Skriv in nytt lösenord
     setup:
@@ -1262,6 +1262,7 @@ sv:
       bookmarks: Bokmärken
       domain_blocking: Domänblockeringslista
       following: Lista av följare
+      lists: Listor
       muting: Lista av nertystade
     upload: Ladda upp
   invites:
