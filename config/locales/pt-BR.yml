@@ -770,7 +770,6 @@ pt-BR:
           approved: Aprovação necessária para criar conta
           none: Ninguém pode criar conta
           open: Qualquer um pode criar conta
-      title: Configurações do Servidor
     site_uploads:
       delete: Excluir arquivo enviado
       destroyed_msg: Upload do site excluído com sucesso!
@@ -973,7 +972,6 @@ pt-BR:
       guide_link: https://br.crowdin.com/project/mastodon
       guide_link_text: Todos podem contribuir.
     sensitive_content: Conteúdo sensível
-    toot_layout: Formato da publicação
   application_mailer:
     notification_preferences: Alterar preferências de e-mail
     salutation: "%{name},"

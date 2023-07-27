@@ -667,7 +667,6 @@ fa:
           approved: ثبت نام نیازمند تأیید مدیران است
           none: کسی نمی‌تواند ثبت نام کند
           open: همه می‌توانند ثبت نام کنند
-      title: تنظیمات کارساز
     site_uploads:
       delete: پرونده بارگذاری شده را پاک کنید
       destroyed_msg: بارگذاری پایگاه با موفقیت حذف شد!
@@ -821,7 +820,6 @@ fa:
       guide_link: https://crowdin.com/project/mastodon
       guide_link_text: همه می‌توانند کمک کنند.
     sensitive_content: محتوای حساس
-    toot_layout: آرایش فرسته
   application_mailer:
     notification_preferences: تغییر ترجیحات ایمیل
     salutation: "%{name}،"

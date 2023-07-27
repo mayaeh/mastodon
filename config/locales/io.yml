@@ -698,7 +698,6 @@ io:
           approved: Aprobo bezonesas por registro
           none: Nulu povas registrar
           open: Irgu povas registrar
-      title: Servilopcioni
     site_uploads:
       delete: Efacez adchargita failo
       destroyed_msg: Sitadchargito sucesoze efacesis!
@@ -880,7 +879,6 @@ io:
       guide_link: https://crowdin.com/project/mastodon
       guide_link_text: Omnu povas kontributar.
     sensitive_content: Sentoza kontenajo
-    toot_layout: Postostrukturo
   application_mailer:
     notification_preferences: Chanjez retpostopreferaji
     salutation: "%{name},"

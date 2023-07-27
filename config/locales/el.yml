@@ -758,7 +758,6 @@ el:
           approved: Απαιτείται έγκριση για εγγραφή
           none: Δεν μπορεί να εγγραφεί κανείς
           open: Μπορεί να εγγραφεί ο οποιοσδήποτε
-      title: Ρυθμίσεις διακομιστή
     site_uploads:
       delete: Διαγραφή μεταφορτωμένου αρχείου
       destroyed_msg: Η μεταφόρτωση ιστότοπου διαγράφηκε επιτυχώς!
@@ -961,7 +960,6 @@ el:
       guide_link: https://crowdin.com/project/mastodon
       guide_link_text: Μπορεί να συνεισφέρει ο οποιοσδήποτε.
     sensitive_content: Ευαίσθητο περιεχόμενο
-    toot_layout: Διαρρύθμιση αναρτήσεων
   application_mailer:
     notification_preferences: Αλλαγή προτιμήσεων email
     salutation: "%{name},"

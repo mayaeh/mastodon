@@ -769,7 +769,7 @@ eu:
           approved: Izena emateko onarpena behar da
           none: Ezin du inork izena eman
           open: Edonork eman dezake izena
-      title: Zerbitzariaren ezarpenak
+      title: Zerbitzariko ezarpenak
     site_uploads:
       delete: Ezabatu igotako fitxategia
       destroyed_msg: Guneko igoera ongi ezabatu da!
@@ -972,7 +972,6 @@ eu:
       guide_link: https://crowdin.com/project/mastodon
       guide_link_text: Edonork lagundu dezake.
     sensitive_content: Eduki hunkigarria
-    toot_layout: Bidalketen diseinua
   application_mailer:
     notification_preferences: Aldatu e-mail hobespenak
     salutation: "%{name},"

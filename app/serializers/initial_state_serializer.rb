@@ -56,7 +56,6 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:display_media] = Setting.display_media
       store[:reduce_motion] = Setting.reduce_motion
       store[:use_blurhash]  = Setting.use_blurhash
-      store[:crop_images]   = Setting.crop_images
     end
 
     store[:disabled_account_id] = object.disabled_account.id.to_s if object.disabled_account
