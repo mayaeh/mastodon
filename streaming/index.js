@@ -259,8 +259,14 @@ const startServer = async () => {
   };
 
   /**
+   * @callback SubscriptionListener
+   * @param {ReturnType<parseJSON>} json of the message
+   * @returns void
+   */
+
+  /**
    * @param {string} channel
-   * @param {function(string): void} callback
+   * @param {SubscriptionListener} callback
    */
   const subscribe = (channel, callback) => {
     log.silly(`Adding listener for ${channel}`);
@@ -277,7 +283,7 @@ const startServer = async () => {
 
   /**
    * @param {string} channel
-   * @param {function(Object<string, any>): void} callback
+   * @param {SubscriptionListener} callback
    */
   const unsubscribe = (channel, callback) => {
     log.silly(`Removing listener for ${channel}`);
@@ -649,9 +655,9 @@ const startServer = async () => {
    * @param {string[]} ids
    * @param {any} req
    * @param {function(string, string): void} output
-   * @param {function(string[], function(string): void): void} attachCloseHandler
+   * @param {undefined | function(string[], SubscriptionListener): void} attachCloseHandler
    * @param {boolean=} needsFiltering
-   * @returns {function(object): void}
+   * @returns {SubscriptionListener}
    */
   const streamFrom = (ids, req, output, attachCloseHandler, needsFiltering = false) => {
     const accountId = req.accountId || req.remoteAddress;
@@ -669,6 +675,7 @@ const startServer = async () => {
     // The listener used to process each message off the redis subscription,
     // message here is an object with an `event` and `payload` property. Some
     // events also include a queued_at value, but this is being removed shortly.
+    /** @type {SubscriptionListener} */
     const listener = message => {
       const { event, payload } = message;
 
@@ -743,7 +750,7 @@ const startServer = async () => {
           }
 
           // If the payload already contains the `filtered` property, it means
-          // that filtering has been applied on the ruby on rails side, as 
+          // that filtering has been applied on the ruby on rails side, as
           // such, we don't need to construct or apply the filters in streaming:
           if (Object.prototype.hasOwnProperty.call(payload, "filtered")) {
             transmit(event, payload);
@@ -815,12 +822,12 @@ const startServer = async () => {
             const filter_results = Object.values(req.cachedFilters).reduce((results, cachedFilter) => {
               // Check the filter hasn't expired before applying:
               if (cachedFilter.expires_at !== null && cachedFilter.expires_at < now) {
-                return;
+                return results;
               }
 
               // Just in-case JSDOM fails to find textContent in searchableContent
               if (!searchableTextContent) {
-                return;
+                return results;
               }
 
               const keyword_matches = searchableTextContent.match(cachedFilter.regexp);
@@ -835,6 +842,8 @@ const startServer = async () => {
                   status_matches: null
                 });
               }
+
+              return results;
             }, []);
 
             // Send the payload + the FilterResults as the `filtered` property
@@ -851,8 +860,8 @@ const startServer = async () => {
             transmit(event, payload);
           }
         }).catch(err => {
-          releasePgConnection();
           log.error(err);
+          releasePgConnection();
         });
       });
     };
@@ -861,7 +870,7 @@ const startServer = async () => {
       subscribe(`${redisPrefix}${id}`, listener);
     });
 
-    if (attachCloseHandler) {
+    if (typeof attachCloseHandler === 'function') {
       attachCloseHandler(ids.map(id => `${redisPrefix}${id}`), listener);
     }
 
@@ -898,12 +907,13 @@ const startServer = async () => {
   /**
    * @param {any} req
    * @param {function(): void} [closeHandler]
-   * @returns {function(string[]): void}
+   * @returns {function(string[], SubscriptionListener): void}
    */
-  const streamHttpEnd = (req, closeHandler = undefined) => (ids) => {
+
+  const streamHttpEnd = (req, closeHandler = undefined) => (ids, listener) => {
     req.on('close', () => {
       ids.forEach(id => {
-        unsubscribe(id);
+        unsubscribe(id, listener);
       });
 
       if (closeHandler) {
@@ -1167,7 +1177,7 @@ const startServer = async () => {
    * @typedef WebSocketSession
    * @property {any} socket
    * @property {any} request
-   * @property {Object.<string, { listener: function(string): void, stopHeartbeat: function(): void }>} subscriptions
+   * @property {Object.<string, { listener: SubscriptionListener, stopHeartbeat: function(): void }>} subscriptions
    */
 
   /**
