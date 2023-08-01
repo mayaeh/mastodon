@@ -4,14 +4,13 @@ source 'https://rubygems.org'
 ruby '>= 3.0.0'
 
 gem 'puma', '~> 6.3'
-gem 'rails', '~> 6.1.7'
+gem 'rails', '~> 7.0'
 gem 'sprockets', '~> 3.7.2'
 gem 'thor', '~> 1.2'
 gem 'rack', '~> 2.2.7'
 
 gem 'haml-rails', '~>2.0'
 gem 'pg', '~> 1.5'
-gem 'makara', '~> 0.5'
 gem 'pghero'
 gem 'dotenv-rails', '~> 2.8'
 
@@ -19,6 +18,7 @@ gem 'aws-sdk-s3', '~> 1.123', require: false
 gem 'fog-core', '<= 2.4.0'
 gem 'fog-openstack', '~> 0.3', require: false
 gem 'kt-paperclip', '~> 7.2'
+gem 'md-paperclip-azure', '~> 2.2', require: false
 gem 'blurhash', '~> 0.1'
 
 gem 'active_model_serializers', '~> 0.10'
@@ -67,7 +67,7 @@ gem 'pundit', '~> 2.3'
 gem 'premailer-rails'
 gem 'rack-attack', '~> 6.6'
 gem 'rack-cors', '~> 2.0', require: 'rack/cors'
-gem 'rails-i18n', '~> 6.0'
+gem 'rails-i18n', '~> 7.0'
 gem 'rails-settings-cached', '~> 0.6', git: 'https://github.com/mastodon/rails-settings-cached.git', branch: 'v0.6.6-aliases-true'
 gem 'redcarpet', '~> 3.6'
 gem 'redis', '~> 4.5', require: ['redis', 'redis/connection/hiredis']
@@ -99,8 +99,8 @@ gem 'rdf-normalize', '~> 0.5'
 gem 'private_address_check', '~> 0.5'
 
 group :test do
-  # RSpec runner for rails
-  gem 'rspec-rails', '~> 6.0'
+  # Used to split testing into chunks in CI
+  gem 'rspec_chunked', '~> 0.6'
 
   # RSpec progress bar formatter
   gem 'fuubar', '~> 2.5'
@@ -110,6 +110,10 @@ group :test do
 
   # Browser integration testing
   gem 'capybara', '~> 3.39'
+  gem 'selenium-webdriver'
+
+  # Used to reset the database between system tests
+  gem 'database_cleaner-active_record'
 
   # Used to mock environment variables
   gem 'climate_control', '~> 0.2'
@@ -157,7 +161,7 @@ group :development do
   gem 'letter_opener_web', '~> 2.0'
 
   # Security analysis CLI tools
-  gem 'brakeman', '~> 5.4', require: false
+  gem 'brakeman', '~> 6.0', require: false
   gem 'bundler-audit', '~> 0.9', require: false
 
   # Linter CLI for HAML files
@@ -171,10 +175,19 @@ group :development do
 
   # Validate missing i18n keys
   gem 'i18n-tasks', '~> 1.0', require: false
+end
 
+group :development, :test do
   # Profiling tools
   gem 'memory_profiler', require: false
+  gem 'ruby-prof', require: false
   gem 'stackprof', require: false
+  gem 'test-prof'
+end
+
+group :development, :test do
+  # RSpec runner for rails
+  gem 'rspec-rails', '~> 6.0'
 end
 
 group :production do

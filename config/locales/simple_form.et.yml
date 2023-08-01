@@ -2,6 +2,10 @@
 et:
   simple_form:
     hints:
+      account:
+        display_name: Su täisnimi või naljanimi.
+        fields: Su koduleht, sugu, vanus. Mistahes, mida soovid.
+        note: 'Saad @mainida teisi inimesi või #silte.'
       account_alias:
         acct: Sisesta konto kasutajanimi@domeen, mille soovid siia ümber kolida
       account_migration:
@@ -295,6 +299,7 @@ et:
         usable: Luba postitustel seda silti kasutada
       user:
         role: Roll
+        time_zone: Ajavöönd
       user_role:
         color: Märgi värv
         highlighted: Kuva roll kasutajaprofiilidel märgina

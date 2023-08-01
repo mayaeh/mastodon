@@ -2,18 +2,6 @@
 // Sass color functions, "darken" and "lighten" are automatically replaced.
 
 // admin.scss
-.admin-wrapper {
-  .sidebar {
-    .simple-navigation-active-leaf a {
-      background-color: $ui-highlight-color;
-
-      &:hover {
-        background-color: lighten($ui-highlight-color, 5%);
-      }
-    }
-  }
-}
-
 .admin-account-bio {
   a {
     color: lighten($ui-highlight-color, 8%);
@@ -152,16 +140,5 @@
     &:focus {
       background-color: darken($ui-highlight-color, 5%);
     }
-  }
-}
-
-// statuses.scss
-.button.logo-button {
-  background: $ui-highlight-color;
-
-  &:active,
-  &:focus,
-  &:hover {
-    background: lighten($ui-highlight-color, 10%);
   }
 }
