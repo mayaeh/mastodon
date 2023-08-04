@@ -10,14 +10,14 @@ module DomainControlHelper
                uri_or_domain
              end
 
-    if limited_federation_mode?
+    if whitelist_mode?
       !DomainAllow.allowed?(domain)
     else
       DomainBlock.blocked?(domain)
     end
   end
 
-  def limited_federation_mode?
-    Rails.configuration.x.limited_federation_mode
+  def whitelist_mode?
+    Rails.configuration.x.whitelist_mode
   end
 end
