@@ -23,7 +23,7 @@ import AttachmentList from './attachment_list';
 import { Avatar } from './avatar';
 import { AvatarOverlay } from './avatar_overlay';
 import { DisplayName } from './display_name';
-import { HashtagBar } from './hashtag_bar';
+import { getHashtagBarForStatus } from './hashtag_bar';
 import { RelativeTimestamp } from './relative_timestamp';
 import StatusActionBar from './status_action_bar';
 import StatusContent from './status_content';
@@ -522,6 +522,8 @@ class Status extends ImmutablePureComponent {
       statusAvatar = <AvatarOverlay account={status.get('account')} friend={account} />;
     }
 
+    const {statusContentProps, hashtagBar} = getHashtagBarForStatus(status);
+
     return (
       <HotKeys handlers={handlers}>
         <div className={classNames('status__wrapper', `status__wrapper-${status.get('visibility')}`, { 'status__wrapper-reply': !!status.get('in_reply_to_id'), unread, focusable: !this.props.muted })} tabIndex={this.props.muted ? null : 0} data-featured={featured ? 'true' : null} aria-label={textForScreenReader(intl, status, rebloggedByText)} ref={this.handleRef}>
@@ -553,11 +555,12 @@ class Status extends ImmutablePureComponent {
               onTranslate={this.handleTranslate}
               collapsible
               onCollapsedToggle={this.handleCollapsedToggle}
+              {...statusContentProps}
             />
 
             {media}
 
-            <HashtagBar hashtags={status.get('tags')} text={status.get('content')} />
+            {hashtagBar}
 
             <StatusActionBar scrollKey={scrollKey} status={status} account={account} onFilter={matchedFilters ? this.handleFilterClick : null} {...other} />
           </div>
