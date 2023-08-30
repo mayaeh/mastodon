@@ -3,11 +3,6 @@
 class PublicStatusesIndex < Chewy::Index
   settings index: index_preset(refresh_interval: '30s', number_of_shards: 5), analysis: {
     filter: {
-      english_stop: {
-        type: 'stop',
-        stopwords: '_english_',
-      },
-
       english_stemmer: {
         type: 'stemmer',
         language: 'english',
@@ -18,24 +13,34 @@ class PublicStatusesIndex < Chewy::Index
         language: 'possessive_english',
       },
     },
+    tokenizer: {
+      ja_tokenizer: {
+        type: 'kuromoji_tokenizer',
+        mode: 'search',
+        user_dictionary: 'userdict_ja.txt',
+      },
+    },
 
     analyzer: {
-      verbatim: {
-        tokenizer: 'uax_url_email',
-        filter: %w(lowercase),
-      },
-
       content: {
-        tokenizer: 'standard',
+        tokenizer: 'ja_tokenizer',
+        type: 'custom',
+        char_filter: %w(
+          icu_normalizer
+        ),
         filter: %w(
+          kuromoji_stemmer
+          kuromoji_part_of_speech
+          english_possessive_stemmer
           lowercase
           asciifolding
           cjk_width
           elision
-          english_possessive_stemmer
-          english_stop
           english_stemmer
         ),
+      },
+      ja_default_analyzer: {
+        tokenizer: 'kuromoji_tokenizer',
       },
     },
   }
@@ -48,9 +53,9 @@ class PublicStatusesIndex < Chewy::Index
   root date_detection: false do
     field(:id, type: 'long')
     field(:account_id, type: 'long')
-    field(:text, type: 'text', analyzer: 'verbatim', value: ->(status) { status.searchable_text }) { field(:stemmed, type: 'text', analyzer: 'content') }
+    field(:text, type: 'text', analyzer: 'ja_default_analyzer', value: ->(status) { status.searchable_text }) { field(:stemmed, type: 'text', analyzer: 'content') }
     field(:language, type: 'keyword')
     field(:properties, type: 'keyword', value: ->(status) { status.searchable_properties })
-    field(:created_at, type: 'date')
+    field(:created_at, type: 'date', value: ->(status) { status.created_at })
   end
 end
