@@ -19,14 +19,6 @@ class AccountsIndex < Chewy::Index
       },
     },
 
-    tokenizer: {
-      ja_tokenizer: {
-        type: 'kuromoji_tokenizer',
-        mode: 'search',
-        user_dictionary: 'userdict_ja.txt',
-      },
-    },
-
     analyzer: {
       content: {
         tokenizer: 'ja_tokenizer',
@@ -64,6 +56,12 @@ class AccountsIndex < Chewy::Index
         type: 'edge_ngram',
         min_gram: 1,
         max_gram: 15,
+      },
+
+      ja_tokenizer: {
+        type: 'kuromoji_tokenizer',
+        mode: 'search',
+        user_dictionary: 'userdict_ja.txt',
       },
     },
   }
