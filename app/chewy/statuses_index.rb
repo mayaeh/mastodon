@@ -31,9 +31,7 @@ class StatusesIndex < Chewy::Index
           kuromoji_stemmer
           kuromoji_part_of_speech
           english_possessive_stemmer
-          lowercase
           asciifolding
-          cjk_width
           elision
           english_stemmer
         ),
