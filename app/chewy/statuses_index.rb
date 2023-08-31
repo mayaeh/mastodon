@@ -13,6 +13,7 @@ class StatusesIndex < Chewy::Index
         language: 'possessive_english',
       },
     },
+
     tokenizer: {
       ja_tokenizer: {
         type: 'kuromoji_tokenizer',
@@ -20,6 +21,7 @@ class StatusesIndex < Chewy::Index
         user_dictionary: 'userdict_ja.txt',
       },
     },
+
     analyzer: {
       content: {
         tokenizer: 'ja_tokenizer',
@@ -36,6 +38,7 @@ class StatusesIndex < Chewy::Index
           english_stemmer
         ),
       },
+
       ja_default_analyzer: {
         tokenizer: 'kuromoji_tokenizer',
       },
