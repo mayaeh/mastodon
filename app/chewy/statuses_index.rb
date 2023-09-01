@@ -36,6 +36,7 @@ class StatusesIndex < Chewy::Index
           lowercase
           asciifolding
           cjk_width
+          elision
           english_stemmer
         ),
       },
