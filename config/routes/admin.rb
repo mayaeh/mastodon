@@ -202,6 +202,8 @@ namespace :admin do
     end
   end
 
+  resources :software_updates, only: [:index]
+
   resources :push_subscription_blocks, except: [:show] do
     member do
       post :enable
