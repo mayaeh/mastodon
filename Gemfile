@@ -138,7 +138,7 @@ group :test do
   gem 'simplecov', '~> 0.22', require: false
 
   # Stub web requests for specs
-  gem 'webmock', '~> 3.18'
+  gem 'webmock', '~> 3.19'
 end
 
 group :development do
