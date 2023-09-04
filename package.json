@@ -159,7 +159,7 @@
     "@types/js-yaml": "^4.0.5",
     "@types/lodash": "^4.14.195",
     "@types/npmlog": "^4.1.4",
-    "@types/object-assign": "^4.0.30",
+    "@types/object-assign": "^4.0.31",
     "@types/pg": "^8.6.6",
     "@types/prop-types": "^15.7.5",
     "@types/punycode": "^2.1.0",
