@@ -10,6 +10,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
 import { Avatar } from 'mastodon/components/avatar';
+import { Badge, AutomatedBadge, GroupBadge } from 'mastodon/components/badge';
 import Button from 'mastodon/components/button';
 import { FollowersCounter, FollowingCounter, StatusesCounter } from 'mastodon/components/counters';
 import { Icon }  from 'mastodon/components/icon';
@@ -264,9 +265,9 @@ class Header extends ImmutablePureComponent {
       if (signedIn && !account.get('relationship')) { // Wait until the relationship is loaded
         actionBtn = '';
       } else if (account.getIn(['relationship', 'requested'])) {
-        actionBtn = <Button className={classNames({ 'button--with-bell': bellBtn !== '' })} text={intl.formatMessage(messages.cancel_follow_request)} title={intl.formatMessage(messages.requested)} onClick={this.props.onFollow} />;
+        actionBtn = <Button text={intl.formatMessage(messages.cancel_follow_request)} title={intl.formatMessage(messages.requested)} onClick={this.props.onFollow} />;
       } else if (!account.getIn(['relationship', 'blocking'])) {
-        actionBtn = <Button disabled={account.getIn(['relationship', 'blocked_by'])} className={classNames({ 'button--destructive': account.getIn(['relationship', 'following']), 'button--with-bell': bellBtn !== '' })} text={intl.formatMessage(account.getIn(['relationship', 'following']) ? messages.unfollow : messages.follow)} onClick={signedIn ? this.props.onFollow : this.props.onInteractionModal} />;
+        actionBtn = <Button disabled={account.getIn(['relationship', 'blocked_by'])} className={classNames({ 'button--destructive': account.getIn(['relationship', 'following']) })} text={intl.formatMessage(account.getIn(['relationship', 'following']) ? messages.unfollow : messages.follow)} onClick={signedIn ? this.props.onFollow : this.props.onInteractionModal} />;
       } else if (account.getIn(['relationship', 'blocking'])) {
         actionBtn = <Button text={intl.formatMessage(messages.unblock, { name: account.get('username') })} onClick={this.props.onBlock} />;
       }
@@ -373,28 +374,13 @@ class Header extends ImmutablePureComponent {
     const badges = [];
 
     if (account.get('bot')) {
-      badges.push(
-        <div key='bot-badge' className='account-role bot'>
-          <Icon id='cogs' /> { ' ' }
-          <FormattedMessage id='account.badges.bot' defaultMessage='Automated' />
-        </div>
-      );
+      badges.push(<AutomatedBadge key='bot-badge' />);
     } else if (account.get('group')) {
-      badges.push(
-        <div key='group-badge' className='account-role group'>
-          <Icon id='users' /> { ' ' }
-          <FormattedMessage id='account.badges.group' defaultMessage='Group' />
-        </div>
-      );
+      badges.push(<GroupBadge key='group-badge' />);
     }
 
     account.get('roles', []).forEach((role) => {
-      badges.push(
-        <div key={`role-badge-${role.get('id')}`} className={`account-role user-role-${account.getIn(['roles', 0, 'id'])}`}>
-          <Icon id='circle' /> { ' ' }
-          <span>{role.get('name')} ({domain})</span>
-        </div>
-      );
+      badges.push(<Badge key={`role-badge-${role.get('id')}`} label={<span>{role.get('name')}</span>} domain={domain} />);
     });
 
     return (

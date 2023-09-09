@@ -7,6 +7,8 @@ class InitialStateSerializer < ActiveModel::Serializer
              :media_attachments, :settings,
              :languages
 
+  attribute :critical_updates_pending, if: -> { object&.role&.can?(:view_devops) && SoftwareUpdate.check_enabled? }
+
   has_one :push_subscription, serializer: REST::WebPushSubscriptionSerializer
   has_one :role, serializer: REST::RoleSerializer
 
@@ -32,6 +34,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       single_user_mode: Rails.configuration.x.single_user_mode,
       trends_as_landing_page: Setting.trends_as_landing_page,
       status_page_url: Setting.status_page_url,
+      sso_redirect: sso_redirect,
     }
 
     if object.current_account
@@ -111,5 +114,9 @@ class InitialStateSerializer < ActiveModel::Serializer
 
   def instance_presenter
     @instance_presenter ||= InstancePresenter.new
+  end
+
+  def sso_redirect
+    "/auth/auth/#{Devise.omniauth_providers[0]}" if ENV['OMNIAUTH_ONLY'] == 'true' && Devise.omniauth_providers.length == 1
   end
 end
