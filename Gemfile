@@ -98,7 +98,7 @@ gem 'webauthn', '~> 3.0'
 
 gem 'json-ld'
 gem 'json-ld-preloaded', '~> 3.2'
-gem 'rdf-normalize', '~> 0.5'
+gem 'rdf-normalize', '~> 0.7'
 
 gem 'private_address_check', '~> 0.5'
 
