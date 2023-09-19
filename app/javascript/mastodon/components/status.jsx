@@ -523,7 +523,7 @@ class Status extends ImmutablePureComponent {
     }
 
     const {statusContentProps, hashtagBar} = getHashtagBarForStatus(status);
-    const expanded = !status.get('hidden')
+    const expanded = !status.get('hidden') || status.get('spoiler_text').length === 0;
 
     return (
       <HotKeys handlers={handlers}>
