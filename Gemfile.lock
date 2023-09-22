@@ -322,8 +322,8 @@ GEM
     fuubar (2.5.1)
       rspec-core (~> 3.0)
       ruby-progressbar (~> 1.4)
-    globalid (1.1.0)
-      activesupport (>= 5.0)
+    globalid (1.2.1)
+      activesupport (>= 6.1)
     haml (6.1.2)
       temple (>= 0.8.2)
       thor
@@ -457,7 +457,7 @@ GEM
     mime-types-data (3.2023.0808)
     mini_mime (1.1.5)
     mini_portile2 (2.8.4)
-    minitest (5.19.0)
+    minitest (5.20.0)
     msgpack (1.7.1)
     multi_json (1.15.0)
     multipart-post (2.3.0)
@@ -574,7 +574,7 @@ GEM
       actionpack (>= 5.0.1.rc1)
       actionview (>= 5.0.1.rc1)
       activesupport (>= 5.0.1.rc1)
-    rails-dom-testing (2.1.1)
+    rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
