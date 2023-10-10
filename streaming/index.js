@@ -292,7 +292,7 @@ const startServer = async () => {
   CHANNEL_NAMES.forEach(( channel ) => {
     connectedChannels.set({ type: 'websocket', channel }, 0);
     connectedChannels.set({ type: 'eventsource', channel }, 0);
-  })
+  });
 
   // Prime the counters so that we don't loose metrics between restarts.
   // Unfortunately counters don't support the set() API, so instead I'm using
@@ -1332,7 +1332,7 @@ const startServer = async () => {
       log.verbose(request.requestId, 'Subscription error:', err.toString());
       socket.send(JSON.stringify({ error: err.toString() }));
     });
-  }
+  };
 
 
   const removeSubscription = (subscriptions, channelIds, request) => {
@@ -1352,7 +1352,7 @@ const startServer = async () => {
     subscription.stopHeartbeat();
 
     delete subscriptions[channelIds.join(';')];
-  }
+  };
 
   /**
    * @param {WebSocketSession} session
@@ -1372,7 +1372,7 @@ const startServer = async () => {
         socket.send(JSON.stringify({ error: "Error unsubscribing from channel" }));
       }
     });
-  }
+  };
 
   /**
    * @param {WebSocketSession} session
@@ -1450,7 +1450,7 @@ const startServer = async () => {
       const subscriptions = Object.keys(session.subscriptions);
 
       subscriptions.forEach(channelIds => {
-        removeSubscription(session.subscriptions, channelIds.split(';'), req)
+        removeSubscription(session.subscriptions, channelIds.split(';'), req);
       });
 
       // Decrement the metrics for connected clients:
