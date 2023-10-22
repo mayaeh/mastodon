@@ -11,6 +11,7 @@ import { HotKeys } from 'react-hotkeys';
 
 import { Icon }  from 'mastodon/components/icon';
 import PictureInPicturePlaceholder from 'mastodon/components/picture_in_picture_placeholder';
+import { withOptionalRouter, WithRouterPropTypes } from 'mastodon/utils/react_router';
 
 import Card from '../features/status/components/card';
 // We use the component (and not the container) since we do not want
@@ -69,10 +70,6 @@ const messages = defineMessages({
 
 class Status extends ImmutablePureComponent {
 
-  static contextTypes = {
-    router: PropTypes.object,
-  };
-
   static propTypes = {
     status: ImmutablePropTypes.map,
     account: ImmutablePropTypes.map,
@@ -113,6 +110,7 @@ class Status extends ImmutablePureComponent {
       inUse: PropTypes.bool,
       available: PropTypes.bool,
     }),
+    ...WithRouterPropTypes,
   };
 
   // Avoid checking props that are functions (and whose equality will always
@@ -237,7 +235,7 @@ class Status extends ImmutablePureComponent {
 
   handleHotkeyReply = e => {
     e.preventDefault();
-    this.props.onReply(this._properStatus(), this.context.router.history);
+    this.props.onReply(this._properStatus(), this.props.history);
   };
 
   handleHotkeyFavourite = () => {
@@ -250,7 +248,7 @@ class Status extends ImmutablePureComponent {
 
   handleHotkeyMention = e => {
     e.preventDefault();
-    this.props.onMention(this._properStatus().get('account'), this.context.router.history);
+    this.props.onMention(this._properStatus().get('account'), this.props.history);
   };
 
   handleHotkeyOpen = () => {
@@ -259,14 +257,14 @@ class Status extends ImmutablePureComponent {
       return;
     }
 
-    const { router } = this.context;
+    const { history } = this.props;
     const status = this._properStatus();
 
-    if (!router) {
+    if (!history) {
       return;
     }
 
-    router.history.push(`/@${status.getIn(['account', 'acct'])}/${status.get('id')}`);
+    history.push(`/@${status.getIn(['account', 'acct'])}/${status.get('id')}`);
   };
 
   handleHotkeyOpenProfile = () => {
@@ -274,14 +272,14 @@ class Status extends ImmutablePureComponent {
   };
 
   _openProfile = (proper = true) => {
-    const { router } = this.context;
+    const { history } = this.props;
     const status = proper ? this._properStatus() : this.props.status;
 
-    if (!router) {
+    if (!history) {
       return;
     }
 
-    router.history.push(`/@${status.getIn(['account', 'acct'])}`);
+    history.push(`/@${status.getIn(['account', 'acct'])}`);
   };
 
   handleHotkeyMoveUp = e => {
@@ -572,4 +570,4 @@ class Status extends ImmutablePureComponent {
 
 }
 
-export default injectIntl(Status);
+export default withOptionalRouter(injectIntl(Status));
