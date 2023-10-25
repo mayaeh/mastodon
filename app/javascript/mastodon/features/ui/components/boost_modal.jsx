@@ -9,9 +9,12 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { connect } from 'react-redux';
 
+import { ReactComponent as RepeatIcon } from '@material-symbols/svg-600/outlined/repeat.svg';
+
 import { changeBoostPrivacy } from 'mastodon/actions/boosts';
 import AttachmentList from 'mastodon/components/attachment_list';
 import { Icon }  from 'mastodon/components/icon';
+import { VisibilityIcon } from 'mastodon/components/visibility_icon';
 import PrivacyDropdown from 'mastodon/features/compose/components/privacy_dropdown';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 
@@ -102,7 +105,7 @@ class BoostModal extends ImmutablePureComponent {
         </div>
 
         <div className='boost-modal__action-bar'>
-          <div><FormattedMessage id='boost_modal.combo' defaultMessage='You can press {combo} to skip this next time' values={{ combo: <span>Shift + <Icon id='retweet' /></span> }} /></div>
+          <div><FormattedMessage id='boost_modal.combo' defaultMessage='You can press {combo} to skip this next time' values={{ combo: <span>Shift + <Icon id='retweet' icon={RepeatIcon} /></span> }} /></div>
           {status.get('visibility') !== 'private' && !status.get('reblogged') && (
             <PrivacyDropdown
               noDirect
