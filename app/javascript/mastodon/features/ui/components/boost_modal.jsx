@@ -9,14 +9,17 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { connect } from 'react-redux';
 
+import { ReactComponent as RepeatIcon } from '@material-symbols/svg-600/outlined/repeat.svg';
+
 import { changeBoostPrivacy } from 'mastodon/actions/boosts';
 import AttachmentList from 'mastodon/components/attachment_list';
 import { Icon }  from 'mastodon/components/icon';
+import { VisibilityIcon } from 'mastodon/components/visibility_icon';
 import PrivacyDropdown from 'mastodon/features/compose/components/privacy_dropdown';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 
 import { Avatar } from '../../../components/avatar';
-import Button from '../../../components/button';
+import { Button } from '../../../components/button';
 import { DisplayName } from '../../../components/display_name';
 import { RelativeTimestamp } from '../../../components/relative_timestamp';
 import StatusContent from '../../../components/status_content';
@@ -51,10 +54,6 @@ class BoostModal extends ImmutablePureComponent {
     ...WithRouterPropTypes,
   };
 
-  componentDidMount() {
-    this.button.focus();
-  }
-
   handleReblog = () => {
     this.props.onReblog(this.props.status, this.props.privacy);
     this.props.onClose();
@@ -70,10 +69,6 @@ class BoostModal extends ImmutablePureComponent {
 
   _findContainer = () => {
     return document.getElementsByClassName('modal-root__container')[0];
-  };
-
-  setRef = (c) => {
-    this.button = c;
   };
 
   render () {
@@ -110,7 +105,7 @@ class BoostModal extends ImmutablePureComponent {
         </div>
 
         <div className='boost-modal__action-bar'>
-          <div><FormattedMessage id='boost_modal.combo' defaultMessage='You can press {combo} to skip this next time' values={{ combo: <span>Shift + <Icon id='retweet' /></span> }} /></div>
+          <div><FormattedMessage id='boost_modal.combo' defaultMessage='You can press {combo} to skip this next time' values={{ combo: <span>Shift + <Icon id='retweet' icon={RepeatIcon} /></span> }} /></div>
           {status.get('visibility') !== 'private' && !status.get('reblogged') && (
             <PrivacyDropdown
               noDirect
@@ -119,7 +114,7 @@ class BoostModal extends ImmutablePureComponent {
               onChange={this.props.onChangeBoostPrivacy}
             />
           )}
-          <Button text={intl.formatMessage(buttonText)} onClick={this.handleReblog} ref={this.setRef} />
+          <Button text={intl.formatMessage(buttonText)} onClick={this.handleReblog} autoFocus />
         </div>
       </div>
     );

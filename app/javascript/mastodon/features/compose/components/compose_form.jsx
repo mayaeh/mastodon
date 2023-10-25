@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
+import { ReactComponent as LockIcon } from '@material-symbols/svg-600/outlined/lock.svg';
 import { length } from 'stringz';
 
 import { Icon }  from 'mastodon/components/icon';
@@ -14,7 +15,7 @@ import { WithOptionalRouterPropTypes, withOptionalRouter } from 'mastodon/utils/
 
 import AutosuggestInput from '../../../components/autosuggest_input';
 import AutosuggestTextarea from '../../../components/autosuggest_textarea';
-import Button from '../../../components/button';
+import { Button } from '../../../components/button';
 import EmojiPickerDropdown from '../containers/emoji_picker_dropdown_container';
 import LanguageDropdown from '../containers/language_dropdown_container';
 import PollButtonContainer from '../containers/poll_button_container';
@@ -229,7 +230,7 @@ class ComposeForm extends ImmutablePureComponent {
     if (this.props.isEditing) {
       publishText = intl.formatMessage(messages.saveChanges);
     } else if (this.props.privacy === 'private' || this.props.privacy === 'direct') {
-      publishText = <span className='compose-form__publish-private'><Icon id='lock' /> {intl.formatMessage(messages.publish)}</span>;
+      publishText = <><Icon id='lock' icon={LockIcon} /> {intl.formatMessage(messages.publish)}</>;
     } else {
       publishText = this.props.privacy !== 'unlisted' ? intl.formatMessage(messages.publishLoud, { publish: intl.formatMessage(messages.publish) }) : intl.formatMessage(messages.publish);
     }
