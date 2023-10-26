@@ -9,6 +9,9 @@ import { withRouter } from 'react-router-dom';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
+import { ReactComponent as AlternateEmailIcon } from '@material-symbols/svg-600/outlined/alternate_email.svg';
+import { ReactComponent as LockIcon } from '@material-symbols/svg-600/outlined/lock.svg';
+import { ReactComponent as LockOpenIcon } from '@material-symbols/svg-600/outlined/lock_open.svg';
 import { ReactComponent as BookmarkIcon } from '@material-symbols/svg-600/outlined/bookmark-fill.svg';
 import { ReactComponent as BookmarkBorderIcon } from '@material-symbols/svg-600/outlined/bookmark.svg';
 import { ReactComponent as MoreHorizIcon } from '@material-symbols/svg-600/outlined/more_horiz.svg';
@@ -291,15 +294,36 @@ class ActionBar extends PureComponent {
       replyIconComponent = ReplyAllIcon;
     }
 
+    const reblogPrivate = status.getIn(['account', 'id']) === me && status.get('visibility') === 'private';
+
     let reblogIcon = 'retweet';
-    if (status.get('visibility') === 'direct') reblogIcon = 'at';
-    else if (status.get('visibility') === 'private') reblogIcon = 'lock';
-    else if (status.get('visibility') === 'unlisted') reblogIcon = 'unlock';
+    let reblogIconComponent = RepeatIcon;
+    let reblogTitle;
+    if (status.get('reblogged')) {
+      reblogTitle = intl.formatMessage(messages.cancel_reblog_private);
+    } else if (publicStatus) {
+      reblogTitle = intl.formatMessage(messages.reblog);
+    } else if (reblogPrivate) {
+      reblogTitle = intl.formatMessage(messages.reblog_private);
+    } else {
+      reblogTitle = intl.formatMessage(messages.cannot_reblog);
+    }
+
+    if (status.get('visibility') === 'direct') {
+      reblogIcon = 'at';
+      reblogIconComponent = AlternateEmailIcon;
+    } else if (status.get('visibility') === 'private') {
+      reblogIcon = 'lock';
+      reblogIconComponent = LockIcon;
+    } else if (status.get('visibility') === 'unlisted') {
+      reblogIcon = 'unlock';
+      reblogIconComponent = LockOpenIcon;
+    }
 
     return (
       <div className='detailed-status__action-bar'>
         <div className='detailed-status__button'><IconButton title={intl.formatMessage(messages.reply)} icon={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? 'reply' : replyIcon} iconComponent={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? ReplyIcon : replyIconComponent} onClick={this.handleReplyClick} /></div>
-        <div className='detailed-status__button'><IconButton disabled={!publicStatus} active={status.get('reblogged')} title={!publicStatus ? intl.formatMessage(messages.cannot_reblog) : intl.formatMessage(messages.reblog)} icon={reblogIcon} iconComponent={RepeatIcon} onClick={this.handleReblogClick} /></div>
+        <div className='detailed-status__button'><IconButton className={classNames({ reblogPrivate })} disabled={!publicStatus && !reblogPrivate} active={status.get('reblogged')} title={reblogTitle} icon={reblogIcon} iconComponent={reblogIconComponent} onClick={this.handleReblogClick} /></div>
         <div className='detailed-status__button'><IconButton className='star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' iconComponent={status.get('favourited') ? StarIcon : StarBorderIcon} onClick={this.handleFavouriteClick} /></div>
         <div className='detailed-status__button'><IconButton className='bookmark-icon' disabled={!signedIn} active={status.get('bookmarked')} title={intl.formatMessage(messages.bookmark)} icon='bookmark' iconComponent={status.get('bookmarked') ? BookmarkIcon : BookmarkBorderIcon} onClick={this.handleBookmarkClick} /></div>
 
