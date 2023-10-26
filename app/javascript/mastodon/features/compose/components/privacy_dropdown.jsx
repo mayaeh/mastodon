@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 import { ReactComponent as AlternateEmailIcon } from '@material-symbols/svg-600/outlined/alternate_email.svg';
 import { ReactComponent as LockIcon } from '@material-symbols/svg-600/outlined/lock.svg';
-import { ReactComponent as LockOpenIcon } from '@material-symbols/svg-600/outlined/lock_open.svg';
+import { ReactComponent as LockOpenIcon } from '@material-symbols/svg-600/outlined/lock_open_right.svg';
 import { ReactComponent as PublicIcon } from '@material-symbols/svg-600/outlined/public.svg';
 import { supportsPassiveEvents } from 'detect-passive-events';
 import Overlay from 'react-overlays/Overlay';
@@ -229,7 +229,7 @@ class PrivacyDropdown extends PureComponent {
 
     this.options = [
       { icon: 'globe', iconComponent: PublicIcon, value: 'public', text: formatMessage(messages.public_short), meta: formatMessage(messages.public_long) },
-      { icon: 'unlock', iconComponent: LockOpenIcon,  value: 'unlisted', text: formatMessage(messages.unlisted_short), meta: formatMessage(messages.unlisted_long) },
+      { icon: 'unlock', iconComponent: LockOpenIcon, value: 'unlisted', text: formatMessage(messages.unlisted_short), meta: formatMessage(messages.unlisted_long) },
       { icon: 'lock', iconComponent: LockIcon, value: 'private', text: formatMessage(messages.private_short), meta: formatMessage(messages.private_long) },
     ];
 
