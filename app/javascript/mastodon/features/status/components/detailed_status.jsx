@@ -9,6 +9,8 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
 import { ReactComponent as AlternateEmailIcon } from '@material-symbols/svg-600/outlined/alternate_email.svg';
+import { ReactComponent as LockIcon } from '@material-symbols/svg-600/outlined/lock.svg';
+import { ReactComponent as LockOpenIcon } from '@material-symbols/svg-600/outlined/lock_open.svg';
 import { ReactComponent as RepeatIcon } from '@material-symbols/svg-600/outlined/repeat.svg';
 import { ReactComponent as StarIcon } from '@material-symbols/svg-600/outlined/star-fill.svg';
 
@@ -122,8 +124,8 @@ class DetailedStatus extends ImmutablePureComponent {
     let media           = '';
     let applicationLink = '';
     let reblogLink = '';
-    const reblogIcon = 'retweet';
-    const reblogIconComponent = RepeatIcon;
+    let reblogIcon = 'retweet';
+    let reblogIconComponent = RepeatIcon;
     let favouriteLink = '';
     let edited = '';
 
@@ -202,14 +204,17 @@ class DetailedStatus extends ImmutablePureComponent {
 
     if (status.get('visibility') === 'direct') {
       reblogIcon = 'at';
+      reblogIconComponent = AlternateEmailIcon;
     } else if (status.get('visibility') === 'private') {
       reblogIcon = 'lock';
+      reblogIconComponent = LockIcon;
     } else if (status.get('visibility') === 'unlisted') {
       reblogIcon = 'unlock';
+      reblogIconComponent = LockOpenIcon;
     }
 
     if (['private', 'direct'].includes(status.get('visibility'))) {
-      reblogLink = <Icon id={reblogIcon} />;
+      reblogLink = <Icon id={reblogIcon} icon={reblogIconComponent} />;
     } else if (this.props.history) {
       reblogLink = (
         <Link to={`/@${status.getIn(['account', 'acct'])}/${status.get('id')}/reblogs`} className='detailed-status__link'>
