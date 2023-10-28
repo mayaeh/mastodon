@@ -11,6 +11,7 @@ import { ReactComponent as HomeIcon } from '@material-symbols/svg-600/outlined/h
 import { ReactComponent as ListAltIcon } from '@material-symbols/svg-600/outlined/list_alt.svg';
 import { ReactComponent as MoreHorizIcon } from '@material-symbols/svg-600/outlined/more_horiz.svg';
 import { ReactComponent as PublicIcon } from '@material-symbols/svg-600/outlined/public.svg';
+import { ReactComponent as PublishIcon } from '@material-symbols/svg-600/outlined/ink_pen.svg';
 import { ReactComponent as SearchIcon } from '@material-symbols/svg-600/outlined/search.svg';
 import { ReactComponent as SettingsIcon } from '@material-symbols/svg-600/outlined/settings-fill.svg';
 import { ReactComponent as StarIcon } from '@material-symbols/svg-600/outlined/star-fill.svg';
@@ -142,7 +143,7 @@ class NavigationPanel extends Component {
 
         {signedIn && location.pathname !== '/publish' && (
           <Link to='/publish' className='floating-action-button' aria-label={intl.formatMessage(messages.publish)}>
-            <Icon id='pencil' />
+            <Icon id='pencil' icon={PublishIcon} />
           </Link>
         )}
 

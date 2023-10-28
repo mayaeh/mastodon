@@ -7,6 +7,7 @@ import { Link, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
+import { ReactComponent as PublishIcon } from '@material-symbols/svg-600/outlined/ink_pen.svg';
 import { ReactComponent as SearchIcon } from '@material-symbols/svg-600/outlined/search.svg';
 
 import { openModal } from 'mastodon/actions/modal';
@@ -70,7 +71,7 @@ class Header extends PureComponent {
       content = (
         <>
           {location.pathname !== '/search' && <Link to='/search' className='button button-secondary' aria-label={intl.formatMessage(messages.search)}><Icon id='search' icon={SearchIcon} /></Link>}
-          {location.pathname !== '/publish' && <Link to='/publish' className='button button-secondary'><FormattedMessage id='compose_form.publish_form' defaultMessage='New post' /></Link>}
+          {location.pathname !== '/publish' && <Link to='/publish' className='button button-secondary'><FormattedMessage id='compose_form.publish_form' defaultMessage='New post' /><Icon id='pencil' icon={PublishIcon} /></Link>}
           <Account />
         </>
       );
