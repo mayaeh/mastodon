@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 
 import { FormattedMessage, defineMessages } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Icon } from 'mastodon/components/icon';
 
 import { ReactComponent as ChevronDownIcon } from '@material-symbols/svg-600/outlined/keyboard_arrow_down.svg';
 import { ReactComponent as ChevronUpIcon } from '@material-symbols/svg-600/outlined/keyboard_arrow_up.svg';
 import { ReactComponent as RefreshIcon } from '@material-symbols/svg-600/outlined/refresh.svg';
 import { ReactComponent as TrendsIcon } from '@material-symbols/svg-600/outlined/trending_up.svg';
+
+import { Icon } from 'mastodon/components/icon';
 
 const messages = defineMessages({
   refresh_trends: { id: 'trends.refresh', defaultMessage: 'Refresh' },
