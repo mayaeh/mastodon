@@ -9,6 +9,7 @@ import { ReactComponent as AlternateEmailIcon } from '@material-symbols/svg-600/
 import { ReactComponent as BookmarksIcon } from '@material-symbols/svg-600/outlined/bookmarks-fill.svg';
 import { ReactComponent as HomeIcon } from '@material-symbols/svg-600/outlined/home-fill.svg';
 import { ReactComponent as ListAltIcon } from '@material-symbols/svg-600/outlined/list_alt.svg';
+import { ReactComponent as MenuIcon } from '@material-symbols/svg-600/outlined/menu.svg';
 import { ReactComponent as MoreHorizIcon } from '@material-symbols/svg-600/outlined/more_horiz.svg';
 import { ReactComponent as PublicIcon } from '@material-symbols/svg-600/outlined/public.svg';
 import { ReactComponent as PublishIcon } from '@material-symbols/svg-600/outlined/ink_pen.svg';
@@ -138,7 +139,7 @@ class NavigationPanel extends Component {
         </div>
 
         {signedIn && (
-          <ColumnLink transparent to='/getting-started' icon='bars' text={intl.formatMessage(messages.gettingStarted)} />
+          <ColumnLink transparent to='/getting-started' icon='bars' iconComponent={MenuIcon} text={intl.formatMessage(messages.gettingStarted)} />
         )}
 
         {signedIn && location.pathname !== '/publish' && (
