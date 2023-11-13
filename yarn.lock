@@ -2542,7 +2542,6 @@ __metadata:
     npmlog: "npm:^7.0.1"
     path-complete-extname: "npm:^1.0.0"
     pg: "npm:^8.5.0"
-    pg-connection-string: "npm:^2.6.0"
     postcss: "npm:^8.4.24"
     postcss-loader: "npm:^4.3.0"
     prettier: "npm:^3.0.0"
@@ -12673,7 +12672,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pg-connection-string@npm:^2.6.0, pg-connection-string@npm:^2.6.2":
+"pg-connection-string@npm:^2.6.2":
   version: 2.6.2
   resolution: "pg-connection-string@npm:2.6.2"
   checksum: e8fdea74fcc8bdc3d7c5c6eadd9425fdba7e67fb7fe836f9c0cecad94c8984e435256657d1d8ce0483d1fedef667e7a57e32449a63cb805cb0289fc34b62da35
@@ -17894,4 +17893,3 @@ __metadata:
   checksum: 2d110bfcb0f8b8dbf225423f6556da9c5bca95c8b849c1218983676158a24b5cd0350357e0c4d504e27f8c7e18d471d9712576f35114a81a51bcf83453f02beb
   languageName: node
   linkType: hard
->>>>>>> main
