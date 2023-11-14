@@ -22,8 +22,6 @@ import { ReactComponent as StarIcon } from '@material-symbols/svg-600/outlined/s
 import { ReactComponent as StarBorderIcon } from '@material-symbols/svg-600/outlined/star.svg';
 import { ReactComponent as VisibilityIcon } from '@material-symbols/svg-600/outlined/visibility.svg';
 
-import { ReactComponent as RepeatDisabledIcon } from 'mastodon/../svg-icons/repeat_disabled.svg';
-import { ReactComponent as RepeatPrivateIcon } from 'mastodon/../svg-icons/repeat_private.svg';
 import { PERMISSION_MANAGE_USERS, PERMISSION_MANAGE_FEDERATION } from 'mastodon/permissions';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 
@@ -376,16 +374,12 @@ class StatusActionBar extends ImmutablePureComponent {
 
     if (status.get('reblogged')) {
       reblogTitle = intl.formatMessage(messages.cancel_reblog_private);
-      reblogIconComponent = publicStatus ? RepeatIcon : RepeatPrivateIcon;
     } else if (publicStatus) {
       reblogTitle = intl.formatMessage(messages.reblog);
-      reblogIconComponent = RepeatIcon;
     } else if (reblogPrivate) {
       reblogTitle = intl.formatMessage(messages.reblog_private);
-      reblogIconComponent = RepeatPrivateIcon;
     } else {
       reblogTitle = intl.formatMessage(messages.cannot_reblog);
-      reblogIconComponent = RepeatDisabledIcon;
     }
 
     if (status.get('visibility') === 'direct') {
