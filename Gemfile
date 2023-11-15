@@ -16,7 +16,7 @@ gem 'dotenv-rails', '~> 2.8'
 
 gem 'aws-sdk-s3', '~> 1.123', require: false
 gem 'fog-core', '<= 2.4.0'
-gem 'fog-openstack', '~> 0.3', require: false
+gem 'fog-openstack', '~> 1.0', require: false
 gem 'kt-paperclip', '~> 7.2'
 gem 'md-paperclip-azure', '~> 2.2', require: false
 gem 'blurhash', '~> 0.1'
@@ -140,6 +140,7 @@ group :test do
 
   # Coverage formatter for RSpec test if DISABLE_SIMPLECOV is false
   gem 'simplecov', '~> 0.22', require: false
+  gem 'simplecov-lcov', '~> 0.8', require: false
 
   # Stub web requests for specs
   gem 'webmock', '~> 3.18'
