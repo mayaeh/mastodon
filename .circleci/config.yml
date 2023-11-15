@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  ruby: circleci/ruby@2.0.0
-  node: circleci/node@5.0.3
+  ruby: circleci/ruby@2.1.0
+  node: circleci/node@5.1.0
 
 executors:
   default:
@@ -33,6 +33,13 @@ commands:
           command: |
             sudo apt-get update
             sudo apt-get install -y libicu-dev libidn11-dev
+  prepare-yarn:
+    steps:
+      - run:
+          name: Specification version of yarn to stable
+          command: |
+            sudo corepack enable
+            sudo yarn set version stable
   install-ruby-dependencies:
     parameters:
       ruby-version:
@@ -45,7 +52,7 @@ commands:
             bundle config without 'development production'
           name: Set bundler settings
       - ruby/install-deps:
-          bundler-version: '2.3.26'
+          bundler-version: '2.4.20'
           key: ruby<< parameters.ruby-version >>-gems-v2
   wait-db:
     steps:
@@ -62,10 +69,11 @@ jobs:
     steps:
       - checkout
       - install-system-dependencies
+      - prepare-yarn
       - install-ruby-dependencies:
           ruby-version: '3.2'
       - node/install-packages:
-          cache-version: v1
+          cache-version: v2
           pkg-manager: yarn
       - run:
           command: |
