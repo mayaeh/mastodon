@@ -33,6 +33,13 @@ commands:
           command: |
             sudo apt-get update
             sudo apt-get install -y libicu-dev libidn11-dev
+  prepare-yarn:
+    steps:
+      - run:
+          name: Specification version of yarn to stable
+          command: |
+            sudo corepack enable
+            sudo yarn set version stable
   install-ruby-dependencies:
     parameters:
       ruby-version:
@@ -62,6 +69,7 @@ jobs:
     steps:
       - checkout
       - install-system-dependencies
+      - prepare-yarn
       - install-ruby-dependencies:
           ruby-version: '3.2'
       - node/install-packages:
@@ -69,8 +77,6 @@ jobs:
           pkg-manager: yarn
       - run:
           command: |
-            sudo corepack enable
-            sudo yarn set version stable
             export NODE_OPTIONS=--openssl-legacy-provider
             ./bin/rails assets:precompile
           name: Precompile assets
