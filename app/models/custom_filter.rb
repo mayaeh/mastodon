@@ -39,9 +39,9 @@ class CustomFilter < ApplicationRecord
   accepts_nested_attributes_for :keywords, reject_if: :all_blank, allow_destroy: true
 
   validates :title, :context, presence: true
-  validate :context_validation_error, if: :invalid_context_value?
+  validate :context_must_be_valid
 
-  normalizes :context, with: ->(context) { context.map(&:strip).filter_map(&:presence) }
+  before_validation :clean_up_contexts
 
   before_save :prepare_cache_invalidation!
   before_destroy :prepare_cache_invalidation!
@@ -123,11 +123,11 @@ class CustomFilter < ApplicationRecord
 
   private
 
-  def context_validation_error
-    errors.add(:context, I18n.t('filters.errors.invalid_context'))
+  def clean_up_contexts
+    self.context = Array(context).map(&:strip).filter_map(&:presence)
   end
 
-  def invalid_context_value?
-    context.blank? || context.difference(VALID_CONTEXTS).any?
+  def context_must_be_valid
+    errors.add(:context, I18n.t('filters.errors.invalid_context')) if context.empty? || context.any? { |c| !VALID_CONTEXTS.include?(c) }
   end
 end
