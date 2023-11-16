@@ -43,15 +43,6 @@
   color: $highlight-text-color;
 }
 
-.react-toggle--checked .react-toggle-track {
-  background-color: darken($ui-highlight-color, 2%);
-}
-
-.react-toggle--checked:is(:hover, :focus-within):not(.react-toggle--disabled)
-  .react-toggle-track {
-  background-color: $ui-highlight-color;
-}
-
 .column-link {
   &--transparent {
     &.active {
