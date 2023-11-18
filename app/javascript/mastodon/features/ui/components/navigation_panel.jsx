@@ -8,16 +8,17 @@ import { Link, withRouter } from 'react-router-dom';
 import { ReactComponent as AlternateEmailIcon } from '@material-symbols/svg-600/outlined/alternate_email.svg';
 import { ReactComponent as BookmarksIcon } from '@material-symbols/svg-600/outlined/bookmarks-fill.svg';
 import { ReactComponent as HomeIcon } from '@material-symbols/svg-600/outlined/home-fill.svg';
+import { ReactComponent as PublishIcon } from '@material-symbols/svg-600/outlined/ink_pen.svg';
 import { ReactComponent as ListAltIcon } from '@material-symbols/svg-600/outlined/list_alt.svg';
 import { ReactComponent as MenuIcon } from '@material-symbols/svg-600/outlined/menu.svg';
 import { ReactComponent as MoreHorizIcon } from '@material-symbols/svg-600/outlined/more_horiz.svg';
 import { ReactComponent as PublicIcon } from '@material-symbols/svg-600/outlined/public.svg';
-import { ReactComponent as PublishIcon } from '@material-symbols/svg-600/outlined/ink_pen.svg';
 import { ReactComponent as SearchIcon } from '@material-symbols/svg-600/outlined/search.svg';
 import { ReactComponent as SettingsIcon } from '@material-symbols/svg-600/outlined/settings-fill.svg';
 import { ReactComponent as StarIcon } from '@material-symbols/svg-600/outlined/star-fill.svg';
 import { ReactComponent as TagIcon } from '@material-symbols/svg-600/outlined/tag.svg';
 
+import { Icon } from 'mastodon/components/icon';
 import { WordmarkLogo } from 'mastodon/components/logo';
 import { NavigationPortal } from 'mastodon/components/navigation_portal';
 import { timelinePreview, trendsEnabled } from 'mastodon/initial_state';
@@ -29,7 +30,6 @@ import FollowRequestsColumnLink from './follow_requests_column_link';
 import ListPanel from './list_panel';
 import NotificationsCounterIcon from './notifications_counter_icon';
 import SignInBanner from './sign_in_banner';
-import { Icon } from 'mastodon/components/icon';
 
 const messages = defineMessages({
   home: { id: 'tabs_bar.home', defaultMessage: 'Home' },

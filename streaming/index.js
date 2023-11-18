@@ -28,7 +28,7 @@ log.level = process.env.LOG_LEVEL || 'verbose';
 
 /**
  * @param {string} dbUrl
- * @return {Object.<string, any>}
+ * @returns {Object.<string, any>}
  */
 const dbUrlToConfig = (dbUrl) => {
   if (!dbUrl) {

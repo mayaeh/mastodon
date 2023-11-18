@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import { List as ImmutableList } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { fetchAccountIdentityProofs } from '../../actions/identity_proofs';
 import { connect } from 'react-redux';
 
 import { TimelineHint } from 'mastodon/components/timeline_hint';
@@ -16,6 +15,7 @@ import { getAccountHidden } from 'mastodon/selectors';
 
 import { lookupAccount, fetchAccount } from '../../actions/accounts';
 import { fetchFeaturedTags } from '../../actions/featured_tags';
+import { fetchAccountIdentityProofs } from '../../actions/identity_proofs';
 import { expandAccountFeaturedTimeline, expandAccountTimeline, connectTimeline, disconnectTimeline } from '../../actions/timelines';
 import { ColumnBackButton } from '../../components/column_back_button';
 import { LoadingIndicator } from '../../components/loading_indicator';

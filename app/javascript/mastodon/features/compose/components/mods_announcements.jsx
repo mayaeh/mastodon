@@ -1,15 +1,19 @@
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import Immutable from 'immutable';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+
 import classnames from 'classnames';
+import { Link } from 'react-router-dom';
+
+import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+
+import axios from 'axios';
+
 
 class ModAnnouncement extends React.PureComponent {
 
   static propTypes = {
     item: ImmutablePropTypes.map,
-  }
+  };
 
   render() {
     const { item } = this.props;
@@ -46,11 +50,11 @@ export default class ModsAnnouncements extends React.PureComponent {
 
   state = {
     items: ModsAnnouncements.cache || Immutable.Map(),
-  }
+  };
 
-  static isCacheControlled = false
-  static lastDate = null
-  static cache = null
+  static isCacheControlled = false;
+  static lastDate = null;
+  static cache = null;
 
   constructor () {
     super();
@@ -63,14 +67,14 @@ export default class ModsAnnouncements extends React.PureComponent {
 
   setPolling = () => {
     this.timer = setTimeout(this.refresh, 2 * 60 * 1000);
-  }
+  };
 
   cancelPolling = () => {
     if (this.timer !== null) {
       clearTimeout(this.timer);
       this.timer = null;
     }
-  }
+  };
 
   deleteServiceWorkerCache = () => {
     // files in /system/ will be cached by SW
@@ -81,7 +85,7 @@ export default class ModsAnnouncements extends React.PureComponent {
     } else {
       return Promise.resolve();
     }
-  }
+  };
 
   refresh = () => {
     this.timer = null;
@@ -91,17 +95,17 @@ export default class ModsAnnouncements extends React.PureComponent {
         'If-Modified-Since': !ModsAnnouncements.isCacheControlled && ModsAnnouncements.lastDate || '',
       },
     })
-    .then(resp => {
-      ModsAnnouncements.isCacheControlled = !!resp.headers['cache-control'];
-      ModsAnnouncements.lastDate = resp.headers['last-modified'];
-      return resp;
-    })
-    .then(resp => this.setState({ items: ModsAnnouncements.cache = Immutable.fromJS(resp.data) || {} }))
-    .catch(err => err.response.status !== 304 && console.warn(err))
-    .then(this.deleteServiceWorkerCache)
-    .then(this.setPolling)
-    .catch(err => err && console.warn(err));
-  }
+      .then(resp => {
+        ModsAnnouncements.isCacheControlled = !!resp.headers['cache-control'];
+        ModsAnnouncements.lastDate = resp.headers['last-modified'];
+        return resp;
+      })
+      .then(resp => this.setState({ items: ModsAnnouncements.cache = Immutable.fromJS(resp.data) || {} }))
+      .catch(err => err.response.status !== 304 && console.warn(err))
+      .then(this.deleteServiceWorkerCache)
+      .then(this.setPolling)
+      .catch(err => err && console.warn(err));
+  };
 
   render() {
     const { items } = this.state;
