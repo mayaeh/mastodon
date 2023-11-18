@@ -7,12 +7,12 @@
     - if push_subscription_block.enable?
       %span.positive-hint
         = fa_icon('check')
-        = ' '
+        = ` `
         = t 'admin.push_subscription_blocks.enabled'
     - else
       %span.negative-hint
         = fa_icon('times')
-        = ' '
+        = ` `
         = t 'admin.push_subscription_blocks.disabled'
   %td.nowrap
     - if push_subscription_block.enable?
