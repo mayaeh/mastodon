@@ -257,19 +257,6 @@ jobs:
         ports:
           - 6379:6379
 
-      search:
-        image: ${{ matrix.search-image }}
-        env:
-          discovery.type: single-node
-          xpack.security.enabled: false
-        options: >-
-          --health-cmd "curl http://localhost:9200/_cluster/health"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 10
-        ports:
-          - 9200:9200
-
     env:
       DB_HOST: localhost
       DB_USER: postgres
@@ -288,11 +275,8 @@ jobs:
           - '3.0'
           - '3.1'
           - '.ruby-version'
-        search-image:
-          - docker.elastic.co/elasticsearch/elasticsearch:7.17.13
         include:
           - ruby-version: '.ruby-version'
-            search-image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
 
     steps:
       - uses: actions/checkout@v4
@@ -310,6 +294,32 @@ jobs:
 
       - name: Set up Javascript environment
         uses: ./.github/actions/setup-javascript
+
+      - name: Configure sysctl limits
+        run: |
+          sudo swapoff -a
+          sudo sysctl -w vm.swappiness=1
+          sudo sysctl -w fs.file-max=262144
+          sudo sysctl -w vm.max_map_count=262144
+
+      - name: Install Elasticsearch
+        run: |
+          wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.17.13-amd64.deb
+          wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.17.13-amd64.deb.sha512
+          shasum -a 512 -c elasticsearch-7.17.13-amd64.deb.sha512
+          sudo dpkg -i elasticsearch-7.17.13-amd64.deb
+          sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-kuromoji analysis-icu
+
+      - name: Running Elasticsearch
+        run: |
+          sudo systemctl start elasticsearch
+
+      - name: Add user dictionary
+        run: |
+          sudo mkdir /usr/share/elasticsearch/config/ -p
+          sudo cp ./userdict_ja.txt /usr/share/elasticsearch/config/userdict_ja.txt
+          sudo mkdir /etc/elasticsearch/ -p
+          sudo cp ./userdict_ja.txt /etc/elasticsearch/userdict_ja.txt
 
       - name: Load database schema
         run: './bin/rails db:create db:schema:load db:seed'
