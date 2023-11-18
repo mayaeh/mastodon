@@ -11,7 +11,7 @@ class ProofProvider::Keybase::Badge
   end
 
   def proof_url
-    "#{ProofProvider::Keybase::BASE_URL}/#{@provider_username}/sigchain\##{@token}"
+    "#{ProofProvider::Keybase::BASE_URL}/#{@provider_username}/sigchain##{@token}"
   end
 
   def profile_url

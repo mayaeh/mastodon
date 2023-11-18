@@ -14,6 +14,10 @@ module Admin
       @push_subscription_block = PushSubscriptionBlock.new
     end
 
+    def edit
+      authorize :push_subscription_block, :update?
+    end
+
     def create
       authorize :push_subscription_block, :update?
 
@@ -25,10 +29,6 @@ module Admin
       else
         render action: :new
       end
-    end
-
-    def edit
-      authorize :push_subscription_block, :update?
     end
 
     def update

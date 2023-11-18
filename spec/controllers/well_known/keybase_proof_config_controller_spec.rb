@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-describe WellKnown::KeybaseProofConfigController, type: :controller do
+describe WellKnown::KeybaseProofConfigController do
   render_views
 
   describe 'GET #show' do
@@ -9,7 +11,7 @@ describe WellKnown::KeybaseProofConfigController, type: :controller do
 
       expect(response).to have_http_status(200)
       expect(response.media_type).to eq 'application/json'
-      expect { JSON.parse(response.body) }.not_to raise_exception
+      expect { JSON.parse(response.body) }.to_not raise_exception
     end
   end
 end
