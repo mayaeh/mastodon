@@ -29,6 +29,6 @@ class Api::V1::Instances::ActivityController < Api::V1::Instances::BaseControlle
   end
 
   def require_enabled_api!
-    head 404 unless Setting.activity_api_enabled && !whitelist_mode?
+    head 404 unless Setting.activity_api_enabled && !limited_federation_mode?
   end
 end
