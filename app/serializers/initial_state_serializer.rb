@@ -24,7 +24,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       repository: Mastodon::Version.repository,
       source_url: instance_presenter.source_url,
       version: instance_presenter.version,
-      limited_federation_mode: Rails.configuration.x.whitelist_mode,
+      limited_federation_mode: Rails.configuration.x.limited_federation_mode,
       mascot: instance_presenter.mascot&.file&.url,
       profile_directory: Setting.profile_directory,
       trends_enabled: Setting.trends,
@@ -51,7 +51,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:use_blurhash]            = object.current_account.user.setting_use_blurhash
       store[:use_pending_items]       = object.current_account.user.setting_use_pending_items
       store[:show_trends]             = Setting.trends && object.current_account.user.setting_trends
-      store[:crop_images]       = object.current_account.user.setting_crop_images
+      store[:crop_images] = object.current_account.user.setting_crop_images
       store[:navigation_panel_layout] = object.current_account.user.setting_navigation_panel_layout
       store[:fab_layout]              = object.current_account.user.setting_fab_layout
     else

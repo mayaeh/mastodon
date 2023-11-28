@@ -203,7 +203,7 @@ class ActivityPub::ProcessAccountService < BaseService
 
     return if value.nil?
     return value['url'] if value.is_a?(Hash)
-    return unless value =~ %r{https?://}
+    return unless %r{https?://}.match?(value)
 
     image = fetch_resource_without_id_validation(value)
     image['url'] if image
@@ -333,11 +333,13 @@ class ActivityPub::ProcessAccountService < BaseService
 
     as_array(@json['attachment']).each do |attachment|
       next unless equals_or_includes?(attachment['type'], 'IdentityProof')
+
       current_proofs << process_identity_proof(attachment)
     end
 
     previous_proofs.each do |previous_proof|
       next if current_proofs.any? { |current_proof| current_proof.id == previous_proof.id }
+
       previous_proof.delete
     end
   end

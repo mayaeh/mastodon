@@ -7,7 +7,7 @@ class Api::V1::Instances::ExtendedDescriptionsController < Api::V1::Instances::B
 
   # Override `current_user` to avoid reading session cookies unless in whitelist mode
   def current_user
-    super if whitelist_mode?
+    super if limited_federation_mode?
   end
 
   def show

@@ -19,7 +19,6 @@ import { ReactComponent as SettingsIcon } from '@material-symbols/svg-600/outlin
 import spring from 'react-motion/lib/spring';
 
 import { openModal } from 'mastodon/actions/modal';
-import ModsAnnouncements from './components/mods_announcements';
 import Column from 'mastodon/components/column';
 import { Icon }  from 'mastodon/components/icon';
 import { logOut } from 'mastodon/utils/log_out';
@@ -30,6 +29,7 @@ import { mascot } from '../../initial_state';
 import { isMobile } from '../../is_mobile';
 import Motion from '../ui/util/optional_motion';
 
+import ModsAnnouncements from './components/mods_announcements';
 import ComposeFormContainer from './containers/compose_form_container';
 import NavigationContainer from './containers/navigation_container';
 import SearchContainer from './containers/search_container';

@@ -148,14 +148,14 @@ module ApplicationHelper
   end
 
   NAVIGATION_PANEL_LAYOUT = {
-    'right'   => '',
-    'top'     => 'navigation-panel_layout_top',
-    'bottom'  => 'navigation-panel_layout_bottom',
+    'right' => '',
+    'top' => 'navigation-panel_layout_top',
+    'bottom' => 'navigation-panel_layout_bottom',
   }.freeze
 
   FAB_LAYOUT = {
-    'right'   => '',
-    'left'    => 'fab_layout_left',
+    'right' => '',
+    'left' => 'fab_layout_left',
   }.freeze
 
   def body_classes

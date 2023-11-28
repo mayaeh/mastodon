@@ -10,7 +10,7 @@ class ProofProvider::Keybase::Worker
     # This is likely because Keybase just hasn't noticed the proof being
     # served from here yet.
 
-    if exception.class == ProofProvider::Keybase::ExpectedProofLiveError
+    if exception.instance_of?(ProofProvider::Keybase::ExpectedProofLiveError)
       case count
       when 0..2 then 0.seconds
       when 2..6 then 1.second

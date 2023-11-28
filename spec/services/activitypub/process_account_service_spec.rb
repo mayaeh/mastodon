@@ -32,7 +32,7 @@ RSpec.describe ActivityPub::ProcessAccountService, type: :service do
     end
   end
 
-  context 'identity proofs' do
+  context 'with identity proofs' do
     let(:payload) do
       {
         id: 'https://foo.test',
@@ -72,7 +72,7 @@ RSpec.describe ActivityPub::ProcessAccountService, type: :service do
 
     it 'queues a validity check on the proof' do
       allow(ProofProvider::Keybase::Worker).to receive(:perform_async)
-      account = subject.call('alice', 'example.com', payload)
+      subject.call('alice', 'example.com', payload)
       expect(ProofProvider::Keybase::Worker).to have_received(:perform_async)
     end
   end

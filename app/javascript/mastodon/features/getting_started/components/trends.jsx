@@ -1,24 +1,26 @@
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 import { FormattedMessage, defineMessages } from 'react-intl';
+
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
+
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
 
 import { ReactComponent as ChevronDownIcon } from '@material-symbols/svg-600/outlined/keyboard_arrow_down.svg';
 import { ReactComponent as ChevronUpIcon } from '@material-symbols/svg-600/outlined/keyboard_arrow_up.svg';
 import { ReactComponent as RefreshIcon } from '@material-symbols/svg-600/outlined/refresh.svg';
 import { ReactComponent as TrendsIcon } from '@material-symbols/svg-600/outlined/trending_up.svg';
 
+import { ImmutableHashtag as Hashtag } from 'mastodon/components/hashtag';
 import { Icon } from 'mastodon/components/icon';
+
+
 
 const messages = defineMessages({
   refresh_trends: { id: 'trends.refresh', defaultMessage: 'Refresh' },
 });
-
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-
-import { ImmutableHashtag as Hashtag } from 'mastodon/components/hashtag';
 
 export default class Trends extends ImmutablePureComponent {
 
@@ -47,11 +49,11 @@ export default class Trends extends ImmutablePureComponent {
 
   handleRefreshTrends = () => {
     this.props.fetchTrends();
-  }
+  };
 
   handleToggle = () => {
     this.props.toggleTrends(!this.props.showTrends);
-  }
+  };
 
   render () {
     const { intl, trends, loading, showTrends } = this.props;
