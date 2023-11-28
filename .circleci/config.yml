@@ -33,6 +33,8 @@ commands:
           command: |
             sudo apt-get update
             sudo apt-get install -y libicu-dev libidn11-dev
+            wget http://archive.ubuntu.com/ubuntu/pool/main/i/icu/libicu66_66.1-2ubuntu2_amd64.deb
+            sudo dpkg -i libicu66_66.1-2ubuntu2_amd64.deb
   prepare-yarn:
     steps:
       - run:
