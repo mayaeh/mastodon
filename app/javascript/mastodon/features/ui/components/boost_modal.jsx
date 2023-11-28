@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 
-import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -14,7 +13,6 @@ import { ReactComponent as RepeatIcon } from '@material-symbols/svg-600/outlined
 import { changeBoostPrivacy } from 'mastodon/actions/boosts';
 import AttachmentList from 'mastodon/components/attachment_list';
 import { Icon }  from 'mastodon/components/icon';
-import { VisibilityIcon } from 'mastodon/components/visibility_icon';
 import PrivacyDropdown from 'mastodon/features/compose/components/privacy_dropdown';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 

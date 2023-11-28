@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePushSubscriptionBlocks < ActiveRecord::Migration[6.1]
   def change
     create_table :push_subscription_blocks do |t|

@@ -1,5 +1,6 @@
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 
+import { List as ImmutableList } from 'immutable';
 import { connect } from 'react-redux';
 
 import { openURL } from 'mastodon/actions/search';

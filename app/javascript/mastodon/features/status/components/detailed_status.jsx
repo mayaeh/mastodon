@@ -19,7 +19,6 @@ import EditedTimestamp from 'mastodon/components/edited_timestamp';
 import { getHashtagBarForStatus } from 'mastodon/components/hashtag_bar';
 import { Icon }  from 'mastodon/components/icon';
 import PictureInPicturePlaceholder from 'mastodon/components/picture_in_picture_placeholder';
-import { VisibilityIcon } from 'mastodon/components/visibility_icon';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 
 import { Avatar } from '../../../components/avatar';

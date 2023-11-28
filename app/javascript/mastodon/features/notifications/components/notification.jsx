@@ -19,13 +19,13 @@ import { ReactComponent as StarIcon } from '@material-symbols/svg-600/outlined/s
 import { HotKeys } from 'react-hotkeys';
 
 import { Icon } from 'mastodon/components/icon';
+import { RelativeTimestamp } from 'mastodon/components/relative_timestamp';
 import AccountContainer from 'mastodon/containers/account_container';
 import StatusContainer from 'mastodon/containers/status_container';
 import { me } from 'mastodon/initial_state';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 
 import FollowRequestContainer from '../containers/follow_request_container';
-import { RelativeTimestamp } from 'mastodon/components/relative_timestamp';
 
 import Report from './report';
 

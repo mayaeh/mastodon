@@ -32,7 +32,6 @@ import { getHashtagBarForStatus } from './hashtag_bar';
 import { RelativeTimestamp } from './relative_timestamp';
 import StatusActionBar from './status_action_bar';
 import StatusContent from './status_content';
-import { VisibilityIcon } from './visibility_icon';
 
 const domParser = new DOMParser();
 
