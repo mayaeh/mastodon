@@ -310,6 +310,10 @@ jobs:
           sudo dpkg -i elasticsearch-7.17.13-amd64.deb
           sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-kuromoji analysis-icu
 
+      - name: Set security settings
+        run: |
+          sudo cp .github/workflows/elasticsearch-settings/elasticsearch.yml /etc/elasticsearch
+
       - name: Running Elasticsearch
         run: |
           sudo systemctl start elasticsearch
@@ -317,9 +321,9 @@ jobs:
       - name: Add user dictionary
         run: |
           sudo mkdir /usr/share/elasticsearch/config/ -p
-          sudo cp ./userdict_ja.txt /usr/share/elasticsearch/config/userdict_ja.txt
+          sudo cp .github/workflows/elasticsearch-settings/userdict_ja.txt /usr/share/elasticsearch/config/userdict_ja.txt
           sudo mkdir /etc/elasticsearch/ -p
-          sudo cp ./userdict_ja.txt /etc/elasticsearch/userdict_ja.txt
+          sudo cp .github/workflows/elasticsearch-settings/userdict_ja.txt /etc/elasticsearch/userdict_ja.txt
 
       - name: Load database schema
         run: './bin/rails db:create db:schema:load db:seed'
