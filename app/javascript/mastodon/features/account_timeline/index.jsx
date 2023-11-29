@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import { List as ImmutableList } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { fetchAccountIdentityProofs } from '../../actions/identity_proofs';
 import { connect } from 'react-redux';
 
 import { TimelineHint } from 'mastodon/components/timeline_hint';
@@ -16,13 +15,14 @@ import { getAccountHidden } from 'mastodon/selectors';
 
 import { lookupAccount, fetchAccount } from '../../actions/accounts';
 import { fetchFeaturedTags } from '../../actions/featured_tags';
+import { fetchAccountIdentityProofs } from '../../actions/identity_proofs';
 import { expandAccountFeaturedTimeline, expandAccountTimeline, connectTimeline, disconnectTimeline } from '../../actions/timelines';
-import ColumnBackButton from '../../components/column_back_button';
+import { ColumnBackButton } from '../../components/column_back_button';
 import { LoadingIndicator } from '../../components/loading_indicator';
 import StatusList from '../../components/status_list';
 import Column from '../ui/components/column';
 
-import LimitedAccountHint from './components/limited_account_hint';
+import { LimitedAccountHint } from './components/limited_account_hint';
 import HeaderContainer from './containers/header_container';
 
 const emptyList = ImmutableList();
@@ -186,7 +186,7 @@ class AccountTimeline extends ImmutablePureComponent {
 
     return (
       <Column>
-        <ColumnBackButton multiColumn={multiColumn} />
+        <ColumnBackButton />
 
         <StatusList
           prepend={<HeaderContainer accountId={this.props.accountId} hideTabs={forceEmptyState} tagged={this.props.params.tagged} />}

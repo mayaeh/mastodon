@@ -45,21 +45,21 @@ class ProofProvider::Keybase::ConfigSerializer < ActiveModel::Serializer
   def prefill_url
     params = {
       provider: 'keybase',
-      token: '%{sig_hash}',
-      provider_username: '%{kb_username}',
-      username: '%{username}',
-      user_agent: '%{kb_ua}',
+      token: '%<sig_hash>s',
+      provider_username: '%<kb_username>s',
+      username: '%<username>s',
+      user_agent: '%<kb_ua>s',
     }
 
     CGI.unescape(new_settings_identity_proof_url(params))
   end
 
   def profile_url
-    CGI.unescape(short_account_url('%{username}'))
+    CGI.unescape(short_account_url('%<username>s'))
   end
 
   def check_url
-    CGI.unescape(api_proofs_url(username: '%{username}', provider: 'keybase'))
+    CGI.unescape(api_proofs_url(username: '%<username>s', provider: 'keybase'))
   end
 
   def check_path

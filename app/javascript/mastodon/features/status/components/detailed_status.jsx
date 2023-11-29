@@ -1,18 +1,25 @@
 import PropTypes from 'prop-types';
 
-import { injectIntl, FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
+
+import { ReactComponent as AlternateEmailIcon } from '@material-symbols/svg-600/outlined/alternate_email.svg';
+import { ReactComponent as LockIcon } from '@material-symbols/svg-600/outlined/lock.svg';
+import { ReactComponent as LockOpenIcon } from '@material-symbols/svg-600/outlined/lock_open_right.svg';
+import { ReactComponent as RepeatIcon } from '@material-symbols/svg-600/outlined/repeat.svg';
+import { ReactComponent as StarIcon } from '@material-symbols/svg-600/outlined/star-fill.svg';
 
 import { AnimatedNumber } from 'mastodon/components/animated_number';
 import EditedTimestamp from 'mastodon/components/edited_timestamp';
 import { getHashtagBarForStatus } from 'mastodon/components/hashtag_bar';
 import { Icon }  from 'mastodon/components/icon';
 import PictureInPicturePlaceholder from 'mastodon/components/picture_in_picture_placeholder';
+import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 
 import { Avatar } from '../../../components/avatar';
 import { DisplayName } from '../../../components/display_name';
@@ -25,10 +32,6 @@ import Video from '../../video';
 import Card from './card';
 
 class DetailedStatus extends ImmutablePureComponent {
-
-  static contextTypes = {
-    router: PropTypes.object,
-  };
 
   static propTypes = {
     status: ImmutablePropTypes.map,
@@ -46,6 +49,7 @@ class DetailedStatus extends ImmutablePureComponent {
       available: PropTypes.bool,
     }),
     onToggleMediaVisibility: PropTypes.func,
+    ...WithRouterPropTypes,
   };
 
   state = {
@@ -53,9 +57,9 @@ class DetailedStatus extends ImmutablePureComponent {
   };
 
   handleAccountClick = (e) => {
-    if (e.button === 0 && !(e.ctrlKey || e.metaKey) && this.context.router) {
+    if (e.button === 0 && !(e.ctrlKey || e.metaKey) && this.props.history) {
       e.preventDefault();
-      this.context.router.history.push(`/@${this.props.status.getIn(['account', 'acct'])}`);
+      this.props.history.push(`/@${this.props.status.getIn(['account', 'acct'])}`);
     }
 
     e.stopPropagation();
@@ -120,6 +124,7 @@ class DetailedStatus extends ImmutablePureComponent {
     let applicationLink = '';
     let reblogLink = '';
     let reblogIcon = 'retweet';
+    let reblogIconComponent = RepeatIcon;
     let favouriteLink = '';
     let edited = '';
 
@@ -198,18 +203,21 @@ class DetailedStatus extends ImmutablePureComponent {
 
     if (status.get('visibility') === 'direct') {
       reblogIcon = 'at';
+      reblogIconComponent = AlternateEmailIcon;
     } else if (status.get('visibility') === 'private') {
       reblogIcon = 'lock';
+      reblogIconComponent = LockIcon;
     } else if (status.get('visibility') === 'unlisted') {
       reblogIcon = 'unlock';
+      reblogIconComponent = LockOpenIcon;
     }
 
     if (['private', 'direct'].includes(status.get('visibility'))) {
-      reblogLink = <Icon id={reblogIcon} />;
-    } else if (this.context.router) {
+      reblogLink = <Icon id={reblogIcon} icon={reblogIconComponent} />;
+    } else if (this.props.history) {
       reblogLink = (
         <Link to={`/@${status.getIn(['account', 'acct'])}/${status.get('id')}/reblogs`} className='detailed-status__link'>
-          <Icon id={reblogIcon} />
+          <Icon id={reblogIcon} icon={reblogIconComponent} />
           <span className='detailed-status__reblogs'>
             <AnimatedNumber value={status.get('reblogs_count')} />
           </span>
@@ -218,7 +226,7 @@ class DetailedStatus extends ImmutablePureComponent {
     } else {
       reblogLink = (
         <a href={`/interact/${status.get('id')}?type=reblog`} className='detailed-status__link' onClick={this.handleModalLink}>
-          <Icon id={reblogIcon} />
+          <Icon id={reblogIcon} icon={reblogIconComponent} />
           <span className='detailed-status__reblogs'>
             <AnimatedNumber value={status.get('reblogs_count')} />
           </span>
@@ -226,10 +234,10 @@ class DetailedStatus extends ImmutablePureComponent {
       );
     }
 
-    if (this.context.router) {
+    if (this.props.history) {
       favouriteLink = (
         <Link to={`/@${status.getIn(['account', 'acct'])}/${status.get('id')}/favourites`} className='detailed-status__link'>
-          <Icon id='star' />
+          <Icon id='star' icon={StarIcon} />
           <span className='detailed-status__favorites'>
             <AnimatedNumber value={status.get('favourites_count')} />
           </span>
@@ -238,7 +246,7 @@ class DetailedStatus extends ImmutablePureComponent {
     } else {
       favouriteLink = (
         <a href={`/interact/${status.get('id')}?type=favourite`} className='detailed-status__link' onClick={this.handleModalLink}>
-          <Icon id='star' />
+          <Icon id='star' icon={StarIcon} />
           <span className='detailed-status__favorites'>
             <AnimatedNumber value={status.get('favourites_count')} />
           </span>
@@ -263,7 +271,7 @@ class DetailedStatus extends ImmutablePureComponent {
         <div ref={this.setRef} className={classNames('detailed-status', { compact })}>
           {status.get('visibility') === 'direct' && (
             <div className='status__prepend'>
-              <div className='status__prepend-icon-wrapper'><Icon id='at' className='status__prepend-icon' fixedWidth /></div>
+              <div className='status__prepend-icon-wrapper'><Icon id='at' icon={AlternateEmailIcon} className='status__prepend-icon' /></div>
               <FormattedMessage id='status.direct_indicator' defaultMessage='Private mention' />
             </div>
           )}
@@ -296,4 +304,4 @@ class DetailedStatus extends ImmutablePureComponent {
 
 }
 
-export default injectIntl(DetailedStatus);
+export default withRouter(DetailedStatus);

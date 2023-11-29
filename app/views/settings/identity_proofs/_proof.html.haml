@@ -4,7 +4,7 @@
       = image_tag proof.badge.avatar_url, width: 15, height: 15, alt: '', class: 'avatar'
       %span.username
         = proof.provider_username
-        %span= "(#{proof.provider.capitalize})"
+        %span "(#{proof.provider.capitalize})"
 
   %td
     - if proof.live?

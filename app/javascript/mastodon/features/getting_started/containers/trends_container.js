@@ -1,9 +1,11 @@
-import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
+
+import { connect } from 'react-redux';
+
 import { fetchTrendingHashtags } from 'mastodon/actions/trends';
 
-import Trends from '../components/trends';
 import { changeSetting } from '../../../actions/settings';
+import Trends from '../components/trends';
 
 const mapStateToProps = state => ({
   trends: state.getIn(['trends', 'tags', 'items']),

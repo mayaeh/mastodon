@@ -28,6 +28,12 @@ module.exports = {
 
     'scss/dollar-variable-empty-line-before': null,
     'scss/no-global-function-names': null,
+    'font-family-no-missing-generic-family-keyword': [
+      true,
+      {
+        "ignoreFontFamilies": "FontAwesome"
+      }
+    ]
   },
   overrides: [
     {

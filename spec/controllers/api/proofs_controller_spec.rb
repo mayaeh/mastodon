@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Api::ProofsController do
@@ -15,7 +17,7 @@ describe Api::ProofsController do
       it '404s' do
         get :index, params: { username: 'nonexistent', provider: 'keybase' }
 
-        expect(response).to have_http_status(:not_found)
+        expect(response).to have_http_status(404)
       end
     end
 
@@ -65,7 +67,7 @@ describe Api::ProofsController do
     describe 'a user that has an avatar' do
       let(:alice) { Fabricate(:account, username: 'alice', avatar: attachment_fixture('avatar.gif')) }
 
-      context 'and a proof' do
+      context 'with a proof' do
         let(:token1) { '111111111111111111111111111111111111111111111111111111111111111111' }
         let(:kb_name1) { 'crypto_alice' }
 
@@ -75,7 +77,7 @@ describe Api::ProofsController do
         end
 
         it 'has two keys: signatures and avatar' do
-          expect(body_as_json.keys).to match_array [:signatures, :avatar]
+          expect(body_as_json.keys).to contain_exactly(:signatures, :avatar)
         end
 
         it 'has the correct signatures' do

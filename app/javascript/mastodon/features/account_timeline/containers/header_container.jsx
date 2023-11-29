@@ -1,5 +1,6 @@
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 
+import { List as ImmutableList } from 'immutable';
 import { connect } from 'react-redux';
 
 import { openURL } from 'mastodon/actions/search';
@@ -22,7 +23,6 @@ import { openModal } from '../../../actions/modal';
 import { initMuteModal } from '../../../actions/mutes';
 import { initReport } from '../../../actions/reports';
 import { unfollowModal } from '../../../initial_state';
-import { List as ImmutableList } from 'immutable';
 import { makeGetAccount, getAccountHidden } from '../../../selectors';
 import Header from '../components/header';
 
@@ -180,7 +180,7 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
       modalType: 'IMAGE',
       modalProps: {
         src: account.get('avatar'),
-        alt: account.get('acct'),
+        alt: '',
       },
     }));
   },

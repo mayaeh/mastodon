@@ -12,6 +12,7 @@
 .layout-single-column .ui__header {
   display: none;
 }
+
 .ui__header {
   display: none;
 }
@@ -68,15 +69,6 @@
   &:active {
     background: lighten($ui-highlight-color, 7%);
   }
-}
-
-.react-toggle--checked .react-toggle-track {
-  background-color: $ui-highlight-color;
-}
-
-.react-toggle--checked:is(:hover, :focus-within):not(.react-toggle--disabled)
-  .react-toggle-track {
-  background-color: lighten($ui-highlight-color, 10%);
 }
 
 .column-link {
