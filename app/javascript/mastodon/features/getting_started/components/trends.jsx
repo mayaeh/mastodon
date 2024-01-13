@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
-import { ReactComponent as ChevronDownIcon } from '@material-symbols/svg-600/outlined/keyboard_arrow_down.svg';
-import { ReactComponent as ChevronUpIcon } from '@material-symbols/svg-600/outlined/keyboard_arrow_up.svg';
-import { ReactComponent as RefreshIcon } from '@material-symbols/svg-600/outlined/refresh.svg';
-import { ReactComponent as TrendsIcon } from '@material-symbols/svg-600/outlined/trending_up.svg';
+import ChevronDownIcon from 'mastodon/../material-icons/400-24px/keyboard_arrow_down.svg?react';
+import ChevronUpIcon from 'mastodon/../material-icons/400-24px/keyboard_arrow_up.svg?react';
+import RefreshIcon from 'mastodon/../material-icons/400-24px/refresh.svg?react';
+import TrendsIcon from 'mastodon/../material-icons/400-24px/trending_up.svg?react';
 
 import { ImmutableHashtag as Hashtag } from 'mastodon/components/hashtag';
 import { Icon } from 'mastodon/components/icon';
