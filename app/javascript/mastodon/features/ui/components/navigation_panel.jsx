@@ -17,6 +17,8 @@ import SearchIcon from 'mastodon/../material-icons/400-24px/search.svg?react';
 import SettingsIcon from 'mastodon/../material-icons/400-24px/settings-fill.svg?react';
 import StarIcon from 'mastodon/../material-icons/400-24px/star-fill.svg?react';
 import TagIcon from 'mastodon/../material-icons/400-24px/tag.svg?react';
+
+import { Icon } from 'mastodon/components/icon';
 import { WordmarkLogo } from 'mastodon/components/logo';
 import { NavigationPortal } from 'mastodon/components/navigation_portal';
 import { timelinePreview, trendsEnabled } from 'mastodon/initial_state';
