@@ -7,8 +7,8 @@ import { Link, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
-import { ReactComponent as PublishIcon } from '@material-symbols/svg-600/outlined/ink_pen.svg';
-import { ReactComponent as SearchIcon } from '@material-symbols/svg-600/outlined/search.svg';
+import PublishIcon from 'mastodon/../material-icons/400-24px/ink_pen.svg?react';
+import SearchIcon from 'mastodon/../material-icons/400-24px/search.svg?react';
 
 import { openModal } from 'mastodon/actions/modal';
 import { fetchServer } from 'mastodon/actions/server';

@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { defineMessages, useIntl } from 'react-intl';
 
-import { ReactComponent as LockOpenIcon } from '@material-symbols/svg-600/outlined/lock_open_right.svg';
+import LockOpenIcon from 'mastodon/../material-icons/400-24px/lock_open_right.svg?react';
 
 import { IconButton } from './icon_button';
 
