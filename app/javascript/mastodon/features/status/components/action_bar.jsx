@@ -9,17 +9,17 @@ import { withRouter } from 'react-router-dom';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
-import AlternateEmailIcon from 'mastodon/../material-icons/400-24px/alternate_email.svg?react';
-import BookmarkIcon from 'mastodon/../material-icons/400-24px/bookmark-fill.svg?react';
-import BookmarkBorderIcon from 'mastodon/../material-icons/400-24px/bookmark.svg?react';
-import LockIcon from 'mastodon/../material-icons/400-24px/lock.svg?react';
-import LockOpenIcon from 'mastodon/../material-icons/400-24px/lock_open_right.svg?react';
-import MoreHorizIcon from 'mastodon/../material-icons/400-24px/more_horiz.svg?react';
-import RepeatIcon from 'mastodon/../material-icons/400-24px/repeat.svg?react';
-import ReplyIcon from 'mastodon/../material-icons/400-24px/reply.svg?react';
-import ReplyAllIcon from 'mastodon/../material-icons/400-24px/reply_all.svg?react';
-import StarIcon from 'mastodon/../material-icons/400-24px/star-fill.svg?react';
-import StarBorderIcon from 'mastodon/../material-icons/400-24px/star.svg?react';
+import AlternateEmailIcon from '@/material-icons/400-24px/alternate_email.svg?react';
+import BookmarkIcon from '@/material-icons/400-24px/bookmark-fill.svg?react';
+import BookmarkBorderIcon from '@/material-icons/400-24px/bookmark.svg?react';
+import LockIcon from '@/material-icons/400-24px/lock.svg?react';
+import LockOpenIcon from '@/material-icons/400-24px/lock_open_right.svg?react';
+import MoreHorizIcon from '@/material-icons/400-24px/more_horiz.svg?react';
+import RepeatIcon from '@/material-icons/400-24px/repeat.svg?react';
+import ReplyIcon from '@/material-icons/400-24px/reply.svg?react';
+import ReplyAllIcon from '@/material-icons/400-24px/reply_all.svg?react';
+import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
+import StarBorderIcon from '@/material-icons/400-24px/star.svg?react';
 
 import { PERMISSION_MANAGE_USERS, PERMISSION_MANAGE_FEDERATION } from 'mastodon/permissions';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
