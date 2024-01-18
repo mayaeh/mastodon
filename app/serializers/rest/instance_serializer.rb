@@ -28,7 +28,7 @@ class REST::InstanceSerializer < ActiveModel::Serializer
       }
     else
       {
-        url: full_pack_url('media/images/fluffy-elephant-friend.png'),
+        url: frontend_asset_url('media/images/fluffy-elephant-friend.png'),
       }
     end
   end

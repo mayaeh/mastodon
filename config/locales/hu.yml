@@ -1775,7 +1775,6 @@ hu:
     webauthn: Biztonsági kulcsok
   user_mailer:
     appeal_approved:
-      action: Ugrás a fiókodhoz
       explanation: A fiókod %{appeal_date}-i fellebbezése, mely a %{strike_date}-i vétségeddel kapcsolatos, jóváhagyásra került. A fiókod megint makulátlan.
       subject: A %{date}-i fellebbezésedet jóváhagyták
       title: Fellebbezés jóváhagyva
@@ -1784,7 +1783,6 @@ hu:
       subject: A %{date}-i fellebbezésedet visszautasították
       title: Fellebbezés visszautasítva
     backup_ready:
-      explanation: A Mastodon-fiókod teljes mentését kérted. A mentés elkészült, és letölthető.
       subject: Az adataidról készült archív letöltésre kész
       title: Archiválás
     suspicious_sign_in:
