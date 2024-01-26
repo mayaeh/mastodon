@@ -155,6 +155,12 @@
   &:active {
     background: $ui-secondary-color;
   }
+
+  &:focus,
+  &.active {
+    background: $ui-highlight-color;
+    color: $primary-text-color;
+  }
 }
 
 .privacy-dropdown__option__content {
