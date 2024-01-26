@@ -567,7 +567,7 @@ body > [data-popper-placement] {
 
     .autosuggest-input {
       flex: 1 1 auto;
-      border-bottom: 1px solid lighten($ui-base-color, 8%);
+      border-bottom: 1px solid lighten($simple-background-color, 8%);
     }
   }
 
@@ -577,8 +577,8 @@ body > [data-popper-placement] {
     box-sizing: border-box;
     width: 100%;
     margin: 0;
-    color: $secondary-text-color;
-    background: $ui-base-color;
+    color: $inverted-text-color;
+    background: $simple-background-color;
     font-family: inherit;
     font-size: 14px;
     padding: 12px;

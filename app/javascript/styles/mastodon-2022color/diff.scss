@@ -72,6 +72,18 @@
   }
 }
 
+.spoiler-input {
+  .autosuggest-input {
+    border-bottom: 1px solid lighten($ui-base-color, 8%);
+  }
+}
+
+.autosuggest-textarea__textarea,
+.spoiler-input__input {
+  color: $secondary-text-color;
+  background: $ui-base-color;
+}
+
 // dashboard.scss
 .dashboard {
   &__quick-access {
