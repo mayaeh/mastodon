@@ -4932,7 +4932,7 @@ a.status-card {
 .privacy-dropdown__dropdown,
 .language-dropdown__dropdown {
   box-shadow: var(--dropdown-shadow);
-  background: var(--dropdown-background-color);
+  background: $simple-background-color;
   border: 1px solid var(--dropdown-border-color);
   padding: 4px;
   border-radius: 4px;
@@ -4968,11 +4968,11 @@ a.status-card {
   align-items: center;
   gap: 12px;
   border-radius: 4px;
-  color: $primary-text-color;
+  color: $inverted-text-color;
 
   &:hover,
   &:active {
-    background: var(--dropdown-border-color);
+    background: $ui-highlight-color;
   }
 
   &:focus,

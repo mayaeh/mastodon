@@ -134,6 +134,32 @@
   background: darken($ui-base-color, 4%);
 }
 
+.privacy-dropdown__dropdown,
+.language-dropdown__dropdown {
+  background: var(--dropdown-background-color);
+}
+
+.privacy-dropdown__option {
+  color: $primary-text-color;
+
+  &:hover,
+  &:active {
+    background: var(--dropdown-border-color);
+  }
+
+  &:focus,
+  &.active {
+    background: $ui-highlight-color;
+    color: $primary-text-color;
+
+    .privacy-dropdown__option__content,
+    .privacy-dropdown__option__content strong,
+    .privacy-dropdown__option__additional {
+      color: $primary-text-color;
+    }
+  }
+}
+
 .report-dialog-modal {
   .dialog-option .poll__input {
     border-color: $inverted-text-color;
