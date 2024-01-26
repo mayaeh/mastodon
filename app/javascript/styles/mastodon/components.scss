@@ -593,8 +593,8 @@ body > [data-popper-placement] {
 
   .spoiler-input__input {
     padding: 12px 12px - 5px;
-    background: mix($ui-base-color, $ui-highlight-color, 85%);
-    color: $highlight-text-color;
+    background: darken($simple-background-color, 4%);
+    color: darken($inverted-text-color, 4%);
   }
 
   &__dropdowns {
