@@ -134,6 +134,10 @@
   background: darken($ui-base-color, 4%);
 }
 
+.upload-progress {
+  color: $darker-text-color;
+}
+
 .privacy-dropdown__dropdown,
 .language-dropdown__dropdown {
   background: var(--dropdown-background-color);

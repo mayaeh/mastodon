@@ -4973,6 +4973,7 @@ a.status-card {
   &:hover,
   &:active {
     background: $ui-highlight-color;
+    color: $primary-text-color;
   }
 
   &:focus,
