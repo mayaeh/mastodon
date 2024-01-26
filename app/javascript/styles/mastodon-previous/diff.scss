@@ -168,17 +168,17 @@
 .language-dropdown {
   &__dropdown {
     .emoji-mart-search {
-      background: inherit;
+      background: $simple-background-color;
 
       input {
-        background: inherit;
-        border: inherit;
-        color: inherit;
+        background: rgba($ui-secondary-color, 0.3);
+        border: 1px solid $ui-secondary-color;
+        color: $inverted-text-color;
       }
     }
 
     .emoji-mart-scroll {
-      background: inherit;
+      background: $simple-background-color;
     }
 
     &__results {
