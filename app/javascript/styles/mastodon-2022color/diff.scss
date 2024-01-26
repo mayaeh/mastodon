@@ -128,6 +128,12 @@
   &:active {
     background: var(--dropdown-border-color);
   }
+
+  &:focus,
+  &.active {
+    background: $ui-highlight-color;
+    color: $primary-text-color;
+  }
 }
 
 .privacy-dropdown__option__content {
