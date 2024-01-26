@@ -883,7 +883,7 @@ body > [data-popper-placement] {
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
-  color: $darker-text-color;
+  color: $lighter-text-color;
   flex: 1 0 auto;
   text-align: end;
 
@@ -3172,7 +3172,7 @@ $ui-header-height: 55px;
   position: absolute;
   top: 0;
   inset-inline-start: 0;
-  background: darken($ui-base-color, 4%);
+  background: $ui-base-color;
   box-sizing: border-box;
   padding: 0;
   display: flex;
@@ -3188,7 +3188,7 @@ $ui-header-height: 55px;
 }
 
 .drawer__inner__mastodon {
-  background: darken($ui-base-color, 4%);
+  background: $ui-base-color;
   flex: 1;
   min-height: 47px;
   display: none;
@@ -4846,7 +4846,7 @@ a.status-card {
 }
 
 .upload-progress {
-  color: $darker-text-color;
+  color: $lighter-text-color;
   overflow: hidden;
   display: flex;
   gap: 8px;
