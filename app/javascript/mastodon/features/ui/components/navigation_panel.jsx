@@ -85,7 +85,6 @@ class NavigationPanel extends Component {
       <div className='navigation-panel'>
         <div className='navigation-panel__logo'>
           <Link to='/' className='column-link column-link--logo'><WordmarkLogo /></Link>
-          {!banner && <hr />}
         </div>
 
         {banner &&
