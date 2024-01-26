@@ -5005,10 +5005,10 @@ a.status-card {
 
 .privacy-dropdown__option__content {
   flex: 1 1 auto;
-  color: $darker-text-color;
+  color: $lighter-text-color;
 
   strong {
-    color: $primary-text-color;
+    color: $inverted-text-color;
     font-weight: 500;
     display: block;
 
@@ -5026,13 +5026,9 @@ a.status-card {
 
     .emoji-mart-search {
       padding: 10px;
-      background: var(--dropdown-background-color);
 
       input {
         padding: 8px 12px;
-        background: $ui-base-color;
-        border: 1px solid lighten($ui-base-color, 8%);
-        color: $darker-text-color;
 
         @media screen and (width <= 600px) {
           font-size: 16px;
@@ -5059,13 +5055,12 @@ a.status-card {
 
     .emoji-mart-scroll {
       padding: 0 10px 10px;
-      background: var(--dropdown-background-color);
     }
 
     &__results {
       &__item {
         cursor: pointer;
-        color: $primary-text-color;
+        color: $inverted-text-color;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.25px;
@@ -5083,7 +5078,7 @@ a.status-card {
 
         &:active,
         &:hover {
-          background: var(--dropdown-border-color);
+          background: $ui-secondary-color;
         }
 
         &:focus,

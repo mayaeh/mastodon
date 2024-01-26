@@ -160,6 +160,61 @@
   }
 }
 
+.privacy-dropdown__option__content {
+  color: $darker-text-color;
+
+  strong {
+    color: $primary-text-color;
+  }
+}
+
+.language-dropdown {
+  &__dropdown {
+    .emoji-mart-search {
+      background: var(--dropdown-background-color);
+
+      input {
+        background: $ui-base-color;
+        border: 1px solid lighten($ui-base-color, 8%);
+        color: $darker-text-color;
+      }
+    }
+
+    .emoji-mart-search-icon {
+      color: $darker-text-color;
+    }
+
+    .emoji-mart-scroll {
+      background: var(--dropdown-background-color);
+    }
+
+    &__results {
+      &__item {
+        color: $primary-text-color;
+
+        &__common-name {
+          color: $darker-text-color;
+        }
+
+        &:active,
+        &:hover {
+          background: var(--dropdown-border-color);
+        }
+
+        &:focus,
+        &.active {
+          background: $ui-highlight-color;
+          color: $primary-text-color;
+
+          .language-dropdown__dropdown__results__item__common-name {
+            color: $primary-text-color;
+          }
+        }
+      }
+    }
+  }
+}
+
 .report-dialog-modal {
   .dialog-option .poll__input {
     border-color: $inverted-text-color;
