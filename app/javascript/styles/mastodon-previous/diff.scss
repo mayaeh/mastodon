@@ -104,6 +104,18 @@
   background: lighten($ui-base-color, 13%);
 }
 
+.spoiler-input {
+  .autosuggest-input {
+    border-bottom: 1px solid darken($simple-background-color, 8%);
+  }
+}
+
+.autosuggest-textarea__textarea,
+.spoiler-input__input {
+  color: $inverted-text-color;
+  background: $simple-background-color;
+}
+
 // dashboard.scss
 .dashboard {
   &__quick-access {
