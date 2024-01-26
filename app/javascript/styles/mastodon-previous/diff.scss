@@ -104,16 +104,89 @@
   background: lighten($ui-base-color, 13%);
 }
 
-.spoiler-input {
-  .autosuggest-input {
-    border-bottom: 1px solid darken($simple-background-color, 8%);
+.compose-form {
+  &__highlightable {
+    border: 1px solid darken($simple-background-color, 8%);
+    background: darken($simple-background-color, 8%);
+
+    &.active {
+      border-color: $ui-highlight-color;
+    }
+  }
+
+  .spoiler-input {
+    .autosuggest-input {
+      border-bottom: 1px solid darken($simple-background-color, 8%);
+    }
+  }
+
+  .autosuggest-textarea__textarea,
+  .spoiler-input__input {
+    color: $inverted-text-color;
+    background: $simple-background-color;
   }
 }
 
-.autosuggest-textarea__textarea,
-.spoiler-input__input {
-  color: $inverted-text-color;
+.character-counter {
+  color: $lighter-text-color;
+}
+
+.drawer__inner {
+  background: $ui-base-color;
+}
+
+.drawer__inner__mastodon {
+  background: $ui-base-color;
+}
+
+.upload-progress {
+  color: $lighter-text-color;
+}
+
+.privacy-dropdown__dropdown,
+.language-dropdown__dropdown {
   background: $simple-background-color;
+}
+
+.privacy-dropdown__option {
+  color: $inverted-text-color;
+}
+
+.privacy-dropdown__option__content {
+  color: $lighter-text-color;
+
+  strong {
+    color: $inverted-text-color;
+  }
+}
+
+.language-dropdown {
+  &__dropdown {
+    .emoji-mart-search {
+      background: inherit;
+
+      input {
+        background: inherit;
+        border: inherit;
+        color: inherit;
+      }
+    }
+
+    .emoji-mart-scroll {
+      background: inherit;
+    }
+
+    &__results {
+      &__item {
+        color: inherit;
+
+        &:active,
+        &:hover {
+          background: $ui-secondary-color;
+        }
+      }
+    }
+  }
 }
 
 // dashboard.scss
@@ -127,6 +200,64 @@
       background-color: lighten($ui-highlight-color, 10%);
     }
   }
+}
+
+// emoji_picker.scss
+.emoji-mart-bar {
+  border: 0 solid darken($ui-secondary-color, 8%);
+
+  &:first-child {
+    background: $ui-secondary-color;
+  }
+}
+
+.emoji-mart-anchor {
+  color: $lighter-text-color;
+
+  &:hover {
+    color: darken($lighter-text-color, 4%);
+  }
+}
+
+.emoji-mart-anchor-selected {
+  &:hover {
+    color: darken($highlight-text-color, 4%);
+  }
+}
+
+.emoji-mart-scroll {
+  background: $simple-background-color;
+}
+
+.emoji-mart-search {
+  background: $simple-background-color;
+
+  input {
+    background: rgba($ui-secondary-color, 0.3);
+    color: $inverted-text-color;
+  }
+}
+
+.emoji-mart-search-icon {
+  svg {
+    fill: $action-button-colorr;
+  }
+}
+
+.emoji-mart-category .emoji-mart-emoji {
+  &:hover::before {
+    background-color: rgba($ui-secondary-color, 0.7);
+  }
+}
+
+.emoji-mart-category-label {
+  span {
+    background: $simple-background-color;
+  }
+}
+
+.emoji-mart-no-results {
+  color: $light-text-color;
 }
 
 // forms.scss
@@ -143,6 +274,21 @@
     &:active,
     &:focus {
       background-color: darken($ui-highlight-color, 5%);
+    }
+  }
+}
+
+// polls.scss
+.poll {
+  &__option {
+    input[type='text'] {
+      color: $inverted-text-color;
+      background: $simple-background-color;
+      border: 1px solid darken($simple-background-color, 14%);
+
+      &:focus {
+        border-color: $highlight-text-color;
+      }
     }
   }
 }
