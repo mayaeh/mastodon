@@ -14,7 +14,6 @@ require 'active_job/railtie'
 # require 'action_mailbox/engine'
 # require 'action_text/engine'
 # require 'rails/test_unit/railtie'
-require 'sprockets/railtie'
 
 # Used to be implicitly required in action_mailbox/engine
 require 'mail'
@@ -39,8 +38,8 @@ require_relative '../lib/mastodon/snowflake'
 require_relative '../lib/mastodon/version'
 require_relative '../lib/mastodon/rack_middleware'
 require_relative '../lib/public_file_server_middleware'
-require_relative '../lib/devise/two_factor_ldap_authenticatable'
-require_relative '../lib/devise/two_factor_pam_authenticatable'
+require_relative '../lib/devise/strategies/two_factor_ldap_authenticatable'
+require_relative '../lib/devise/strategies/two_factor_pam_authenticatable'
 require_relative '../lib/chewy/settings_extensions'
 require_relative '../lib/chewy/index_extensions'
 require_relative '../lib/chewy/strategy/mastodon'
@@ -64,12 +63,7 @@ module Mastodon
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    # TODO: Release a version which uses the 7.0 defaults as specified above,
-    # but preserves the 6.1 cache format as set below. In a subsequent change,
-    # remove this line setting to 6.1 cache format, and then release another version.
-    # https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#new-activesupport-cache-serialization-format
-    # https://github.com/mastodon/mastodon/pull/24241#discussion_r1162890242
-    config.active_support.cache_format_version = 6.1
+    config.active_record.marshalling_format_version = 7.1
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.

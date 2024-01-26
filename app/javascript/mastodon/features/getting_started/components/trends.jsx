@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
-import { ReactComponent as ChevronDownIcon } from '@material-symbols/svg-600/outlined/keyboard_arrow_down.svg';
-import { ReactComponent as ChevronUpIcon } from '@material-symbols/svg-600/outlined/keyboard_arrow_up.svg';
-import { ReactComponent as RefreshIcon } from '@material-symbols/svg-600/outlined/refresh.svg';
-import { ReactComponent as TrendsIcon } from '@material-symbols/svg-600/outlined/trending_up.svg';
+import ChevronDownIcon from 'mastodon/../material-icons/400-24px/keyboard_arrow_down.svg?react';
+import ChevronUpIcon from 'mastodon/../material-icons/400-24px/keyboard_arrow_up.svg?react';
+import RefreshIcon from 'mastodon/../material-icons/400-24px/refresh.svg?react';
+import TrendsIcon from 'mastodon/../material-icons/400-24px/trending_up.svg?react';
 
 import { ImmutableHashtag as Hashtag } from 'mastodon/components/hashtag';
 import { Icon } from 'mastodon/components/icon';
@@ -67,13 +67,13 @@ export default class Trends extends ImmutablePureComponent {
         <div className='column-header__wrapper'>
           <h1 className='column-header'>
             <button>
-              <Icon id='fire' iconComponent={TrendsIcon} />
+              <Icon id='fire' icon={TrendsIcon} />
               <FormattedMessage id='trends.header' defaultMessage='Trending now' />
             </button>
 
             <div className='column-header__buttons'>
-              {showTrends && <button onClick={this.handleRefreshTrends} className='column-header__button' title={intl.formatMessage(messages.refresh_trends)} aria-label={intl.formatMessage(messages.refresh_trends)} disabled={loading}><Icon id='refresh' iconComponent={RefreshIcon} className={classNames({ 'fa-spin': loading })} /></button>}
-              <button onClick={this.handleToggle} className='column-header__button'><Icon id={showTrends ? 'chevron-up' : 'chevron-down'} iconComponent={showTrends ? ChevronUpIcon : ChevronDownIcon} /></button>
+              {showTrends && <button onClick={this.handleRefreshTrends} className='column-header__button' title={intl.formatMessage(messages.refresh_trends)} aria-label={intl.formatMessage(messages.refresh_trends)} disabled={loading}><Icon id='refresh' icon={RefreshIcon} className={classNames({ 'fa-spin': loading })} /></button>}
+              <button onClick={this.handleToggle} className='column-header__button'><Icon id={showTrends ? 'chevron-up' : 'chevron-down'} icon={showTrends ? ChevronUpIcon : ChevronDownIcon} /></button>
             </div>
           </h1>
         </div>

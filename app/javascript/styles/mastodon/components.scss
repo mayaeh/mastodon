@@ -186,8 +186,8 @@
 
 .icon {
   flex: 0 0 auto;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   aspect-ratio: 1;
 
   path {
@@ -199,7 +199,7 @@
   display: inline-flex;
   color: $action-button-color;
   border: 0;
-  padding: 2px;
+  padding: 0;
   border-radius: 4px;
   background: transparent;
   cursor: pointer;
@@ -1387,8 +1387,7 @@ body > [data-popper-placement] {
   .icon {
     width: 15px;
     height: 15px;
-    position: relative;
-    top: 0.145em;
+    vertical-align: middle;
   }
 }
 
@@ -2311,7 +2310,7 @@ $ui-header-height: 55px;
 .drawer__tab {
   display: flex;
   flex: 1 1 auto;
-  padding: 15px 5px 13px;
+  padding: 13px 3px 11px;
   color: $darker-text-color;
   text-decoration: none;
   text-align: center;
@@ -2721,22 +2720,16 @@ $ui-header-height: 55px;
     &__description {
       flex: 1 1 auto;
       line-height: 20px;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
 
       h6 {
         color: $highlight-text-color;
         font-weight: 500;
         font-size: 14px;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
 
       p {
         color: $darker-text-color;
         overflow: hidden;
-        text-overflow: ellipsis;
       }
     }
   }
@@ -3200,7 +3193,7 @@ $ui-header-height: 55px;
   align-items: center;
   gap: 5px;
   font-size: 16px;
-  padding: 15px;
+  padding: 13px;
   text-decoration: none;
   overflow: hidden;
   white-space: nowrap;
@@ -3800,7 +3793,7 @@ a.status-card {
     gap: 5px;
     margin: 0;
     border: 0;
-    padding: 15px;
+    padding: 13px;
     padding-inline-end: 0;
     color: inherit;
     background: transparent;
@@ -4393,11 +4386,6 @@ a.status-card {
   flex: 1 1 auto;
   align-items: center;
   justify-content: center;
-
-  @supports (display: grid) {
-    // hack to fix Chrome <57
-    contain: strict;
-  }
 
   & > span {
     max-width: 500px;
@@ -5545,6 +5533,10 @@ a.status-card {
     padding-inline-end: 10px;
   }
 
+  .icon {
+    vertical-align: middle;
+  }
+
   .button {
     flex: 0 0 auto;
   }
@@ -6095,6 +6087,7 @@ a.status-card {
   gap: 2px;
 }
 
+.media-gallery__alt__label,
 .media-gallery__gifv__label {
   display: flex;
   align-items: center;
@@ -6171,6 +6164,7 @@ a.status-card {
 
     .icon {
       color: $dark-text-color;
+      vertical-align: middle;
     }
   }
 }
@@ -7424,6 +7418,13 @@ noscript {
 
           span {
             user-select: all;
+          }
+
+          .icon-lock {
+            height: 16px;
+            width: 16px;
+            position: relative;
+            top: 3px;
           }
         }
       }
