@@ -150,6 +150,11 @@
 
 .privacy-dropdown__option {
   color: $inverted-text-color;
+
+  &:hover,
+  &:active {
+    background: $ui-secondary-color;
+  }
 }
 
 .privacy-dropdown__option__content {
