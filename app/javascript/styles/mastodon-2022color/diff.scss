@@ -98,6 +98,28 @@
     background: mix($ui-base-color, $ui-highlight-color, 85%);
     color: $highlight-text-color;
   }
+
+  &__poll {
+    .poll__input {
+      border-color: $darker-text-color;
+    }
+
+    &__footer {
+      &__sep {
+        background: lighten($ui-base-color, 8%);
+      }
+    }
+
+    &__select {
+      &__label {
+        color: $darker-text-color;
+      }
+
+      &__value {
+        color: $highlight-text-color;
+      }
+    }
+  }
 }
 
 .character-counter {
@@ -110,6 +132,23 @@
 
 .drawer__inner__mastodon {
   background: darken($ui-base-color, 4%);
+}
+
+.report-dialog-modal {
+  .dialog-option .poll__input {
+    border-color: $inverted-text-color;
+    color: $ui-secondary-color;
+  }
+
+  .poll__option.dialog-option {
+    & > .poll__option__text {
+      color: lighten($inverted-text-color, 16%);
+
+      strong {
+        color: $inverted-text-color;
+      }
+    }
+  }
 }
 
 // dashboard.scss
@@ -125,6 +164,68 @@
   }
 }
 
+// emoji_picker.scss
+.emoji-mart-bar {
+  border: 0 solid var(--dropdown-border-color);
+
+  &:first-child {
+    background: var(--dropdown-border-color);
+  }
+}
+
+.emoji-mart-anchor {
+  color: $darker-text-color;
+
+  &:hover {
+    color: lighten($darker-text-color, 4%);
+  }
+}
+
+.emoji-mart-anchor-selected {
+  &:hover {
+    color: lighten($highlight-text-color, 4%);
+  }
+}
+
+.emoji-mart-anchor-bar {
+  background-color: $highlight-text-color;
+}
+
+.emoji-mart-scroll {
+  background: var(--dropdown-background-color);
+}
+
+.emoji-mart-search {
+  background: var(--dropdown-background-color);
+
+  input {
+    background: $ui-base-color;
+    color: $darker-text-color;
+  }
+}
+
+.emoji-mart-search-icon {
+  svg {
+    fill: $darker-text-color;
+  }
+}
+
+.emoji-mart-category .emoji-mart-emoji {
+  &:hover::before {
+    background-color: var(--dropdown-border-color);
+  }
+}
+
+.emoji-mart-category-label {
+  span {
+    background: var(--dropdown-background-color);
+  }
+}
+
+.emoji-mart-no-results {
+  color: $dark-text-color;
+}
+
 // forms.scss
 .simple_form {
   button,
@@ -137,6 +238,57 @@
     &:focus,
     &:hover {
       background-color: $ui-button-focus-background-color;
+    }
+  }
+}
+
+// polls.scss
+.poll {
+  &__option {
+    input[type='text'] {
+      color: $secondary-text-color;
+      background: $ui-base-color;
+      border: 1px solid $darker-text-color;
+
+      &:focus {
+        border-color: $ui-highlight-color;
+      }
+    }
+  }
+
+  &__input {
+    &:active,
+    &:focus,
+    &:hover {
+      border-color: lighten($valid-value-color, 15%);
+    }
+
+    &.active {
+      background-color: $valid-value-color;
+      border-color: $valid-value-color;
+    }
+
+    &.disabled {
+      border-color: $dark-text-color;
+
+      &.active {
+        background: $dark-text-color;
+      }
+
+      &:active,
+      &:focus,
+      &:hover {
+        border-color: $dark-text-color;
+      }
+    }
+  }
+
+  &__option.editable &__input {
+    &:active,
+    &:focus,
+    &:hover {
+      border-color: $ui-primary-color;
+      border-width: 1px;
     }
   }
 }
