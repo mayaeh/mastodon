@@ -72,16 +72,32 @@
   }
 }
 
-.spoiler-input {
-  .autosuggest-input {
-    border-bottom: 1px solid lighten($ui-base-color, 8%);
-  }
-}
+.compose-form {
+  &__highlightable {
+    border: 1px solid lighten($ui-base-color, 8%);
+    background: $ui-base-color;
 
-.autosuggest-textarea__textarea,
-.spoiler-input__input {
-  color: $secondary-text-color;
-  background: $ui-base-color;
+    &.active {
+      border-color: $ui-highlight-color;
+    }
+  }
+
+  .spoiler-input {
+    .autosuggest-input {
+      border-bottom: 1px solid lighten($ui-base-color, 8%);
+    }
+  }
+
+  .autosuggest-textarea__textarea,
+  .spoiler-input__input {
+    color: $secondary-text-color;
+    background: $ui-base-color;
+  }
+
+  .spoiler-input__input {
+    background: mix($ui-base-color, $ui-highlight-color, 85%);
+    color: $highlight-text-color;
+  }
 }
 
 // dashboard.scss
