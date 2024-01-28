@@ -382,10 +382,10 @@ body > [data-popper-placement] {
 
   &__suggestions {
     box-shadow: var(--dropdown-shadow);
-    background: $ui-base-color;
+    background: $ui-secondary-color;
     border: 1px solid lighten($ui-base-color, 14%);
     border-radius: 0 0 4px 4px;
-    color: $secondary-text-color;
+    color: $inverted-text-color;
     font-size: 14px;
     padding: 0;
 
@@ -398,7 +398,7 @@ body > [data-popper-placement] {
       font-size: 14px;
       line-height: 20px;
       letter-spacing: 0.25px;
-      color: $secondary-text-color;
+      color: $inverted-text-color;
 
       &:last-child {
         border-radius: 0 0 4px 4px;
@@ -408,8 +408,8 @@ body > [data-popper-placement] {
       &:focus,
       &:active,
       &.selected {
-        background: $ui-highlight-color;
-        color: $primary-text-color;
+        background: darken($ui-secondary-color, 10%);
+        color: $inverted-text-color;
 
         .autosuggest-account .display-name__account {
           color: inherit;

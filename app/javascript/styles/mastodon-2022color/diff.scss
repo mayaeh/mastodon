@@ -26,6 +26,30 @@
   background-color: transparent;
 }
 
+.autosuggest-textarea {
+  &__suggestions {
+    background: $ui-base-color;
+    border: 1px solid lighten($ui-base-color, 14%);
+    color: $secondary-text-color;
+
+    &__item {
+      color: $secondary-text-color;
+
+      &:hover,
+      &:focus,
+      &:active,
+      &.selected {
+        background: $ui-highlight-color;
+        color: $primary-text-color;
+
+        .autosuggest-account .display-name__account {
+          color: inherit;
+        }
+      }
+    }
+  }
+}
+
 .status__content,
 .reply-indicator__content {
   a.unhandled-link {
