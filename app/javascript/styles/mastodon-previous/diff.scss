@@ -44,6 +44,30 @@
   background-color: transparent;
 }
 
+.autosuggest-textarea {
+  &__suggestions {
+    background: $ui-secondary-color;
+    border: 1px solid darken($ui-secondary-color, 8%);
+    color: $inverted-text-color;
+
+    &__item {
+      color: $inverted-text-color;
+
+      &:hover,
+      &:focus,
+      &:active,
+      &.selected {
+        background: darken($ui-secondary-color, 10%);
+        color: $inverted-text-color;
+
+        .autosuggest-account .display-name__account {
+          color: inherit;
+        }
+      }
+    }
+  }
+}
+
 .status__content,
 .reply-indicator__content {
   a.unhandled-link {
