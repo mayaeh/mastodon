@@ -86,7 +86,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
       @status = Status.create!(@params)
       attach_tags(@status)
 
-      if like_a_spam?
+      if reject_spammer? && like_a_spam?
         @status = nil
         raise ActiveRecord::Rollback
       end
@@ -448,5 +448,9 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
       @status.account.created_at > SPAM_FILTER_MINIMUM_CREATE_DAYS.day.ago &&
       @mentions.count > SPAM_FILTER_MINIMUM_MENTIONS
     )
+  end
+
+  def reject_spammer?
+    Setting.reject_spammer
   end
 end
