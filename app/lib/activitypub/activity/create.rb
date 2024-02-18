@@ -445,7 +445,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
     (
       !@status.account.local? &&
       @status.account.followers_count <= SPAM_FILTER_MINIMUM_FOLLOWERS &&
-      @status.account.created_at > SPAM_FILTER_MINIMUM_CREATE_DAYS.day.ago &&
+      @status.account.created_at <= SPAM_FILTER_MINIMUM_CREATE_DAYS.day.ago &&
       @mentions.count > SPAM_FILTER_MINIMUM_MENTIONS
     )
   end
