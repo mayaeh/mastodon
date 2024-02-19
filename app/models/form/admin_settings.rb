@@ -37,6 +37,7 @@ class Form::AdminSettings
     status_page_url
     captcha_enabled
     authorized_fetch
+    reject_spammer
   ).freeze
 
   INTEGER_KEYS = %i(
@@ -58,6 +59,7 @@ class Form::AdminSettings
     require_invite_text
     captcha_enabled
     authorized_fetch
+    reject_spammer
   ).freeze
 
   UPLOAD_KEYS = %i(

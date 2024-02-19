@@ -782,6 +782,10 @@ en:
         all: To everyone
         disabled: To no one
         users: To logged-in local users
+      others:
+        activitypub: ActivityPub
+        preamble: Other settings, including customizing behavior
+        title: Other settings
       registrations:
         preamble: Control who can create an account on your server.
         title: Registrations
@@ -790,6 +794,9 @@ en:
           approved: Approval required for sign up
           none: Nobody can sign up
           open: Anyone can sign up
+      reject_spammer:
+        desc_html: Ignore mentions that appear to be spam
+        title: Reject Spammer
       security:
         authorized_fetch: Require authentication from federated servers
         authorized_fetch_hint: Requiring authentication from federated servers enables stricter enforcement of both user-level and server-level blocks. However, this comes at the cost of a performance penalty, reduces the reach of your replies, and may introduce compatibility issues with some federated services. In addition, this will not prevent dedicated actors from fetching your public posts and accounts.
