@@ -15,6 +15,7 @@ class NotifyService < BaseService
     @recipient    = recipient
     @activity     = activity
     @notification = Notification.new(account: @recipient, type: type, activity: @activity)
+    @mentions     = Mention.where(status_id: activity.status_id)
 
     return if recipient.user.nil? || blocked?
 
@@ -122,6 +123,7 @@ class NotifyService < BaseService
     blocked ||= optional_non_following_and_direct?
     blocked ||= conversation_muted?
     blocked ||= blocked_mention? if @notification.type == :mention
+    blocked ||= like_a_spam? if reject_spammer?
     blocked
   end
 
@@ -185,5 +187,21 @@ class NotifyService < BaseService
 
   def send_email_for_notification_type?
     NON_EMAIL_TYPES.exclude?(@notification.type) && @recipient.user.settings["notification_emails.#{@notification.type}"]
+  end
+
+  SPAM_FILTER_MINIMUM_FOLLOWERS = ENV.fetch('SPAM_FILTER_MINIMUM_FOLLOWERS', 0).to_i
+  SPAM_FILTER_MINIMUM_CREATE_DAYS = ENV.fetch('SPAM_FILTER_MINIMUM_CREATE_DAYS', 1).to_i
+  SPAM_FILTER_MINIMUM_MENTIONS = ENV.fetch('SPAM_FILTER_MINIMUM_MENTIONS', 1).to_i
+  def like_a_spam?
+    (
+      !@notification.from_account.local? &&
+      @notification.from_account.followers_count <= SPAM_FILTER_MINIMUM_FOLLOWERS &&
+      @notification.from_account.created_at > SPAM_FILTER_MINIMUM_CREATE_DAYS.day.ago &&
+      @mentions.count > SPAM_FILTER_MINIMUM_MENTIONS
+    )
+  end
+
+  def reject_spammer?
+    Setting.reject_spammer
   end
 end

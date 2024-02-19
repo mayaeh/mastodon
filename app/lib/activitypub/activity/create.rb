@@ -87,12 +87,9 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
       attach_tags(@status)
 
       if reject_spammer? && like_a_spam?
-        @status = nil
-        raise ActiveRecord::Rollback
+        @status.update(visibility: :unlisted) if @status.trendable?
       end
     end
-
-    return if @status.nil?
 
     resolve_thread(@status)
     fetch_replies(@status)
