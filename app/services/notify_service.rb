@@ -15,7 +15,7 @@ class NotifyService < BaseService
     @recipient    = recipient
     @activity     = activity
     @notification = Notification.new(account: @recipient, type: type, activity: @activity)
-    @mentions     = Mention.where(status_id: activity.status_id)
+    @mentions     = Mention.where(status_id: activity.status_id) if @notification.type == :mention
 
     return if recipient.user.nil? || blocked?
 
@@ -123,7 +123,7 @@ class NotifyService < BaseService
     blocked ||= optional_non_following_and_direct?
     blocked ||= conversation_muted?
     blocked ||= blocked_mention? if @notification.type == :mention
-    blocked ||= like_a_spam? if reject_spammer?
+    blocked ||= like_a_spam? if reject_spammer? && @notification.type == :mention
     blocked
   end
 
