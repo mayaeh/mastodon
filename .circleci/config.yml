@@ -36,10 +36,10 @@ commands:
   prepare-yarn:
     steps:
       - run:
-          name: Specification version of yarn to stable
+          name: Specification version of yarn to 4.0.2
           command: |
             sudo corepack enable
-            sudo yarn set version stable
+            sudo yarn set version 4.0.2
   install-ruby-dependencies:
     parameters:
       ruby-version:
