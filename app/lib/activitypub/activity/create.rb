@@ -87,7 +87,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
       attach_tags(@status)
 
       if reject_spammer? && like_a_spam?
-        @status.update(visibility: :unlisted) if @status.trendable?
+        @status.update(visibility: :unlisted) if @status.visibility == :public
       end
     end
 
