@@ -773,6 +773,7 @@ ja:
         preamble: カスタマイズを含むその他の設定
         title: その他
       registrations:
+        moderation_recommandation: 登録受付を開始する前に、迅速かつ適切にモデレーションを行うチームを編成しましょう！
         preamble: あなたのサーバー上でアカウントを作成できるユーザーを制御します。
         title: アカウント作成
       registrations_mode:
@@ -780,6 +781,7 @@ ja:
           approved: 登録には承認が必要
           none: 誰にも許可しない
           open: 誰でも登録可
+        warning_hint: モデレーションチームがスパムや悪意のある登録を迅速に処理できる自信がない限り、サインアップを承認制にすることをお勧めします。
       reject_spammer:
         desc_html: スパムと思われるメンションを無視します
         title: スパムを拒否する
