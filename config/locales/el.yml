@@ -1384,7 +1384,6 @@ el:
   notifications:
     email_events: Συμβάντα για ειδοποιήσεις μέσω email
     email_events_hint: 'Επέλεξε συμβάντα για τα οποία θέλεις να λαμβάνεις ειδοποιήσεις μέσω email:'
-    other_settings: Άλλες ρυθμίσεις ειδοποιήσεων
   number:
     human:
       decimal_units:
