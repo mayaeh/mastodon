@@ -1048,7 +1048,6 @@ co:
         silence: Contu limitatu
         suspend: Contu suspesu
     welcome:
-      edit_profile_action: Cunfigurazione di u prufile
       explanation: Eccu alcune idee per principià
       subject: Benvenutu·a nant’à Mastodon
       title: Benvenutu·a, %{name}!
