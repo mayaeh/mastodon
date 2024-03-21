@@ -105,17 +105,17 @@
   }
 
   &.button-secondary {
-    color: $highlight-text-color;
+    color: $ui-button-secondary-color;
     background: transparent;
     padding: 6px 17px;
-    border: 1px solid $highlight-text-color;
+    border: 1px solid $ui-button-secondary-border-color;
 
     &:active,
     &:focus,
     &:hover {
-      border-color: lighten($highlight-text-color, 4%);
-      color: lighten($highlight-text-color, 4%);
-      background-color: transparent;
+      border-color: $ui-button-secondary-focus-background-color;
+      color: $ui-button-secondary-focus-color;
+      background-color: $ui-button-secondary-focus-background-color;
       text-decoration: none;
     }
 
@@ -1331,7 +1331,7 @@ body > [data-popper-placement] {
 .focusable {
   &:focus {
     outline: 0;
-    background: rgba($ui-highlight-color, 0.05);
+    background: var(--modal-border-color);
   }
 }
 
@@ -1572,10 +1572,10 @@ body > [data-popper-placement] {
 }
 
 .status__wrapper-direct {
-  background: rgba($ui-highlight-color, 0.05);
+  background: mix($ui-base-color, $ui-highlight-color, 95%);
 
   &:focus {
-    background: rgba($ui-highlight-color, 0.05);
+    background: mix(lighten($ui-base-color, 4%), $ui-highlight-color, 95%);
   }
 
   .status__prepend {
@@ -1600,6 +1600,7 @@ body > [data-popper-placement] {
 }
 
 .detailed-status {
+  background: var(--background-drawer-color);
   padding: 16px;
   border-top: 1px solid var(--background-border-color);
 
@@ -1682,6 +1683,7 @@ body > [data-popper-placement] {
 }
 
 .detailed-status__action-bar {
+  background: var(--background-drawer-color);
   border-top: 1px solid var(--background-border-color);
   border-bottom: 1px solid var(--background-border-color);
   display: flex;
@@ -2622,7 +2624,7 @@ $ui-header-height: 55px;
 }
 
 .tabs-bar__wrapper {
-  background: var(--background-color-tint);
+  background: darken($ui-base-color, 8%);
   backdrop-filter: var(--background-filter);
   position: sticky;
   top: $ui-header-height;
@@ -2659,15 +2661,9 @@ $ui-header-height: 55px;
   flex-direction: column;
 
   > .scrollable {
-    border: 1px solid var(--background-border-color);
+    background: $ui-base-color;
     border-top: 0;
     border-radius: 0 0 4px 4px;
-
-    &.about,
-    &.privacy-policy {
-      border-top: 1px solid var(--background-border-color);
-      border-radius: 4px;
-    }
   }
 }
 
@@ -2824,6 +2820,7 @@ $ui-header-height: 55px;
     }
 
     .navigation-panel {
+      background: $ui-base-color;
       margin: 0;
       border-inline-start: 1px solid var(--background-border-color);
       height: 100vh;
@@ -2843,7 +2840,7 @@ $ui-header-height: 55px;
 
   .layout-single-column .ui__header {
     display: flex;
-    background: var(--background-color-tint);
+    background: $ui-base-color;
     border-bottom: 1px solid var(--background-border-color);
   }
 
@@ -2909,7 +2906,7 @@ $ui-header-height: 55px;
     inset-inline-start: 9px;
     top: -13px;
     background: $ui-highlight-color;
-    border: 2px solid var(--background-color);
+    border: 2px solid var(--background-border-color);
     padding: 1px 6px;
     border-radius: 6px;
     font-size: 10px;
@@ -3281,7 +3278,7 @@ $ui-header-height: 55px;
     flex: 0 0 auto;
     border: 0;
     background: transparent;
-    border-top: 1px solid var(--background-border-color);
+    border-top: 1px solid var(--modal-border-color);
     margin: 10px 0;
   }
 
@@ -3298,7 +3295,6 @@ $ui-header-height: 55px;
   overflow: hidden;
   display: flex;
   border-radius: 4px;
-  border: 1px solid var(--background-border-color);
 }
 
 .drawer__inner {
@@ -3340,7 +3336,7 @@ $ui-header-height: 55px;
 .drawer__header {
   flex: 0 0 auto;
   font-size: 16px;
-  border: 1px solid var(--background-border-color);
+  background: var(--surface-background-color);
   margin-bottom: 10px;
   display: flex;
   flex-direction: row;
@@ -3350,7 +3346,7 @@ $ui-header-height: 55px;
   a:hover,
   a:focus,
   a:active {
-    color: $primary-text-color;
+    background: $ui-base-color;
   }
 }
 
@@ -3395,7 +3391,7 @@ $ui-header-height: 55px;
 .column-back-button {
   box-sizing: border-box;
   width: 100%;
-  background: transparent;
+  background: $ui-base-color;
   border: 1px solid var(--background-border-color);
   border-radius: 4px 4px 0 0;
   color: $highlight-text-color;
@@ -3425,7 +3421,7 @@ $ui-header-height: 55px;
   display: flex;
   align-items: center;
   gap: 5px;
-  background: transparent;
+  background: $ui-base-color;
   border: 0;
   font-family: inherit;
   color: $highlight-text-color;
@@ -3549,14 +3545,14 @@ $ui-header-height: 55px;
   overflow: hidden;
   white-space: nowrap;
   border: 0;
-  background: transparent;
-  color: $secondary-text-color;
+  background: var(--background-border-color);
+  color: $primary-text-color;
   border-left: 4px solid transparent;
 
   &:hover,
   &:focus,
   &:active {
-    color: $primary-text-color;
+    background: lighten($ui-base-color, 11%);
   }
 
   &.active {
@@ -3612,8 +3608,8 @@ $ui-header-height: 55px;
 }
 
 .column-subheading {
-  background: var(--surface-background-color);
-  color: $darker-text-color;
+  background: $ui-base-color;
+  color: $dark-text-color;
   padding: 8px 20px;
   font-size: 12px;
   font-weight: 500;
@@ -4054,6 +4050,7 @@ a.status-card {
   font-size: 16px;
   font-weight: 500;
   color: $dark-text-color;
+  background: $ui-base-color;
   border: 1px solid var(--background-border-color);
   border-top: 0;
   cursor: default;
@@ -4131,7 +4128,8 @@ a.status-card {
 .column-header {
   display: flex;
   font-size: 16px;
-  border: 1px solid var(--background-border-color);
+  background: $ui-base-color;
+  border-bottom: 1px solid var(--background-border-color);
   border-radius: 4px 4px 0 0;
   flex: 0 0 auto;
   cursor: pointer;
@@ -4223,7 +4221,7 @@ a.status-card {
   align-items: center;
   border: 0;
   color: $darker-text-color;
-  background: transparent;
+  background: $ui-base-color;
   cursor: pointer;
   font-size: 16px;
   padding: 0 15px;
@@ -4242,6 +4240,7 @@ a.status-card {
 
   &.active {
     color: $primary-text-color;
+    background: var(--background-drawer-color);
 
     &:hover {
       color: $primary-text-color;
@@ -4285,6 +4284,7 @@ a.status-card {
 }
 
 .column-header__collapsible-inner {
+  background: $ui-base-color;
   border: 1px solid var(--background-border-color);
   border-top: 0;
 }
@@ -4532,6 +4532,7 @@ a.status-card {
 }
 
 .account--panel {
+  background: var(--background-drawer-color);
   border-top: 1px solid var(--background-border-color);
   border-bottom: 1px solid var(--background-border-color);
   display: flex;
@@ -4739,6 +4740,7 @@ a.status-card {
 .empty-column-indicator,
 .follow_requests-unlocked_explanation {
   color: $dark-text-color;
+  background: $ui-base-color;
   text-align: center;
   padding: 20px;
   font-size: 15px;
@@ -4764,7 +4766,7 @@ a.status-card {
 }
 
 .follow_requests-unlocked_explanation {
-  background: var(--surface-background-color);
+  background: var(--background-color);
   border-bottom: 1px solid var(--background-border-color);
   contain: initial;
   flex-grow: 0;
@@ -4772,6 +4774,7 @@ a.status-card {
 
 .error-column {
   padding: 20px;
+  background: $ui-base-color;
   border: 1px solid var(--background-border-color);
   border-radius: 4px;
   display: flex;
@@ -4851,7 +4854,7 @@ a.status-card {
   position: relative;
   margin-top: 5px;
   z-index: 2;
-  background: var(--dropdown-background-color);
+  background: $simple-background-color;
   backdrop-filter: var(--background-filter);
   border: 1px solid var(--dropdown-border-color);
   box-shadow: var(--dropdown-shadow);
@@ -5405,7 +5408,7 @@ a.status-card {
 
   &__header {
     border-bottom: 1px solid var(--background-border-color);
-    background: var(--surface-background-color);
+    background: var(--background-color);
     padding: 15px;
     font-weight: 500;
     font-size: 14px;
@@ -7210,8 +7213,8 @@ a.status-card {
 
 .notification__filter-bar,
 .account__section-headline {
-  border: 1px solid var(--background-border-color);
-  border-top: 0;
+  background: $ui-base-color;
+  border-bottom: 1px solid var(--background-border-color);
   cursor: default;
   display: flex;
   flex-shrink: 0;
@@ -7260,7 +7263,7 @@ a.status-card {
 }
 
 .filter-form {
-  border-bottom: 1px solid var(--background-border-color);
+  background: $ui-base-color;
 
   &__column {
     display: flex;
@@ -7460,7 +7463,7 @@ noscript {
 .follow-request-banner,
 .account-memorial-banner {
   padding: 20px;
-  background: var(--surface-background-color);
+  background: var(--background-drawer-color);
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -7503,8 +7506,7 @@ noscript {
   justify-content: flex-start;
   gap: 15px;
   align-items: center;
-  border: 1px solid var(--background-border-color);
-  border-top: 0;
+  background: var(--background-drawer-color);
 
   label {
     flex: 1 1 auto;
@@ -7888,7 +7890,8 @@ noscript {
       margin: 0;
       margin-top: 16px;
       border-radius: 4px;
-      border: 1px solid var(--background-border-color);
+      background: var(--surface-background-color);
+      border: 0;
 
       dl {
         display: block;
@@ -9457,7 +9460,7 @@ noscript {
   }
 
   &__meta {
-    border: 1px solid var(--background-border-color);
+    background: var(--background-drawer-color);
     border-radius: 4px;
     display: flex;
     margin-bottom: 30px;
@@ -9581,7 +9584,7 @@ noscript {
       line-height: 22px;
       padding: 20px;
       border-radius: 4px;
-      border: 1px solid var(--background-border-color);
+      background: var(--background-drawer-color);
       color: $highlight-text-color;
       cursor: pointer;
     }
@@ -9591,7 +9594,7 @@ noscript {
     }
 
     &__body {
-      border: 1px solid var(--background-border-color);
+      border: 1px solid var(--modal-border-color);
       border-top: 0;
       padding: 20px;
       font-size: 15px;
@@ -9601,17 +9604,18 @@ noscript {
 
   &__domain-blocks {
     margin-top: 30px;
-    border: 1px solid var(--background-border-color);
+    background: var(--surface-background-color);
+    border: 1px solid var(--modal-border-color);
     border-radius: 4px;
 
     &__domain {
-      border-bottom: 1px solid var(--background-border-color);
+      border-bottom: 1px solid var(--modal-border-color);
       padding: 10px;
       font-size: 15px;
       color: $darker-text-color;
 
       &:nth-child(2n) {
-        background: darken($ui-base-color, 4%);
+        background: darken($ui-base-color, 2%);
       }
 
       &:last-child {
