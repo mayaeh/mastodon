@@ -69,8 +69,18 @@
 
 .column-link {
   &--transparent {
+    background: inherit;
+    color: inherit;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: inherit;
+      color: inherit;
+    }
+
     &.active {
-      color: $highlight-text-color;
+      color: inherit;
     }
   }
 }
@@ -129,11 +139,11 @@
 }
 
 .drawer__inner {
-  background: darken($ui-base-color, 4%);
+  background: var(--background-color);
 }
 
 .drawer__inner__mastodon {
-  background: darken($ui-base-color, 4%);
+  background: var(--background-color)
 }
 
 .upload-progress {
