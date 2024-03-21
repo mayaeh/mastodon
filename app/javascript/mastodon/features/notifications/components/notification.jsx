@@ -39,7 +39,6 @@ const messages = defineMessages({
   reblog: { id: 'notification.reblog', defaultMessage: '{name} boosted your status' },
   status: { id: 'notification.status', defaultMessage: '{name} just posted' },
   update: { id: 'notification.update', defaultMessage: '{name} edited a post' },
-  severedRelationships: { id: 'notification.severed_relationships', defaultMessage: 'Relationships with {name} severed' },
   adminSignUp: { id: 'notification.admin.sign_up', defaultMessage: '{name} signed up' },
   adminReport: { id: 'notification.admin.report', defaultMessage: '{name} reported {target}' },
 });
@@ -391,7 +390,7 @@ class Notification extends ImmutablePureComponent {
             <Icon id='unlink' icon={LinkOffIcon} />
 
             <span title={notification.get('created_at')}>
-              <FormattedMessage id='notification.severedRelationships' defaultMessage='Relationships with {name} severed' values={{ name: notification.getIn(['event', 'target_name']) }} />
+              <FormattedMessage id='notification.severed_relationships' defaultMessage='Relationships with {name} severed' values={{ name: notification.getIn(['event', 'target_name']) }} />
             </span>
           </div>
 
