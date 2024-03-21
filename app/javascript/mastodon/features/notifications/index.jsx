@@ -66,6 +66,7 @@ const getNotifications = createSelector([
 });
 
 const mapStateToProps = state => ({
+  showFilterBar: state.getIn(['settings', 'notifications', 'quickFilter', 'show']),
   notifications: getNotifications(state),
   isLoading: state.getIn(['notifications', 'isLoading'], 0) > 0,
   isUnread: state.getIn(['notifications', 'unread']) > 0 || state.getIn(['notifications', 'pendingItems']).size > 0,
@@ -85,6 +86,7 @@ class Notifications extends PureComponent {
   static propTypes = {
     columnId: PropTypes.string,
     notifications: ImmutablePropTypes.list.isRequired,
+    showFilterBar: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
     isLoading: PropTypes.bool,
@@ -187,14 +189,14 @@ class Notifications extends PureComponent {
   };
 
   render () {
-    const { intl, notifications, isLoading, isUnread, columnId, multiColumn, hasMore, numPending, lastReadId, canMarkAsRead, needsNotificationPermission } = this.props;
+    const { intl, notifications, isLoading, isUnread, columnId, multiColumn, hasMore, numPending, showFilterBar, lastReadId, canMarkAsRead, needsNotificationPermission } = this.props;
     const pinned = !!columnId;
     const emptyMessage = <FormattedMessage id='empty_column.notifications' defaultMessage="You don't have any notifications yet. When other people interact with you, you will see it here." />;
     const { signedIn } = this.context.identity;
 
     let scrollableContent = null;
 
-    const filterBarContainer = signedIn
+    const filterBarContainer = (signedIn && showFilterBar)
       ? (<FilterBarContainer />)
       : null;
 
