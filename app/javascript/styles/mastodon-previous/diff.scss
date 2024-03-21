@@ -17,10 +17,6 @@
   display: none;
 }
 
-.tabs-bar__wrapper {
-  top: inherit;
-}
-
 .button {
   background-color: $ui-highlight-color;
   transition: all 100ms ease-in;
@@ -34,6 +30,19 @@
 
   &--destructive {
     transition: none;
+  }
+
+  &.button-secondary {
+    color: $ui-button-secondary-color;
+    border: 1px solid $ui-button-secondary-border-color;
+
+    &:active,
+    &:focus,
+    &:hover {
+      border-color: $ui-button-secondary-focus-background-color;
+      color: $ui-button-secondary-focus-color;
+      background-color: $ui-button-secondary-focus-background-color;
+    }
   }
 }
 
@@ -95,14 +104,6 @@
   }
 }
 
-.column-link {
-  &--transparent {
-    &.active {
-      color: $ui-highlight-color;
-    }
-  }
-}
-
 .timeline-hint {
   a {
     color: lighten($ui-highlight-color, 8%);
@@ -115,10 +116,14 @@
   }
 }
 
-.radio-button {
+.radio-button,
+.check-box {
   &__input {
     &.checked {
       border-color: lighten($ui-highlight-color, 8%);
+    }
+
+    &::before {
       background: lighten($ui-highlight-color, 8%);
     }
   }
@@ -132,10 +137,6 @@
   &__highlightable {
     border: 1px solid darken($simple-background-color, 8%);
     background: darken($simple-background-color, 8%);
-
-    &.active {
-      border-color: $ui-highlight-color;
-    }
   }
 
   .spoiler-input {
@@ -155,12 +156,180 @@
   color: $lighter-text-color;
 }
 
+.focusable {
+  &:focus {
+    background: var(--modal-border-color);
+  }
+}
+
+.status__wrapper-direct {
+  background: mix($ui-base-color, $ui-highlight-color, 95%);
+
+  &:focus {
+    background: mix(lighten($ui-base-color, 4%), $ui-highlight-color, 95%);
+  }
+}
+
+.detailed-status {
+  background: var(--background-drawer-color);
+}
+
+
+.detailed-status__action-bar {
+  background: var(--background-drawer-color);
+}
+
+.tabs-bar__wrapper {
+  background: darken($ui-base-color, 8%);
+}
+
+.column {
+  > .scrollable {
+    background: $ui-base-color;
+    border: inherit;
+    border-top: 0;
+    border-radius: 0 0 4px 4px;
+
+    &.about,
+    &.privacy-policy {
+      border-top: inherit;
+      border-radius: inherit;
+    }
+  }
+}
+
+@media screen and (max-width: $no-gap-breakpoint - 1px) {
+  .columns-area__panels__pane--navigational {
+    .navigation-panel {
+      background: $ui-base-color;
+    }
+  }
+
+  .layout-single-column .ui__header {
+    background: $ui-base-color;
+  }
+}
+
+.icon-with-badge {
+  &__badge {
+    border: 2px solid var(--background-border-color);
+  }
+}
+
+.navigation-panel,
+.compose-panel {
+  hr {
+    border-top: 1px solid var(--modal-border-color);
+  }
+}
+
+.drawer__pager {
+  border: inherit;
+  border-radius: 4px;
+}
+
 .drawer__inner {
   background: $ui-base-color;
 }
 
 .drawer__inner__mastodon {
   background: $ui-base-color;
+}
+
+.drawer__header {
+  background: var(--surface-background-color);
+  border: inherit;
+  border-radius: 4px;
+
+  a:hover,
+  a:focus,
+  a:active {
+    color: inherit;
+    background: $ui-base-color;
+}
+
+.column-back-button {
+  background: $ui-base-color;
+}
+
+.column-header__back-button {
+  background: $ui-base-color;
+}
+
+.column-link {
+  background: var(--background-border-color);
+  color: $primary-text-color;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: inherit;
+    background: lighten($ui-base-color, 11%);
+  }
+
+  &--transparent {
+    background: transparent;
+    color: $secondary-text-color;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: transparent;
+      color: $primary-text-color;
+    }
+
+    &.active {
+      color: $ui-highlight-color;
+    }
+  }
+}
+
+.column-subheading {
+  background: $ui-base-color;
+  color: $dark-text-color;
+}
+
+.regeneration-indicator {
+  background: $ui-base-color;
+}
+
+.column-header {
+  background: $ui-base-color;
+  border: inherit;
+  border-bottom: 1px solid var(--background-border-color);
+}
+
+.column-header__button {
+  background: $ui-base-color;
+
+  &.active {
+    background: var(--background-drawer-color);
+  }
+}
+
+.column-header__collapsible-inner {
+  background: $ui-base-color;
+}
+
+.account--panel {
+  background: var(--background-drawer-color);
+}
+
+.empty-column-indicator,
+.follow_requests-unlocked_explanation {
+  background: $ui-base-color;
+}
+
+.follow_requests-unlocked_explanation {
+  background: var(--background-color);
+}
+
+.error-column {
+  background: $ui-base-color;
+}
+
+.emoji-picker-dropdown__menu {
+  background: $simple-background-color;
 }
 
 .upload-progress {
@@ -224,6 +393,74 @@
   }
 }
 
+.search-results__section {
+  &__header {
+    background: var(--background-color);
+  }
+}
+
+.notification__filter-bar,
+.account__section-headline {
+  background: $ui-base-color;
+  border: inherit;
+  border-bottom: 1px solid var(--background-border-color);
+}
+
+.filter-form {
+  background: $ui-base-color;
+  border-bottom: inherit;
+}
+
+.follow-request-banner,
+.account-memorial-banner {
+  background: var(--background-drawer-color);
+}
+
+.column-inline-form {
+  background: var(--background-drawer-color);
+  border: inherit;
+
+  &__bio {
+    .account__header__fields {
+      background: var(--surface-background-color);
+      border: 0;
+    }
+  }
+}
+
+.about {
+  &__meta {
+    background: var(--background-drawer-color);
+    border: inherit;
+    border-radius: 4px;
+  }
+
+  &__section {
+    &__title {
+      background: var(--background-drawer-color);
+      border: inherit;
+      border-radius: 4px;
+    }
+
+    &__body {
+      border: 1px solid var(--modal-border-color);
+    }
+  }
+
+  &__domain-blocks {
+    background: var(--surface-background-color);
+    border: 1px solid var(--modal-border-color);
+
+    &__domain {
+      border-bottom: 1px solid var(--modal-border-color);
+
+      &:nth-child(2n) {
+        background: darken($ui-base-color, 2%);
+      }
+    }
+  }
+}
+
 // dashboard.scss
 .dashboard {
   &__quick-access {
@@ -239,8 +476,6 @@
 
 // emoji_picker.scss
 .emoji-mart-bar {
-  border: 0 solid darken($ui-secondary-color, 8%);
-
   &:first-child {
     background: $ui-secondary-color;
   }
@@ -260,15 +495,10 @@
   }
 }
 
-.emoji-mart-scroll {
-  background: $simple-background-color;
-}
-
 .emoji-mart-search {
-  background: $simple-background-color;
-
   input {
     background: rgba($ui-secondary-color, 0.3);
+    border: 1px solid $ui-secondary-color;
     color: $inverted-text-color;
   }
 }
@@ -287,7 +517,7 @@
 
 .emoji-mart-category-label {
   span {
-    background: $simple-background-color;
+    color: $inverted-text-color;
   }
 }
 

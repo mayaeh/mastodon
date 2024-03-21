@@ -1,6 +1,10 @@
 // Dependent colors
 $black: #000000;
 $white: #ffffff;
+$blurple-500: #6364ff; // Brand purple
+$blurple-300: #858afa; // Faded Blue
+$grey-600: #4e4c5a; // Trout
+$grey-100: #dadaf3; // Topaz
 $success-green: #79bd9a;
 
 $classic-base-color: #282c37;
@@ -11,3 +15,16 @@ $classic-secondary-color: #d9e1e8;
 $classic-highlight-color: #2b90d9;
 $ui-highlight-color: #2b90d9;
 $highlight-text-color: $ui-highlight-color !default;
+
+$ui-button-secondary-color: $grey-100 !default;
+$ui-button-secondary-border-color: $grey-100 !default;
+$ui-button-secondary-focus-background-color: $grey-600 !default;
+$ui-button-secondary-focus-color: $white !default;
+
+:root {
+  --dropdown-border-color: #{lighten($ui-base-color, 12%)};
+  --dropdown-background-color: #{lighten($ui-base-color, 4%)};
+  --modal-background-color: #{darken($ui-base-color, 4%)};
+  --background-border-color: #{lighten($ui-base-color, 8%)};
+  --background-drawer-color: #{lighten($ui-base-color, 4%)};
+}
