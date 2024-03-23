@@ -182,6 +182,8 @@
 
 .detailed-status__action-bar {
   background: var(--background-drawer-color);
+  border-top: 1px solid var(--background-border2-color);
+  border-bottom: 1px solid var(--background-border2-color);
 }
 
 .tabs-bar__wrapper {
