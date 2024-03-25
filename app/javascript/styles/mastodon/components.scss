@@ -3627,6 +3627,17 @@ $ui-header-height: 55px;
     opacity: 1;
     animation: fade 150ms linear;
     margin-top: 10px;
+    margin-left: 15px;
+
+    button {
+      background: inherit;
+      border: none;
+      color: $secondary-text-color;
+
+      span {
+        margin-left: 5px;
+      }
+    }
 
     h4 {
       border-bottom: 1px solid var(--background-border-color);
