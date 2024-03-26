@@ -1667,6 +1667,9 @@ is:
     strikes: Umsýsla refsinga
     two_factor_authentication: Tveggja-þátta auðkenning
     webauthn_authentication: Öryggislyklar
+  severed_relationships:
+    download: Sækja (%{count})
+    type: Atburður
   statuses:
     attached:
       audio:
