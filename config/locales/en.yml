@@ -1816,6 +1816,7 @@ en:
     mastodon-light: Mastodon (Light)
     mastodon-previous: Mastodon (Previous Dark)
     slack-like-mastodon: like-slack (Uncheck advanced web interface)
+    system: Automatic (use system theme)
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
