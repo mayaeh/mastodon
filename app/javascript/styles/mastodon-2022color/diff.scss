@@ -126,8 +126,10 @@
     }
   }
 
-  .layout-single-column .ui__header {
-    background: var(--background-color-tint);
+  .layout-single-column {
+    .ui__header {
+      background: var(--background-color-tint);
+    }
   }
 }
 
