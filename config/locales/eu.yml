@@ -1773,6 +1773,7 @@ eu:
     contrast: Mastodon (Kontraste altua)
     default: Mastodon (Iluna)
     mastodon-light: Mastodon (Argia)
+    system: Automatikoa (erabili sistemaren gaia)
   time:
     formats:
       default: "%Y(e)ko %b %d, %H:%M"
