@@ -1769,6 +1769,7 @@ fo:
     contrast: Mastodon (høgur kontrastur)
     default: Mastodon (myrkt)
     mastodon-light: Mastodon (ljóst)
+    system: Sjálvvirkandi (brúka vanligt uppsetingareyðkenni)
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

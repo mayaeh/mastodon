@@ -1737,6 +1737,7 @@ vi:
     contrast: Mastodon (Tương phản)
     default: Mastodon (Tối)
     mastodon-light: Mastodon (Sáng)
+    system: Tự động (chủ đề hệ thống)
   time:
     formats:
       default: "%-d.%m.%Y %H:%M"
