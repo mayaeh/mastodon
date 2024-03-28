@@ -1794,6 +1794,7 @@ en:
     default: Mastodon (Dark)
     mastodon-2022color: Mastodon (Dark 2022)
     mastodon-light: Mastodon (Light)
+    mastodon-light2024: Mastodon (Light 2024)
     system: Automatic (use system theme)
   time:
     formats:
