@@ -80,7 +80,7 @@ class StatusActionBar extends ImmutablePureComponent {
 
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
-    relationship: ImmutablePropTypes.map,
+    relationship: ImmutablePropTypes.record,
     onReply: PropTypes.func,
     onFavourite: PropTypes.func,
     onReblog: PropTypes.func,

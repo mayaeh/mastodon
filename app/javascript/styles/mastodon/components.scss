@@ -2601,6 +2601,7 @@ a.account__display-name {
 }
 
 $ui-header-height: 55px;
+$ui-header-logo-wordmark-width: 99px;
 
 .ui__header {
   display: none;
@@ -2616,6 +2617,10 @@ $ui-header-height: 55px;
   &__logo {
     display: inline-flex;
     padding: 15px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: hidden;
+    container: header-logo / inline-size;
 
     .logo {
       height: $ui-header-height - 30px;
@@ -2626,7 +2631,7 @@ $ui-header-height: 55px;
       display: none;
     }
 
-    @media screen and (width >= 320px) {
+    @container header-logo (min-width: #{$ui-header-logo-wordmark-width}) {
       .logo--wordmark {
         display: block;
       }
@@ -2643,6 +2648,7 @@ $ui-header-height: 55px;
     gap: 10px;
     padding: 0 10px;
     overflow: hidden;
+    flex-shrink: 0;
 
     .button {
       flex: 0 0 auto;
@@ -2660,7 +2666,7 @@ $ui-header-height: 55px;
 }
 
 .tabs-bar__wrapper {
-  background: var(--background-color-tint);
+  background: var(--background-color);
   backdrop-filter: var(--background-filter);
   position: sticky;
   top: $ui-header-height;
@@ -2882,7 +2888,7 @@ $ui-header-height: 55px;
   .layout-single-column {
     .ui__header {
       display: flex;
-      background: var(--background-color-tint);
+      background: var(--background-color);
       border-bottom: 1px solid var(--background-border-color);
     }
 
