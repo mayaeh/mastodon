@@ -103,7 +103,7 @@
 }
 
 .tabs-bar__wrapper {
-  background: var(--background-color-tint);
+  background: var(--background-color);
 }
 
 .column {
@@ -128,7 +128,7 @@
 
   .layout-single-column {
     .ui__header {
-      background: var(--background-color-tint);
+      background: var(--background-color);
     }
   }
 }

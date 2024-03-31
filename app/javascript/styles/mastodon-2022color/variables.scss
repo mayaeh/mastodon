@@ -20,7 +20,7 @@ $ui-button-secondary-border-color: $blurple-500 !default;
 $ui-button-secondary-focus-border-color: $blurple-300 !default;
 $ui-button-secondary-focus-color: $blurple-300 !default;
 
-:root {
+.theme-mastodon-2022color {
   --dropdown-border-color: #{lighten($ui-base-color, 4%)};
   --dropdown-background-color: #{rgba(darken($ui-base-color, 8%), 0.9)};
   --modal-background-color: #{rgba(darken($ui-base-color, 8%), 0.7)};
