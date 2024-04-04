@@ -2235,14 +2235,14 @@ a.account__display-name {
   &.activate {
     & > .icon {
       animation: spring-rotate-in 1s linear;
-      transform-origin: 50% 55%;
+      transform-origin: 50% 52%;
     }
   }
 
   &.deactivate {
     & > .icon {
       animation: spring-rotate-out 1s linear;
-      transform-origin: 50% 55%;
+      transform-origin: 50% 52%;
     }
   }
 }
@@ -10115,9 +10115,10 @@ noscript {
     }
 
     .filtered-notifications-banner__badge {
-      background-color: $highlight-text-color;
+      background: $ui-button-background-color;
       border-radius: 4px;
       padding: 1px 6px;
+      color: $white;
     }
   }
 
