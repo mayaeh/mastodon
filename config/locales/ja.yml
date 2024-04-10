@@ -1749,6 +1749,7 @@ ja:
     mastodon-2022color: Mastodon (ダーク2022)
     mastodon-light: Mastodon (ライト)
     mastodon-light2024: Mastodon (ライト2024)
+    system: 自動 (システムのテーマを使用)
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"
