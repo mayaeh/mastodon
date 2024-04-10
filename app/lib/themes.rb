@@ -6,8 +6,10 @@ require 'yaml'
 class Themes
   include Singleton
 
-  MASTODON_DARK_THEME_COLOR = '#282c37'
-  MASTODON_LIGHT_THEME_COLOR = '#f3f5f7'
+  THEME_COLORS = {
+    dark: '#282c37',
+    light: '#f3f5f7',
+  }.freeze
 
   def initialize
     @conf = YAML.load_file(Rails.root.join('config', 'themes.yml'))
