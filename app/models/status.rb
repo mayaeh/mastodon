@@ -50,7 +50,7 @@ class Status < ApplicationRecord
   update_index('statuses', :proper)
   update_index('public_statuses', :proper)
 
-  enum visibility: { public: 0, unlisted: 1, private: 2, direct: 3, limited: 4 }, _suffix: :visibility
+  enum :visibility, { public: 0, unlisted: 1, private: 2, direct: 3, limited: 4 }, suffix: :visibility
 
   belongs_to :application, class_name: 'Doorkeeper::Application', optional: true
 
@@ -108,10 +108,9 @@ class Status < ApplicationRecord
   scope :with_accounts, ->(ids) { where(id: ids).includes(:account) }
   scope :without_replies, -> { where('statuses.reply = FALSE OR statuses.in_reply_to_account_id = statuses.account_id') }
   scope :without_reblogs, -> { where(statuses: { reblog_of_id: nil }) }
-  scope :with_public_visibility, -> { where(visibility: :public) }
   scope :tagged_with, ->(tag_ids) { joins(:statuses_tags).where(statuses_tags: { tag_id: tag_ids }) }
   scope :not_excluded_by_account, ->(account) { where.not(account_id: account.excluded_from_timeline_account_ids) }
-  scope :not_domain_blocked_by_account, ->(account) { account.excluded_from_timeline_domains.blank? ? left_outer_joins(:account) : left_outer_joins(:account).where('accounts.domain IS NULL OR accounts.domain NOT IN (?)', account.excluded_from_timeline_domains) }
+  scope :not_domain_blocked_by_account, ->(account) { account.excluded_from_timeline_domains.blank? ? left_outer_joins(:account) : left_outer_joins(:account).merge(Account.not_domain_blocked_by_account(account)) }
   scope :tagged_with_all, lambda { |tag_ids|
     Array(tag_ids).map(&:to_i).reduce(self) do |result, id|
       result.where(<<~SQL.squish, tag_id: id)
@@ -347,38 +346,6 @@ class Status < ApplicationRecord
       StatusPin.select('status_id').where(status_id: status_ids).where(account_id: account_id).each_with_object({}) { |p, h| h[p.status_id] = true }
     end
 
-    def reload_stale_associations!(cached_items)
-      account_ids = []
-
-      cached_items.each do |item|
-        account_ids << item.account_id
-        account_ids << item.reblog.account_id if item.reblog?
-      end
-
-      account_ids.uniq!
-
-      status_ids = cached_items.map { |item| item.reblog? ? item.reblog_of_id : item.id }.uniq
-
-      return if account_ids.empty?
-
-      accounts = Account.where(id: account_ids).includes(:account_stat, :user).index_by(&:id)
-
-      status_stats = StatusStat.where(status_id: status_ids).index_by(&:status_id)
-
-      cached_items.each do |item|
-        item.account = accounts[item.account_id]
-        item.reblog.account = accounts[item.reblog.account_id] if item.reblog?
-
-        if item.reblog?
-          status_stat = status_stats[item.reblog.id]
-          item.reblog.status_stat = status_stat if status_stat.present?
-        else
-          status_stat = status_stats[item.id]
-          item.status_stat = status_stat if status_stat.present?
-        end
-      end
-    end
-
     def from_text(text)
       return [] if text.blank?
 
@@ -443,7 +410,6 @@ class Status < ApplicationRecord
   def set_visibility
     self.visibility = reblog.visibility if reblog? && visibility.nil?
     self.visibility = (account.locked? ? :private : :public) if visibility.nil?
-    self.sensitive  = false if sensitive.nil?
   end
 
   def set_conversation

@@ -80,7 +80,7 @@ class StatusActionBar extends ImmutablePureComponent {
 
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
-    relationship: ImmutablePropTypes.map,
+    relationship: ImmutablePropTypes.record,
     onReply: PropTypes.func,
     onFavourite: PropTypes.func,
     onReblog: PropTypes.func,
@@ -208,7 +208,7 @@ class StatusActionBar extends ImmutablePureComponent {
     const { status, onBlockDomain } = this.props;
     const account = status.get('account');
 
-    onBlockDomain(account.get('acct').split('@')[1]);
+    onBlockDomain(account);
   };
 
   handleUnblockDomain = () => {
