@@ -949,12 +949,3 @@ DEPENDENCIES
   webpacker (~> 5.4)
   webpush!
   xorcist (~> 1.1)
-<<<<<<< HEAD
-=======
-
-RUBY VERSION
-   ruby 3.3.1p55
-
-BUNDLED WITH
-   2.5.9
->>>>>>> main
