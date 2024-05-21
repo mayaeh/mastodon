@@ -21,6 +21,7 @@ import ReplyAllIcon from '@/material-icons/400-24px/reply_all.svg?react';
 import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
 import StarBorderIcon from '@/material-icons/400-24px/star.svg?react';
 
+import { identityContextPropShape, withIdentity } from 'mastodon/identity_context';
 import { PERMISSION_MANAGE_USERS, PERMISSION_MANAGE_FEDERATION } from 'mastodon/permissions';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 
@@ -67,12 +68,8 @@ const mapStateToProps = (state, { status }) => ({
 });
 
 class ActionBar extends PureComponent {
-
-  static contextTypes = {
-    identity: PropTypes.object,
-  };
-
   static propTypes = {
+    identity: identityContextPropShape,
     status: ImmutablePropTypes.map.isRequired,
     relationship: ImmutablePropTypes.record,
     onReply: PropTypes.func.isRequired,
@@ -198,7 +195,7 @@ class ActionBar extends PureComponent {
 
   render () {
     const { status, relationship, intl } = this.props;
-    const { signedIn, permissions } = this.context.identity;
+    const { signedIn, permissions } = this.props.identity;
 
     const publicStatus       = ['public', 'unlisted'].includes(status.get('visibility'));
     const pinnableStatus     = ['public', 'unlisted', 'private'].includes(status.get('visibility'));
@@ -337,4 +334,4 @@ class ActionBar extends PureComponent {
 
 }
 
-export default withRouter(connect(mapStateToProps)(injectIntl(ActionBar)));
+export default withRouter(connect(mapStateToProps)(withIdentity(injectIntl(ActionBar))));
