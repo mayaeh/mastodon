@@ -285,6 +285,7 @@ ca:
         update_custom_emoji_html: "%{name} ha actualitzat l'emoji %{target}"
         update_domain_block_html: "%{name} ha actualitzat el bloqueig de domini per a %{target}"
         update_ip_block_html: "%{name} ha canviat la norma per la IP %{target}"
+        update_report_html: "%{name} ha actualitzat l'informe %{target}"
         update_status_html: "%{name} ha actualitzat l'estat de %{target}"
         update_user_role_html: "%{name} ha canviat el rol %{target}"
       deleted_account: compte eliminat
@@ -751,6 +752,7 @@ ca:
         desc_html: Això es basa en scripts externs de hCaptcha, que poden ser un problema de privacitat i seguretat. A més, <strong>això pot fer que el procés de registre sigui significativament menys accesible per algunes (especialment discapacitades) persones</strong>. Per aquestes raons, si us plau considera alternatives com ara registre amb aprovació necessària o basada en invitacions.
         title: Demana als nous usuaris que resolguin un CAPTCHA per a confirmar el seu compte
       content_retention:
+        danger_zone: Zona de perill
         preamble: Controla com es desa a Mastodon el contingut generat per l'usuari.
         title: Retenció de contingut
       default_noindex:
@@ -949,7 +951,7 @@ ca:
       delete: Elimina
       edit_preset: Edita l'avís predeterminat
       empty: Encara no has definit cap preavís.
-      title: Gestiona les configuracions predefinides dels avisos
+      title: Predefinicions d'avís
     webhooks:
       add_new: Afegir extrem
       delete: Elimina

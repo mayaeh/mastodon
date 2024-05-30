@@ -113,6 +113,14 @@ module ApplicationHelper
     content_tag(:i, nil, attributes.merge(class: class_names.join(' ')))
   end
 
+  def material_symbol(icon, attributes = {})
+    inline_svg_tag(
+      "400-24px/#{icon}.svg",
+      class: %w(icon).concat(attributes[:class].to_s.split),
+      role: :img
+    )
+  end
+
   def check_icon
     inline_svg_tag 'check.svg'
   end
@@ -231,6 +239,22 @@ module ApplicationHelper
 
   def prerender_custom_emojis(html, custom_emojis, other_options = {})
     EmojiFormatter.new(html, custom_emojis, other_options.merge(animate: prefers_autoplay?)).to_s
+  end
+
+  def mascot_url
+    full_asset_url(instance_presenter.mascot&.file&.url || frontend_asset_path('images/elephant_ui_plane.svg'))
+  end
+
+  def instance_presenter
+    @instance_presenter ||= InstancePresenter.new
+  end
+
+  def favicon_path(size = '48')
+    instance_presenter.favicon&.file&.url(size)
+  end
+
+  def app_icon_path(size = '48')
+    instance_presenter.app_icon&.file&.url(size)
   end
 
   private

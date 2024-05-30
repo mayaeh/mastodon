@@ -34,6 +34,7 @@ import { Icon } from 'mastodon/components/icon';
 import { IconWithBadge } from 'mastodon/components/icon_with_badge';
 import { WordmarkLogo } from 'mastodon/components/logo';
 import { NavigationPortal } from 'mastodon/components/navigation_portal';
+import { identityContextPropShape, withIdentity } from 'mastodon/identity_context';
 import { timelinePreview, trendsEnabled } from 'mastodon/initial_state';
 import { transientSingleColumn } from 'mastodon/is_mobile';
 
@@ -102,12 +103,8 @@ const FollowRequestsLink = () => {
 };
 
 class NavigationPanel extends Component {
-
-  static contextTypes = {
-    identity: PropTypes.object.isRequired,
-  };
-
   static propTypes = {
+    identity: identityContextPropShape,
     intl: PropTypes.object.isRequired,
     location: PropTypes.object,
   };
@@ -118,7 +115,7 @@ class NavigationPanel extends Component {
 
   render () {
     const { intl, location } = this.props;
-    const { signedIn, disabledAccountId } = this.context.identity;
+    const { signedIn, disabledAccountId } = this.props.identity;
 
     let banner = undefined;
 
@@ -205,4 +202,4 @@ class NavigationPanel extends Component {
 
 }
 
-export default injectIntl(withRouter(NavigationPanel));
+export default injectIntl(withRouter(withIdentity(NavigationPanel)));

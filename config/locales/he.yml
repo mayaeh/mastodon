@@ -291,6 +291,7 @@ he:
         update_custom_emoji_html: "%{name} עדכן/ה אמוג'י %{target}"
         update_domain_block_html: "%{name} עדכן/ה חסימת דומיין עבור %{target}"
         update_ip_block_html: "%{name} שינה כלל עבור IP %{target}"
+        update_report_html: '%{name} עדכן/ה דו"ח %{target}'
         update_status_html: "%{name} עדכן/ה הודעה של %{target}"
         update_user_role_html: "%{name} שינה את התפקיד של %{target}"
       deleted_account: חשבון מחוק
@@ -779,6 +780,7 @@ he:
         desc_html: אפשרות זו ניסמכת על קטעי קוד חיצוניים של hCaptcha שעלולים להיות סיכון אבטחה ופרטיות. בנוסף, <strong>זה עשוי להפוך את תהליך ההרשמה לבלתי נגיש לא.נשים, במיוחד בעלות ובעלי מוגבלויות</strong>. מסיבות אלו, כדאי לשקול חלופות כמו אשרור מנהלים ידני או הרשמה רק על בסיס הזמנה.
         title: לדרוש פתרון CAPTCHA כדי לאשרר למשתמשים את חשבונם
       content_retention:
+        danger_zone: אזור מסוכן
         preamble: שליטה על דרך אחסון תוכן המשתמשים במסטודון.
         title: תקופת השמירה של תכנים
       default_noindex:
@@ -983,7 +985,7 @@ he:
       delete: למחוק
       edit_preset: ערוך/י טקסט מוכן מראש לאזהרה
       empty: לא הגדרת עדיין שום טקסט מוכן מראש לאזהרה.
-      title: ניהול טקסטים מוכנים מראש לאזהרות
+      title: תצורת אזהרות
     webhooks:
       add_new: הוספת נקודת קצה
       delete: מחיקה

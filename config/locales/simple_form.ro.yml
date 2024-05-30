@@ -164,5 +164,6 @@ ro:
     'no': Nu
     recommended: Recomandat
     required:
+      mark: "*"
       text: obligatoriu
     'yes': Da

@@ -25,7 +25,6 @@
 /public/announcements.json
 .env
 .env.production
-.env.development
 /node_modules/
 /build/
 
@@ -70,3 +69,6 @@ yarn-debug.log
 
 # Ignore Docker option files
 docker-compose.override.yml
+
+# Ignore dotenv .local files
+.env*.local
