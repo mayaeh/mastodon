@@ -42,6 +42,7 @@ namespace :api, format: false do
     namespace :timelines do
       resource :home, only: :show, controller: :home
       resource :public, only: :show, controller: :public
+      resource :link, only: :show, controller: :link
       resources :tag, only: :show
       resources :list, only: :show
     end
@@ -327,6 +328,18 @@ namespace :api, format: false do
 
     namespace :admin do
       resources :accounts, only: [:index]
+    end
+  end
+
+  namespace :v2_alpha do
+    resources :notifications, only: [:index, :show] do
+      collection do
+        post :clear
+      end
+
+      member do
+        post :dismiss
+      end
     end
   end
 
