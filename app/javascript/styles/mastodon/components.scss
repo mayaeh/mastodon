@@ -902,8 +902,14 @@ body > [data-popper-placement] {
   padding: 10px;
 
   p {
+    font-size: 15px;
+    line-height: 22px;
     color: $darker-text-color;
     margin-bottom: 20px;
+
+    strong {
+      font-weight: 700;
+    }
 
     a {
       color: $secondary-text-color;
@@ -8944,14 +8950,14 @@ noscript {
 }
 
 .server-banner {
-  padding: 20px 0;
-
   &__introduction {
+    font-size: 15px;
+    line-height: 22px;
     color: $darker-text-color;
     margin-bottom: 20px;
 
     strong {
-      font-weight: 600;
+      font-weight: 700;
     }
 
     a {
@@ -8979,6 +8985,9 @@ noscript {
   }
 
   &__description {
+    font-size: 15px;
+    line-height: 22px;
+    color: $darker-text-color;
     margin-bottom: 20px;
   }
 
