@@ -11,7 +11,8 @@ import express from 'express';
 import { Redis } from 'ioredis';
 import { JSDOM } from 'jsdom';
 import pg from 'pg';
-import WebSocket from 'ws';
+import pgConnectionString from 'pg-connection-string';
+import { WebSocketServer } from 'ws';
 
 import { AuthenticationError, RequestError, extractStatusAndMessage as extractErrorStatusAndMessage } from './errors.js';
 import { logger, httpLogger, initializeLogLevel, attachWebsocketHttpLogger, createWebsocketLogger } from './logging.js';
@@ -325,7 +326,7 @@ const CHANNEL_NAMES = [
 const startServer = async () => {
   const pgPool = new pg.Pool(pgConfigFromEnv(process.env));
   const server = http.createServer();
-  const wss = new WebSocket.Server({ noServer: true });
+  const wss = new WebSocketServer({ noServer: true });
 
   // Set the X-Request-Id header on WebSockets:
   wss.on("headers", function onHeaders(headers, req) {
