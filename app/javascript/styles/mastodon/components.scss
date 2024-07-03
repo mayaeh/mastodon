@@ -10508,4 +10508,8 @@ noscript {
       }
     }
   }
+
+  @media screen and (width <= 480px) {
+    display: none;
+  }
 }
