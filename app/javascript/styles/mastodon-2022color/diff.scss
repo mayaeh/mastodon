@@ -86,7 +86,8 @@
   }
 }
 
-.status__wrapper-direct {
+.status__wrapper-direct,
+.notification-ungrouped--direct {
   background: rgba($ui-highlight-color, 0.05);
 
   &:focus {
