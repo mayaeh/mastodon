@@ -290,6 +290,7 @@ ja:
       filter_by_action: アクションで絞り込み
       filter_by_user: ユーザーで絞り込み
       title: 操作履歴
+      unavailable_instance: "(ドメイン名が利用できません)"
     announcements:
       destroyed_msg: お知らせを削除しました！
       edit:
