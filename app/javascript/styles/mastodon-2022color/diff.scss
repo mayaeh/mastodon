@@ -267,7 +267,7 @@
 
 .compose-form {
   &__highlightable {
-    border: 1px solid lighten($ui-base-color, 8%);
+    border: 1px solid var(--background-border-color);
     background: $ui-base-color;
 
     &.active {
@@ -277,7 +277,7 @@
 
   .spoiler-input {
     .autosuggest-input {
-      border-bottom: 1px solid lighten($ui-base-color, 8%);
+      border-bottom: 1px solid var(--background-border-color);
     }
   }
 
@@ -348,7 +348,7 @@
 
       input {
         background: $ui-base-color;
-        border: 1px solid lighten($ui-base-color, 8%);
+        border: 1px solid var(--background-border-color);
         color: $darker-text-color;
       }
     }
@@ -478,6 +478,7 @@
   input {
     background: $ui-base-color;
     color: $darker-text-color;
+    border: 1px solid var(--background-border-color);
   }
 }
 
