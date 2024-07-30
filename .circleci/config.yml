@@ -36,10 +36,11 @@ commands:
   prepare-yarn:
     steps:
       - run:
-          name: Specification version of yarn to 4.2.2
+          name: Specification version of yarn to 4.3.1
           command: |
+            export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
             sudo corepack enable
-            sudo yarn set version 4.2.2
+            sudo yarn set version 4.3.1
   install-ruby-dependencies:
     parameters:
       ruby-version:
