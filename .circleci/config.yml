@@ -38,9 +38,8 @@ commands:
       - run:
           name: Specification version of yarn to 4.3.1
           command: |
-            sudo export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
             sudo corepack enable
-            sudo yarn set version 4.3.1
+            sudo COREPACK_ENABLE_DOWNLOAD_PROMPT=0 yarn set version 4.3.1
   install-ruby-dependencies:
     parameters:
       ruby-version:
