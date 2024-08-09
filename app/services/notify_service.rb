@@ -33,6 +33,7 @@ class NotifyService < BaseService
       @recipient = notification.account
       @sender = notification.from_account
       @notification = notification
+      @mentions = Mention.where(status_id: @notification.activity.status_id) if @notification.type == :mention
       @policy = NotificationPolicy.find_or_initialize_by(account: @recipient)
     end
 
@@ -170,7 +171,6 @@ class NotifyService < BaseService
       @policy.drop_limited_accounts? && @sender.silenced? && not_following?
     end
 
-    @mentions = Mention.where(status_id: @notification.activity.status_id) if message?
     SPAM_FILTER_MINIMUM_FOLLOWERS = ENV.fetch('SPAM_FILTER_MINIMUM_FOLLOWERS', 0).to_i
     SPAM_FILTER_MINIMUM_CREATE_DAYS = ENV.fetch('SPAM_FILTER_MINIMUM_CREATE_DAYS', 1).to_i
     SPAM_FILTER_MINIMUM_MENTIONS = ENV.fetch('SPAM_FILTER_MINIMUM_MENTIONS', 1).to_i
