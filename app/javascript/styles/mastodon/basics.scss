@@ -117,6 +117,7 @@ body {
   }
 
   &.admin {
+    background: darken($ui-base-color, 4%);
     padding: 0;
   }
 
