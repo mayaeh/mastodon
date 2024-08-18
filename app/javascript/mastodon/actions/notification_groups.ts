@@ -15,6 +15,7 @@ import type { NotificationGap } from 'mastodon/reducers/notification_groups';
 import {
   selectSettingsNotificationsExcludedTypes,
   selectSettingsNotificationsQuickFilterActive,
+  selectSettingsNotificationsShows,
 } from 'mastodon/selectors/settings';
 import type { AppDispatch } from 'mastodon/store';
 import {
@@ -38,10 +39,6 @@ function dispatchAssociatedRecords(
   const fetchedStatuses: ApiStatusJSON[] = [];
 
   notifications.forEach((notification) => {
-    if ('sample_accounts' in notification) {
-      fetchedAccounts.push(...notification.sample_accounts);
-    }
-
     if (notification.type === 'admin.report') {
       fetchedAccounts.push(notification.report.target_account);
     }
@@ -50,7 +47,7 @@ function dispatchAssociatedRecords(
       fetchedAccounts.push(notification.moderation_warning.target_account);
     }
 
-    if ('status' in notification) {
+    if ('status' in notification && notification.status) {
       fetchedStatuses.push(notification.status);
     }
   });
@@ -75,7 +72,9 @@ export const fetchNotifications = createDataLoadingThunk(
           : excludeAllTypesExcept(activeFilter),
     });
   },
-  ({ notifications }, { dispatch }) => {
+  ({ notifications, accounts, statuses }, { dispatch }) => {
+    dispatch(importFetchedAccounts(accounts));
+    dispatch(importFetchedStatuses(statuses));
     dispatchAssociatedRecords(dispatch, notifications);
     const payload: (ApiNotificationGroupJSON | NotificationGap)[] =
       notifications;
@@ -95,7 +94,9 @@ export const fetchNotificationsGap = createDataLoadingThunk(
   async (params: { gap: NotificationGap }) =>
     apiFetchNotifications({ max_id: params.gap.maxId }),
 
-  ({ notifications }, { dispatch }) => {
+  ({ notifications, accounts, statuses }, { dispatch }) => {
+    dispatch(importFetchedAccounts(accounts));
+    dispatch(importFetchedStatuses(statuses));
     dispatchAssociatedRecords(dispatch, notifications);
 
     return { notifications };
@@ -104,7 +105,31 @@ export const fetchNotificationsGap = createDataLoadingThunk(
 
 export const processNewNotificationForGroups = createAppAsyncThunk(
   'notificationGroups/processNew',
-  (notification: ApiNotificationJSON, { dispatch }) => {
+  (notification: ApiNotificationJSON, { dispatch, getState }) => {
+    const state = getState();
+    const activeFilter = selectSettingsNotificationsQuickFilterActive(state);
+    const notificationShows = selectSettingsNotificationsShows(state);
+
+    const showInColumn =
+      activeFilter === 'all'
+        ? notificationShows[notification.type]
+        : activeFilter === notification.type;
+
+    if (!showInColumn) return;
+
+    if (
+      (notification.type === 'mention' || notification.type === 'update') &&
+      notification.status?.filtered
+    ) {
+      const filters = notification.status.filtered.filter((result) =>
+        result.filter.context.includes('notifications'),
+      );
+
+      if (filters.some((result) => result.filter.filter_action === 'hide')) {
+        return;
+      }
+    }
+
     dispatchAssociatedRecords(dispatch, [notification]);
 
     return notification;

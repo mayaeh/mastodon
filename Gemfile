@@ -16,7 +16,7 @@ gem 'pghero'
 
 gem 'aws-sdk-s3', '~> 1.123', require: false
 gem 'blurhash', '~> 0.1'
-gem 'fog-core', '<= 2.4.0'
+gem 'fog-core', '<= 2.5.0'
 gem 'fog-openstack', '~> 1.0', require: false
 gem 'kt-paperclip', '~> 7.2'
 gem 'md-paperclip-azure', '~> 2.2', require: false
@@ -100,7 +100,7 @@ gem 'json-ld'
 gem 'json-ld-preloaded', '~> 3.2'
 gem 'rdf-normalize', '~> 0.5'
 
-gem 'opentelemetry-api', '~> 1.2.5'
+gem 'opentelemetry-api', '~> 1.3.0'
 
 group :opentelemetry do
   gem 'opentelemetry-exporter-otlp', '~> 0.28.0', require: false
@@ -112,7 +112,7 @@ group :opentelemetry do
   gem 'opentelemetry-instrumentation-http', '~> 0.23.2', require: false
   gem 'opentelemetry-instrumentation-http_client', '~> 0.22.3', require: false
   gem 'opentelemetry-instrumentation-net_http', '~> 0.22.4', require: false
-  gem 'opentelemetry-instrumentation-pg', '~> 0.27.1', require: false
+  gem 'opentelemetry-instrumentation-pg', '~> 0.28.0', require: false
   gem 'opentelemetry-instrumentation-rack', '~> 0.24.1', require: false
   gem 'opentelemetry-instrumentation-rails', '~> 0.31.0', require: false
   gem 'opentelemetry-instrumentation-redis', '~> 0.25.3', require: false

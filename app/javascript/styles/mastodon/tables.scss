@@ -283,8 +283,8 @@ a.table-action-link {
       }
     }
 
-    &:nth-child(even) {
-      background: var(--background-color);
+    &:last-child {
+      border-radius: 0 0 4px 4px;
     }
 
     &__content {
@@ -294,6 +294,10 @@ a.table-action-link {
 
       &--unpadded {
         padding: 0;
+      }
+
+      &--padded {
+        padding: 12px 16px 16px;
       }
 
       &--with-image {

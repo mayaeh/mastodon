@@ -425,7 +425,15 @@ body > [data-popper-placement] {
 
       &:hover,
       &:focus,
-      &:active,
+      &:active {
+        background: darken($ui-secondary-color, 10%);
+        color: $inverted-text-color;
+
+        .autosuggest-account .display-name__account {
+          color: inherit;
+        }
+      }
+
       &.selected {
         background: darken($ui-secondary-color, 10%);
         color: $inverted-text-color;
@@ -875,6 +883,13 @@ body > [data-popper-placement] {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  &[disabled] {
+    cursor: default;
+    color: $highlight-text-color;
+    border-color: $highlight-text-color;
+    opacity: 0.5;
+  }
 
   .icon {
     width: 15px;
@@ -1785,6 +1800,7 @@ body > [data-popper-placement] {
 
 .account {
   padding: 16px;
+  border-bottom: 1px solid var(--background-border-color);
 
   .account__display-name {
     flex: 1 1 auto;
@@ -1971,17 +1987,16 @@ body > [data-popper-placement] {
 }
 
 .account__avatar {
-  @include avatar-radius;
-
   display: block;
   position: relative;
-  overflow: hidden;
+  border-radius: var(--avatar-border-radius);
 
   img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: var(--avatar-border-radius);
   }
 
   &-inline {
@@ -2017,6 +2032,29 @@ body > [data-popper-placement] {
       font-weight: 700;
       font-size: 15px;
     }
+  }
+
+  &__counter {
+    $height: 16px;
+    $h-padding: 5px;
+
+    position: absolute;
+    bottom: -3px;
+    inset-inline-end: -3px;
+    padding-left: $h-padding;
+    padding-right: $h-padding;
+    height: $height;
+    border-radius: $height;
+    min-width: $height - 2 * $h-padding; // to ensure that it is never narrower than a circle
+    line-height: $height + 1px; // to visually center the numbers
+    background-color: $ui-button-background-color;
+    color: $white;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--background-color);
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
   }
 }
 
@@ -2744,6 +2782,17 @@ $ui-header-logo-wordmark-width: 99px;
     background: $ui-base-color;
     border-top: 0;
     border-radius: 0 0 4px 4px;
+
+    &.about,
+    &.privacy-policy {
+      border-top: 1px solid var(--background-border-color);
+      border-radius: 4px;
+
+      @media screen and (max-width: $no-gap-breakpoint) {
+        border-top: 0;
+        border-bottom: 0;
+      }
+    }
   }
 }
 
@@ -2781,7 +2830,7 @@ $ui-header-logo-wordmark-width: 99px;
   overflow: hidden;
 }
 
-@media screen and (width >= 631px) {
+@media screen and (width > $mobile-breakpoint) {
   .columns-area {
     padding: 0;
   }
@@ -3865,7 +3914,6 @@ $ui-header-logo-wordmark-width: 99px;
 
   &:focus {
     outline: 0;
-    border-color: lighten($ui-highlight-color, 12%);
   }
 
   &__wrapper {
@@ -4208,6 +4256,10 @@ a.status-card {
   }
 }
 
+.timeline-hint--with-descendants {
+  border-top: 1px solid var(--background-border-color);
+}
+
 .regeneration-indicator {
   text-align: center;
   font-size: 16px;
@@ -4285,6 +4337,36 @@ a.status-card {
   .announcements {
     z-index: 1;
     position: relative;
+  }
+}
+
+.column-header__select-row {
+  border-width: 0 1px 1px;
+  border-style: solid;
+  border-color: var(--background-border-color);
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &__checkbox .check-box {
+    display: flex;
+  }
+
+  &__selection-mode {
+    flex-grow: 1;
+
+    .text-btn:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__actions {
+    .icon-button {
+      border-radius: 4px;
+      border: 1px solid var(--background-border-color);
+      padding: 5px;
+    }
   }
 }
 
@@ -4431,10 +4513,19 @@ a.status-card {
   opacity: 1;
   z-index: 1;
   position: relative;
+  border-left: 1px solid var(--background-border-color);
+  border-right: 1px solid var(--background-border-color);
+  border-bottom: 1px solid var(--background-border-color);
+
+  @media screen and (max-width: $no-gap-breakpoint) {
+    border-left: 0;
+    border-right: 0;
+  }
 
   &.collapsed {
     max-height: 0;
     opacity: 0.5;
+    border-bottom: 0;
   }
 
   &.animating {
@@ -4452,7 +4543,6 @@ a.status-card {
 
 .column-header__collapsible-inner {
   background: $ui-base-color;
-  border: 1px solid var(--background-border-color);
   border-top: 0;
 }
 
@@ -5658,7 +5748,7 @@ a.status-card {
   user-select: text;
   display: flex;
 
-  @media screen and (width <= 630px) {
+  @media screen and (width <= $mobile-breakpoint) {
     margin-top: auto;
   }
 }
@@ -6017,7 +6107,7 @@ a.status-card {
     border-radius: 0 0 16px 16px;
     border-top: 0;
 
-    @media screen and (max-width: $no-gap-breakpoint) {
+    @media screen and (max-width: $mobile-breakpoint) {
       border-radius: 0;
       border-bottom: 0;
       padding-bottom: 32px;
@@ -6052,6 +6142,25 @@ a.status-card {
     h1 {
       font-size: 22px;
       line-height: 28px;
+      color: $primary-text-color;
+    }
+  }
+
+  &__confirmation {
+    font-size: 14px;
+    line-height: 20px;
+    color: $darker-text-color;
+
+    h1 {
+      font-size: 16px;
+      line-height: 24px;
+      color: $primary-text-color;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    strong {
+      font-weight: 700;
       color: $primary-text-color;
     }
   }
@@ -6141,11 +6250,8 @@ a.status-card {
 }
 
 .boost-modal,
-.confirmation-modal,
 .report-modal,
 .actions-modal,
-.mute-modal,
-.block-modal,
 .compare-history-modal {
   background: lighten($ui-secondary-color, 8%);
   color: $inverted-text-color;
@@ -6167,10 +6273,7 @@ a.status-card {
   }
 }
 
-.boost-modal__action-bar,
-.confirmation-modal__action-bar,
-.mute-modal__action-bar,
-.block-modal__action-bar {
+.boost-modal__action-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6191,16 +6294,6 @@ a.status-card {
   .button {
     flex: 0 0 auto;
   }
-}
-
-.mute-modal,
-.block-modal {
-  line-height: 24px;
-}
-
-.mute-modal .react-toggle,
-.block-modal .react-toggle {
-  vertical-align: middle;
 }
 
 .report-modal {
@@ -6597,34 +6690,6 @@ a.status-card {
   }
 }
 
-.confirmation-modal__action-bar,
-.mute-modal__action-bar,
-.block-modal__action-bar {
-  .confirmation-modal__secondary-button {
-    flex-shrink: 1;
-  }
-}
-
-.confirmation-modal__secondary-button,
-.confirmation-modal__cancel-button,
-.mute-modal__cancel-button,
-.block-modal__cancel-button {
-  background-color: transparent;
-  color: $lighter-text-color;
-  font-size: 14px;
-  font-weight: 500;
-
-  &:hover,
-  &:focus,
-  &:active {
-    color: darken($lighter-text-color, 4%);
-    background-color: transparent;
-  }
-}
-
-.confirmation-modal__container,
-.mute-modal__container,
-.block-modal__container,
 .report-modal__target {
   padding: 30px;
   font-size: 16px;
@@ -6658,29 +6723,8 @@ a.status-card {
   }
 }
 
-.confirmation-modal__container,
 .report-modal__target {
   text-align: center;
-}
-
-.block-modal,
-.mute-modal {
-  &__explanation {
-    margin-top: 20px;
-  }
-
-  .setting-toggle {
-    margin-top: 20px;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-
-    &__label {
-      color: $inverted-text-color;
-      margin: 0;
-      margin-inline-start: 8px;
-    }
-  }
 }
 
 .report-modal__target {
@@ -7347,9 +7391,18 @@ a.status-card {
 }
 
 .scrollable .account-card__title__avatar {
-  img,
+  img {
+    border: 2px solid var(--background-color);
+  }
+
   .account__avatar {
-    border-color: lighten($ui-base-color, 8%);
+    border: none;
+  }
+}
+
+.scrollable .account-card__header {
+  img {
+    border-radius: 4px;
   }
 }
 
@@ -7389,7 +7442,7 @@ a.status-card {
   display: flex;
   flex-shrink: 0;
 
-  @media screen and (max-width: $no-gap-breakpoint) {
+  @media screen and (max-width: $no-gap-breakpoint - 1px) {
     border-right: 0;
     border-left: 0;
   }
@@ -7488,20 +7541,9 @@ a.status-card {
     flex: 0 0 auto;
     border-radius: 50%;
 
-    &.checked {
+    &.checked,
+    &.indeterminate {
       border-color: lighten($ui-highlight-color, 8%);
-
-      &::before {
-        position: absolute;
-        left: 2px;
-        top: 2px;
-        content: '';
-        display: block;
-        border-radius: 50%;
-        width: 12px;
-        height: 12px;
-        background: lighten($ui-highlight-color, 8%);
-      }
     }
 
     .icon {
@@ -7511,19 +7553,28 @@ a.status-card {
   }
 }
 
+.radio-button.checked::before {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  content: '';
+  display: block;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  background: lighten($ui-highlight-color, 8%);
+}
+
 .check-box {
   &__input {
     width: 18px;
     height: 18px;
     border-radius: 2px;
 
-    &.checked {
-      background: $ui-highlight-color;
+    &.checked,
+    &.indeterminate {
+      border-color: lighten($ui-highlight-color, 8%);
       color: $white;
-
-      &::before {
-        display: none;
-      }
     }
   }
 }
@@ -7690,6 +7741,11 @@ noscript {
     input {
       width: 100%;
     }
+  }
+
+  @media screen and (max-width: $no-gap-breakpoint) {
+    border-left: 0;
+    border-right: 0;
   }
 }
 
@@ -7950,7 +8006,8 @@ noscript {
 
       .account__avatar {
         background: var(--background-color);
-        border: 2px solid var(--background-border-color);
+        border: 1px solid var(--background-border-color);
+        border-radius: var(--avatar-border-radius);
       }
     }
   }
@@ -8111,16 +8168,17 @@ noscript {
       .verified {
         border: 1px solid rgba($valid-value-color, 0.5);
         margin-top: -1px;
+        margin-inline: -1px;
 
         &:first-child {
           border-top-left-radius: 4px;
           border-top-right-radius: 4px;
-          margin-top: 0;
         }
 
         &:last-child {
           border-bottom-left-radius: 4px;
           border-bottom-right-radius: 4px;
+          margin-bottom: -1px;
         }
 
         dt,
@@ -8818,10 +8876,13 @@ noscript {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--background-border-color);
-  border-top: 0;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
+
+  @media screen and (min-width: $no-gap-breakpoint) {
+    border: 1px solid var(--background-border-color);
+    border-top: 0;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
 }
 
 .story {
@@ -9068,8 +9129,9 @@ noscript {
   backdrop-filter: var(--background-filter);
   border: 1px solid var(--modal-border-color);
   padding: 24px;
+  box-sizing: border-box;
 
-  @media screen and (max-width: $no-gap-breakpoint) {
+  @media screen and (max-width: $mobile-breakpoint) {
     border-radius: 16px 16px 0 0;
     border-bottom: 0;
     padding-bottom: 32px;
@@ -10228,34 +10290,35 @@ noscript {
   }
 
   &__badge {
-    display: flex;
-    align-items: center;
-    border-radius: 999px;
-    background: var(--background-border-color);
-    color: $darker-text-color;
-    padding: 4px;
-    padding-inline-end: 8px;
-    gap: 6px;
-    font-weight: 500;
-    font-size: 11px;
-    line-height: 16px;
-    word-break: keep-all;
-
-    &__badge {
-      background: $ui-button-background-color;
-      color: $white;
-      border-radius: 100px;
-      padding: 2px 8px;
-    }
+    background: $ui-button-background-color;
+    color: $white;
+    border-radius: 100px;
+    padding: 2px 8px;
   }
 }
 
 .notification-request {
+  $padding: 15px;
+
   display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 15px;
+  padding: $padding;
+  gap: 8px;
+  position: relative;
   border-bottom: 1px solid var(--background-border-color);
+
+  &__checkbox {
+    position: absolute;
+    inset-inline-start: $padding;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+
+    .check-box {
+      display: flex;
+    }
+  }
 
   &__link {
     display: flex;
@@ -10287,6 +10350,12 @@ noscript {
       letter-spacing: 0.5px;
       line-height: 24px;
       color: $secondary-text-color;
+
+      bdi {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     }
 
     .filtered-notifications-banner__badge {
@@ -10306,6 +10375,31 @@ noscript {
       border-radius: 4px;
       border: 1px solid var(--background-border-color);
       padding: 5px;
+    }
+  }
+
+  .notification-request__link {
+    transition: padding-inline-start 0.1s ease-in-out;
+  }
+
+  &--forced-checkbox {
+    cursor: pointer;
+
+    &:hover {
+      background: lighten($ui-base-color, 1%);
+    }
+
+    .notification-request__checkbox {
+      opacity: 1;
+      width: 30px;
+    }
+
+    .notification-request__link {
+      padding-inline-start: 30px;
+    }
+
+    .notification-request__actions {
+      display: none;
     }
   }
 }
@@ -10412,6 +10506,13 @@ noscript {
     gap: 8px;
     flex: 1 1 auto;
     overflow: hidden;
+    container-type: inline-size;
+
+    @container (width < 350px) {
+      &__header time {
+        display: none;
+      }
+    }
 
     &__header {
       display: flex;
@@ -10450,6 +10551,11 @@ noscript {
       border: 1px solid var(--background-border-color);
       border-radius: 8px;
       padding: 8px;
+    }
+
+    &__additional-content {
+      color: $darker-text-color;
+      margin-top: -8px; // to offset the parent's `gap` property
     }
   }
 
@@ -10664,6 +10770,25 @@ noscript {
       &:active {
         text-decoration: none;
       }
+    }
+  }
+
+  &__note {
+    &-label {
+      color: $dark-text-color;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    dd {
+      white-space: pre-line;
+      color: $secondary-text-color;
+      overflow: hidden;
+      line-clamp: 3; // Not yet supported in browers
+      display: -webkit-box; // The next 3 properties are needed
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
     }
   }
 

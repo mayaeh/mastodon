@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.8
+# syntax=docker/dockerfile:1.9
 
 # This file is designed for production server deployment, not local development work
 # For a containerized local dev environment, see: https://github.com/mastodon/mastodon/blob/main/README.md#docker
@@ -191,7 +191,7 @@ FROM build AS libvips
 
 # libvips version to compile, change with [--build-arg VIPS_VERSION="8.15.2"]
 # renovate: datasource=github-releases depName=libvips packageName=libvips/libvips
-ARG VIPS_VERSION=8.15.2
+ARG VIPS_VERSION=8.15.3
 # libvips download URL, change with [--build-arg VIPS_URL="https://github.com/libvips/libvips/releases/download"]
 ARG VIPS_URL=https://github.com/libvips/libvips/releases/download
 
@@ -211,7 +211,7 @@ FROM build AS ffmpeg
 
 # ffmpeg version to compile, change with [--build-arg FFMPEG_VERSION="7.0.x"]
 # renovate: datasource=repology depName=ffmpeg packageName=openpkg_current/ffmpeg
-ARG FFMPEG_VERSION=7.0.1
+ARG FFMPEG_VERSION=7.0.2
 # ffmpeg download URL, change with [--build-arg FFMPEG_URL="https://ffmpeg.org/releases"]
 ARG FFMPEG_URL=https://ffmpeg.org/releases
 

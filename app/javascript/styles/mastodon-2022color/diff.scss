@@ -42,7 +42,7 @@
 .autosuggest-textarea {
   &__suggestions {
     background: $ui-base-color;
-    border: 1px solid lighten($ui-base-color, 14%);
+    border: 1px solid var(--background-border-color);
     color: $secondary-text-color;
 
     &__item {
@@ -50,16 +50,30 @@
 
       &:hover,
       &:focus,
-      &:active,
-      &.selected {
-        background: $ui-highlight-color;
+      &:active {
+        background: var(--dropdown-border-color);
         color: $primary-text-color;
 
         .autosuggest-account .display-name__account {
           color: inherit;
         }
       }
+
+      &.selected {
+        background: $ui-highlight-color;
+        color: $ui-button-color;
+
+        .autosuggest-account .display-name__account {
+          color: inherit;
+        }
+      }
     }
+  }
+}
+
+.autosuggest-account {
+  .display-name__account {
+    color: $ui-primary-color;
   }
 }
 
@@ -258,9 +272,23 @@
 .radio-button,
 .check-box {
   &__input {
-    &.checked {
-      border-color: lighten($ui-highlight-color, 4%);
-      background: lighten($ui-highlight-color, 4%);
+    &.checked,
+    &.indeterminate {
+      border-color: $ui-highlight-color;
+    }
+  }
+}
+
+.radio-button.checked::before {
+  background: $ui-highlight-color;
+}
+
+.check-box {
+  &__input {
+    &.checked,
+    &.indeterminate {
+      background: $ui-highlight-color;
+      color: $white;
     }
   }
 }
@@ -370,6 +398,12 @@
   }
 }
 
+.setting-text {
+  color: $primary-text-color;
+  background: $ui-base-color;
+  border: 1px solid var(--background-border-color);
+}
+
 .search-results__section {
   &__header {
     background: var(--surface-background-color);
@@ -424,6 +458,61 @@
 
     &:nth-child(2n) {
       background: darken($ui-base-color, 4%);
+    }
+  }
+}
+
+.report-dialog-modal {
+  background: var(--background-color);
+  color: $primary-text-color;
+  border-radius: 4px;
+  border: 1px solid var(--background-border-color);
+
+  &__container {
+    border-top: 1px solid var(--background-border-color);
+  }
+
+  &__lead {
+    color: $secondary-text-color;
+  }
+
+  .status__content,
+  .status__content p {
+    color: $primary-text-color;
+  }
+
+  .poll__option.dialog-option {
+    border-bottom: 1px solid var(--background-border-color);
+  }
+
+  & > .poll__option__text {
+    color: $secondary-text-color;
+
+    strong {
+      color: $primary-text-color;
+    }
+  }
+
+  &__textarea {
+    color: $primary-text-color;
+    background: $ui-base-color;
+    border: 1px solid var(--background-border-color);
+
+    &::placeholder {
+      color: inherit;
+    }
+  }
+
+  .button.button-secondary {
+    border-color: $ui-button-destructive-background-color;
+    color: $ui-button-destructive-background-color;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: $ui-button-destructive-background-color;
+      border-color: $ui-button-destructive-background-color;
+      color: $white;
     }
   }
 }
