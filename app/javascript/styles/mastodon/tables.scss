@@ -11,7 +11,7 @@
     vertical-align: top;
     border-bottom: 1px solid var(--background-border-color);
     text-align: start;
-    background: var(--background-color);
+    background: darken($ui-base-color, 4%);
 
     &.critical {
       font-weight: 700;
@@ -30,7 +30,7 @@
 
   & > tbody > tr:nth-child(odd) > td,
   & > tbody > tr:nth-child(odd) > th {
-    background: var(--background-color);
+    background: $ui-base-color;
   }
 
   & > tbody > tr:last-child > td,
@@ -39,8 +39,8 @@
   }
 
   a {
-    color: $darker-text-color;
-    text-decoration: none;
+    color: $highlight-text-color;
+    text-decoration: underline;
 
     &:hover {
       color: $highlight-text-color;
@@ -103,18 +103,18 @@
 
   &.batch-table {
     & > thead > tr > th {
-      background: var(--background-color);
-      border-top: 1px solid var(--background-border-color);
-      border-bottom: 1px solid var(--background-border-color);
+      background: $ui-base-color;
+      border-top: 1px solid darken($ui-base-color, 8%);
+      border-bottom: 1px solid darken($ui-base-color, 8%);
 
       &:first-child {
         border-radius: 4px 0 0;
-        border-inline-start: 1px solid var(--background-border-color);
+        border-inline-start: 1px solid darken($ui-base-color, 8%);
       }
 
       &:last-child {
         border-radius: 0 4px 0 0;
-        border-inline-end: 1px solid var(--background-border-color);
+        border-inline-end: 1px solid darken($ui-base-color, 8%);
       }
     }
   }
@@ -149,7 +149,7 @@ a.table-action-link {
   font-weight: 500;
 
   &:hover {
-    color: $highlight-text-color;
+    color: $primary-text-color;
   }
 
   i.fa {
@@ -199,9 +199,9 @@ a.table-action-link {
     position: sticky;
     top: 0;
     z-index: 1;
-    border: 1px solid var(--background-border-color);
-    background: var(--background-color);
-    border-radius: 4px 4px 0 0;
+    border: 1px solid darken($ui-base-color, 8%);
+    background: $ui-base-color;
+    border-radius: 4px 0 0;
     height: 47px;
     align-items: center;
 
@@ -212,11 +212,11 @@ a.table-action-link {
   }
 
   &__select-all {
-    background: var(--background-color);
+    background: $ui-base-color;
     height: 47px;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--background-border-color);
+    border: 1px solid darken($ui-base-color, 8%);
     border-top: 0;
     color: $secondary-text-color;
     display: none;
@@ -262,9 +262,9 @@ a.table-action-link {
 
   &__form {
     padding: 16px;
-    border: 1px solid var(--background-border-color);
+    border: 1px solid darken($ui-base-color, 8%);
     border-top: 0;
-    background: var(--background-color);
+    background: $ui-base-color;
 
     .fields-row {
       padding-top: 0;
@@ -273,9 +273,9 @@ a.table-action-link {
   }
 
   &__row {
-    border: 1px solid var(--background-border-color);
+    border: 1px solid darken($ui-base-color, 8%);
     border-top: 0;
-    background: var(--background-color);
+    background: darken($ui-base-color, 4%);
 
     @media screen and (max-width: $no-gap-breakpoint) {
       .optional &:first-child {
