@@ -275,7 +275,7 @@ a.table-action-link {
   &__row {
     border: 1px solid darken($ui-base-color, 8%);
     border-top: 0;
-    background: darken($ui-base-color, 4%);
+    background: $ui-base-color;
 
     @media screen and (max-width: $no-gap-breakpoint) {
       .optional &:first-child {
