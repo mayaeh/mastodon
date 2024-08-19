@@ -978,7 +978,7 @@ a.table-action-link {
 
   .nothing-here {
     border: 1px solid darken($ui-base-color, 8%);
-    background-color: inherit;
+    background: $ui-base-color;
 
     @media screen and (max-width: $no-gap-breakpoint) {
       border-top: 1px solid darken($ui-base-color, 8%);
