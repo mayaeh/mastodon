@@ -13,22 +13,23 @@
     &__toggle {
       background: darken($ui-base-color, 4%);
     }
-  }
 
-  ul {
-    a {
-      &:hover {
-        background-color: darken($ui-base-color, 5%);
+    ul {
+      a {
+        &:hover {
+          background-color: darken($ui-base-color, 5%);
+        }
+      }
+
+      ul {
+        background: darken($ui-base-color, 4%);
+      }
+
+      .simple-navigation-active-leaf a {
+        color: $primary-text-color;
+        background-color: $ui-highlight-color;
       }
     }
-    ul {
-      background: darken($ui-base-color, 4%);
-    }
-  }
-
-  .simple-navigation-active-leaf a {
-    color: $primary-text-color;
-    background-color: $ui-highlight-color;
   }
 
   .content {
