@@ -896,6 +896,8 @@ body {
 .flash-message {
   background: lighten($ui-base-color, 8%);
   color: $darker-text-color;
+  border: inherit;
+  border-radius: 4px;
 }
 
 // polls.scss
