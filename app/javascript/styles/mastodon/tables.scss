@@ -366,13 +366,12 @@ a.table-action-link {
   }
 
   .nothing-here {
-    border: 1px solid var(--background-border-color);
+    border: 1px solid darken($ui-base-color, 8%);
     border-top: 0;
     box-shadow: none;
-    background: var(--background-color);
 
     @media screen and (max-width: $no-gap-breakpoint) {
-      border-top: 1px solid var(--background-border-color);
+      border-top: 1px solid darken($ui-base-color, 8%);
     }
   }
 
