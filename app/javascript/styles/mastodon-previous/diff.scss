@@ -2,9 +2,235 @@
 // Sass color functions, "darken" and "lighten" are automatically replaced.
 
 // admin.scss
+.admin-wrapper {
+  .sidebar-wrapper {
+    &__inner {
+      background: $ui-base-color;
+    }
+  }
+
+  .sidebar {
+    &__toggle {
+      background: darken($ui-base-color, 4%);
+    }
+
+    ul {
+      a {
+        &:hover {
+          background-color: darken($ui-base-color, 5%);
+        }
+      }
+
+      ul {
+        background: darken($ui-base-color, 4%);
+      }
+
+      .simple-navigation-active-leaf a {
+        color: $primary-text-color;
+        background-color: $ui-highlight-color;
+      }
+    }
+  }
+
+  .content {
+    &__heading {
+      &__tabs {
+        a {
+          &.selected {
+            &:hover,
+            &:focus,
+            &:active {
+              background: lighten($ui-highlight-color, 4%);
+            }
+          }
+        }
+      }
+    }
+
+    h4 {
+      border-bottom: 1px solid lighten($ui-base-color, 8%);
+    }
+
+    hr {
+      border-bottom: 1px solid rgba($ui-base-lighter-color, 0.6);
+    }
+  }
+
+  @media screen and (max-width: $no-columns-breakpoint) {
+    .sidebar {
+      & > ul {
+        &.visible {
+          background: $ui-base-color;
+        }
+      }
+
+      ul a,
+      ul ul a {
+        border-bottom: 1px solid lighten($ui-base-color, 4%);
+      }
+    }
+  }
+}
+
+.log-entry {
+  background: $ui-base-color;
+  border-left: inherit;
+  border-right: inherit;
+  border-bottom: 1px solid darken($ui-base-color, 8%);
+
+  &:first-child {
+    border-top: inherit;
+  }
+
+  &:last-child {
+    border-bottom: inherit;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: lighten($ui-base-color, 4%);
+  }
+}
+
+.report-card {
+  background: $ui-base-color;
+
+  &__profile {
+    &__stats {
+      a {
+        &:focus,
+        &:hover,
+        &:active {
+          color: lighten($darker-text-color, 8%);
+        }
+      }
+    }
+  }
+
+  &__summary {
+    &__item {
+      border-top: 1px solid darken($ui-base-color, 4%);
+
+      &:hover {
+        background: lighten($ui-base-color, 2%);
+      }
+
+      &__content {
+        &__icon {
+          color: $dark-text-color;
+        }
+      }
+    }
+  }
+}
+
 .admin-account-bio {
+  .account__header__fields,
+  .account__header__content {
+    background: lighten($ui-base-color, 8%);
+  }
+
   a {
     color: lighten($ui-highlight-color, 8%);
+  }
+}
+
+.applications-list__item,
+.filters-list__item {
+  background: $ui-base-color;
+  border: 1px solid lighten($ui-base-color, 4%);
+}
+
+.announcements-list,
+.filters-list {
+  border: 1px solid lighten($ui-base-color, 4%);
+
+  &__item {
+    background: $ui-base-color;
+    border-bottom: 1px solid lighten($ui-base-color, 4%);
+  }
+}
+
+.retention {
+  &__table {
+    &__number {
+      color: $secondary-text-color;
+    }
+
+    &__box {
+      background: $ui-highlight-color;
+    }
+  }
+}
+
+.sparkline {
+  background: lighten($ui-base-color, 4%);
+}
+
+a.sparkline {
+  &:hover,
+  &:focus,
+  &:active {
+    background: lighten($ui-base-color, 6%);
+  }
+}
+
+.skeleton {
+  background-color: lighten($ui-base-color, 8%);
+}
+
+.report-reason-selector {
+  background: $ui-base-color;
+}
+
+.report-header {
+  &__details {
+    &__item {
+      border-bottom: 1px solid lighten($ui-base-color, 8%);
+    }
+  }
+}
+
+.account-card {
+  border: 1px solid lighten($ui-base-color, 8%);
+
+  &__bio {
+    &::after {
+      background: linear-gradient(to left, $ui-base-color, transparent);
+    }
+  }
+}
+
+.report-notes {
+  &__item {
+    background: $ui-base-color;
+    border: inherit;
+    border-bottom: 1px solid darken($ui-base-color, 8%);
+
+    &:hover {
+      background-color: lighten($ui-base-color, 4%);
+    }
+  }
+}
+
+.strike-card {
+  background: $ui-base-color;
+
+  &__statuses-list {
+    border: 1px solid darken($ui-base-color, 8%);
+
+    &__item {
+      background: lighten($ui-base-color, 2%);
+      border-bottom: 1px solid darken($ui-base-color, 8%);
+    }
+  }
+}
+
+// basics.scss
+body {
+  &.admin {
+    background: darken($ui-base-color, 4%);
   }
 }
 
@@ -73,11 +299,17 @@
           color: inherit;
         }
       }
+
+      &.selected {
+        background: darken($ui-secondary-color, 10%);
+        color: $inverted-text-color;
+      }
     }
   }
 }
 
 .status__content,
+.edit-indicator__content,
 .reply-indicator__content {
   a.unhandled-link {
     color: lighten($ui-highlight-color, 8%);
@@ -90,7 +322,8 @@
   }
 }
 
-.status__content__read-more-button {
+.status__content__read-more-button,
+.status__content__translate-button {
   color: lighten($ui-highlight-color, 8%);
 }
 
@@ -112,19 +345,6 @@
     &:focus,
     &:active {
       color: lighten($ui-highlight-color, 12%);
-    }
-  }
-}
-
-.radio-button,
-.check-box {
-  &__input {
-    &.checked {
-      border-color: lighten($ui-highlight-color, 8%);
-    }
-
-    &::before {
-      background: lighten($ui-highlight-color, 8%);
     }
   }
 }
@@ -152,6 +372,11 @@
   }
 }
 
+.spoiler-input__input {
+  background: darken($simple-background-color, 4%);
+  color: darken($inverted-text-color, 4%);
+}
+
 .character-counter {
   color: $lighter-text-color;
 }
@@ -162,7 +387,8 @@
   }
 }
 
-.status__wrapper-direct {
+.status__wrapper-direct,
+.notification-ungrouped--direct {
   background: mix($ui-base-color, $ui-highlight-color, 95%);
 
   &:focus {
@@ -297,6 +523,12 @@
   color: $dark-text-color;
 }
 
+.setting-text {
+  color: $inverted-text-color;
+  background: $white;
+  border: 1px solid $white;
+}
+
 .regeneration-indicator {
   background: $ui-base-color;
 }
@@ -407,6 +639,67 @@
   }
 }
 
+.report-dialog-modal {
+  background: lighten($ui-secondary-color, 8%);
+  color: $inverted-text-color;
+  border-radius: 8px;
+
+  &__container {
+    border-top: 1px solid $ui-secondary-color;
+  }
+
+  &__lead {
+    color: lighten($inverted-text-color, 16%);
+  }
+
+  .status__content,
+  .status__content p {
+    color: $inverted-text-color;
+  }
+
+  .poll__option.dialog-option {
+    border-bottom: 1px solid $ui-secondary-color;
+
+    & > .poll__option__text {
+      border-bottom: 1px solid $ui-secondary-color;
+
+      & > .poll__option__text {
+        color: lighten($inverted-text-color, 16%);
+
+        strong {
+          color: $inverted-text-color;
+        }
+      }
+    }
+
+    &__textarea {
+      color: $inverted-text-color;
+      background: $simple-background-color;
+
+      &::placeholder {
+        color: $dark-text-color;
+      }
+    }
+
+    .button.button-secondary {
+      border-color: $inverted-text-color;
+      color: $inverted-text-color;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background: transparent;
+        border-color: $ui-button-background-color;
+        color: $ui-button-background-color;
+      }
+    }
+  }
+}
+
+.audio-player {
+  background: darken($ui-base-color, 8%);
+}
+
 .notification__filter-bar,
 .account__section-headline {
   background: $ui-base-color;
@@ -417,6 +710,27 @@
 .filter-form {
   background: $ui-base-color;
   border-bottom: inherit;
+}
+
+.radio-button,
+.check-box {
+  &__input {
+    &.checked,
+    &.indeterminate {
+      border-color: lighten($ui-highlight-color, 8%);
+    }
+  }
+}
+
+.radio-button.checked::before {
+  background: lighten($ui-highlight-color, 8%);
+}
+
+.check-box {
+  &.checked,
+  &.indeterminate {
+    border-color: lighten($ui-highlight-color, 8%);
+  }
 }
 
 .follow-request-banner,
@@ -470,6 +784,23 @@
 }
 
 // dashboard.scss
+.dashboard__counters {
+  & > div {
+    & > div,
+    & > a {
+      background: lighten($ui-base-color, 4%);
+    }
+
+    & > a {
+      &:hover,
+      &:focus,
+      &:active {
+        background: lighten($ui-base-color, 8%);
+      }
+    }
+  }
+}
+
 .dashboard {
   &__quick-access {
     background: $ui-highlight-color;
@@ -535,6 +866,17 @@
 
 // forms.scss
 .simple_form {
+  input[type='text'],
+  input[type='number'],
+  input[type='email'],
+  input[type='password'],
+  input[type='url'],
+  input[type='datetime-local'],
+  textarea {
+    background: darken($ui-base-color, 10%);
+    border: 1px solid darken($ui-base-color, 10%);
+  }
+
   button,
   .button,
   .block-button {
@@ -549,6 +891,20 @@
       background-color: darken($ui-highlight-color, 5%);
     }
   }
+
+  select {
+    background: darken($ui-base-color, 10%)
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.933 18.467' height='19.698' width='15.929'><path d='M3.467 14.967l-3.393-3.5H14.86l-3.392 3.5c-1.866 1.925-3.666 3.5-4 3.5-.335 0-2.135-1.575-4-3.5zm.266-11.234L7.467 0 11.2 3.733l3.733 3.734H0l3.733-3.734z' fill='#{hex-color(lighten($ui-base-color, 12%))}'/></svg>")
+    no-repeat right 8px center / auto 14px;
+    border: 1px solid darken($ui-base-color, 14%);
+  }
+}
+
+.flash-message {
+  background: lighten($ui-base-color, 8%);
+  color: $darker-text-color;
+  border: inherit;
+  border-radius: 4px;
 }
 
 // polls.scss
@@ -561,6 +917,114 @@
 
       &:focus {
         border-color: $highlight-text-color;
+      }
+    }
+  }
+}
+
+// tables.scss
+.table {
+  th,
+  td {
+    background: darken($ui-base-color, 4%);
+  }
+
+  & > tbody > tr:nth-child(odd) > td,
+  & > tbody > tr:nth-child(odd) > th {
+    background: $ui-base-color;
+  }
+
+  a {
+    color: $highlight-text-color;
+    text-decoration: underline;
+  }
+
+  &.batch-table {
+    & > thead > tr > th {
+      background: $ui-base-color;
+      border-top: 1px solid darken($ui-base-color, 8%);
+      border-bottom: 1px solid darken($ui-base-color, 8%);
+
+      &:first-child {
+        border-inline-start: 1px solid darken($ui-base-color, 8%);
+      }
+
+      &:last-child {
+        border-inline-end: 1px solid darken($ui-base-color, 8%);
+      }
+    }
+  }
+}
+
+button.table-action-link,
+a.table-action-link {
+  &:hover {
+    color: $primary-text-color;
+  }
+}
+
+.batch-table {
+  &__toolbar {
+    border: 1px solid darken($ui-base-color, 8%);
+    background: $ui-base-color;
+    border-radius: 4px 0 0;
+  }
+
+  &__select-all {
+    background: $ui-base-color;
+    border: 1px solid darken($ui-base-color, 8%);
+  }
+
+  &__form {
+    border: 1px solid darken($ui-base-color, 8%);
+    background: $ui-base-color;
+  }
+
+  &__row {
+    border: 1px solid darken($ui-base-color, 8%);
+    background: $ui-base-color;
+  }
+
+  .nothing-here {
+    border: 1px solid darken($ui-base-color, 8%);
+    background: $ui-base-color;
+
+    @media screen and (max-width: $no-gap-breakpoint) {
+      border-top: 1px solid darken($ui-base-color, 8%);
+    }
+  }
+}
+
+// widgets.scss
+.directory {
+  background: $ui-base-color;
+
+  &__tag {
+    & > a,
+    & > div {
+      background: $ui-base-color;
+      border: inherit;
+      border-radius: 4px;
+    }
+
+    & > a {
+      &:hover,
+      &:active,
+      &:focus {
+        background: lighten($ui-base-color, 8%);
+      }
+    }
+  }
+}
+
+.accounts-table {
+  tbody td.accounts-table__extra {
+    a {
+      &:focus,
+      &:hover,
+      &:active {
+        color: inherit;
+        text-decoration: underline;
       }
     }
   }

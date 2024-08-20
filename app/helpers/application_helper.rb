@@ -116,7 +116,7 @@ module ApplicationHelper
   def material_symbol(icon, attributes = {})
     inline_svg_tag(
       "400-24px/#{icon}.svg",
-      class: %w(icon).concat(attributes[:class].to_s.split),
+      class: ['icon', "material-#{icon}"].concat(attributes[:class].to_s.split),
       role: :img
     )
   end
@@ -127,11 +127,11 @@ module ApplicationHelper
 
   def interrelationships_icon(relationships, account_id)
     if relationships.following[account_id] && relationships.followed_by[account_id]
-      fa_icon('exchange', title: I18n.t('relationships.mutual'), class: 'fa-fw active passive')
+      material_symbol('sync_alt', title: I18n.t('relationships.mutual'), class: 'active passive')
     elsif relationships.following[account_id]
-      fa_icon(locale_direction == 'ltr' ? 'arrow-right' : 'arrow-left', title: I18n.t('relationships.following'), class: 'fa-fw active')
+      material_symbol(locale_direction == 'ltr' ? 'arrow_right_alt' : 'arrow_left_alt', title: I18n.t('relationships.following'), class: 'active')
     elsif relationships.followed_by[account_id]
-      fa_icon(locale_direction == 'ltr' ? 'arrow-left' : 'arrow-right', title: I18n.t('relationships.followers'), class: 'fa-fw passive')
+      material_symbol(locale_direction == 'ltr' ? 'arrow_left_alt' : 'arrow_right_alt', title: I18n.t('relationships.followers'), class: 'passive')
     end
   end
 
