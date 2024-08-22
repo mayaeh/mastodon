@@ -761,16 +761,6 @@ body > [data-popper-placement] {
     gap: 12px;
     flex-wrap: wrap;
 
-    .button {
-      display: block; // Otherwise text-ellipsis doesn't work
-      font-size: 14px;
-      line-height: normal;
-      font-weight: 700;
-      flex: 1 1 auto;
-      padding: 5px 12px;
-      border-radius: 4px;
-    }
-
     .icon-button {
       box-sizing: content-box;
       color: $highlight-text-color;
@@ -2890,10 +2880,6 @@ $ui-header-logo-wordmark-width: 99px;
     padding-inline-end: 30px;
   }
 
-  .search__icon .fa {
-    top: 15px;
-  }
-
   .scrollable {
     overflow: visible;
 
@@ -3424,26 +3410,6 @@ $ui-header-logo-wordmark-width: 99px;
   flex-direction: column;
   height: calc(100% - 10px);
   overflow: auto;
-
-  .hero-widget {
-    box-shadow: none;
-
-    &__text,
-    &__img,
-    &__img img {
-      border-radius: 0;
-    }
-
-    &__text {
-      padding: 15px;
-      color: $secondary-text-color;
-
-      strong {
-        font-weight: 700;
-        color: $primary-text-color;
-      }
-    }
-  }
 
   .compose-form {
     flex: 1 1 auto;
@@ -4228,11 +4194,12 @@ a.status-card {
 
 .timeline-hint {
   text-align: center;
-  color: $darker-text-color;
-  padding: 15px;
+  color: $dark-text-color;
+  padding: 16px;
   box-sizing: border-box;
   width: 100%;
-  cursor: default;
+  font-size: 14px;
+  line-height: 21px;
 
   strong {
     font-weight: 500;
@@ -4249,10 +4216,10 @@ a.status-card {
       color: lighten($highlight-text-color, 4%);
     }
   }
-}
 
-.timeline-hint--with-descendants {
-  border-top: 1px solid var(--background-border-color);
+  &--with-descendants {
+    border-top: 1px solid var(--background-border-color);
+  }
 }
 
 .regeneration-indicator {
@@ -6257,7 +6224,7 @@ a.status-card {
 }
 
 .boost-modal__container {
-  overflow-x: scroll;
+  overflow-y: auto;
   padding: 10px;
 
   .status {
@@ -7568,10 +7535,6 @@ a.status-card {
       color: $white;
     }
   }
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 0;
 }
 
 noscript {
@@ -10544,8 +10507,10 @@ noscript {
     }
 
     &__additional-content {
-      color: $darker-text-color;
+      color: $dark-text-color;
       margin-top: -8px; // to offset the parent's `gap` property
+      font-size: 15px;
+      line-height: 22px;
     }
   }
 
@@ -10596,6 +10561,19 @@ noscript {
         color: inherit;
       }
     }
+  }
+}
+
+.notification-group__actions,
+.compose-form__actions {
+  .button {
+    display: block; // Otherwise text-ellipsis doesn't work
+    font-size: 14px;
+    line-height: normal;
+    font-weight: 700;
+    flex: 1 1 auto;
+    padding: 5px 12px;
+    border-radius: 4px;
   }
 }
 
