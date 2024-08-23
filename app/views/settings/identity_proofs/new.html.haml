@@ -20,7 +20,7 @@
           %p= t('identity_proofs.i_am_html', username: content_tag(:strong, current_account.username), service: site_hostname)
 
         .connection-prompt__column.connection-prompt__column-sep
-          = fa_icon 'link'
+          = material_symbol 'link'
 
         .connection-prompt__column
           = image_tag @proof.badge.avatar_url, size: 96, class: 'account__avatar'

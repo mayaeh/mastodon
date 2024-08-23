@@ -9,11 +9,11 @@
   %td
     - if proof.live?
       %span.positive-hint
-        = fa_icon 'check-circle fw'
+        = material_symbol 'check_circle'
         = t('identity_proofs.active')
     - else
       %span.negative-hint
-        = fa_icon 'times-circle fw'
+        = material_symbol 'unpublished'
         = t('identity_proofs.inactive')
 
   %td
