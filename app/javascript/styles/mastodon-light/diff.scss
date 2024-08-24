@@ -6,10 +6,6 @@ body {
   background: var(--background-color);
 }
 
-html {
-  scrollbar-color: $ui-base-color rgba($ui-base-color, 0.25);
-}
-
 .simple_form .button.button-tertiary {
   color: $highlight-text-color;
 }
@@ -493,9 +489,6 @@ html {
   border-color: transparent transparent $white;
 }
 
-.hero-widget,
-.moved-account-widget,
-.memoriam-widget,
 .activity-stream,
 .nothing-here,
 .directory__tag > a,
@@ -663,6 +656,17 @@ a.sparkline {
   .display-name__account {
     color: $dark-text-color;
   }
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-color: rgba($action-button-color, 0.25)
+      var(--background-border-color);
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  opacity: 0.25;
 }
 
 // emoji_picker.scss
