@@ -7,20 +7,20 @@ $classic-primary-color: #9baec8;
 $classic-secondary-color: #d9e1e8;
 $classic-highlight-color: #858afa;
 
-$blurple-600: hsl(252deg, 59%, 51%); // Iris
-$blurple-500: hsl(240deg, 100%, 69%); // Brand purple
-$blurple-300: hsl(237deg, 92%, 75%); // Faded Blue
-$grey-600: hsl(240deg, 8%, 33%); // Trout
-$grey-100: hsl(240deg, 51%, 90%); // Topaz
+$blurple-600: #563acc; // Iris
+$blurple-500: #6364ff; // Brand purple
+$blurple-300: #858afa; // Faded Blue
+$grey-600: #4e4c5a; // Trout
+$grey-100: #dadaf3; // Topaz
 
 // Differences
-$success-green: lighten(hsl(138deg, 32%, 35%), 8%);
+$success-green: lighten(#3c754d, 8%);
 
 $base-overlay-background: $white !default;
 $valid-value-color: $success-green !default;
 
 $ui-base-color: $classic-secondary-color !default;
-$ui-base-lighter-color: hsl(250deg, 24%, 75%);
+$ui-base-lighter-color: #b0c0cf;
 $ui-primary-color: $classic-primary-color !default;
 $ui-secondary-color: $classic-base-color !default;
 $ui-highlight-color: $classic-highlight-color !default;
@@ -40,7 +40,7 @@ $action-button-color: #606984;
 
 $inverted-text-color: $black !default;
 $lighter-text-color: $classic-base-color !default;
-$light-text-color: hsl(240deg, 16%, 32%);
+$light-text-color: #444b5d;
 
 // Newly added colors
 $account-background-color: $white !default;
@@ -57,9 +57,9 @@ $account-background-color: $white !default;
 $emojis-requiring-inversion: 'chains';
 
 body {
-  --dropdown-border-color: hsl(240deg, 25%, 88%);
+  --dropdown-border-color: #d9e1e8;
   --dropdown-background-color: #fff;
-  --modal-border-color: hsl(240deg, 25%, 88%);
+  --modal-border-color: #d9e1e8;
   --modal-background-color: var(--background-color-tint);
   --background-border-color: #d9e1e8;
   --background-color: #eff3f5;
