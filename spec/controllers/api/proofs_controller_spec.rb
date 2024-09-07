@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Api::ProofsController do
+RSpec.describe Api::ProofsController do
   let(:alice) { Fabricate(:account, username: 'alice') }
 
   before do
