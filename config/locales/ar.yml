@@ -1240,8 +1240,6 @@ ar:
       your_appeal_approved: تمت الموافقة على طعنك
       your_appeal_pending: لقد قمت بتقديم طعن
       your_appeal_rejected: تم رفض طعنك
-  domain_validator:
-    invalid_domain: ليس بإسم نطاق صالح
   edit_profile:
     basic_information: معلومات أساسية
     hint_html: "<strong>قم بتخصيص ما سيراه الناس في ملفك الشخصي العام وبجوار منشوراتك.</strong> من المرجح أن يتابعك أشخاص آخرون ويتفاعلون معك إن كان لديك صفحة شخصية مملوء وصورة."
@@ -1825,7 +1823,7 @@ ar:
     keep_pinned: الاحتفاظ بالمنشورات المثبتة
     keep_pinned_hint: لن تحذف أي من منشوراتك المثبتة
     keep_polls: الاحتفاظ باستطلاعات الرأي
-    keep_polls_hint: لم تقم بحذف أي من استطلاعاتك
+    keep_polls_hint: لن يتم حذف أي من استطلاعات الرأي الخاصة بك
     keep_self_bookmark: احتفظ بالمنشورات التي أدرجتها في الفواصل المرجعية
     keep_self_bookmark_hint: لن تحذف منشوراتك الخاصة إذا قمت بوضع علامة مرجعية عليها
     keep_self_fav: احتفظ بالمنشورات التي أدرجتها في المفضلة
