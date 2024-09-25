@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe WellKnown::KeybaseProofConfigController do
+RSpec.describe WellKnown::KeybaseProofConfigController do
   render_views
 
   describe 'GET #show' do
