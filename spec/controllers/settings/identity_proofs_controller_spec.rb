@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Settings::IdentityProofsController, skip: 'TODO: Fixed to pass with mock' do
+RSpec.describe Settings::IdentityProofsController, skip: 'TODO: Fixed to pass with mock' do
   include RoutingHelper
   render_views
 

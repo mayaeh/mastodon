@@ -40,8 +40,11 @@ RSpec.describe Api::ProofsController do
       it 'is a list with that proof in it' do
         get :index, params: { username: alice.username, provider: 'keybase' }
 
-        expect(response.parsed_body[:signatures][:kb_username]).to eq(kb_name1)
-        expect(response.parsed_body[:signatures][:sig_hash]).to eq(token1)
+        expected_signatures = [
+          { 'sig_hash' => token1, 'kb_username' => kb_name1 }
+        ]
+
+        expect(response.parsed_body[:signatures]).to eq(expected_signatures)
       end
 
       describe 'add one that is neither live nor valid' do
@@ -55,8 +58,12 @@ RSpec.describe Api::ProofsController do
         it 'is a list with both proofs' do
           get :index, params: { username: alice.username, provider: 'keybase' }
 
-          expect([response.parsed_body[:signatures][0][:kb_username], response.parsed_body[:signatures][0][:sig_hash]]).to eq[kb_name1, token1]
-          expect([response.parsed_body[:signatures][1][:kb_username], response.parsed_body[:signatures][1][:sig_hash]]).to eq[kb_name2, token2]
+          expected_signatures = [
+            { 'sig_hash' => token1, 'kb_username' => kb_name1 },
+            { 'sig_hash' => token2, 'kb_username' => kb_name2 }
+          ]
+
+          expect(response.parsed_body[:signatures]).to eq(expected_signatures)
         end
       end
     end
@@ -74,12 +81,12 @@ RSpec.describe Api::ProofsController do
         end
 
         it 'has two keys: signatures and avatar' do
-          expect(response.parsed_body.keys).to contain_exactly(:signatures, :avatar)
+          expect(response.parsed_body.keys).to contain_exactly('signatures', 'avatar')
         end
 
         it 'has the correct signatures' do
           expect(response.parsed_body[:signatures]).to eq [
-            { kb_username: kb_name1, sig_hash: token1 },
+            { 'sig_hash' => token1, 'kb_username' => kb_name1 }
           ]
         end
 
