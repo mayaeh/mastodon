@@ -5,7 +5,7 @@ require 'rails_helper'
 Fabrication.manager.load_definitions if Fabrication.manager.empty?
 
 Fabrication.manager.schematics.map(&:first).each do |factory_name|
-  describe "The #{factory_name} factory", skip: 'TODO: Fixed to pass with mock' do
+  RSpec.describe "The #{factory_name} factory", skip: 'TODO: Fixed to pass with mock' do
     it 'is able to create valid records' do
       records = Fabricate.times(2, factory_name) # Create multiple of each to uncover uniqueness issues
       expect(records).to all(be_valid)
