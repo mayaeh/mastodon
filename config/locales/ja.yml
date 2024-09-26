@@ -7,7 +7,6 @@ ja:
     hosted_on: Mastodon hosted on %{domain}
     title: このサーバーについて
   accounts:
-    follow: フォロー
     followers:
       other: フォロワー
     following: フォロー中
@@ -23,6 +22,8 @@ ja:
   admin:
     account_actions:
       action: アクションを実行
+      already_silenced: すでに制限されているアカウントです。
+      already_suspended: すでに停止されているアカウントです。
       title: "%{acct}さんに対してアクションを実行"
     account_moderation_notes:
       create: 書き込む
@@ -606,6 +607,7 @@ ja:
         suspend_description_html: アカウントとそのすべての内容にアクセスできなくなり、最終的に削除され、やり取りは不可能になります。 30日以内であれば元に戻すことができます。このアカウントに対するすべての通報をクローズします。
       actions_description_html: このレポートへのアクションを決定してください。アカウントへ懲罰的な措置を取った場合、<strong>Span</strong>カテゴリが選択されている場合を除き、メール通知が送信されます。
       actions_description_remote_html: この通報を解決するためのアクションを選択してください。これは<strong>あなたの</strong>サーバーがこのリモートアカウントと通信し、そのコンテンツを処理する時のみ影響します。
+      actions_no_posts: 削除対象となる投稿がレポートに含まれていません
       add_to_report: 通報にさらに追加
       already_suspended_badges:
         local: このサーバーで停止済み
@@ -1171,7 +1173,6 @@ ja:
   crypto:
     errors:
       invalid_key: 有効なEd25519またはCurve25519キーではありません
-      invalid_signature: 有効なEd25519署名ではありません
   date:
     formats:
       default: "%Y, %b, %d"
@@ -1745,21 +1746,12 @@ ja:
     edited_at_html: "%{date} 編集済み"
     errors:
       in_reply_not_found: あなたが返信しようとしている投稿は存在しないようです。
-    open_in_web: Webで開く
     over_character_limit: 上限は%{max}文字です
     pin_errors:
       direct: 返信したユーザーのみに表示される投稿はピン留めできません
       limit: 固定できる投稿数の上限に達しました
       ownership: 他人の投稿を固定することはできません
       reblog: ブーストを固定することはできません
-    poll:
-      total_people:
-        other: "%{count}人"
-      total_votes:
-        other: "%{count}票"
-      vote: 投票
-    show_more: もっと見る
-    show_thread: スレッドを表示
     title: '%{name}: "%{quote}"'
     visibilities:
       direct: ダイレクト
