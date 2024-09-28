@@ -132,7 +132,25 @@ export const DetailedStatus: React.FC<{
   if (pictureInPicture.get('inUse')) {
     media = <PictureInPicturePlaceholder />;
   } else if (status.get('media_attachments').size > 0) {
-    if (status.getIn(['media_attachments', 0, 'type']) === 'audio') {
+    if (
+      ['image', 'gifv'].includes(
+        status.getIn(['media_attachments', 0, 'type']) as string,
+      ) ||
+      status.get('media_attachments').size > 1
+    ) {
+      media = (
+        <MediaGallery
+          standalone
+          sensitive={status.get('sensitive')}
+          media={status.get('media_attachments')}
+          lang={language}
+          height={300}
+          onOpenMedia={onOpenMedia}
+          visible={showMedia}
+          onToggleVisibility={onToggleMediaVisibility}
+        />
+      );
+    } else if (status.getIn(['media_attachments', 0, 'type']) === 'audio') {
       const attachment = status.getIn(['media_attachments', 0]);
       const description =
         attachment.getIn(['translation', 'description']) ||
@@ -177,19 +195,6 @@ export const DetailedStatus: React.FC<{
           inline
           onOpenVideo={handleOpenVideo}
           sensitive={status.get('sensitive')}
-          visible={showMedia}
-          onToggleVisibility={onToggleMediaVisibility}
-        />
-      );
-    } else {
-      media = (
-        <MediaGallery
-          standalone
-          sensitive={status.get('sensitive')}
-          media={status.get('media_attachments')}
-          lang={language}
-          height={300}
-          onOpenMedia={onOpenMedia}
           visible={showMedia}
           onToggleVisibility={onToggleMediaVisibility}
         />
