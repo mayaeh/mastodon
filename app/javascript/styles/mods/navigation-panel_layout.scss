@@ -67,6 +67,15 @@
       display: none;
     }
 
+    .columns-area__panels__pane--navigational
+      .navigation-panel .navigation-panel__menu {
+      display: flex;
+    }
+
+    .navigation-panel__menu a {
+      flex: 0 0 auto;
+    }
+
     .navigation-panel__legal hr {
       display: none;
     }
