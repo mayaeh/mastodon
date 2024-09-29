@@ -40,6 +40,7 @@ import { timelinePreview, trendsEnabled } from 'mastodon/initial_state';
 import { transientSingleColumn } from 'mastodon/is_mobile';
 import { canManageReports, canViewAdminDashboard } from 'mastodon/permissions';
 import { selectUnreadNotificationGroupsCount } from 'mastodon/selectors/notifications';
+import { selectUseGroupedNotifications } from 'mastodon/selectors/settings';
 
 import ColumnLink from './column_link';
 import DisabledAccountBanner from './disabled_account_banner';
@@ -69,17 +70,19 @@ const messages = defineMessages({
 });
 
 const NotificationsLink = () => {
-
-  const count = useSelector(selectUnreadNotificationGroupsCount);
+  const optedInGroupedNotifications = useSelector(selectUseGroupedNotifications);
+  const count = useSelector(state => state.getIn(['notifications', 'unread']));
   const intl = useIntl();
+
+  const newCount = useSelector(selectUnreadNotificationGroupsCount);
 
   return (
     <ColumnLink
       key='notifications'
       transparent
       to='/notifications'
-      icon={<IconWithBadge id='bell' icon={NotificationsIcon} count={count} className='column-link__icon' />}
-      activeIcon={<IconWithBadge id='bell' icon={NotificationsActiveIcon} count={count} className='column-link__icon' />}
+      icon={<IconWithBadge id='bell' icon={NotificationsIcon} count={optedInGroupedNotifications ? newCount : count} className='column-link__icon' />}
+      activeIcon={<IconWithBadge id='bell' icon={NotificationsActiveIcon} count={optedInGroupedNotifications ? newCount : count} className='column-link__icon' />}
       text={intl.formatMessage(messages.notifications)}
     />
   );
