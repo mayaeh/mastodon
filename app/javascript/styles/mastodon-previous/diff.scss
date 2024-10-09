@@ -693,6 +693,13 @@ body {
   }
 }
 
+.boost-modal,
+.report-modal,
+.actions-modal,
+.compare-history-modal {
+  background: $ui-base-color;
+}
+
 .audio-player {
   background: darken($ui-base-color, 8%);
 }
