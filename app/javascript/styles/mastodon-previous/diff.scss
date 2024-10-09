@@ -662,13 +662,10 @@ body {
 
     & > .poll__option__text {
       border-bottom: 1px solid $ui-secondary-color;
+      color: lighten($inverted-text-color, 16%);
 
-      & > .poll__option__text {
-        color: lighten($inverted-text-color, 16%);
-
-        strong {
-          color: $inverted-text-color;
-        }
+      strong {
+        color: $inverted-text-color;
       }
     }
 
