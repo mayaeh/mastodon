@@ -652,6 +652,15 @@ body {
     color: lighten($inverted-text-color, 16%);
   }
 
+  &__textarea {
+    color: $inverted-text-color;
+    background: $simple-background-color;
+
+    &::placeholder {
+      color: $dark-text-color;
+    }
+  }
+
   .status__content,
   .status__content p {
     color: $inverted-text-color;
@@ -666,15 +675,6 @@ body {
 
       strong {
         color: $inverted-text-color;
-      }
-    }
-
-    &__textarea {
-      color: $inverted-text-color;
-      background: $simple-background-color;
-
-      &::placeholder {
-        color: $dark-text-color;
       }
     }
 
