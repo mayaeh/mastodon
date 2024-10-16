@@ -652,6 +652,15 @@ body {
     color: lighten($inverted-text-color, 16%);
   }
 
+  &__textarea {
+    color: $inverted-text-color;
+    background: $simple-background-color;
+
+    &::placeholder {
+      color: $dark-text-color;
+    }
+  }
+
   .status__content,
   .status__content p {
     color: $inverted-text-color;
@@ -662,22 +671,10 @@ body {
 
     & > .poll__option__text {
       border-bottom: 1px solid $ui-secondary-color;
+      color: lighten($inverted-text-color, 16%);
 
-      & > .poll__option__text {
-        color: lighten($inverted-text-color, 16%);
-
-        strong {
-          color: $inverted-text-color;
-        }
-      }
-    }
-
-    &__textarea {
-      color: $inverted-text-color;
-      background: $simple-background-color;
-
-      &::placeholder {
-        color: $dark-text-color;
+      strong {
+        color: $inverted-text-color;
       }
     }
 
@@ -694,6 +691,13 @@ body {
       }
     }
   }
+}
+
+.boost-modal,
+.report-modal,
+.actions-modal,
+.compare-history-modal {
+  background: $ui-base-color;
 }
 
 .audio-player {

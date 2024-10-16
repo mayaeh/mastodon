@@ -1,5 +1,7 @@
 // @ts-check
 
+import { selectUseGroupedNotifications } from 'mastodon/selectors/settings';
+
 import { getLocale } from '../locales';
 import { connectStream } from '../stream';
 
@@ -103,19 +105,20 @@ export const connectTimelineStream = (timelineId, channelName, params = {}, opti
           const notificationJSON = JSON.parse(data.payload);
           dispatch(updateNotifications(notificationJSON, messages, locale));
           // TODO: remove this once the groups feature replaces the previous one
-          if(getState().settings.getIn(['notifications', 'groupingBeta'], false)) {
+          if(selectUseGroupedNotifications(getState())) {
             dispatch(processNewNotificationForGroups(notificationJSON));
           }
           break;
         }
-        case 'notifications_merged':
+        case 'notifications_merged': {
           const state = getState();
           if (state.notifications.top || !state.notifications.mounted)
             dispatch(expandNotifications({ forceLoad: true, maxId: undefined }));
-          if(state.settings.getIn(['notifications', 'groupingBeta'], false)) {
+          if (selectUseGroupedNotifications(state)) {
             dispatch(refreshStaleNotificationGroups());
           }
           break;
+        }
         case 'conversation':
           // @ts-expect-error
           dispatch(updateConversations(JSON.parse(data.payload)));
@@ -145,11 +148,11 @@ async function refreshHomeTimelineAndNotification(dispatch, getState) {
   await dispatch(expandHomeTimeline({ maxId: undefined }));
 
   // TODO: remove this once the groups feature replaces the previous one
-  if(getState().settings.getIn(['notifications', 'groupingBeta'], false)) {
+  if(selectUseGroupedNotifications(getState())) {
     // TODO: polling for merged notifications
     try {
       await dispatch(pollRecentGroupNotifications());
-    } catch (error) {
+    } catch {
       // TODO
     }
   } else {

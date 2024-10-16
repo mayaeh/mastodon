@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe ProofProvider::Keybase::Verifier do
+RSpec.describe ProofProvider::Keybase::Verifier do
   let(:my_domain) { Rails.configuration.x.local_domain }
 
   let(:keybase_proof) do

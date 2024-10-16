@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Api::ProofsController do
+RSpec.describe Api::ProofsController do
   let(:alice) { Fabricate(:account, username: 'alice') }
 
   before do
@@ -25,7 +25,7 @@ describe Api::ProofsController do
       it 'is an empty list of signatures' do
         get :index, params: { username: alice.username, provider: 'keybase' }
 
-        expect(body_as_json[:signatures]).to eq []
+        expect(response.parsed_body[:signatures]).to eq []
       end
     end
 
@@ -40,9 +40,11 @@ describe Api::ProofsController do
       it 'is a list with that proof in it' do
         get :index, params: { username: alice.username, provider: 'keybase' }
 
-        expect(body_as_json[:signatures]).to eq [
-          { kb_username: kb_name1, sig_hash: token1 },
+        expected_signatures = [
+          { 'sig_hash' => token1, 'kb_username' => kb_name1 }
         ]
+
+        expect(response.parsed_body[:signatures]).to eq(expected_signatures)
       end
 
       describe 'add one that is neither live nor valid' do
@@ -56,10 +58,12 @@ describe Api::ProofsController do
         it 'is a list with both proofs' do
           get :index, params: { username: alice.username, provider: 'keybase' }
 
-          expect(body_as_json[:signatures]).to eq [
-            { kb_username: kb_name1, sig_hash: token1 },
-            { kb_username: kb_name2, sig_hash: token2 },
+          expected_signatures = [
+            { 'sig_hash' => token1, 'kb_username' => kb_name1 },
+            { 'sig_hash' => token2, 'kb_username' => kb_name2 }
           ]
+
+          expect(response.parsed_body[:signatures]).to eq(expected_signatures)
         end
       end
     end
@@ -77,17 +81,17 @@ describe Api::ProofsController do
         end
 
         it 'has two keys: signatures and avatar' do
-          expect(body_as_json.keys).to contain_exactly(:signatures, :avatar)
+          expect(response.parsed_body.keys).to contain_exactly('signatures', 'avatar')
         end
 
         it 'has the correct signatures' do
-          expect(body_as_json[:signatures]).to eq [
-            { kb_username: kb_name1, sig_hash: token1 },
+          expect(response.parsed_body[:signatures]).to eq [
+            { 'sig_hash' => token1, 'kb_username' => kb_name1 }
           ]
         end
 
         it 'has the correct avatar url' do
-          expect(body_as_json[:avatar]).to match "https://cb6e6126.ngrok.io#{alice.avatar.url}"
+          expect(response.parsed_body[:avatar]).to match "https://cb6e6126.ngrok.io#{alice.avatar.url}"
         end
       end
     end
