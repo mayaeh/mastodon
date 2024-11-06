@@ -25,7 +25,7 @@ gem 'ruby-vips', '~> 2.2', require: false
 gem 'active_model_serializers', '~> 0.10'
 gem 'addressable', '~> 2.8'
 gem 'bootsnap', '~> 1.18.0', require: false
-gem 'browser', '< 6' # https://github.com/fnando/browser/issues/543
+gem 'browser'
 gem 'charlock_holmes', '~> 0.7.7'
 gem 'chewy', '~> 7.3'
 gem 'devise', '~> 4.9'
@@ -53,7 +53,7 @@ gem 'hiredis', '~> 0.6'
 gem 'htmlentities', '~> 4.3'
 gem 'http', '~> 5.2.0'
 gem 'http_accept_language', '~> 2.1'
-gem 'httplog', '~> 1.7.0'
+gem 'httplog', '~> 1.7.0', require: false
 gem 'i18n'
 gem 'idn-ruby', require: 'idn'
 gem 'inline_svg'
