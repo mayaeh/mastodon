@@ -49,6 +49,7 @@
                     domain: string;
                     showMedia?: boolean;
                     withLogo?: boolean;
+                    overrideDisplayName?: React.ReactNode;
                     pictureInPicture: any;
                     onToggleHidden?: (status: any) => void;
                     onToggleMediaVisibility?: () => void;
@@ -62,6 +63,7 @@
                     domain,
                     showMedia,
                     withLogo,
+                    overrideDisplayName,
                     pictureInPicture,
                     onToggleMediaVisibility,
                     onToggleHidden,
@@ -300,7 +302,11 @@
                             <div className='detailed-status__display-avatar'>
                               <Avatar account={status.get('account')} size={46} />
                             </div>
-                            <DisplayName account={status.get('account')} localDomain={domain} />
+
+                            {overrideDisplayName ?? (
+                              <DisplayName account={status.get('account')} localDomain={domain} />
+                            )}
+
                             {withLogo && (
                               <>
                                 <div className='spacer' />
