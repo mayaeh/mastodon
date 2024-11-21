@@ -19,7 +19,7 @@ executors:
           DB_USER: root
           DISABLE_SIMPLECOV: true
           RAILS_ENV: test
-      - image: cimg/postgres:17.0.0
+      - image: cimg/postgres:16.4
         environment:
           POSTGRES_USER: root
           POSTGRES_HOST_AUTH_METHOD: trust
