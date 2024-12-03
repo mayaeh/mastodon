@@ -14,7 +14,7 @@ import { fetchSuggestions } from 'mastodon/actions/suggestions';
 import { markAsPartial } from 'mastodon/actions/timelines';
 import { apiRequest } from 'mastodon/api';
 import type { ApiAccountJSON } from 'mastodon/api_types/accounts';
-import Column from 'mastodon/components/column';
+import { Column } from 'mastodon/components/column';
 import { ColumnHeader } from 'mastodon/components/column_header';
 import { ColumnSearchHeader } from 'mastodon/components/column_search_header';
 import ScrollableList from 'mastodon/components/scrollable_list';
@@ -174,7 +174,7 @@ export const Follows: React.FC<{
             /* @ts-expect-error inferred props are wrong */
             id={accountId}
             key={accountId}
-            withBio={false}
+            withBio
           />
         ))}
       </ScrollableList>
