@@ -79,7 +79,7 @@ module ApplicationHelper
 
   def html_title
     safe_join(
-      [content_for(:page_title).to_s.chomp, title]
+      [content_for(:page_title), title]
       .compact_blank,
       ' - '
     )
@@ -154,7 +154,7 @@ module ApplicationHelper
   }.freeze
 
   def body_classes
-    output = body_class_string.split
+    output = []
     output << content_for(:body_classes)
     output << "theme-#{current_theme.parameterize}"
     output << 'system-font' if current_account&.user&.setting_system_font_ui
@@ -243,6 +243,11 @@ module ApplicationHelper
 
   def copyable_input(options = {})
     tag.input(type: :text, maxlength: 999, spellcheck: false, readonly: true, **options)
+  end
+
+  def recent_tag_usage(tag)
+    people = tag.history.aggregate(2.days.ago.to_date..Time.zone.today).accounts
+    I18n.t 'user_mailer.welcome.hashtags_recent_count', people: number_with_delimiter(people), count: people
   end
 
   private
