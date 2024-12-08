@@ -599,18 +599,8 @@ body > [data-popper-placement] {
     display: flex;
     align-items: stretch;
 
-    &__border {
-      background: url('../images/warning-stripes.svg') repeat-y;
-      width: 5px;
-      flex: 0 0 auto;
-
-      &:first-child {
-        border-start-start-radius: 4px;
-      }
-
-      &:last-child {
-        border-start-end-radius: 4px;
-      }
+    &__input {
+      padding: 12px;
     }
 
     .autosuggest-input {
