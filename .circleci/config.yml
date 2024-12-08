@@ -74,6 +74,7 @@ jobs:
           ruby-version: '3.3'
       - node/install-packages:
           install-yarn: true
+          node-version: '22.12'
       - run:
           command: |
             export NODE_OPTIONS=--openssl-legacy-provider
