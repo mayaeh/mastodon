@@ -73,8 +73,8 @@ jobs:
       - install-ruby-dependencies:
           ruby-version: '3.3'
       - node/install-packages:
-          install-yarn: true
-          node-version: '22.12'
+          cache-version: v2
+          pkg-manager: yarn
       - run:
           command: |
             export NODE_OPTIONS=--openssl-legacy-provider
