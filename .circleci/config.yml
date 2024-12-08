@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   ruby: circleci/ruby@2.3.0
-  node: circleci/node@6.3.0
+  node: circleci/node@7.0.0
 
 executors:
   default:
@@ -74,7 +74,7 @@ jobs:
           ruby-version: '3.3'
       - node/install-packages:
           cache-version: v2
-          pkg-manager: yarn
+          install-yarn: true
       - run:
           command: |
             export NODE_OPTIONS=--openssl-legacy-provider
