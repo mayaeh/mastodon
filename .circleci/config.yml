@@ -73,7 +73,6 @@ jobs:
       - install-ruby-dependencies:
           ruby-version: '3.3'
       - node/install-packages:
-          cache-version: v2
           install-yarn: true
       - run:
           command: |
