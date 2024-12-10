@@ -96,6 +96,11 @@ export const LinkFooter: React.FC<{
         <DividingCircle />
         <span className='version'>v{version}</span>
       </p>
+      <p>
+          <strong>copyright</strong>:
+          {' '}
+          <span>(C) SQUARE ENIX CO., LTD. All Rights Reserved.</span>
+        </p>
     </div>
   );
 };
