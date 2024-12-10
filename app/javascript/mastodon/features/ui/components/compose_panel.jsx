@@ -8,9 +8,8 @@ import ServerBanner from 'mastodon/components/server_banner';
 import ModsAnnouncements from 'mastodon/features/compose/components/mods_announcements';
 import ComposeFormContainer from 'mastodon/features/compose/containers/compose_form_container';
 import SearchContainer from 'mastodon/features/compose/containers/search_container';
+import { LinkFooter } from 'mastodon/features/ui/components/link_footer';
 import { identityContextPropShape, withIdentity } from 'mastodon/identity_context';
-
-import LinkFooter from './link_footer';
 
 class ComposePanel extends PureComponent {
   static propTypes = {
