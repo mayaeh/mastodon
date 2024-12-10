@@ -67,6 +67,7 @@ en:
         setting_navigation_panel_layout_hint: Selecting Top or Bottom moves the navigation panel and hides the top header.
         setting_navigation_panel_layout_right: Right (default)
         setting_navigation_panel_layout_top: Top
+        setting_system_scrollbars_ui: Applies only to desktop browsers based on Safari and Chrome
         setting_use_blurhash: Gradients are based on the colors of the hidden visuals but obfuscate any details
         setting_use_pending_items: Hide timeline updates behind a click instead of automatically scrolling the feed
         username: You can use letters, numbers, and underscores
@@ -233,6 +234,7 @@ en:
         setting_navigation_panel_layout: Navigation panel display position
         setting_reduce_motion: Reduce motion in animations
         setting_system_font_ui: Use system's default font
+        setting_system_scrollbars_ui: Use system's default scrollbar
         setting_theme: Site theme
         setting_trends: Show today's trends
         setting_unfollow_modal: Show confirmation dialog before unfollowing someone

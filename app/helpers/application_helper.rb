@@ -158,6 +158,7 @@ module ApplicationHelper
     output << content_for(:body_classes)
     output << "theme-#{current_theme.parameterize}"
     output << 'system-font' if current_account&.user&.setting_system_font_ui
+    output << 'custom-scrollbars' unless current_account&.user&.setting_system_scrollbars_ui
     output << (current_account&.user&.setting_reduce_motion ? 'reduce-motion' : 'no-reduce-motion')
     output << NAVIGATION_PANEL_LAYOUT[current_account&.user&.setting_navigation_panel_layout]
     output << FAB_LAYOUT[current_account&.user&.setting_fab_layout]
