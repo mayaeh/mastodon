@@ -52,6 +52,7 @@ defaults: &defaults
   backups_retention_period: 7
   captcha_enabled: false
   reject_spammer: false
+  allow_referer_origin: false
 
 development:
   <<: *defaults
