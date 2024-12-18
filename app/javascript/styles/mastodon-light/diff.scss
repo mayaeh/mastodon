@@ -163,6 +163,14 @@ body {
   color: $white;
 }
 
+.report-dialog-modal {
+  background: darken($ui-base-color, 10%);
+}
+
+.report-dialog-modal__textarea {
+  background: darken($ui-base-color, 10%);
+}
+
 .search__input {
   @media screen and (max-width: $no-gap-breakpoint) {
     border-top: 0;
@@ -620,10 +628,6 @@ a.sparkline {
 }
 
 .setting-text {
-  background: darken($ui-base-color, 10%);
-}
-
-.report-dialog-modal__textarea {
   background: darken($ui-base-color, 10%);
 }
 
