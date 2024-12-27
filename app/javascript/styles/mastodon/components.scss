@@ -2765,7 +2765,9 @@ a.account__display-name {
       flex: 0 1 auto;
       display: flex;
       flex-direction: column;
-      contain: inline-size layout paint style;
+
+      // @nzws: ねじわカスタムでヘッダーがバグるので無効化
+      // contain: inline-size layout paint style;
 
       @media screen and (min-width: $no-gap-breakpoint) {
         max-width: 600px;
