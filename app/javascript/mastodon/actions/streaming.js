@@ -13,7 +13,7 @@ import {
 } from './announcements';
 import { updateConversations } from './conversations';
 import { processNewNotificationForGroups, refreshStaleNotificationGroups, pollRecentNotifications as pollRecentGroupNotifications } from './notification_groups';
-import { updateNotifications } from './notifications';
+import { updateNotifications, expandNotifications } from './notifications';
 import { updateStatus } from './statuses';
 import {
   updateTimeline,
