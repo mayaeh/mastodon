@@ -77,7 +77,7 @@
   &:active,
   &:focus,
   &:hover {
-    background-color: lighten($ui-highlight-color, 10%);
+    background-color: $ui-button-background-color;
   }
 
   &:focus-visible {
