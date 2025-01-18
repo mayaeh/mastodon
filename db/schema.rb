@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_08_111200) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "account_aliases", force: :cascade do |t|
-    t.bigint "account_id"
+    t.bigint "account_id", null: false
     t.string "acct", default: "", null: false
     t.string "uri", default: "", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -24,8 +24,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
   end
 
   create_table "account_conversations", force: :cascade do |t|
-    t.bigint "account_id"
-    t.bigint "conversation_id"
+    t.bigint "account_id", null: false
+    t.bigint "conversation_id", null: false
     t.bigint "participant_account_ids", default: [], null: false, array: true
     t.bigint "status_ids", default: [], null: false, array: true
     t.bigint "last_status_id"
@@ -36,17 +36,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
   end
 
   create_table "account_deletion_requests", force: :cascade do |t|
-    t.bigint "account_id"
+    t.bigint "account_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["account_id"], name: "index_account_deletion_requests_on_account_id"
   end
 
   create_table "account_domain_blocks", force: :cascade do |t|
-    t.string "domain"
+    t.string "domain", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.bigint "account_id"
+    t.bigint "account_id", null: false
     t.index ["account_id", "domain"], name: "index_account_domain_blocks_on_account_id_and_domain", unique: true
   end
 
@@ -84,8 +84,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
   end
 
   create_table "account_notes", force: :cascade do |t|
-    t.bigint "account_id"
-    t.bigint "target_account_id"
+    t.bigint "account_id", null: false
+    t.bigint "target_account_id", null: false
     t.text "comment", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -94,8 +94,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
   end
 
   create_table "account_pins", force: :cascade do |t|
-    t.bigint "account_id"
-    t.bigint "target_account_id"
+    t.bigint "account_id", null: false
+    t.bigint "target_account_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["account_id", "target_account_id"], name: "index_account_pins_on_account_id_and_target_account_id", unique: true
@@ -225,7 +225,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
   end
 
   create_table "admin_action_logs", force: :cascade do |t|
-    t.bigint "account_id"
+    t.bigint "account_id", null: false
     t.string "action", default: "", null: false
     t.string "target_type"
     t.bigint "target_id"
@@ -239,8 +239,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
   end
 
   create_table "announcement_mutes", force: :cascade do |t|
-    t.bigint "account_id"
-    t.bigint "announcement_id"
+    t.bigint "account_id", null: false
+    t.bigint "announcement_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["account_id", "announcement_id"], name: "index_announcement_mutes_on_account_id_and_announcement_id", unique: true
@@ -248,8 +248,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
   end
 
   create_table "announcement_reactions", force: :cascade do |t|
-    t.bigint "account_id"
-    t.bigint "announcement_id"
+    t.bigint "account_id", null: false
+    t.bigint "announcement_id", null: false
     t.string "name", default: "", null: false
     t.bigint "custom_emoji_id"
     t.datetime "created_at", precision: nil, null: false
@@ -417,7 +417,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
   end
 
   create_table "custom_filters", force: :cascade do |t|
-    t.bigint "account_id"
+    t.bigint "account_id", null: false
     t.datetime "expires_at", precision: nil
     t.text "phrase", default: "", null: false
     t.string "context", default: [], null: false, array: true
@@ -611,7 +611,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
   end
 
   create_table "markers", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.string "timeline", default: "", null: false
     t.bigint "last_read_id", default: 0, null: false
     t.integer "lock_version", default: 0, null: false
@@ -779,8 +779,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
   end
 
   create_table "poll_votes", force: :cascade do |t|
-    t.bigint "account_id"
-    t.bigint "poll_id"
+    t.bigint "account_id", null: false
+    t.bigint "poll_id", null: false
     t.integer "choice", default: 0, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -790,8 +790,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
   end
 
   create_table "polls", force: :cascade do |t|
-    t.bigint "account_id"
-    t.bigint "status_id"
+    t.bigint "account_id", null: false
+    t.bigint "status_id", null: false
     t.datetime "expires_at", precision: nil
     t.string "options", default: [], null: false, array: true
     t.bigint "cached_tallies", default: [], null: false, array: true
@@ -935,7 +935,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
   end
 
   create_table "scheduled_statuses", force: :cascade do |t|
-    t.bigint "account_id"
+    t.bigint "account_id", null: false
     t.datetime "scheduled_at", precision: nil
     t.jsonb "params"
     t.index ["account_id"], name: "index_scheduled_statuses_on_account_id"
@@ -1123,8 +1123,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
     t.index "lower((name)::text) text_pattern_ops", name: "index_tags_on_name_lower_btree", unique: true
   end
 
+  create_table "terms_of_services", force: :cascade do |t|
+    t.text "text", default: "", null: false
+    t.text "changelog", default: "", null: false
+    t.datetime "published_at"
+    t.datetime "notification_sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tombstones", force: :cascade do |t|
-    t.bigint "account_id"
+    t.bigint "account_id", null: false
     t.string "uri", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -1141,7 +1150,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
   end
 
   create_table "user_invite_requests", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "text"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -1213,6 +1222,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_05_163118) do
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "access_token_id"
     t.bigint "user_id"
+    t.boolean "standard", default: false, null: false
     t.index ["access_token_id"], name: "index_web_push_subscriptions_on_access_token_id", where: "(access_token_id IS NOT NULL)"
     t.index ["user_id"], name: "index_web_push_subscriptions_on_user_id"
   end

@@ -114,6 +114,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       trends_enabled: Setting.trends,
       version: instance_presenter.version,
       force_grouped_notifications: ENV['FORCE_GROUPED_NOTIFICATIONS'] == 'true',
+      terms_of_service_enabled: TermsOfService.live.exists?,
     }
   end
 
