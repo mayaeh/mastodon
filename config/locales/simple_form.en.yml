@@ -242,6 +242,7 @@ en:
         setting_expand_spoilers: Always expand posts marked with content warnings
         setting_fab_layout: Publish button display position on SmartPhone
         setting_hide_network: Hide your social graph
+        setting_missing_alt_text_modal: Show confirmation dialog before posting media without alt text
         setting_navigation_panel_layout: Navigation panel display position
         setting_reduce_motion: Reduce motion in animations
         setting_system_font_ui: Use system's default font

@@ -210,9 +210,7 @@ body {
 .actions-modal ul li:not(:empty) a:focus button,
 .actions-modal ul li:not(:empty) a:hover,
 .actions-modal ul li:not(:empty) a:hover button,
-.simple_form .block-button,
-.simple_form .button,
-.simple_form button {
+.simple_form button:not(.button, .link-button) {
   color: $white;
 }
 
@@ -223,6 +221,11 @@ body {
 
 .report-dialog-modal__container {
   border-top-color: lighten($ui-base-color, 4%);
+}
+
+.dialog-modal__content__preview {
+  background: #fff;
+  border-bottom: 1px solid var(--modal-border-color);
 }
 
 .reactions-bar__item:hover,
@@ -557,6 +560,15 @@ body {
     .autosuggest-textarea__textarea {
       background: $white;
     }
+  }
+}
+
+.dropdown-button.warning {
+  border-color: #b3261e;
+  color: #b3261e;
+
+  &.active {
+    background-color: #f9dedc;
   }
 }
 
