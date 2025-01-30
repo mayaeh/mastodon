@@ -525,10 +525,8 @@ body {
   color: $dark-text-color;
 }
 
-.dialog-modal {
-  &__preview {
-    background: darken($ui-base-color, 10%);
-  }
+.dialog-modal__content__preview {
+  background: darken($ui-base-color, 10%);
 }
 
 .regeneration-indicator {
