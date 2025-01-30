@@ -401,10 +401,8 @@
   }
 }
 
-.setting-text {
-  color: $primary-text-color;
-  background: $ui-base-color;
-  border: 1px solid var(--background-border-color);
+.dialog-modal__content__preview {
+  background: #000;
 }
 
 .search-results__section {
@@ -599,9 +597,7 @@
 
 // forms.scss
 .simple_form {
-  button,
-  .button,
-  .block-button {
+  button:not(.button, .link-button) {
     background: $ui-button-background-color;
     color: $ui-button-color;
 
