@@ -32,10 +32,10 @@ $ui-button-secondary-border-color: $grey-100 !default;
 $ui-button-secondary-focus-background-color: $grey-600 !default;
 $ui-button-secondary-focus-color: $white !default;
 
-:theme-mastodon-previous {
+body {
   --dropdown-border-color: #{lighten($ui-base-color, 12%)};
   --dropdown-background-color: #{lighten($ui-base-color, 4%)};
-  --modal-background-color: $ui-base-color, 4%;
+  --modal-background-color: $ui-base-color;
   --background-border2-color: #{lighten($ui-base-color, 8%)};
   --background-drawer-color: #{lighten($ui-base-color, 4%)};
 }
