@@ -699,7 +699,7 @@
   "poll_button.add_poll": "アンケートを追加",
   "poll_button.remove_poll": "アンケートを削除",
   "privacy.change": "公開範囲を変更",
-  "privacy.direct.long": "投稿内の相手のみ返信可",
+  "privacy.direct.long": "本文で指定した相手のみ返信可",
   "privacy.direct.short": "非公開の返信",
   "privacy.private.long": "フォロワーのみ閲覧可",
   "privacy.private.short": "フォロワー",
