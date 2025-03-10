@@ -36,10 +36,10 @@ commands:
   prepare-yarn:
     steps:
       - run:
-          name: Specification version of yarn to 4.6.0
+          name: Specification version of yarn to 4.7.0
           command: |
             sudo corepack enable
-            sudo COREPACK_ENABLE_DOWNLOAD_PROMPT=0 yarn set version 4.6.0
+            sudo COREPACK_ENABLE_DOWNLOAD_PROMPT=0 yarn set version 4.7.0
   install-ruby-dependencies:
     parameters:
       ruby-version:
@@ -52,7 +52,7 @@ commands:
             bundle config without 'development production'
           name: Set bundler settings
       - ruby/install-deps:
-          bundler-version: '2.6.3'
+          bundler-version: '2.6.5'
           key: ruby<< parameters.ruby-version >>-gems-v2
   wait-db:
     steps:
