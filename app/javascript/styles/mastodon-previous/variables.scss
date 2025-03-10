@@ -15,6 +15,7 @@ $classic-secondary-color: #d9e1e8;
 
 // Differences
 $classic-highlight-color: #2b90d9;
+$base-overlay-background: $classic-base-color !default;
 $ui-base-color: $classic-base-color !default; // Darkest
 $ui-highlight-color: #2b90d9;
 $highlight-text-color: $ui-highlight-color !default;
@@ -31,7 +32,7 @@ $ui-button-secondary-border-color: $grey-100 !default;
 $ui-button-secondary-focus-background-color: $grey-600 !default;
 $ui-button-secondary-focus-color: $white !default;
 
-:root {
+body {
   --dropdown-border-color: #{lighten($ui-base-color, 12%)};
   --dropdown-background-color: #{lighten($ui-base-color, 4%)};
   --modal-background-color: #{darken($ui-base-color, 4%)};

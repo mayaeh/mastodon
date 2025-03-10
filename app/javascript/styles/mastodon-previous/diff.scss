@@ -525,10 +525,8 @@ body {
   color: $dark-text-color;
 }
 
-.setting-text {
-  color: $inverted-text-color;
-  background: $white;
-  border: 1px solid $white;
+.dialog-modal__content__preview {
+  background: darken($ui-base-color, 10%);
 }
 
 .regeneration-indicator {
@@ -884,9 +882,7 @@ body {
     border: 1px solid darken($ui-base-color, 10%);
   }
 
-  button,
-  .button,
-  .block-button {
+  button:not(.button, .link-button) {
     background: $ui-highlight-color;
 
     &:hover {
