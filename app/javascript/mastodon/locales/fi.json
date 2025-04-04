@@ -65,6 +65,7 @@
   "account.statuses_counter": "{count, plural, one {{counter} julkaisu} other {{counter} julkaisua}}",
   "account.unblock": "Kumoa käyttäjän @{name} esto",
   "account.unblock_domain": "Kumoa verkkotunnuksen {domain} esto",
+  "account.unblock_domain_short": "Kumoa esto",
   "account.unblock_short": "Kumoa esto",
   "account.unendorse": "Kumoa suosittelu profiilissasi",
   "account.unfollow": "Älä seuraa",
@@ -905,8 +906,12 @@
   "video.expand": "Laajenna video",
   "video.fullscreen": "Koko näyttö",
   "video.hide": "Piilota video",
-  "video.mute": "Mykistä ääni",
+  "video.mute": "Mykistä",
   "video.pause": "Tauko",
   "video.play": "Toista",
-  "video.unmute": "Palauta ääni"
+  "video.skip_backward": "Siirry taaksepäin",
+  "video.skip_forward": "Siirry eteenpäin",
+  "video.unmute": "Poista mykistys",
+  "video.volume_down": "Vähennä äänenvoimakkuutta",
+  "video.volume_up": "Lisää äänenvoimakkuutta"
 }

@@ -23,6 +23,7 @@
                   import { IconLogo } from 'mastodon/components/logo';
                   import PictureInPicturePlaceholder from 'mastodon/components/picture_in_picture_placeholder';
                   import { VisibilityIcon } from 'mastodon/components/visibility_icon';
+                  import { Video } from 'mastodon/features/video';
 
                   import { Avatar } from '../../../components/avatar';
                   import { DisplayName } from '../../../components/display_name';
@@ -30,7 +31,6 @@
                   import StatusContent from '../../../components/status_content';
                   import Audio from '../../audio';
                   import scheduleIdleTask from '../../ui/util/schedule_idle_task';
-                  import Video from '../../video';
 
                   import Card from './card';
 
@@ -38,7 +38,6 @@
                     startTime: number;
                     autoPlay?: boolean;
                     defaultVolume: number;
-                    componentIndex: number;
                   }
 
                   export const DetailedStatus: React.FC<{
@@ -201,9 +200,6 @@
                             src={attachment.get('url')}
                             alt={description}
                             lang={language}
-                            width={300}
-                            height={150}
-                            inline
                             onOpenVideo={handleOpenVideo}
                             sensitive={status.get('sensitive')}
                             visible={showMedia}

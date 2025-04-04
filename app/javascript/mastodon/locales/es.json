@@ -65,6 +65,7 @@
   "account.statuses_counter": "{count, plural, one {{counter} publicación} other {{counter} publicaciones}}",
   "account.unblock": "Desbloquear a @{name}",
   "account.unblock_domain": "Desbloquear dominio {domain}",
+  "account.unblock_domain_short": "Desbloquear",
   "account.unblock_short": "Desbloquear",
   "account.unendorse": "No mostrar en el perfil",
   "account.unfollow": "Dejar de seguir",
@@ -905,8 +906,12 @@
   "video.expand": "Expandir vídeo",
   "video.fullscreen": "Pantalla completa",
   "video.hide": "Ocultar vídeo",
-  "video.mute": "Silenciar sonido",
+  "video.mute": "Silenciar",
   "video.pause": "Pausar",
   "video.play": "Reproducir",
-  "video.unmute": "Desilenciar sonido"
+  "video.skip_backward": "Saltar atrás",
+  "video.skip_forward": "Adelantar",
+  "video.unmute": "Dejar de silenciar",
+  "video.volume_down": "Bajar volumen",
+  "video.volume_up": "Subir volumen"
 }

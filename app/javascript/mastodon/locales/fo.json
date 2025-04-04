@@ -65,6 +65,7 @@
   "account.statuses_counter": "{count, plural, one {{counter} postur} other {{counter} postar}}",
   "account.unblock": "Banna ikki @{name}",
   "account.unblock_domain": "Banna ikki økisnavnið {domain}",
+  "account.unblock_domain_short": "Banna ikki",
   "account.unblock_short": "Banna ikki",
   "account.unendorse": "Vís ikki á vanga",
   "account.unfollow": "Fylg ikki",
@@ -905,8 +906,12 @@
   "video.expand": "Víðka sjónfílu",
   "video.fullscreen": "Fullur skermur",
   "video.hide": "Fjal sjónfílu",
-  "video.mute": "Sløkk ljóðið",
+  "video.mute": "Doyv",
   "video.pause": "Steðga á",
   "video.play": "Spæl",
-  "video.unmute": "Tendra ljóðið"
+  "video.skip_backward": "Leyp um aftureftir",
+  "video.skip_forward": "Leyp um frameftir",
+  "video.unmute": "Doyv ikki",
+  "video.volume_down": "Minka ljóðstyrki",
+  "video.volume_up": "Øk um ljóðstyrki"
 }

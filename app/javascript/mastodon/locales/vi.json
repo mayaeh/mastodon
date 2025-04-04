@@ -65,6 +65,7 @@
   "account.statuses_counter": "{count, plural, other {{counter} Tút}}",
   "account.unblock": "Bỏ chặn @{name}",
   "account.unblock_domain": "Bỏ ẩn {domain}",
+  "account.unblock_domain_short": "Bỏ chặn",
   "account.unblock_short": "Bỏ chặn",
   "account.unendorse": "Ngưng tôn vinh người này",
   "account.unfollow": "Bỏ theo dõi",
@@ -908,5 +909,9 @@
   "video.mute": "Tắt tiếng",
   "video.pause": "Tạm dừng",
   "video.play": "Phát",
-  "video.unmute": "Mở tiếng"
+  "video.skip_backward": "Chuyển lùi lại",
+  "video.skip_forward": "Chuyển tới trước",
+  "video.unmute": "Bật tiếng",
+  "video.volume_down": "Giảm âm lượng",
+  "video.volume_up": "Tăng âm lượng"
 }

@@ -65,6 +65,7 @@
   "account.statuses_counter": "{count, plural, one {{counter} bericht} other {{counter} berichten}}",
   "account.unblock": "@{name} deblokkeren",
   "account.unblock_domain": "{domain} niet langer blokkeren",
+  "account.unblock_domain_short": "Deblokkeren",
   "account.unblock_short": "Deblokkeren",
   "account.unendorse": "Niet op profiel weergeven",
   "account.unfollow": "Ontvolgen",
@@ -905,8 +906,12 @@
   "video.expand": "Video groter maken",
   "video.fullscreen": "Volledig scherm",
   "video.hide": "Video verbergen",
-  "video.mute": "Geluid uitschakelen",
+  "video.mute": "Dempen",
   "video.pause": "Pauze",
   "video.play": "Afspelen",
-  "video.unmute": "Geluid inschakelen"
+  "video.skip_backward": "Terugspoelen",
+  "video.skip_forward": "Vooruitspoelen",
+  "video.unmute": "Dempen opheffen",
+  "video.volume_down": "Volume omlaag",
+  "video.volume_up": "Volume omhoog"
 }

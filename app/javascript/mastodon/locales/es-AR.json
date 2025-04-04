@@ -65,6 +65,7 @@
   "account.statuses_counter": "{count, plural, one {{counter} mensaje} other {{counter} mensajes}}",
   "account.unblock": "Desbloquear a @{name}",
   "account.unblock_domain": "Desbloquear dominio {domain}",
+  "account.unblock_domain_short": "Desbloquear",
   "account.unblock_short": "Desbloquear",
   "account.unendorse": "No destacar en el perfil",
   "account.unfollow": "Dejar de seguir",
@@ -908,5 +909,9 @@
   "video.mute": "Silenciar",
   "video.pause": "Pausar",
   "video.play": "Reproducir",
-  "video.unmute": "Dejar de silenciar"
+  "video.skip_backward": "Saltar atrás",
+  "video.skip_forward": "Adelantar",
+  "video.unmute": "Quitar silenciado",
+  "video.volume_down": "Bajar volumen",
+  "video.volume_up": "Subir volumen"
 }
