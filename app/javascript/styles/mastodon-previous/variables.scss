@@ -1,4 +1,6 @@
 @use 'sass:color';
+@use '../mastodon/functions' as *;
+@use '../mastodon/variables' as *;
 
 // Dependent colors
 $black: #000000;
