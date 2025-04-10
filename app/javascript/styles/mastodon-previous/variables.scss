@@ -15,18 +15,15 @@ $classic-primary-color: #9baec8;
 $classic-secondary-color: #d9e1e8;
 
 // Differences
-$ui-highlight-color: #2b90d9;
-
 @use '../mastodon/variables' with (
   $classic-highlight-color: #2b90d9,
   $base-overlay-background: $classic-base-color,
   $ui-base-color: $classic-base-color,
-  $highlight-text-color: $ui-highlight-color,
-
-  $ui-button-background-color: $ui-highlight-color,
-
+  $ui-highlight-color: #2b90d9,
+  $highlight-text-color: #2b90d9,
+  $ui-button-background-color: #2b90d9,
   $ui-button-disabled-color: color.adjust(
-    $ui-highlight-color,
+    #2b90d9,
     $alpha: -0.3
   ),
 
