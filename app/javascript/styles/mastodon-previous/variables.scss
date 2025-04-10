@@ -28,7 +28,7 @@ $classic-secondary-color: #d9e1e8;
   $ui-button-disabled-color: color.adjust(
     $ui-button-background-color,
     $alpha: -0.3
-  ) !default,
+  ),
 
   $ui-button-secondary-color: $grey-100,
   $ui-button-secondary-border-color: $grey-100,
