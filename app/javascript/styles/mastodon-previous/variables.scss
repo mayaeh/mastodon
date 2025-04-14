@@ -16,6 +16,7 @@ $classic-secondary-color: #d9e1e8;
 
 // Differences
 $classic-highlight-color: #2b90d9;
+$ui-button-secondary-focus-background-color: $grey-600;
 
 @use '../mastodon/variables' with (
   $base-overlay-background: $classic-base-color,
@@ -30,6 +31,5 @@ $classic-highlight-color: #2b90d9;
 
   $ui-button-secondary-color: $grey-100,
   $ui-button-secondary-border-color: $grey-100,
-  $ui-button-secondary-focus-background-color: $grey-600,
   $ui-button-secondary-focus-color: $white
 );
