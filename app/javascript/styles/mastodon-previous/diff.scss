@@ -268,9 +268,9 @@ body {
     &:active,
     &:focus,
     &:hover {
-      border-color: $ui-button-secondary-focus-background-color;
+      border-color: $grey-600;
       color: $ui-button-secondary-focus-color;
-      background-color: $ui-button-secondary-focus-background-color;
+      background-color: $grey-600;
     }
   }
 }
