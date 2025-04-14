@@ -285,7 +285,7 @@ class StatusActionBar extends ImmutablePureComponent {
         if (status.get('visibility') === 'private') {
           menu.push({ text: intl.formatMessage(status.get('reblogged') ? messages.cancel_reblog_private : messages.reblog_private), action: this.handleReblogClick });
         }
-        if (pinnableStatus || status.get('visibility') === 'private')
+        if (pinnableStatus || status.get('visibility') === 'private') {
           menu.push(null);
         }
       }
