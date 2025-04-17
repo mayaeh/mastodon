@@ -3,7 +3,7 @@
 @use 'variables' as *;
 @use '../mastodon/functions' as *;
 
-:body {
+:root {
   --dropdown-border-color: #{lighten($ui-base-color, 12%)};
   --dropdown-background-color: #{lighten($ui-base-color, 4%)};
   --modal-background-color: #{darken($ui-base-color, 4%)};
