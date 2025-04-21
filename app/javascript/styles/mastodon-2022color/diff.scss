@@ -1,5 +1,8 @@
 // Notes!
 // Sass color functions, "darken" and "lighten" are automatically replaced.
+@use 'sass:color';
+@use '../mastodon/functions' as *;
+@use '../mastodon/variables' as *;
 
 // admin.scss
 .admin-account-bio {
@@ -514,6 +517,33 @@
       background: $ui-button-destructive-background-color;
       border-color: $ui-button-destructive-background-color;
       color: $white;
+    }
+  }
+}
+
+.radio-button__input.checked::before {
+  background: $ui-highlight-color;
+}
+
+.video-player {
+  &__volume {
+    &__current {
+      background: $white;
+    }
+
+    &__handle {
+      background: $white;
+    }
+  }
+
+  &__seek {
+    &__progress,
+    &__buffer {
+      background: $white;
+    }
+
+    &__handle {
+      background: $white;
     }
   }
 }

@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use '../mastodon/functions' as *;
+
 // Dependent colors
 $black: #000000;
 $white: #ffffff;
@@ -10,21 +13,15 @@ $classic-primary-color: #9baec8;
 $classic-secondary-color: #d9e1e8;
 
 // Differences
-$base-overlay-background: $black !default;
-$ui-base-color: $classic-base-color !default; // Darkest
 $classic-highlight-color: #6364ff;
-$ui-highlight-color: $classic-highlight-color !default;
-$highlight-text-color: $ui-highlight-color !default;
 
-$ui-button-secondary-color: $blurple-500 !default;
-$ui-button-secondary-border-color: $blurple-500 !default;
-$ui-button-secondary-focus-border-color: $blurple-300 !default;
-$ui-button-secondary-focus-color: $blurple-300 !default;
+@use '../mastodon/variables' with (
+  $base-overlay-background: $black,
+  $ui-base-color: $classic-base-color,
+  $ui-highlight-color: $classic-highlight-color,
+  $highlight-text-color: $ui-highlight-color,
 
-.theme-mastodon-2022color {
-  --dropdown-border-color: #{lighten($ui-base-color, 4%)};
-  --dropdown-background-color: #{rgba(darken($ui-base-color, 8%), 0.9)};
-  --modal-background-color: #{rgba(darken($ui-base-color, 8%), 0.7)};
-  --background-border-color: #{lighten($ui-base-color, 4%)};
-  --background-color: #{darken($ui-base-color, 8%)};
-}
+  $ui-button-secondary-color: $blurple-500,
+  $ui-button-secondary-border-color: $blurple-500,
+  $ui-button-secondary-focus-color: $blurple-300
+);
