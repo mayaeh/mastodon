@@ -4788,19 +4788,6 @@ a.status-card {
   }
 }
 
-.relationship-tag {
-  color: $white;
-  margin-bottom: 4px;
-  display: block;
-  background-color: rgba($black, 0.45);
-  backdrop-filter: blur(10px) saturate(180%) contrast(75%) brightness(70%);
-  font-size: 11px;
-  text-transform: uppercase;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
 .setting-toggle {
   display: flex;
   align-items: center;
@@ -5275,6 +5262,9 @@ a.status-card {
 
     &__results {
       &__item {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
         cursor: pointer;
         color: $inverted-text-color;
         font-size: 14px;
@@ -6278,7 +6268,7 @@ a.status-card {
 
     a {
       text-decoration: none;
-      color: $inverted-text-color;
+      color: $highlight-text-color;
       font-weight: 500;
 
       &:hover {
@@ -6682,7 +6672,8 @@ a.status-card {
   pointer-events: none;
 }
 
-.media-gallery__alt__label {
+.media-gallery__alt__label,
+.relationship-tag {
   display: block;
   text-align: center;
   color: $white;
@@ -6701,6 +6692,11 @@ a.status-card {
   &--non-interactive {
     pointer-events: none;
   }
+}
+
+.relationship-tag {
+  text-transform: uppercase;
+  cursor: default;
 }
 
 .media-gallery__alt__popover {
@@ -7585,14 +7581,11 @@ a.status-card {
 }
 
 .radio-button__input.checked::before {
-  position: absolute;
-  left: 2px;
-  top: 2px;
   content: '';
   display: block;
   border-radius: 50%;
-  width: 12px;
-  height: 12px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
   background: lighten($ui-highlight-color, 8%);
 }
 
@@ -7789,8 +7782,11 @@ noscript {
 
   &__info {
     position: absolute;
-    top: 10px;
-    inset-inline-start: 10px;
+    top: 20px;
+    inset-inline-end: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
   }
 
   &__image {
@@ -8126,13 +8122,9 @@ noscript {
   &__item {
     display: flex;
     align-items: center;
-    padding: 15px;
+    padding: 16px;
     border-bottom: 1px solid var(--background-border-color);
-    gap: 15px;
-
-    &:last-child {
-      border-bottom: 0;
-    }
+    gap: 8px;
 
     &__name {
       flex: 1 1 auto;
@@ -8239,7 +8231,7 @@ noscript {
   }
 
   &--compact &__item {
-    padding: 10px;
+    padding: 12px;
   }
 }
 
