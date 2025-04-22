@@ -1,3 +1,9 @@
+// Notes!
+// Sass color functions, "darken" and "lighten" are automatically replaced.
+@use 'sass:color';
+@use '../mastodon/functions' as *;
+@use '../mastodon/variables' as *;
+
 .floating-action-button {
   display: none;
 }
