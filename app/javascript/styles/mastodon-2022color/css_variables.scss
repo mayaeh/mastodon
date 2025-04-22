@@ -1,0 +1,12 @@
+@use 'sass:color';
+@use '../mastodon/variables' as *;
+@use 'variables' as *;
+@use '../mastodon/functions' as *;
+
+.theme-mastodon-2022color {
+  --dropdown-border-color: #{lighten($ui-base-color, 4%)};
+  --dropdown-background-color: #{rgba(darken($ui-base-color, 8%), 0.9)};
+  --modal-background-color: #{rgba(darken($ui-base-color, 8%), 0.7)};
+  --background-border-color: #{lighten($ui-base-color, 4%)};
+  --background-color: #{darken($ui-base-color, 8%)};
+}
