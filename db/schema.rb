@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_11_095859) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_25_134654) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -891,7 +891,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_095859) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "quotes", force: :cascade do |t|
+  create_table "quotes", id: :bigint, default: -> { "timestamp_id('quotes'::text)" }, force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "status_id", null: false
     t.bigint "quoted_status_id"
@@ -1257,8 +1257,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_095859) do
     t.json "data"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.bigint "access_token_id"
-    t.bigint "user_id"
+    t.bigint "access_token_id", null: false
+    t.bigint "user_id", null: false
     t.boolean "standard", default: false, null: false
     t.index ["access_token_id"], name: "index_web_push_subscriptions_on_access_token_id", where: "(access_token_id IS NOT NULL)"
     t.index ["user_id"], name: "index_web_push_subscriptions_on_user_id"
