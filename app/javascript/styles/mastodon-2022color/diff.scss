@@ -548,6 +548,11 @@
   }
 }
 
+.audio-player {
+  background: var(--player-background-color, var(--background-color));
+  color: var(--player-foreground-color);
+}
+
 // dashboard.scss
 .dashboard {
   &__quick-access {
