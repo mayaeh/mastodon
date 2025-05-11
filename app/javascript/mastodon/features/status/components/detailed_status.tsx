@@ -169,18 +169,17 @@
                             src={attachment.get('url')}
                             alt={description}
                             lang={language}
-                            duration={attachment.getIn(['meta', 'original', 'duration'], 0)}
                             poster={
                               attachment.get('preview_url') ||
                               status.getIn(['account', 'avatar_static'])
                             }
+                            duration={attachment.getIn(['meta', 'original', 'duration'], 0)}
                             backgroundColor={attachment.getIn(['meta', 'colors', 'background'])}
                             foregroundColor={attachment.getIn(['meta', 'colors', 'foreground'])}
                             accentColor={attachment.getIn(['meta', 'colors', 'accent'])}
                             sensitive={status.get('sensitive')}
                             visible={showMedia}
                             blurhash={attachment.get('blurhash')}
-                            height={150}
                             onToggleVisibility={onToggleMediaVisibility}
                             matchedFilters={status.get('matched_media_filters')}
                           />
@@ -191,7 +190,6 @@
                           attachment.getIn(['translation', 'description']) ||
                           attachment.get('description');
 
-<<<<<<< HEAD
                         media = (
                           <Video
                             preview={attachment.get('preview_url')}
@@ -217,33 +215,6 @@
                         />
                       );
                     }
-=======
-      media = (
-        <Audio
-          src={attachment.get('url')}
-          alt={description}
-          lang={language}
-          poster={
-            attachment.get('preview_url') ||
-            status.getIn(['account', 'avatar_static'])
-          }
-          duration={attachment.getIn(['meta', 'original', 'duration'], 0)}
-          backgroundColor={attachment.getIn(['meta', 'colors', 'background'])}
-          foregroundColor={attachment.getIn(['meta', 'colors', 'foreground'])}
-          accentColor={attachment.getIn(['meta', 'colors', 'accent'])}
-          sensitive={status.get('sensitive')}
-          visible={showMedia}
-          blurhash={attachment.get('blurhash')}
-          onToggleVisibility={onToggleMediaVisibility}
-          matchedFilters={status.get('matched_media_filters')}
-        />
-      );
-    } else if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
-      const attachment = status.getIn(['media_attachments', 0]);
-      const description =
-        attachment.getIn(['translation', 'description']) ||
-        attachment.get('description');
->>>>>>> main
 
                     if (status.get('application')) {
                       applicationLink = (
