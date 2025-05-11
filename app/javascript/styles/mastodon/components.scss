@@ -1688,10 +1688,10 @@ body > [data-popper-placement] {
 .notification-ungrouped--direct,
 .notification-group--direct,
 .notification-group--annual-report {
-  background: mix($ui-base-color, $ui-highlight-color, 95%);
+  background: color.mix($ui-base-color, $ui-highlight-color, 95%);
 
   &:focus {
-    background: mix(lighten($ui-base-color, 4%), $ui-highlight-color, 95%);
+    background: color.mix(lighten($ui-base-color, 4%), $ui-highlight-color, 95%);
   }
 }
 

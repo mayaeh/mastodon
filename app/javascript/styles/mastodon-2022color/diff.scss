@@ -322,7 +322,7 @@
   }
 
   .spoiler-input__input {
-    background: mix($ui-base-color, $ui-highlight-color, 85%);
+    background: color.mix($ui-base-color, $ui-highlight-color, 85%);
     color: $highlight-text-color;
   }
 }
