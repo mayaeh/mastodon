@@ -1,4 +1,6 @@
 @use 'sass:math';
+@use 'functions' as *;
+@use 'variables' as *;
 
 $no-columns-breakpoint: 890px;
 $sidebar-width: 300px;
@@ -1989,6 +1991,11 @@ a.sparkline {
           line-height: 20px;
           font-weight: 600;
           margin-bottom: 16px;
+
+          a {
+            color: inherit;
+            text-decoration: none;
+          }
         }
       }
     }

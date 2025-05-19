@@ -1,3 +1,4 @@
-@import 'mastodon-previous/variables';
-@import 'application';
-@import 'mastodon-previous/diff';
+@use 'mastodon-previous/variables';
+@use 'mastodon-previous/css_variables';
+@use 'application';
+@use 'mastodon-previous/diff';

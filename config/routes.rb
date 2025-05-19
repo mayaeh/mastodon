@@ -130,6 +130,7 @@ Rails.application.routes.draw do
   constraints(username: %r{[^@/.]+}) do
     with_options to: 'accounts#show' do
       get '/@:username', as: :short_account
+      get '/@:username/featured'
       get '/@:username/with_replies', as: :short_account_with_replies
       get '/@:username/media', as: :short_account_media
       get '/@:username/tagged/:tag', as: :short_account_tag
@@ -197,6 +198,8 @@ Rails.application.routes.draw do
 
   draw(:api)
 
+  draw(:fasp)
+
   draw(:web_app)
 
   get '/web/(*any)', to: redirect('/%{any}', status: 302), as: :web, defaults: { any: '' }, format: false
@@ -205,7 +208,8 @@ Rails.application.routes.draw do
 
   get '/privacy-policy',   to: 'privacy#show', as: :privacy_policy
   get '/terms-of-service', to: 'terms_of_service#show', as: :terms_of_service
-  get '/terms',            to: redirect('/terms-of-service')
+  get '/terms-of-service/:date', to: 'terms_of_service#show', as: :terms_of_service_version
+  get '/terms', to: redirect('/terms-of-service')
 
   match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false

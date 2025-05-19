@@ -26,6 +26,8 @@ RSpec.describe 'Admin Rules' do
       it 'creates new record with valid attributes' do
         visit admin_rules_path
 
+        click_on I18n.t('admin.rules.add_new')
+
         # Invalid submission
         fill_in 'rule_text', with: ''
         expect { submit_form }
@@ -65,7 +67,7 @@ RSpec.describe 'Admin Rules' do
       end
 
       def submit_form
-        click_on I18n.t('generic.save_changes')
+        click_on(submit_button)
       end
     end
 

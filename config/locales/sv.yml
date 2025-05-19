@@ -475,6 +475,19 @@ sv:
       new:
         title: Importera domänblockeringar
       no_file: Ingen fil vald
+    fasp:
+      debug:
+        callbacks:
+          ip: IP-adress
+      providers:
+        base_url: Bas-URL
+        delete: Ta bort
+        finish_registration: Slutför registrering
+        name: Namn
+        registrations:
+          confirm: Bekräfta
+          reject: Avvisa
+        save: Spara
     follow_recommendations:
       description_html: "<strong>Följrekommendationer hjälper nya användare att snabbt hitta intressant innehåll</strong>. När en användare inte har interagerat med andra tillräckligt mycket för att forma personliga följrekommendationer, rekommenderas istället dessa konton. De beräknas om varje dag från en mix av konton med nylig aktivitet och högst antal följare för ett givet språk."
       language: För språket
@@ -1937,8 +1950,6 @@ sv:
     terms_of_service_changed:
       agreement: Genom att fortsätta använda %{domain} godkänner du dessa villkor. Om du inte håller med om de uppdaterade villkoren kan du när som helst säga upp ditt avtal med %{domain} genom att radera ditt konto.
       changelog: 'I korthet, här är vad denna uppdatering innebär för dig:'
-      description: 'Du får detta e-postmeddelande eftersom vi gör vissa ändringar i våra användarvillkor på %{domain}. Vi uppmanar dig att granska de uppdaterade villkoren i sin helhet här:'
-      description_html: Du får detta e-postmeddelande eftersom vi gör vissa ändringar i våra användarvillkor på %{domain}. Vi uppmanar dig att granska de uppdaterade villkoren i <a href="%{path}" target="_blank">sin helhet här</a>.
       sign_off: "%{domain} teamet"
       subject: Uppdateringar till våra användarvillkor
       subtitle: Villkoren för tjänsten på %{domain} ändras

@@ -14,6 +14,7 @@ gem 'haml-rails', '~>2.0'
 gem 'pg', '~> 1.5'
 gem 'pghero'
 
+gem 'aws-sdk-core', '< 3.216.0', require: false # TODO: https://github.com/mastodon/mastodon/pull/34173#issuecomment-2733378873
 gem 'aws-sdk-s3', '~> 1.123', require: false
 gem 'blurhash', '~> 0.1'
 gem 'fog-core', '<= 2.6.0'
@@ -39,7 +40,7 @@ gem 'net-ldap', '~> 0.18'
 
 gem 'omniauth', '~> 2.0'
 gem 'omniauth-cas', '~> 3.0.0.beta.1'
-gem 'omniauth_openid_connect', '~> 0.6.1'
+gem 'omniauth_openid_connect', '~> 0.8.0'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 gem 'omniauth-saml', '~> 2.0'
 
@@ -61,8 +62,9 @@ gem 'inline_svg'
 gem 'irb', '~> 1.8'
 gem 'kaminari', '~> 1.2'
 gem 'link_header', '~> 0.0'
+gem 'linzer', '~> 0.6.1'
 gem 'mario-redis-lock', '~> 1.2', require: 'redis_lock'
-gem 'mime-types', '~> 3.6.0', require: 'mime/types/columnar'
+gem 'mime-types', '~> 3.7.0', require: 'mime/types/columnar'
 gem 'mutex_m'
 gem 'nokogiri', '~> 1.15'
 gem 'oj', '~> 3.14'
@@ -77,7 +79,7 @@ gem 'rails-i18n', '~> 8.0'
 gem 'redcarpet', '~> 3.6'
 gem 'redis', '~> 4.5', require: ['redis', 'redis/connection/hiredis']
 gem 'redis-namespace', '~> 1.10'
-gem 'rqrcode', '~> 2.2'
+gem 'rqrcode', '~> 3.0'
 gem 'ruby-progressbar', '~> 1.13'
 gem 'sanitize', '~> 7.0'
 gem 'scenic', '~> 1.7'
@@ -102,10 +104,10 @@ gem 'rdf-normalize', '~> 0.5'
 
 gem 'prometheus_exporter', '~> 2.2', require: false
 
-gem 'opentelemetry-api', '~> 1.4.0'
+gem 'opentelemetry-api', '~> 1.5.0'
 
 group :opentelemetry do
-  gem 'opentelemetry-exporter-otlp', '~> 0.29.0', require: false
+  gem 'opentelemetry-exporter-otlp', '~> 0.30.0', require: false
   gem 'opentelemetry-instrumentation-active_job', '~> 0.8.0', require: false
   gem 'opentelemetry-instrumentation-active_model_serializers', '~> 0.22.0', require: false
   gem 'opentelemetry-instrumentation-concurrent_ruby', '~> 0.22.0', require: false
@@ -166,6 +168,7 @@ group :development do
   # Code linting CLI and plugins
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
+  gem 'rubocop-i18n', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
@@ -210,7 +213,7 @@ group :development, :test do
   gem 'test-prof', require: false
 
   # RSpec runner for rails
-  gem 'rspec-rails', '~> 7.0'
+  gem 'rspec-rails', '~> 8.0'
 end
 
 group :production do

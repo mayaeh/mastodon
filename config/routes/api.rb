@@ -80,7 +80,7 @@ namespace :api, format: false do
       end
     end
 
-    resources :media, only: [:create, :update, :show]
+    resources :media, only: [:create, :update, :show, :destroy]
     resources :blocks, only: [:index]
     resources :mutes, only: [:index]
     resources :favourites, only: [:index]
@@ -124,6 +124,8 @@ namespace :api, format: false do
         resource :translation_languages, only: [:show]
         resource :languages, only: [:show]
         resource :activity, only: [:show], controller: :activity
+
+        get '/terms_of_service/:date', to: 'terms_of_services#show'
       end
     end
 
@@ -191,6 +193,7 @@ namespace :api, format: false do
         resources :lists, only: :index
         resources :identity_proofs, only: :index
         resources :featured_tags, only: :index
+        resources :endorsements, only: :index
       end
 
       member do
@@ -204,8 +207,10 @@ namespace :api, format: false do
       end
 
       scope module: :accounts do
-        resource :pin, only: :create
-        post :unpin, to: 'pins#destroy'
+        post :pin, to: 'endorsements#create'
+        post :endorse, to: 'endorsements#create'
+        post :unpin, to: 'endorsements#destroy'
+        post :unendorse, to: 'endorsements#destroy'
         resource :note, only: :create
       end
     end
@@ -214,6 +219,8 @@ namespace :api, format: false do
       member do
         post :follow
         post :unfollow
+        post :feature
+        post :unfeature
       end
     end
 

@@ -1,0 +1,12 @@
+@use 'sass:color';
+@use '../mastodon/variables' as *;
+@use 'variables' as *;
+@use '../mastodon/functions' as *;
+
+:root {
+  --dropdown-border-color: #{lighten($ui-base-color, 12%)};
+  --dropdown-background-color: #{lighten($ui-base-color, 4%)};
+  --modal-background-color: #{darken($ui-base-color, 4%)};
+  --background-border2-color: #{lighten($ui-base-color, 8%)};
+  --background-drawer-color: #{lighten($ui-base-color, 4%)};
+}
