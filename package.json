@@ -3,7 +3,7 @@
   "license": "AGPL-3.0-or-later",
   "packageManager": "yarn@4.9.1",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "workspaces": [
     ".",
@@ -47,6 +47,7 @@
     "@react-spring/web": "^9.7.5",
     "@reduxjs/toolkit": "^2.0.1",
     "@use-gesture/react": "^10.3.1",
+    "@vitejs/plugin-legacy": "^6.1.1",
     "@vitejs/plugin-react": "^4.2.1",
     "arrow-key-navigation": "^1.2.0",
     "async-mutex": "^0.5.0",
@@ -158,12 +159,12 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "globals": "^16.0.0",
     "husky": "^9.0.11",
-    "lint-staged": "^15.0.0",
+    "lint-staged": "^16.0.0",
     "prettier": "^3.3.3",
     "react-test-renderer": "^18.2.0",
-    "stylelint": "^16.11.0",
+    "stylelint": "^16.19.1",
     "stylelint-config-prettier-scss": "^1.0.0",
-    "stylelint-config-standard-scss": "^14.0.0",
+    "stylelint-config-standard-scss": "^15.0.1",
     "typescript": "~5.7.3",
     "typescript-eslint": "^8.29.1",
     "vite-plugin-rails": "^0.5.0",

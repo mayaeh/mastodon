@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_28_104538) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_20_204643) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -982,6 +982,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_104538) do
     t.index ["target_account_id"], name: "index_reports_on_target_account_id"
   end
 
+  create_table "rule_translations", force: :cascade do |t|
+    t.text "text", default: "", null: false
+    t.text "hint", default: "", null: false
+    t.string "language", null: false
+    t.bigint "rule_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rule_id", "language"], name: "index_rule_translations_on_rule_id_and_language", unique: true
+  end
+
   create_table "rules", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.datetime "deleted_at", precision: nil
@@ -1244,9 +1254,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_104538) do
     t.datetime "confirmation_sent_at", precision: nil
     t.string "unconfirmed_email"
     t.string "locale"
-    t.string "encrypted_otp_secret"
-    t.string "encrypted_otp_secret_iv"
-    t.string "encrypted_otp_secret_salt"
     t.integer "consumed_timestep"
     t.boolean "otp_required_for_login", default: false, null: false
     t.datetime "last_emailed_at", precision: nil
@@ -1430,6 +1437,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_104538) do
   add_foreign_key "reports", "accounts", column: "target_account_id", name: "fk_eb37af34f0", on_delete: :cascade
   add_foreign_key "reports", "accounts", name: "fk_4b81f7522c", on_delete: :cascade
   add_foreign_key "reports", "oauth_applications", column: "application_id", on_delete: :nullify
+  add_foreign_key "rule_translations", "rules", on_delete: :cascade
   add_foreign_key "scheduled_statuses", "accounts", on_delete: :cascade
   add_foreign_key "session_activations", "oauth_access_tokens", column: "access_token_id", name: "fk_957e5bda89", on_delete: :cascade
   add_foreign_key "session_activations", "users", name: "fk_e5fda67334", on_delete: :cascade

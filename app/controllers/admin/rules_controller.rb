@@ -7,7 +7,7 @@ module Admin
     def index
       authorize :rule, :index?
 
-      @rules = Rule.ordered
+      @rules = Rule.ordered.includes(:translations)
     end
 
     def new
@@ -27,7 +27,6 @@ module Admin
       if @rule.save
         redirect_to admin_rules_path
       else
-        @rules = Rule.ordered
         render :new
       end
     end
@@ -50,6 +49,22 @@ module Admin
       redirect_to admin_rules_path
     end
 
+    def move_up
+      authorize @rule, :update?
+
+      @rule.move!(-1)
+
+      redirect_to admin_rules_path
+    end
+
+    def move_down
+      authorize @rule, :update?
+
+      @rule.move!(+1)
+
+      redirect_to admin_rules_path
+    end
+
     private
 
     def set_rule
@@ -58,7 +73,7 @@ module Admin
 
     def resource_params
       params
-        .expect(rule: [:text, :hint, :priority])
+        .expect(rule: [:text, :hint, :priority, translations_attributes: [[:id, :language, :text, :hint, :_destroy]]])
     end
   end
 end
