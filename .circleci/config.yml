@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  ruby: circleci/ruby@2.5.2
+  ruby: circleci/ruby@2.5.3
   node: circleci/node@7.1.0
 
 executors:
@@ -32,7 +32,7 @@ commands:
           name: Install system dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install -y libicu-dev libidn11-dev
+            sudo apt-get install -y libicu-dev libidn11-dev libvips42
   prepare-yarn:
     steps:
       - run:
@@ -63,7 +63,7 @@ commands:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.3.5-node
+      - image: cimg/ruby:3.4.4-node
         environment:
           RAILS_ENV: test
     steps:
@@ -71,7 +71,7 @@ jobs:
       - install-system-dependencies
       - prepare-yarn
       - install-ruby-dependencies:
-          ruby-version: '3.3'
+          ruby-version: '3.4'
       - node/install-packages:
           cache-version: v2
           pkg-manager: yarn
@@ -103,7 +103,7 @@ jobs:
       - checkout
       - install-system-dependencies
       - run:
-          command: sudo apt-get install -y ffmpeg imagemagick libmagickcore-dev libmagickwand-dev libjpeg-dev libpng-dev libtiff-dev libwebp-dev libpam-dev libvips42
+          command: sudo apt-get install -y ffmpeg imagemagick libmagickcore-dev libmagickwand-dev libjpeg-dev libpng-dev libtiff-dev libwebp-dev libpam-dev
           name: Install additional system dependencies
       - run:
           command: bundle config with 'pam_authentication'
@@ -129,6 +129,7 @@ workflows:
               ruby-version:
                 - '3.2'
                 - '3.3'
+                - '.ruby-version'
           name: test-ruby<< matrix.ruby-version >>
           requires:
             - build
