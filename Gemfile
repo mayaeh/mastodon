@@ -5,7 +5,6 @@ ruby '>= 3.2.0', '< 3.5.0'
 
 gem 'propshaft'
 gem 'puma', '~> 6.3'
-gem 'rack', '~> 2.2.7'
 gem 'rails', '~> 8.0'
 gem 'thor', '~> 1.2'
 
@@ -75,7 +74,7 @@ gem 'premailer-rails'
 gem 'public_suffix', '~> 6.0'
 gem 'pundit', '~> 2.3'
 gem 'rack-attack', '~> 6.6'
-gem 'rack-cors', '~> 2.0', require: 'rack/cors'
+gem 'rack-cors', require: 'rack/cors'
 gem 'rails-i18n', '~> 8.0'
 gem 'redcarpet', '~> 3.6'
 gem 'redis', '~> 4.5', require: ['redis', 'redis/connection/hiredis']
@@ -203,7 +202,7 @@ group :development, :test do
   gem 'faker', '~> 3.2'
 
   # Generate factory objects
-  gem 'fabrication', '~> 2.30'
+  gem 'fabrication'
 
   # Profiling tools
   gem 'memory_profiler', require: false
