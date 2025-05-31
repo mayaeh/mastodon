@@ -643,6 +643,12 @@ body {
   }
 }
 
+.explore__search-results {
+  article {
+    background: $ui-base-color;
+  }
+}
+
 .report-dialog-modal {
   background: lighten($ui-secondary-color, 8%);
   color: $inverted-text-color;
