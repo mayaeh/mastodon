@@ -26,6 +26,7 @@
                   import MediaGallery from 'mastodon/components/media_gallery';
                   import { PictureInPicturePlaceholder } from 'mastodon/components/picture_in_picture_placeholder';
                   import StatusContent from 'mastodon/components/status_content';
+                  import { QuotedStatus } from 'mastodon/components/status_quoted';
                   import { VisibilityIcon } from 'mastodon/components/visibility_icon';
                   import { Audio } from 'mastodon/features/audio';
                   import scheduleIdleTask from 'mastodon/features/ui/util/schedule_idle_task';
@@ -194,6 +195,7 @@
                           <Video
                             preview={attachment.get('preview_url')}
                             frameRate={attachment.getIn(['meta', 'original', 'frame_rate'])}
+                            aspectRatio={`${attachment.getIn(['meta', 'original', 'width'])} / ${attachment.getIn(['meta', 'original', 'height'])}`}
                             blurhash={attachment.get('blurhash')}
                             src={attachment.get('url')}
                             alt={description}
@@ -206,7 +208,7 @@
                           />
                         );
                       }
-                    } else if (status.get('card')) {
+                    } else if (status.get('card') && !status.get('quote')) {
                       media = (
                         <Card
                           sensitive={status.get('sensitive')}
@@ -286,7 +288,12 @@
 
                     return (
                       <div style={outerStyle}>
-                        <div ref={handleRef} className={classNames('detailed-status')}>
+                      <div
+                        ref={handleRef}
+                        className={classNames('detailed-status', {
+                          'status--has-quote': !!status.get('quote'),
+                        })}
+                      >
                           {status.get('visibility') === 'direct' && (
                             <div className='status__prepend'>
                               <div className='status__prepend-icon-wrapper'>
@@ -350,6 +357,10 @@
                                 onTranslate={handleTranslate}
                                 {...(statusContentProps as any)}
                               />
+
+                              {status.get('quote') && (
+                                <QuotedStatus quote={status.get('quote')} />
+                              )}
 
                               {media}
                               {hashtagBar}

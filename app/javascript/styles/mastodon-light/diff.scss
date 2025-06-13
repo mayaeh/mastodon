@@ -676,6 +676,12 @@ a.sparkline {
   }
 }
 
+.featured-carousel {
+  background: var(--nested-card-background);
+  border-bottom: var(--nested-card-border);
+  color: var(--nested-card-text);
+}
+
 // emoji_picker.scss
 .emoji-mart-bar {
   &:first-child {

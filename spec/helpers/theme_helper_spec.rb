@@ -6,10 +6,10 @@ RSpec.describe ThemeHelper do
   describe 'theme_style_tags' do
     let(:result) { helper.theme_style_tags(theme) }
 
-    context 'when using system theme' do
+    context 'when using "system" theme' do
       let(:theme) { 'system' }
 
-      it 'returns the mastodon-light and default stylesheets with correct color schemes' do
+      it 'returns the mastodon-light and application stylesheets with correct color schemes' do
         expect(html_links.first.attributes.symbolize_keys)
           .to include(
             href: have_attributes(value: match(/mastodon-light/)),
@@ -17,8 +17,19 @@ RSpec.describe ThemeHelper do
           )
         expect(html_links.last.attributes.symbolize_keys)
           .to include(
-            href: have_attributes(value: match(/default/)),
+            href: have_attributes(value: match(/application/)),
             media: have_attributes(value: '(prefers-color-scheme: dark)')
+          )
+      end
+    end
+
+    context 'when using "default" theme' do
+      let(:theme) { 'default' }
+
+      it 'returns the application stylesheet' do
+        expect(html_links.last.attributes.symbolize_keys)
+          .to include(
+            href: have_attributes(value: match(/application/))
           )
       end
     end

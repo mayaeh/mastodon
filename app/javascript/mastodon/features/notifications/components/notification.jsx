@@ -21,7 +21,7 @@ import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
 import { Account } from 'mastodon/components/account';
 import { Icon } from 'mastodon/components/icon';
 import { RelativeTimestamp } from 'mastodon/components/relative_timestamp';
-import StatusContainer from 'mastodon/containers/status_container';
+import { StatusQuoteManager } from 'mastodon/components/status_quoted';
 import { me } from 'mastodon/initial_state';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 
@@ -182,7 +182,7 @@ class Notification extends ImmutablePureComponent {
 
   renderMention (notification) {
     return (
-      <StatusContainer
+      <StatusQuoteManager
         id={notification.get('status')}
         withDismiss
         hidden={this.props.hidden}
@@ -215,7 +215,7 @@ class Notification extends ImmutablePureComponent {
             </span>
           </div>
 
-          <StatusContainer
+          <StatusQuoteManager
             id={notification.get('status')}
             account={notification.get('account')}
             muted
@@ -248,7 +248,7 @@ class Notification extends ImmutablePureComponent {
             </span>
           </div>
 
-          <StatusContainer
+          <StatusQuoteManager
             id={notification.get('status')}
             account={notification.get('account')}
             muted
@@ -282,7 +282,7 @@ class Notification extends ImmutablePureComponent {
             </span>
           </div>
 
-          <StatusContainer
+          <StatusQuoteManager
             id={notification.get('status')}
             account={notification.get('account')}
             contextType='notifications'
@@ -317,7 +317,7 @@ class Notification extends ImmutablePureComponent {
             </span>
           </div>
 
-          <StatusContainer
+          <StatusQuoteManager
             id={notification.get('status')}
             account={notification.get('account')}
             contextType='notifications'
@@ -361,7 +361,7 @@ class Notification extends ImmutablePureComponent {
             </span>
           </div>
 
-          <StatusContainer
+          <StatusQuoteManager
             id={notification.get('status')}
             account={account}
             contextType='notifications'
