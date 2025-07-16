@@ -2932,7 +2932,7 @@ a.account__display-name {
 
 .tabs-bar__wrapper {
   background: darken($ui-base-color, 8%);
-  backdrop-filter: var(--background-filter);
+  backdrop-filter: $backdrop-blur-filter;
   position: sticky;
   top: 0;
   z-index: 2;
@@ -5178,8 +5178,7 @@ a.status-card {
   margin-top: 5px;
   z-index: 2;
   background: $simple-background-color;
-  backdrop-filter: var(--background-filter);
->>>>>>> main
+  backdrop-filter: $backdrop-blur-filter;
   border: 1px solid var(--dropdown-border-color);
   box-shadow: var(--dropdown-shadow);
   border-radius: 5px;
@@ -5377,7 +5376,7 @@ a.status-card {
 .language-dropdown__dropdown {
   box-shadow: var(--dropdown-shadow);
   background: $simple-background-color;
-  backdrop-filter: var(--background-filter);
+  backdrop-filter: $backdrop-blur-filter;
   border: 1px solid var(--dropdown-border-color);
   padding: 4px;
   border-radius: 4px;
