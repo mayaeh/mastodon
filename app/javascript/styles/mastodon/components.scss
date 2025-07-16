@@ -248,6 +248,21 @@
     width: 100%;
   }
 
+  &.loading {
+    cursor: wait;
+
+    .button__label-wrapper {
+      // Hide the label only visually, so that
+      // it keeps its layout and accessibility
+      opacity: 0;
+    }
+
+    .loading-indicator {
+      position: absolute;
+      inset: 0;
+    }
+  }
+
   .icon {
     width: 18px;
     height: 18px;
@@ -293,7 +308,7 @@
 
   &:hover,
   &:active,
-  &:focus {
+  &:focus-visible {
     color: lighten($action-button-color, 7%);
     background-color: rgba($action-button-color, 0.15);
   }
@@ -313,7 +328,7 @@
 
     &:hover,
     &:active,
-    &:focus {
+    &:focus-visible {
       color: darken($lighter-text-color, 7%);
       background-color: rgba($lighter-text-color, 0.15);
     }
@@ -333,7 +348,7 @@
 
     &:hover,
     &:active,
-    &:focus {
+    &:focus-visible {
       color: $highlight-text-color;
       background-color: transparent;
     }
@@ -346,7 +361,7 @@
   &.overlayed {
     box-sizing: content-box;
     background: rgba($black, 0.65);
-    backdrop-filter: blur(10px) saturate(180%) contrast(75%) brightness(70%);
+    backdrop-filter: $backdrop-blur-filter;
     color: rgba($white, 0.7);
     border-radius: 4px;
     padding: 2px;
@@ -698,7 +713,12 @@ body > [data-popper-placement] {
 
   &__upload {
     position: relative;
-    cursor: grab;
+
+    &.draggable {
+      will-change: transform, opacity;
+      touch-action: none;
+      cursor: grab;
+    }
 
     &.dragging {
       opacity: 0;
@@ -708,18 +728,6 @@ body > [data-popper-placement] {
       height: 100%;
       border-radius: 8px;
       pointer-events: none;
-    }
-
-    &__drag-handle {
-      position: absolute;
-      top: 50%;
-      inset-inline-start: 0;
-      transform: translateY(-50%);
-      color: $white;
-      background: transparent;
-      border: 0;
-      padding: 8px 3px;
-      cursor: grab;
     }
 
     &__actions {
@@ -1182,6 +1190,7 @@ body > [data-popper-placement] {
     line-height: 20px;
     letter-spacing: 0.25px;
     display: -webkit-box;
+    line-clamp: 4;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     padding: 0;
@@ -1260,6 +1269,7 @@ body > [data-popper-placement] {
     letter-spacing: 0.25px;
     padding-top: 0 !important;
     display: -webkit-box;
+    line-clamp: 4;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     max-height: 4 * 20px;
@@ -1405,9 +1415,10 @@ body > [data-popper-placement] {
 }
 
 .focusable {
-  &:focus {
+  &:focus-visible {
     outline: 0;
     background: var(--modal-border-color);
+    box-shadow: inset 0 0 0 2px $ui-button-focus-outline-color;
   }
 }
 
@@ -1802,7 +1813,7 @@ body > [data-popper-placement] {
     background: color.mix($ui-base-color, $ui-highlight-color, 95%);
   }
 
-  &:focus {
+  &:focus-visible {
     .detailed-status,
     .detailed-status__action-bar {
       background: color.mix(
@@ -1987,7 +1998,7 @@ body > [data-popper-placement] {
 
     &__popout {
       background: var(--dropdown-background-color);
-      backdrop-filter: var(--background-filter);
+      backdrop-filter: $backdrop-blur-filter;
       border: 1px solid var(--dropdown-border-color);
       box-shadow: var(--dropdown-shadow);
       max-width: 320px;
@@ -2089,6 +2100,7 @@ body > [data-popper-placement] {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
+    line-clamp: 1;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     margin-top: 10px;
@@ -2663,7 +2675,7 @@ a.account__display-name {
 
 .dropdown-menu {
   background: var(--dropdown-background-color);
-  backdrop-filter: var(--background-filter);
+  backdrop-filter: $backdrop-blur-filter;
   border: 1px solid var(--dropdown-border-color);
   padding: 4px;
   border-radius: 4px;
@@ -2806,17 +2818,18 @@ a.account__display-name {
   }
 
   &__panels {
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     gap: 16px;
     width: 100%;
     height: 100%;
     min-height: 100vh;
+    padding-bottom: env(safe-area-inset-bottom);
 
     &__pane {
       height: 100%;
       overflow: hidden;
-      pointer-events: none;
       display: flex;
       justify-content: flex-end;
       min-width: 285px;
@@ -2828,7 +2841,6 @@ a.account__display-name {
       &__inner {
         position: fixed;
         width: 285px;
-        pointer-events: auto;
         height: 100%;
       }
     }
@@ -2850,17 +2862,19 @@ a.account__display-name {
 }
 
 .ui__navigation-bar {
-  position: sticky;
+  position: fixed;
   bottom: 0;
-  background: var(--background-color);
-  backdrop-filter: var(--background-filter);
-  border-top: 1px solid var(--background-border-color);
   z-index: 3;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   gap: 8px;
   padding-bottom: env(safe-area-inset-bottom);
+  background: var(--background-color);
+  backdrop-filter: $backdrop-blur-filter;
+  border-top: 1px solid var(--background-border-color);
+  box-sizing: border-box;
 
   .layout-multiple-columns & {
     display: none;
@@ -2971,11 +2985,20 @@ a.account__display-name {
 }
 
 .ui {
+  --mobile-bottom-nav-height: 55px;
+  --last-content-item-border-width: 2px;
+
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
+
+  @media (max-width: #{$mobile-menu-breakpoint - 1}) {
+    padding-bottom: calc(
+      var(--mobile-bottom-nav-height) - var(--last-content-item-border-width)
+    );
+  }
 }
 
 .drawer {
@@ -3063,7 +3086,7 @@ a.account__display-name {
   .search__input {
     line-height: 18px;
     font-size: 16px;
-    padding: 15px;
+    padding-block: 15px;
     padding-inline-end: 30px;
   }
 
@@ -3101,7 +3124,7 @@ a.account__display-name {
   }
 }
 
-@media screen and (max-width: $no-gap-breakpoint - 1px) {
+@media screen and (max-width: ($no-gap-breakpoint - 1px)) {
   $sidebar-width: 285px;
 
   .columns-area__panels__main {
@@ -3124,13 +3147,12 @@ a.account__display-name {
       background: $ui-base-color;
       margin: 0;
       border-inline-start: 1px solid var(--background-border-color);
-      height: 100vh;
+      height: 100dvh;
     }
 
-    .navigation-panel__sign-in-banner,
     .navigation-panel__banner,
-    .getting-started__trends,
-    .navigation-panel__logo {
+    .navigation-panel__logo,
+    .getting-started__trends {
       display: none;
     }
   }
@@ -3183,6 +3205,7 @@ a.account__display-name {
     .navigation-panel {
       width: 284px;
       overflow-y: auto;
+      scrollbar-width: thin;
 
       &__menu {
         flex-shrink: 0;
@@ -3205,6 +3228,7 @@ a.account__display-name {
 .columns-area__panels__pane--overlay {
   pointer-events: auto;
   background: rgba($base-overlay-background, 0.5);
+  z-index: 3;
 
   .columns-area__panels__pane__inner {
     box-shadow: var(--dropdown-shadow);
@@ -3303,7 +3327,7 @@ a.account__display-name {
   }
 }
 
-@media screen and (max-width: $no-gap-breakpoint - 1px) {
+@media screen and (max-width: ($no-gap-breakpoint - 1px)) {
   .columns-area__panels__pane--compositional {
     display: none;
   }
@@ -3464,15 +3488,25 @@ a.account__display-name {
     &__header {
       display: flex;
       align-items: center;
-      padding-inline-end: 12px;
+      padding-inline-end: 4px;
+
+      &__sep {
+        width: 0;
+        height: 24px;
+        border-left: 1px solid var(--background-border-color);
+      }
 
       .column-link {
         flex: 1 1 auto;
       }
+
+      .icon-button {
+        padding: 8px;
+      }
     }
 
     &__items {
-      padding-inline-start: 24px + 5px;
+      padding-inline-start: 24px + 8px;
 
       .icon {
         display: none;
@@ -3483,14 +3517,16 @@ a.account__display-name {
   &__compose-button {
     display: flex;
     justify-content: flex-start;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-inline-start: 13px - 7px;
-    padding-inline-end: 13px;
-    gap: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-inline-start: 12px - 7px;
+    padding-inline-end: 12px;
+    gap: 8px;
     margin: 12px;
-    margin-bottom: 4px;
     border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 18px;
 
     .icon {
       width: 24px;
@@ -3500,7 +3536,11 @@ a.account__display-name {
 
   .navigation-bar {
     padding: 16px;
-    border-bottom: 1px solid var(--background-border-color);
+  }
+
+  .search {
+    margin: 16px;
+    margin-bottom: 12px;
   }
 
   .logo {
@@ -3512,26 +3552,36 @@ a.account__display-name {
     margin-bottom: 12px;
   }
 
-  @media screen and (height <= 710px) {
-    &__portal {
+  .getting-started__trends h4 {
+    padding: 10px 12px;
+    padding-inline-start: 16px;
+  }
+
+  .getting-started__trends .trends__item {
+    padding: 10px 12px;
+    padding-inline-start: 16px;
+  }
+
+  @media screen and (height <= 930px) {
+    &__portal .trends__item:nth-child(n + 5) {
       display: none;
     }
   }
 
-  @media screen and (height <= 765px) {
-    &__portal .trends__item:nth-child(n + 3) {
-      display: none;
-    }
-  }
-
-  @media screen and (height <= 820px) {
+  @media screen and (height <= (930px - 56px)) {
     &__portal .trends__item:nth-child(n + 4) {
       display: none;
     }
   }
 
-  @media screen and (height <= 920px) {
-    .column-link.column-link--optional {
+  @media screen and (height <= (930px - 56px * 2)) {
+    &__portal .trends__item:nth-child(n + 3) {
+      display: none;
+    }
+  }
+
+  @media screen and (height <= (930px - 56px * 3)) {
+    &__portal {
       display: none;
     }
   }
@@ -3801,9 +3851,11 @@ a.account__display-name {
 .column-link {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
   font-size: 16px;
-  padding: 13px;
+  font-weight: 400;
   text-decoration: none;
   overflow: hidden;
   white-space: nowrap;
@@ -3811,6 +3863,7 @@ a.account__display-name {
   background: var(--background-border-color);
   color: $primary-text-color;
   border-left: 4px solid transparent;
+  box-sizing: border-box;
 
   &:hover,
   &:focus,
@@ -3983,7 +4036,7 @@ a.account__display-name {
       background: rgba($base-shadow-color, 0.6);
       border-radius: 8px;
       padding: 12px 9px;
-      backdrop-filter: blur(10px) saturate(180%) contrast(75%) brightness(70%);
+      backdrop-filter: $backdrop-blur-filter;
       flex: 0 0 auto;
       display: flex;
       justify-content: center;
@@ -4081,6 +4134,7 @@ a.status-card {
 .status-card.expanded .status-card__title {
   white-space: normal;
   display: -webkit-box;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
@@ -4611,15 +4665,29 @@ a.status-card {
 }
 
 .load-more .loading-indicator,
-.button .loading-indicator {
+.button .loading-indicator,
+.icon-button .loading-indicator {
   position: static;
   transform: none;
+  color: inherit;
 
   .circular-progress {
-    color: $primary-text-color;
+    color: inherit;
     width: 22px;
     height: 22px;
   }
+}
+
+.button--compact .loading-indicator .circular-progress {
+  width: 17px;
+  height: 17px;
+}
+
+.icon-button .loading-indicator .circular-progress {
+  color: lighten($ui-base-color, 26%);
+  width: 12px;
+  height: 12px;
+  margin: 6px;
 }
 
 .load-more .loading-indicator .circular-progress {
@@ -4756,7 +4824,7 @@ a.status-card {
 
     &__label {
       background-color: rgba($black, 0.45);
-      backdrop-filter: blur(10px) saturate(180%) contrast(75%) brightness(70%);
+      backdrop-filter: $backdrop-blur-filter;
       border-radius: 8px;
       padding: 12px 16px;
       display: flex;
@@ -5111,6 +5179,7 @@ a.status-card {
   z-index: 2;
   background: $simple-background-color;
   backdrop-filter: var(--background-filter);
+>>>>>>> main
   border: 1px solid var(--dropdown-border-color);
   box-shadow: var(--dropdown-shadow);
   border-radius: 5px;
@@ -5609,17 +5678,46 @@ a.status-card {
   }
 }
 
-.search__icon {
-  background: transparent;
-  border: 0;
-  padding: 0;
+.search__icon-wrapper {
   position: absolute;
-  top: 12px + 2px;
-  cursor: default;
-  pointer-events: none;
+  top: 14px;
+  display: grid;
   margin-inline-start: 16px - 2px;
   width: 20px;
   height: 20px;
+
+  .icon {
+    width: 100%;
+    height: 100%;
+  }
+
+  &:not(.has-value) {
+    pointer-events: none;
+  }
+}
+
+.search__icon {
+  grid-area: 1 / 1;
+  transition: all 100ms linear;
+  transition-property: transform, opacity;
+  color: $darker-text-color;
+}
+
+.search__icon.icon-search {
+  .has-value & {
+    pointer-events: none;
+    opacity: 0;
+    transform: rotate(90deg);
+  }
+}
+
+.search__icon--clear-button {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
 
   &::-moz-focus-inner {
     border: 0;
@@ -5630,39 +5728,14 @@ a.status-card {
     outline: 0 !important;
   }
 
-  .icon {
-    position: absolute;
-    top: 0;
-    inset-inline-start: 0;
+  &:focus-visible {
+    box-shadow: 0 0 0 2px $ui-button-focus-outline-color;
+  }
+
+  &[aria-hidden='true'] {
+    pointer-events: none;
     opacity: 0;
-    transition: all 100ms linear;
-    transition-property: transform, opacity;
-    width: 20px;
-    height: 20px;
-    color: $darker-text-color;
-
-    &.active {
-      pointer-events: auto;
-      opacity: 1;
-    }
-  }
-
-  .icon-search {
-    transform: rotate(90deg);
-
-    &.active {
-      pointer-events: none;
-      transform: rotate(0deg);
-    }
-  }
-
-  .icon-times-circle {
-    transform: rotate(0deg);
-    cursor: pointer;
-
-    &.active {
-      transform: rotate(90deg);
-    }
+    transform: rotate(-90deg);
   }
 }
 
@@ -5979,7 +6052,7 @@ a.status-card {
   min-height: 478px;
   flex-direction: column;
   background: var(--modal-background-color);
-  backdrop-filter: var(--background-filter);
+  backdrop-filter: $backdrop-blur-filter;
   border: 1px solid var(--modal-border-color);
   border-radius: 16px;
 
@@ -6023,7 +6096,7 @@ a.status-card {
     padding: 24px;
     flex-direction: column;
     background: var(--modal-background-color);
-    backdrop-filter: var(--background-filter);
+    backdrop-filter: $backdrop-blur-filter;
     border: 1px solid var(--modal-border-color);
   }
 
@@ -6118,6 +6191,7 @@ a.status-card {
       font-size: 15px;
       line-height: 22px;
       color: $dark-text-color;
+      line-clamp: 4;
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
       max-height: 4 * 22px;
@@ -6240,7 +6314,7 @@ a.status-card {
   max-height: 80vh;
   flex-direction: column;
   background: var(--modal-background-color);
-  backdrop-filter: var(--background-filter);
+  backdrop-filter: $backdrop-blur-filter;
   border: 1px solid var(--modal-border-color);
   border-radius: 16px;
 
@@ -6307,7 +6381,7 @@ a.status-card {
 
   &__popout {
     background: var(--dropdown-background-color);
-    backdrop-filter: var(--background-filter);
+    backdrop-filter: $backdrop-blur-filter;
     border: 1px solid var(--dropdown-border-color);
     box-shadow: var(--dropdown-shadow);
     max-width: 320px;
@@ -6669,7 +6743,7 @@ a.status-card {
 .actions-modal {
   border-radius: 8px 8px 0 0;
   background: var(--dropdown-background-color);
-  backdrop-filter: var(--background-filter);
+  backdrop-filter: $backdrop-blur-filter;
   border-color: var(--dropdown-border-color);
   box-shadow: var(--dropdown-shadow);
   max-height: 80vh;
@@ -6795,7 +6869,7 @@ a.status-card {
     color: $white;
     border: 0;
     background: rgba($black, 0.65);
-    backdrop-filter: blur(10px) saturate(180%) contrast(75%) brightness(70%);
+    backdrop-filter: $backdrop-blur-filter;
     padding: 3px 12px;
     border-radius: 99px;
     font-size: 14px;
@@ -6820,7 +6894,7 @@ a.status-card {
   color: $white;
   border: 0;
   background: rgba($black, 0.65);
-  backdrop-filter: blur(10px) saturate(180%) contrast(75%) brightness(70%);
+  backdrop-filter: $backdrop-blur-filter;
   padding: 3px 8px;
   border-radius: 4px;
   font-size: 12px;
@@ -6842,7 +6916,7 @@ a.status-card {
 
 .media-gallery__alt__popover {
   background: rgba($black, 0.65);
-  backdrop-filter: blur(10px) saturate(180%) contrast(75%) brightness(70%);
+  backdrop-filter: $backdrop-blur-filter;
   border-radius: 4px;
   box-shadow: var(--dropdown-shadow);
   padding: 16px;
@@ -7325,6 +7399,7 @@ a.status-card {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.1s ease;
+    will-change: opacity, pointer-events;
 
     &.active {
       opacity: 1;
@@ -7430,6 +7505,9 @@ a.status-card {
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0 5px;
+
+    // Ensure digits maintain a consistent width
+    font-variant-numeric: tabular-nums;
   }
 
   &__time-sep,
@@ -7601,7 +7679,7 @@ a.status-card {
     inset-inline-start: 50%;
     transform: translate(-50%, -50%);
     background: rgba($base-shadow-color, 0.45);
-    backdrop-filter: var(--background-filter);
+    backdrop-filter: $backdrop-blur-filter;
     color: $white;
     border-radius: 8px;
     padding: 16px 24px;
@@ -7690,7 +7768,7 @@ a.status-card {
   display: flex;
   flex-shrink: 0;
 
-  @media screen and (max-width: $no-gap-breakpoint - 1px) {
+  @media screen and (max-width: ($no-gap-breakpoint - 1px)) {
     border-right: 0;
     border-left: 0;
   }
@@ -8098,7 +8176,7 @@ noscript {
         }
 
         // Fallback for older browsers with no container queries support
-        @media screen and (max-width: 372px + 55px) {
+        @media screen and (max-width: (372px + 55px)) {
           display: none;
         }
       }
@@ -8568,7 +8646,7 @@ noscript {
     width: 124px;
     flex: 0 0 auto;
 
-    @media screen and (max-width: 124px + 300px) {
+    @media screen and (max-width: (124px + 300px)) {
       display: none;
     }
   }
@@ -8578,7 +8656,7 @@ noscript {
     flex: 0 0 auto;
     position: relative;
 
-    @media screen and (max-width: 124px + 300px) {
+    @media screen and (max-width: (124px + 300px)) {
       width: 100%;
     }
   }
@@ -8671,7 +8749,6 @@ noscript {
         height: 100%;
         min-width: auto;
         min-height: auto;
-        vertical-align: bottom;
         object-fit: contain;
       }
     }
@@ -8707,6 +8784,7 @@ noscript {
   }
 
   .emoji-picker-dropdown {
+    display: flex;
     margin: 2px;
   }
 
@@ -8774,7 +8852,7 @@ noscript {
   &__footer {
     border-radius: 0 0 4px 4px;
     background: var(--modal-background-variant-color);
-    backdrop-filter: var(--background-filter);
+    backdrop-filter: $backdrop-blur-filter;
     border: 1px solid var(--modal-border-color);
     border-top: 0;
     padding: 12px;
@@ -8785,7 +8863,7 @@ noscript {
   &__header {
     border-radius: 4px 4px 0 0;
     background: var(--modal-background-variant-color);
-    backdrop-filter: var(--background-filter);
+    backdrop-filter: $backdrop-blur-filter;
     border: 1px solid var(--modal-border-color);
     border-bottom: 0;
     padding: 12px;
@@ -8914,7 +8992,7 @@ noscript {
 
   .search__input {
     border: 1px solid var(--background-border-color);
-    padding: 12px;
+    padding-block: 12px;
     padding-inline-end: 30px;
   }
 
@@ -8932,7 +9010,7 @@ noscript {
 .layout-single-column .explore__search-header {
   display: none;
 
-  @media screen and (max-width: $no-gap-breakpoint - 1px) {
+  @media screen and (max-width: ($no-gap-breakpoint - 1px)) {
     display: flex;
   }
 }
@@ -9191,7 +9269,7 @@ noscript {
   display: block;
   border-radius: 16px;
   background: var(--modal-background-color);
-  backdrop-filter: var(--background-filter);
+  backdrop-filter: $backdrop-blur-filter;
   border: 1px solid var(--modal-border-color);
   padding: 24px;
   box-sizing: border-box;
@@ -9330,7 +9408,7 @@ noscript {
     }
   }
 
-  @media screen and (max-width: $no-gap-breakpoint - 1px) {
+  @media screen and (max-width: ($no-gap-breakpoint - 1px)) {
     &__choices {
       flex-direction: column;
 
@@ -10826,7 +10904,7 @@ noscript {
 .hover-card {
   box-shadow: var(--dropdown-shadow);
   background: var(--modal-background-color);
-  backdrop-filter: var(--background-filter);
+  backdrop-filter: $backdrop-blur-filter;
   border: 1px solid var(--modal-border-color);
   border-radius: 8px;
   padding: 16px;
@@ -10876,6 +10954,7 @@ noscript {
     font-size: 14px;
     line-height: 20px;
     display: -webkit-box;
+    line-clamp: 2;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     max-height: 2 * 20px;
@@ -11135,7 +11214,6 @@ noscript {
 }
 
 .featured-carousel {
-  background: var(--surface-background-color);
   overflow: hidden;
   flex-shrink: 0;
   border-bottom: 1px solid var(--background-border-color);

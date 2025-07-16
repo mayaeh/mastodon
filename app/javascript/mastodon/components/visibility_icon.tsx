@@ -61,7 +61,7 @@ export const VisibilityIcon: React.FC<{ visibility: StatusVisibility }> = ({
     <Icon
       id={visibilityIcon.icon}
       icon={visibilityIcon.iconComponent}
-      title={visibilityIcon.text}
+      aria-label={visibilityIcon.text}
     />
   );
 };

@@ -61,7 +61,7 @@ class REST::InstanceSerializer < ActiveModel::Serializer
         status: object.status_page_url,
         about: about_url,
         privacy_policy: privacy_policy_url,
-        terms_of_service: TermsOfService.live.exists? ? terms_of_service_url : nil,
+        terms_of_service: TermsOfService.current.present? ? terms_of_service_url : nil,
       },
 
       vapid: {
@@ -130,7 +130,7 @@ class REST::InstanceSerializer < ActiveModel::Serializer
   end
 
   def limited_federation?
-    Rails.configuration.x.limited_federation_mode
+    Rails.configuration.x.mastodon.limited_federation_mode
   end
 
   def markdown
