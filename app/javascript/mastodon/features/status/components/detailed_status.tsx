@@ -358,12 +358,12 @@
                                 {...(statusContentProps as any)}
                               />
 
+                              {media}
+                              {hashtagBar}
+
                               {status.get('quote') && (
                                 <QuotedStatus quote={status.get('quote')} />
                               )}
-
-                              {media}
-                              {hashtagBar}
                             </>
                           )}
 
