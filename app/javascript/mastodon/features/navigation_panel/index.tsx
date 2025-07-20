@@ -10,7 +10,7 @@ import type { Map as ImmutableMap } from 'immutable';
 import { animated, useSpring } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
 
-import AddIcon from '@/material-icons/400-24px/add.svg?react';
+import PublishIcon from '@/material-icons/400-24px/ink_pen.svg?react';
 import AlternateEmailIcon from '@/material-icons/400-24px/alternate_email.svg?react';
 import BookmarksActiveIcon from '@/material-icons/400-24px/bookmarks-fill.svg?react';
 import BookmarksIcon from '@/material-icons/400-24px/bookmarks.svg?react';
@@ -234,10 +234,10 @@ export const NavigationPanel: React.FC<{ multiColumn?: boolean }> = ({
               <ColumnLink
                 to='/publish'
                 icon='plus'
-                iconComponent={AddIcon}
-                activeIconComponent={AddIcon}
+                iconComponent={PublishIcon}
+                activeIconComponent={PublishIcon}
                 text={intl.formatMessage(messages.compose)}
-                className='button navigation-panel__compose-button'
+                className='navigation-panel__compose-button'
               />
             )}
             <ColumnLink

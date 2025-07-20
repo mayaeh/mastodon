@@ -5,7 +5,7 @@ import { useIntl, defineMessages, FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 
-import AddIcon from '@/material-icons/400-24px/add.svg?react';
+import PublishIcon from '@/material-icons/400-24px/ink_pen.svg?react';
 import HomeActiveIcon from '@/material-icons/400-24px/home-fill.svg?react';
 import HomeIcon from '@/material-icons/400-24px/home.svg?react';
 import MenuIcon from '@/material-icons/400-24px/menu.svg?react';
@@ -185,7 +185,7 @@ export const NavigationBar: React.FC = () => {
             <IconLabelButton
               title={intl.formatMessage(messages.publish)}
               to='/publish'
-              icon={<Icon id='' icon={AddIcon} />}
+              icon={<Icon id='navigation-bar_publish' icon={PublishIcon} />}
             />
             <NotificationsButton />
           </>

@@ -122,6 +122,11 @@
   background: inherit;
 }
 
+.ui__navigation-bar {
+  background: var(--background-color);
+  border-top: 1px solid var(--background-border-color);
+}
+
 .tabs-bar__wrapper {
   background: var(--background-color);
 }
