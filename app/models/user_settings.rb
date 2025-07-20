@@ -38,6 +38,7 @@ class UserSettings
     setting :auto_play, default: false
     setting :navigation_panel_layout, default: 'right'
     setting :fab_layout, default: 'right'
+    setting :emoji_style, default: 'auto', in: %w(auto native twemoji)
   end
 
   namespace :notification_emails do
