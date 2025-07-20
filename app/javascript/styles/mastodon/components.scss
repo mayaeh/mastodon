@@ -2871,7 +2871,7 @@ a.account__display-name {
   width: 100%;
   gap: 8px;
   padding-bottom: env(safe-area-inset-bottom);
-  background: var(--background-color);
+  background: $ui-base-color;
   backdrop-filter: $backdrop-blur-filter;
   border-top: 1px solid var(--background-border-color);
   box-sizing: border-box;
@@ -3196,7 +3196,7 @@ a.account__display-name {
 
   .columns-area__panels__pane--navigational .columns-area__panels__pane__inner {
     pointer-events: auto;
-    background: var(--background-color);
+    background: $ui-base-color;
     position: fixed;
     width: 284px + 70px;
     inset-inline-end: -70px;
@@ -3471,9 +3471,7 @@ a.account__display-name {
 }
 
 .navigation-panel {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  height: calc(100% - 20px);
+  height: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -3482,6 +3480,13 @@ a.account__display-name {
     flex: 1 1 auto;
     min-height: 0;
     overflow-y: auto;
+    background: $ui-base-color;
+
+    a {
+      &:hover {
+        background: lighten($ui-base-color, 8%);
+      }
+    }
   }
 
   &__list-panel {
@@ -3527,6 +3532,9 @@ a.account__display-name {
     font-size: 16px;
     font-weight: 600;
     line-height: 18px;
+    color: $primary-text-color;
+    background: transparent;
+    text-decoration: none;
 
     .icon {
       width: 24px;
@@ -3549,7 +3557,7 @@ a.account__display-name {
   }
 
   &__logo {
-    margin-bottom: 12px;
+    border-bottom: 1px solid var(--background-border-color);
   }
 
   .getting-started__trends h4 {
@@ -3901,13 +3909,16 @@ a.account__display-name {
   }
 
   &--logo {
-    background: transparent;
+    background: $ui-base-color;
     padding: 10px;
 
     &:hover,
-    &:focus,
+    &:focus {
+      background: lighten($ui-base-color, 8%);
+    }
+
     &:active {
-      background: transparent;
+      background: inherit;
     }
   }
 }

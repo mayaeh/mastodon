@@ -122,6 +122,10 @@
   background: inherit;
 }
 
+.ui__navigation-bar {
+  background: var(--background-color);
+}
+
 .tabs-bar__wrapper {
   background: var(--background-color);
 }
@@ -139,11 +143,45 @@
   }
 }
 
+@media screen and (width <= 759px) {
+  .columns-area__panels__pane--navigational .columns-area__panels__pane__inner {
+    background: var(--background-color);
+  }
+}
+
 @media screen and (max-width: $no-gap-breakpoint - 1px) {
   .columns-area__panels__pane--navigational {
     .navigation-panel {
       background: inherit;
     }
+  }
+}
+
+.navigation-panel {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: calc(100% - 20px);
+
+  &__menu {
+    background: inherit;
+
+    a {
+      &:hover,
+      &:focus,
+      &:active {
+        background: inherit;
+      }
+    }
+  }
+
+  &__compose-button {
+    background-color: $ui-highlight-color;
+    color: $ui-button-color;
+  }
+
+  &__logo {
+    margin-bottom: 12px;
+    border: none;
   }
 }
 
@@ -199,6 +237,16 @@
 
     &.active {
       color: inherit;
+    }
+  }
+
+  &--logo {
+    background: transparent;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: transparent;
     }
   }
 }
