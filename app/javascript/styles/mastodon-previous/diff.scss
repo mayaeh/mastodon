@@ -437,7 +437,7 @@ body {
 }
 
 .ui__navigation-bar {
-  background: $ui-base-color;
+  background: lighten($ui-base-color, 8%);
 }
 
 @media screen and (width <= 759px) {
