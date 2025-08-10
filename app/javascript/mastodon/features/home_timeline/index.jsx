@@ -153,7 +153,7 @@ class HomeTimeline extends PureComponent {
       <Column bindToDocument={!multiColumn} ref={this.setRef} label={intl.formatMessage(messages.title)}>
         <ColumnHeader
           icon='home'
-          iconComponent={matchesBreakpoint ? SymbolLogo : HomeIcon}
+          iconComponent={HomeIcon}
           active={hasUnread}
           title={intl.formatMessage(messages.title)}
           onPin={this.handlePin}
