@@ -78,9 +78,23 @@
 .navigation-panel {
   background: $white;
   border: 1px solid lighten($ui-base-color, 8%);
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: 100%;
 
   &__menu {
     background: $white;
+  }
+
+  &__compose-button {
+    color: $primary-text-color;
+    background: transparent;
+    text-decoration: none;
+  }
+
+  &__logo {
+    margin-bottom: 0px;
+    border-bottom: 1px solid var(--background-border-color);
   }
 }
 
