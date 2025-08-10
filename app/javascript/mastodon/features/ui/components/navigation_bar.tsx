@@ -5,13 +5,15 @@ import { useIntl, defineMessages, FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 
-import AddIcon from '@/material-icons/400-24px/add.svg?react';
+import PublishIcon from '@/material-icons/400-24px/ink_pen.svg?react';
 import HomeActiveIcon from '@/material-icons/400-24px/home-fill.svg?react';
 import HomeIcon from '@/material-icons/400-24px/home.svg?react';
 import MenuIcon from '@/material-icons/400-24px/menu.svg?react';
 import NotificationsActiveIcon from '@/material-icons/400-24px/notifications-fill.svg?react';
 import NotificationsIcon from '@/material-icons/400-24px/notifications.svg?react';
 import SearchIcon from '@/material-icons/400-24px/search.svg?react';
+import PublicIcon from '@/material-icons/400-24px/public.svg?react';
+import ListAltIcon from '@/material-icons/400-24px/list_alt.svg?react';
 import { openModal } from 'mastodon/actions/modal';
 import { toggleNavigation } from 'mastodon/actions/navigation';
 import { fetchServer } from 'mastodon/actions/server';
@@ -26,10 +28,9 @@ export const messages = defineMessages({
   home: { id: 'tabs_bar.home', defaultMessage: 'Home' },
   search: { id: 'tabs_bar.search', defaultMessage: 'Search' },
   publish: { id: 'tabs_bar.publish', defaultMessage: 'New Post' },
-  notifications: {
-    id: 'tabs_bar.notifications',
-    defaultMessage: 'Notifications',
-  },
+  notifications: { id: 'tabs_bar.notifications', defaultMessage: 'Notifications'},
+  firehose: { id: 'column.firehose', defaultMessage: 'Live feeds' },
+  lists: { id: 'navigation_bar.lists', defaultMessage: 'Lists' },
   menu: { id: 'tabs_bar.menu', defaultMessage: 'Menu' },
 });
 
@@ -177,17 +178,27 @@ export const NavigationBar: React.FC = () => {
               icon={<Icon id='' icon={HomeIcon} />}
               activeIcon={<Icon id='' icon={HomeActiveIcon} />}
             />
-            <IconLabelButton
+            <NotificationsButton />
+            {/* <IconLabelButton
               title={intl.formatMessage(messages.search)}
               to='/explore'
               icon={<Icon id='' icon={SearchIcon} />}
-            />
+            /> */}
             <IconLabelButton
               title={intl.formatMessage(messages.publish)}
               to='/publish'
-              icon={<Icon id='' icon={AddIcon} />}
+              icon={<Icon id='navigation-bar_publish' icon={PublishIcon} />}
             />
-            <NotificationsButton />
+            <IconLabelButton
+              title={intl.formatMessage(messages.firehose)}
+              to='/public/local'
+              icon={<Icon id='' icon={PublicIcon} />}
+            />
+            {/* <IconLabelButton
+              title={intl.formatMessage(messages.lists)}
+              to='/lists'
+              icon={<Icon id='' icon={ListAltIcon} />}
+            /> */}
           </>
         )}
 

@@ -436,6 +436,42 @@ body {
   }
 }
 
+.ui__navigation-bar {
+  background: $ui-base-color;
+}
+
+@media screen and (width <= 759px) {
+  .columns-area__panels__pane--navigational .columns-area__panels__pane__inner {
+    background: $ui-base-color;
+  }
+}
+
+.navigation-panel {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: 100%;
+
+  &__menu {
+    background: $ui-base-color;
+
+    a {
+      &:hover {
+        background: lighten($ui-base-color, 8%);
+      }
+    }
+  }
+
+  &__compose-button {
+    color: $primary-text-color;
+    background: transparent;
+    text-decoration: none;
+  }
+
+  &__logo {
+    border-bottom: 1px solid var(--background-border-color);
+  }
+}
+
 @media screen and (max-width: $no-gap-breakpoint - 1px) {
   .columns-area__panels__pane--navigational {
     .navigation-panel {
@@ -519,6 +555,19 @@ body {
 
     &.active {
       color: $ui-highlight-color;
+    }
+  }
+
+  &--logo {
+    background: $ui-base-color;
+
+    &:hover,
+    &:focus {
+      background: lighten($ui-base-color, 8%);
+    }
+
+    &:active {
+      background: transparent;
     }
   }
 }

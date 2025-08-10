@@ -75,6 +75,27 @@
   }
 }
 
+.navigation-panel {
+  background: $white;
+  border: 1px solid lighten($ui-base-color, 8%);
+
+  &__menu {
+    background: $white;
+  }
+}
+
+.column-link {
+  &--logo {
+    background: $white;
+  }
+}
+
+@media screen and (max-width: 1174px) {
+  .columns-area__panels__pane--navigational .navigation-panel {
+    background: $white;
+  }
+}
+
 .getting-started .navigation-bar {
   border-top: 1px solid var(--background-border-color);
   border-bottom: 1px solid var(--background-border-color);
