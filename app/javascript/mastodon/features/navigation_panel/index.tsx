@@ -248,17 +248,11 @@ export const NavigationPanel: React.FC<{ multiColumn?: boolean }> = ({
               activeIconComponent={HomeActiveIcon}
               text={intl.formatMessage(messages.home)}
             />
-          </>
-        )}
 
-        {trendsEnabled && (
-          <ColumnLink
-            transparent
-            to='/explore'
-            icon='explore'
-            iconComponent={TrendingUpIcon}
-            text={intl.formatMessage(messages.explore)}
-          />
+            <NotificationsLink />
+
+            <hr />
+          </>
         )}
 
         {(signedIn || timelinePreview) && (
@@ -272,25 +266,28 @@ export const NavigationPanel: React.FC<{ multiColumn?: boolean }> = ({
           />
         )}
 
+        {trendsEnabled && (
+          <ColumnLink
+            transparent
+            to='/explore'
+            icon='explore'
+            iconComponent={TrendingUpIcon}
+            text={intl.formatMessage(messages.explore)}
+          />
+        )}
+
         {signedIn && (
           <>
-            <NotificationsLink />
+            <hr />
 
             <FollowRequestsLink />
 
-            <hr />
-
-            <ListPanel />
-
-            <FollowedTagsPanel />
-
             <ColumnLink
               transparent
-              to='/favourites'
-              icon='star'
-              iconComponent={StarIcon}
-              activeIconComponent={StarActiveIcon}
-              text={intl.formatMessage(messages.favourites)}
+              to='/conversations'
+              icon='at'
+              iconComponent={AlternateEmailIcon}
+              text={intl.formatMessage(messages.direct)}
             />
             <ColumnLink
               transparent
@@ -302,11 +299,16 @@ export const NavigationPanel: React.FC<{ multiColumn?: boolean }> = ({
             />
             <ColumnLink
               transparent
-              to='/conversations'
-              icon='at'
-              iconComponent={AlternateEmailIcon}
-              text={intl.formatMessage(messages.direct)}
+              to='/favourites'
+              icon='star'
+              iconComponent={StarIcon}
+              activeIconComponent={StarActiveIcon}
+              text={intl.formatMessage(messages.favourites)}
             />
+
+            <ListPanel />
+
+            <FollowedTagsPanel />
 
             <hr />
 
