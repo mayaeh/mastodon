@@ -22,6 +22,7 @@ import { IconWithBadge } from 'mastodon/components/icon_with_badge';
 import { useIdentity } from 'mastodon/identity_context';
 import { registrationsOpen, sso_redirect } from 'mastodon/initial_state';
 import { selectUnreadNotificationGroupsCount } from 'mastodon/selectors/notifications';
+import { selectUseGroupedNotifications } from 'mastodon/selectors/settings';
 import { useAppDispatch, useAppSelector } from 'mastodon/store';
 
 export const messages = defineMessages({
@@ -55,8 +56,11 @@ const IconLabelButton: React.FC<{
 };
 
 const NotificationsButton = () => {
-  const count = useAppSelector(selectUnreadNotificationGroupsCount);
+  const optedInGroupedNotifications = useAppSelector(selectUseGroupedNotifications);
+  const count = useAppSelector(state => state.getIn(['notifications', 'unread']));
   const intl = useIntl();
+
+  const newCount = useAppSelector(selectUnreadNotificationGroupsCount);
 
   return (
     <IconLabelButton
@@ -65,7 +69,7 @@ const NotificationsButton = () => {
         <IconWithBadge
           id='bell'
           icon={NotificationsIcon}
-          count={count}
+          count={optedInGroupedNotifications ? newCount : count}
           className=''
         />
       }
@@ -73,7 +77,7 @@ const NotificationsButton = () => {
         <IconWithBadge
           id='bell'
           icon={NotificationsActiveIcon}
-          count={count}
+          count={optedInGroupedNotifications ? newCount : count}
           className=''
         />
       }
