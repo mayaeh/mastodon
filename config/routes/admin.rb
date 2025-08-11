@@ -238,4 +238,10 @@ namespace :admin do
       post :disable
     end
   end
+
+  resources :username_blocks, except: [:show, :destroy] do
+    collection do
+      post :batch
+    end
+  end
 end

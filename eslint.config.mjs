@@ -350,6 +350,8 @@ export default tseslint.config([
       'import/no-default-export': 'warn',
 
       'jsdoc/require-jsdoc': 'off',
+      'jsdoc/require-param': 'off',
+      'jsdoc/require-returns': 'off',
 
       'react/prefer-stateless-function': 'warn',
       'react/function-component-definition': [
@@ -402,6 +404,12 @@ export default tseslint.config([
 
     languageOptions: {
       globals: globals.vitest,
+    },
+  },
+  {
+    files: ['**/*.test.*'],
+    rules: {
+      'no-global-assign': 'off',
     },
   },
   {

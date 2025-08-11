@@ -30,6 +30,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:use_blurhash]            = object_account_user.setting_use_blurhash
       store[:use_pending_items]       = object_account_user.setting_use_pending_items
       store[:show_trends]             = Setting.trends && object_account_user.setting_trends
+      store[:emoji_style]             = object_account_user.settings['web.emoji_style'] if Mastodon::Feature.modern_emojis_enabled?
       store[:crop_images]             = object_account_user.setting_crop_images
       store[:navigation_panel_layout] = object_account_user.setting_navigation_panel_layout
       store[:fab_layout]              = object_account_user.setting_fab_layout
@@ -57,6 +58,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:default_privacy]   = object.visibility || object_account_user.setting_default_privacy
       store[:default_sensitive] = object_account_user.setting_default_sensitive
       store[:default_language]  = object_account_user.preferred_posting_language
+      store[:default_quote_policy] = object_account_user.setting_default_quote_policy
     end
 
     store[:text] = object.text if object.text
