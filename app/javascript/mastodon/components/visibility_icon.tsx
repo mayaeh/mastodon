@@ -11,7 +11,7 @@ import { Icon } from './icon';
 const messages = defineMessages({
   public_short: {
     id: 'privacy.public.short',
-    defaultMessage: 'Public'
+    defaultMessage: 'Public',
   },
   unlisted_short: {
     id: 'privacy.unlisted.short',
