@@ -601,12 +601,15 @@ body > [data-popper-placement] {
   &__highlightable {
     display: flex;
     flex-direction: column;
+    gap: 16px;
     flex: 0 1 auto;
     border-radius: 4px;
     border: 1px solid var(--background-border-color);
     transition: border-color 300ms linear;
+    min-height: 0;
     position: relative;
     background: var(--input-background-color);
+    overflow-y: auto;
 
     &.active {
       transition: none;
@@ -691,8 +694,6 @@ body > [data-popper-placement] {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin: 8px;
-    flex-wrap: wrap;
 
     & > div {
       overflow: hidden;
@@ -703,7 +704,6 @@ body > [data-popper-placement] {
   &__uploads {
     padding: 0 12px;
     aspect-ratio: 3/2;
-    flex-shrink: 0;
   }
 
   .media-gallery {
@@ -802,6 +802,7 @@ body > [data-popper-placement] {
     flex-direction: column;
     gap: 12px;
     padding: 12px;
+    padding-top: 0;
   }
 
   &__submit {
@@ -862,7 +863,6 @@ body > [data-popper-placement] {
   }
 
   &__poll {
-    margin-top: 8px;
     display: flex;
     flex-direction: column;
     align-self: stretch;
@@ -3562,6 +3562,7 @@ a.account__display-name {
 
   .compose-form {
     flex: 1 1 auto;
+    min-height: 0;
   }
 }
 

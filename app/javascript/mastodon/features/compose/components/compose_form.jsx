@@ -256,62 +256,63 @@ class ComposeForm extends ImmutablePureComponent {
         <Warning />
 
         <div className={classNames('compose-form__highlightable', { active: highlighted })} ref={this.setRef}>
-          <EditIndicator />
+          <div className='compose-form__scrollable'>
+            <EditIndicator />
 
-          {this.props.spoiler && (
-            <div className='spoiler-input'>
-              <div className='spoiler-input__border' />
+            {this.props.spoiler && (
+              <div className='spoiler-input'>
+                <div className='spoiler-input__border' />
 
-              <AutosuggestInput
-                placeholder={intl.formatMessage(messages.spoiler_placeholder)}
-                value={this.props.spoilerText}
-                disabled={isSubmitting}
-                onChange={this.handleChangeSpoilerText}
-                onKeyDown={this.handleKeyDownSpoiler}
-                ref={this.setSpoilerText}
-                suggestions={this.props.suggestions}
-                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                onSuggestionSelected={this.onSpoilerSuggestionSelected}
-                searchTokens={[':']}
-                id='cw-spoiler-input'
-                className='spoiler-input__input'
-                lang={this.props.lang}
-                spellCheck
-              />
+                <AutosuggestInput
+                  placeholder={intl.formatMessage(messages.spoiler_placeholder)}
+                  value={this.props.spoilerText}
+                  disabled={isSubmitting}
+                  onChange={this.handleChangeSpoilerText}
+                  onKeyDown={this.handleKeyDownSpoiler}
+                  ref={this.setSpoilerText}
+                  suggestions={this.props.suggestions}
+                  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                  onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                  onSuggestionSelected={this.onSpoilerSuggestionSelected}
+                  searchTokens={[':']}
+                  id='cw-spoiler-input'
+                  className='spoiler-input__input'
+                  lang={this.props.lang}
+                  spellCheck
+                />
 
-              <div className='spoiler-input__border' />
-            </div>
-          )}
+                <div className='spoiler-input__border' />
+              </div>
+            )}
 
-          <div className='compose-form__dropdowns'>
-            <VisibilityButton disabled={this.props.isEditing} />
-            <LanguageDropdown />
+            <AutosuggestTextarea
+              ref={this.textareaRef}
+              placeholder={intl.formatMessage(messages.placeholder)}
+              disabled={isSubmitting}
+              value={this.props.text}
+              onChange={this.handleChange}
+              suggestions={this.props.suggestions}
+              onFocus={this.handleFocus}
+              onKeyDown={this.handleKeyDownPost}
+              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+              onSuggestionSelected={this.onSuggestionSelected}
+              onPaste={onPaste}
+              autoFocus={autoFocus}
+              lang={this.props.lang}
+            />
           </div>
-
-          <AutosuggestTextarea
-            ref={this.textareaRef}
-            placeholder={intl.formatMessage(messages.placeholder)}
-            disabled={isSubmitting}
-            value={this.props.text}
-            onChange={this.handleChange}
-            suggestions={this.props.suggestions}
-            onFocus={this.handleFocus}
-            onKeyDown={this.handleKeyDownPost}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            onSuggestionSelected={this.onSuggestionSelected}
-            onPaste={onPaste}
-            autoFocus={autoFocus}
-            lang={this.props.lang}
-            className='compose-form__input'
-          />
 
           <UploadForm />
           <PollForm />
           <ComposeQuotedStatus />
 
           <div className='compose-form__footer'>
+            <div className='compose-form__dropdowns'>
+              <VisibilityButton disabled={this.props.isEditing} />
+              <LanguageDropdown />
+            </div>
+
             <div className='compose-form__actions'>
               <div className='compose-form__buttons'>
                 <UploadButtonContainer />
