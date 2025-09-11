@@ -657,8 +657,7 @@ body > [data-popper-placement] {
 
     .autosuggest-input {
       flex: 1 1 auto;
-      border: 1px solid var(--background-border-color);
-      border-width: 1px 0;
+      border-bottom: 1px solid var(--background-border-color);
     }
   }
 
