@@ -239,7 +239,7 @@ cs:
         setting_boost_modal: Před boostnutím zobrazovat potvrzovací okno
         setting_crop_images: Ořezávat obrázky v nerozbalených příspěvcích na 16x9
         setting_default_language: Jazyk příspěvků
-        setting_default_privacy: Soukromí příspěvků
+        setting_default_privacy: Viditelnost příspěvků
         setting_default_quote_policy: Kdo může citovat
         setting_default_sensitive: Vždy označovat média jako citlivá
         setting_delete_modal: Před smazáním příspěvku zobrazovat potvrzovací dialog

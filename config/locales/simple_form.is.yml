@@ -237,7 +237,7 @@ is:
         setting_boost_modal: Sýna staðfestingarglugga fyrir endurbirtingu
         setting_crop_images: Utansníða myndir í ekki-útfelldum færslum í 16x9
         setting_default_language: Tungumál sem skrifað er á
-        setting_default_privacy: Gagnaleynd færslna
+        setting_default_privacy: Sýnileiki færslna
         setting_default_quote_policy: Hverjir geta gert tilvitnanir
         setting_default_sensitive: Alltaf merkja myndefni sem viðkvæmt
         setting_delete_modal: Birta staðfestingarglugga áður en færslu er eytt

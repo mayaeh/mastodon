@@ -237,7 +237,6 @@ el:
         setting_boost_modal: Επιβεβαίωση πριν την προώθηση
         setting_crop_images: Περιορισμός των εικόνων σε μη-ανεπτυγμένα τουτ σε αναλογία 16x9
         setting_default_language: Γλώσσα κατά την ανάρτηση
-        setting_default_privacy: Ιδιωτικότητα αναρτήσεων
         setting_default_quote_policy: Ποιος μπορεί να παραθέσει
         setting_default_sensitive: Σημείωση όλων των πολυμέσων ως ευαίσθητου περιεχομένου
         setting_delete_modal: Επιβεβαίωση πριν τη διαγραφή ενός τουτ

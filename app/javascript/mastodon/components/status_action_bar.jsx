@@ -8,13 +8,9 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { connect } from 'react-redux';
 
-import AlternateEmailIcon from '@/material-icons/400-24px/alternate_email.svg?react';
 import BookmarkIcon from '@/material-icons/400-24px/bookmark-fill.svg?react';
 import BookmarkBorderIcon from '@/material-icons/400-24px/bookmark.svg?react';
-import LockIcon from '@/material-icons/400-24px/lock.svg?react';
-import LockOpenIcon from '@/material-icons/400-24px/lock_open_right.svg?react';
 import MoreHorizIcon from '@/material-icons/400-24px/more_horiz.svg?react';
-import RepeatIcon from '@/material-icons/400-24px/repeat.svg?react';
 import ReplyIcon from '@/material-icons/400-24px/reply.svg?react';
 import ReplyAllIcon from '@/material-icons/400-24px/reply_all.svg?react';
 import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
@@ -28,12 +24,13 @@ import { Dropdown } from 'mastodon/components/dropdown_menu';
 import { me } from '../initial_state';
 
 import { IconButton } from './icon_button';
+import { isFeatureEnabled } from '../utils/environment';
+import { ReblogButton } from './status/reblog_button';
 
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
   redraft: { id: 'status.redraft', defaultMessage: 'Delete & re-draft' },
   edit: { id: 'status.edit', defaultMessage: 'Edit' },
-  direct: { id: 'status.direct', defaultMessage: 'Privately mention @{name}' },
   mention: { id: 'status.mention', defaultMessage: 'Mention @{name}' },
   mute: { id: 'account.mute', defaultMessage: 'Mute @{name}' },
   block: { id: 'account.block', defaultMessage: 'Block @{name}' },
@@ -41,10 +38,6 @@ const messages = defineMessages({
   share: { id: 'status.share', defaultMessage: 'Share' },
   more: { id: 'status.more', defaultMessage: 'More' },
   replyAll: { id: 'status.replyAll', defaultMessage: 'Reply to thread' },
-  reblog: { id: 'status.reblog', defaultMessage: 'Boost' },
-  reblog_private: { id: 'status.reblog_private', defaultMessage: 'Boost with original visibility' },
-  cancel_reblog_private: { id: 'status.cancel_reblog_private', defaultMessage: 'Unboost' },
-  cannot_reblog: { id: 'status.cannot_reblog', defaultMessage: 'This post cannot be boosted' },
   favourite: { id: 'status.favourite', defaultMessage: 'Favorite' },
   removeFavourite: { id: 'status.remove_favourite', defaultMessage: 'Remove from favorites' },
   bookmark: { id: 'status.bookmark', defaultMessage: 'Bookmark' },
@@ -67,6 +60,7 @@ const messages = defineMessages({
   filter: { id: 'status.filter', defaultMessage: 'Filter this post' },
   openOriginalPage: { id: 'account.open_original_page', defaultMessage: 'Open original page' },
   revokeQuote: { id: 'status.revoke_quote', defaultMessage: 'Remove my post from @{name}’s post' },
+  quotePolicyChange: { id: 'status.quote_policy_change', defaultMessage: 'Change who can quote' },
 });
 
 const mapStateToProps = (state, { status }) => {
@@ -82,12 +76,12 @@ class StatusActionBar extends ImmutablePureComponent {
     identity: identityContextPropShape,
     status: ImmutablePropTypes.map.isRequired,
     relationship: ImmutablePropTypes.record,
-    quotedAccountId: ImmutablePropTypes.string,
+    quotedAccountId: PropTypes.string,
     onReply: PropTypes.func,
     onFavourite: PropTypes.func,
-    onReblog: PropTypes.func,
     onDelete: PropTypes.func,
     onRevokeQuote: PropTypes.func,
+    onQuotePolicyChange: PropTypes.func,
     onDirect: PropTypes.func,
     onMention: PropTypes.func,
     onMute: PropTypes.func,
@@ -148,16 +142,6 @@ class StatusActionBar extends ImmutablePureComponent {
     }
   };
 
-  handleReblogClick = e => {
-    const { signedIn } = this.props.identity;
-
-    if (signedIn) {
-      this.props.onReblog(this.props.status, e);
-    } else {
-      this.props.onInteractionModal('reblog', this.props.status);
-    }
-  };
-
   handleBookmarkClick = () => {
     this.props.onBookmark(this.props.status);
   };
@@ -199,7 +183,11 @@ class StatusActionBar extends ImmutablePureComponent {
 
   handleRevokeQuoteClick = () => {
     this.props.onRevokeQuote(this.props.status);
-  }
+  };
+
+  handleQuotePolicyChange = () => {
+    this.props.onQuotePolicyChange(this.props.status);
+  };
 
   handleBlockClick = () => {
     const { status, relationship, onBlock, onUnblock } = this.props;
@@ -263,8 +251,6 @@ class StatusActionBar extends ImmutablePureComponent {
     const isRemote           = status.getIn(['account', 'username']) !== status.getIn(['account', 'acct']);
 
     let menu = [];
-    let reblogIcon = 'retweet';
-    let reblogIconComponent = RepeatIcon;
     let replyIcon;
     let replyIconComponent;
     let replyTitle;
@@ -304,6 +290,9 @@ class StatusActionBar extends ImmutablePureComponent {
 
       if (writtenByMe || withDismiss) {
         menu.push({ text: intl.formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation), action: this.handleConversationMuteClick });
+        if (writtenByMe && isFeatureEnabled('outgoing_quotes') && !['private', 'direct'].includes(status.get('visibility'))) {
+          menu.push({ text: intl.formatMessage(messages.quotePolicyChange), action: this.handleQuotePolicyChange });
+        }
         menu.push(null);
       }
 
@@ -376,32 +365,6 @@ class StatusActionBar extends ImmutablePureComponent {
       replyTitle = intl.formatMessage(messages.replyAll);
     }
 
-    const reblogPrivate = status.getIn(['account', 'id']) === me && status.get('visibility') === 'private';
-
-    let reblogTitle = '';
-
-    if (status.get('reblogged')) {
-      reblogTitle = intl.formatMessage(messages.cancel_reblog_private);
-    } else if (publicStatus) {
-      reblogTitle = intl.formatMessage(messages.reblog);
-    } else if (reblogPrivate) {
-      reblogTitle = intl.formatMessage(messages.reblog_private);
-    } else {
-      reblogTitle = intl.formatMessage(messages.cannot_reblog);
-    }
-
-    if (status.get('visibility') === 'direct') {
-      reblogIcon = 'at';
-      reblogIconComponent = AlternateEmailIcon;
-    } else if (status.get('visibility') === 'private') {
-      reblogIcon = 'lock';
-      reblogIconComponent = LockIcon;
-    } else if (status.get('visibility') === 'unlisted') {
-      reblogIcon = 'unlock';
-      reblogIconComponent = LockOpenIcon;
-    }
-
-
     const bookmarkTitle = intl.formatMessage(status.get('bookmarked') ? messages.removeBookmark : messages.bookmark);
     const favouriteTitle = intl.formatMessage(status.get('favourited') ? messages.removeFavourite : messages.favourite);
     const isReply = status.get('in_reply_to_account_id') === status.getIn(['account', 'id']);
@@ -412,7 +375,7 @@ class StatusActionBar extends ImmutablePureComponent {
           <IconButton className='status__action-bar-button' title={replyTitle} icon={isReply ? 'reply' : replyIcon} iconComponent={isReply ? ReplyIcon : replyIconComponent} onClick={this.handleReplyClick} counter={status.get('replies_count')} />
         </div>
         <div className='status__action-bar__button-wrapper'>
-          <IconButton className='status__action-bar-button' disabled={!publicStatus && !reblogPrivate} active={status.get('reblogged')} title={reblogTitle} icon={reblogIcon} iconComponent={reblogIconComponent} onClick={this.handleReblogClick} counter={withCounters ? status.get('reblogs_count') : undefined} />
+          <ReblogButton status={status} counters={withCounters} />
         </div>
         <div className='status__action-bar__button-wrapper'>
           <IconButton className='status__action-bar-button star-icon' animate active={status.get('favourited')} title={favouriteTitle} icon='star' iconComponent={status.get('favourited') ? StarIcon : StarBorderIcon} onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />

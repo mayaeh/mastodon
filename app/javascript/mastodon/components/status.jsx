@@ -10,6 +10,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 
 import AlternateEmailIcon from '@/material-icons/400-24px/alternate_email.svg?react';
 import RepeatIcon from '@/material-icons/400-24px/repeat.svg?react';
+import CancelFillIcon from '@/material-icons/400-24px/cancel-fill.svg?react';
 import { Hotkeys } from 'mastodon/components/hotkeys';
 import { ContentWarning } from 'mastodon/components/content_warning';
 import { FilterWarning } from 'mastodon/components/filter_warning';
@@ -34,6 +35,7 @@ import { RelativeTimestamp } from './relative_timestamp';
 import StatusActionBar from './status_action_bar';
 import StatusContent from './status_content';
 import { StatusThreadLabel } from './status_thread_label';
+import { IconButton } from './icon_button';
 
 const domParser = new DOMParser();
 
@@ -72,6 +74,7 @@ export const defaultMediaVisibility = (status) => {
 
 const messages = defineMessages({
   edited: { id: 'status.edited', defaultMessage: 'Edited {date}' },
+  quote_cancel: { id: 'status.quote.cancel', defaultMessage: 'Cancel quote' },
 });
 
 class Status extends ImmutablePureComponent {
@@ -89,6 +92,7 @@ class Status extends ImmutablePureComponent {
     onReply: PropTypes.func,
     onFavourite: PropTypes.func,
     onReblog: PropTypes.func,
+    onQuote: PropTypes.func,
     onDelete: PropTypes.func,
     onDirect: PropTypes.func,
     onMention: PropTypes.func,
@@ -103,11 +107,10 @@ class Status extends ImmutablePureComponent {
     onToggleCollapsed: PropTypes.func,
     onTranslate: PropTypes.func,
     onInteractionModal: PropTypes.func,
+    onQuoteCancel: PropTypes.func,
     muted: PropTypes.bool,
     hidden: PropTypes.bool,
     unread: PropTypes.bool,
-    onMoveUp: PropTypes.func,
-    onMoveDown: PropTypes.func,
     showThread: PropTypes.bool,
     isQuotedPost: PropTypes.bool,
     getScrollPosition: PropTypes.func,
@@ -123,6 +126,7 @@ class Status extends ImmutablePureComponent {
       inUse: PropTypes.bool,
       available: PropTypes.bool,
     }),
+    contextType: PropTypes.string,
     ...WithOptionalRouterPropTypes,
   };
 
@@ -251,6 +255,10 @@ class Status extends ImmutablePureComponent {
     this.props.onReblog(this._properStatus(), e);
   };
 
+  handleHotkeyQuote = () => {
+    this.props.onQuote(this._properStatus());
+  };
+
   handleHotkeyMention = e => {
     e.preventDefault();
     this.props.onMention(this._properStatus().get('account'));
@@ -301,14 +309,6 @@ class Status extends ImmutablePureComponent {
     history.push(`/@${status.getIn(['account', 'acct'])}`);
   };
 
-  handleHotkeyMoveUp = e => {
-    this.props.onMoveUp?.(this.props.status.get('id'), this.node.getAttribute('data-featured'));
-  };
-
-  handleHotkeyMoveDown = e => {
-    this.props.onMoveDown?.(this.props.status.get('id'), this.node.getAttribute('data-featured'));
-  };
-
   handleHotkeyToggleHidden = () => {
     const { onToggleHidden } = this.props;
     const status = this._properStatus();
@@ -338,6 +338,10 @@ class Status extends ImmutablePureComponent {
     this.setState(state => ({ ...state, showDespiteFilter: !state.showDespiteFilter }));
   };
 
+  handleQuoteCancel = () => {
+    this.props.onQuoteCancel?.();
+  }
+
   _properStatus () {
     const { status } = this.props;
 
@@ -365,11 +369,10 @@ class Status extends ImmutablePureComponent {
       reply: this.handleHotkeyReply,
       favourite: this.handleHotkeyFavourite,
       boost: this.handleHotkeyBoost,
+      quote: this.handleHotkeyQuote,
       mention: this.handleHotkeyMention,
       open: this.handleHotkeyOpen,
       openProfile: this.handleHotkeyOpenProfile,
-      moveUp: this.handleHotkeyMoveUp,
-      moveDown: this.handleHotkeyMoveDown,
       toggleHidden: this.handleHotkeyToggleHidden,
       toggleSensitive: this.handleHotkeyToggleSensitive,
       openMedia: this.handleHotkeyOpenMedia,
@@ -551,6 +554,16 @@ class Status extends ImmutablePureComponent {
 
                 <DisplayName account={status.get('account')} />
               </Link>
+
+              {isQuotedPost && !!this.props.onQuoteCancel &&  (
+                <IconButton
+                  onClick={this.handleQuoteCancel}
+                  className='status__quote-cancel'
+                  title={intl.formatMessage(messages.quote_cancel)}
+                  icon="cancel-fill"
+                  iconComponent={CancelFillIcon}
+                />
+              )}
             </div>
 
             {matchedFilters && <FilterWarning title={matchedFilters.join(', ')} expanded={this.state.showDespiteFilter} onClick={this.handleFilterToggle} />}

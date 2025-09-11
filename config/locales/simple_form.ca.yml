@@ -232,7 +232,7 @@ ca:
         setting_boost_modal: Mostra la finestra de confirmació abans d'impulsar
         setting_crop_images: Retalla les imatges en tuts no ampliats a 16x9
         setting_default_language: Llengua dels tuts
-        setting_default_privacy: Privacitat dels tuts
+        setting_default_privacy: Visibilitat de la publicació
         setting_default_quote_policy: Qui pot citar
         setting_default_sensitive: Marcar sempre el contingut gràfic com a sensible
         setting_delete_modal: Mostra la finestra de confirmació abans d'esborrar un tut

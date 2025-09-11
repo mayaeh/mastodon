@@ -236,7 +236,7 @@ zh-TW:
         setting_boost_modal: 轉嘟前先詢問我
         setting_crop_images: 將未展開嘟文中的圖片裁剪至 16x9
         setting_default_language: 嘟文語言
-        setting_default_privacy: 嘟文隱私設定
+        setting_default_privacy: 嘟文可見性
         setting_default_quote_policy: 誰能引用此嘟文
         setting_default_sensitive: 總是將媒體標記為敏感內容
         setting_delete_modal: 刪除嘟文前先詢問我

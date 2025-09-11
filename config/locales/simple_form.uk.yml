@@ -226,7 +226,6 @@ uk:
         setting_boost_modal: Показувати діалог підтвердження під час поширення
         setting_crop_images: Обрізати зображення в нерозгорнутих дописах до 16x9
         setting_default_language: Мова дописів
-        setting_default_privacy: Видимість дописів
         setting_default_sensitive: Позначати медіа делікатними
         setting_delete_modal: Показувати діалог підтвердження під час видалення допису
         setting_disable_hover_cards: Вимкнути попередній перегляд профілю під час наведення мишки

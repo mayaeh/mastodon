@@ -40,7 +40,10 @@ interface AppThunkConfig {
   fulfilledMeta: AppMeta;
   rejectedMeta: AppMeta;
 }
-type AppThunkApi = Pick<GetThunkAPI<AppThunkConfig>, 'getState' | 'dispatch'>;
+export type AppThunkApi = Pick<
+  GetThunkAPI<AppThunkConfig>,
+  'getState' | 'dispatch'
+>;
 
 interface AppThunkOptions<Arg> {
   useLoadingBar?: boolean;
@@ -126,7 +129,7 @@ export function createAppThunk<Arg = void, Returned = void, ExtraArg = unknown>(
     },
   }));
 
-  return Object.assign({}, action, actionCreator);
+  return Object.assign(actionCreator, action);
 }
 
 const createBaseAsyncThunk = rtkCreateAsyncThunk.withTypes<AppThunkConfig>();

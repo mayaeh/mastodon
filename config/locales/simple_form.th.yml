@@ -211,7 +211,6 @@ th:
         setting_boost_modal: แสดงกล่องโต้ตอบการยืนยันก่อนดัน
         setting_crop_images: ครอบตัดภาพในโพสต์ที่ไม่ได้ขยายเป็น 16x9
         setting_default_language: ภาษาของการโพสต์
-        setting_default_privacy: ความเป็นส่วนตัวของการโพสต์
         setting_default_sensitive: ทำเครื่องหมายสื่อว่าละเอียดอ่อนเสมอ
         setting_delete_modal: แสดงกล่องโต้ตอบการยืนยันก่อนลบโพสต์
         setting_disable_hover_cards: ปิดใช้งานตัวอย่างโปรไฟล์เมื่อวางเมาส์เหนือ

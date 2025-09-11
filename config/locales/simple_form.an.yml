@@ -181,7 +181,6 @@ an:
         setting_boost_modal: Amostrar finestra de confirmación antes de retutar
         setting_crop_images: Retallar a 16x9 las imachens d'as publicacions no expandidas
         setting_default_language: Idioma de publicación
-        setting_default_privacy: Privacidat de publicacions
         setting_default_sensitive: Marcar siempre imachens como sensibles
         setting_delete_modal: Amostrar dialogo de confirmación antes de borrar una publicación
         setting_disable_swiping: Deshabilitar movimientos d'eslizamiento
