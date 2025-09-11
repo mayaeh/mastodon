@@ -341,6 +341,8 @@ const selectStatusState = createAppSelector(
     );
     const isDirect =
       status.get('visibility') === 'direct';
+    const isUnlisted =
+      status.get('visibility') === 'unlisted';
     const isMineAndPrivate =
       userId === status.getIn(['account', 'id']) &&
       status.get('visibility') === 'private';
@@ -348,6 +350,7 @@ const selectStatusState = createAppSelector(
       isLoggedIn: !!userId,
       isPublic,
       isDirect,
+      isUnlisted,
       isMine: userId === status.getIn(['account', 'id']),
       isPrivateReblog:
         userId === status.getIn(['account', 'id']) &&
@@ -378,14 +381,22 @@ interface IconText {
 function reblogIconText({
   isPublic,
   isDirect,
+  isUnlisted,
   isPrivateReblog,
   isReblogged,
 }: StatusState): IconText {
   if (isReblogged) {
-    return {
-      title: messages.reblog_cancel,
-      iconComponent: isPublic ? RepeatActiveIcon : LockOpenIcon,
-    };
+    if (isUnlisted) {
+      return {
+        title: messages.reblog_cancel,
+        iconComponent: isPublic ? RepeatActiveIcon : LockOpenIcon,
+      };
+    } else {
+      return {
+        title: messages.reblog_cancel,
+        iconComponent: isPublic ? RepeatActiveIcon : LockIcon,
+      };
+    }
   }
   const iconText: IconText = {
     title: messages.reblog,
@@ -394,11 +405,13 @@ function reblogIconText({
 
   if (isPrivateReblog) {
     iconText.meta = messages.reblog_private;
-    iconText.iconComponent = LockOpenIcon;
+    iconText.iconComponent = LockIcon;
   } else if (isDirect) {
     iconText.meta = messages.direct;
     iconText.iconComponent = AlternateEmailIcon;
     iconText.disabled = true;
+  } else if (isUnlisted) {
+    iconText.iconComponent = LockOpenIcon;
   } else if (!isPublic) {
     iconText.meta = messages.reblog_cannot;
     iconText.iconComponent = LockIcon;
