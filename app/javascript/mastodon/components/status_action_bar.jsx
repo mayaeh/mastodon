@@ -39,6 +39,8 @@ const messages = defineMessages({
   share: { id: 'status.share', defaultMessage: 'Share' },
   more: { id: 'status.more', defaultMessage: 'More' },
   replyAll: { id: 'status.replyAll', defaultMessage: 'Reply to thread' },
+  reblog_private: { id: 'status.reblog_private', defaultMessage: 'Boost with original visibility' },
+  cancel_reblog_private: { id: 'status.cancel_reblog_private', defaultMessage: 'Unboost' },
   favourite: { id: 'status.favourite', defaultMessage: 'Favorite' },
   removeFavourite: { id: 'status.remove_favourite', defaultMessage: 'Remove from favorites' },
   bookmark: { id: 'status.bookmark', defaultMessage: 'Bookmark' },
