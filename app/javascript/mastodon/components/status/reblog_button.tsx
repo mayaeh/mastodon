@@ -389,7 +389,7 @@ function reblogIconText({
     if (isUnlisted) {
       return {
         title: messages.reblog_cancel,
-        iconComponent: isPublic ? RepeatActiveIcon : LockOpenIcon,
+        iconComponent: LockOpenIcon,
       };
     } else {
       return {
