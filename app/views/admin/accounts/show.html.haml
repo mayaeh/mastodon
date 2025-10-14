@@ -14,12 +14,12 @@
       - if @account.fields?
         .account__header__fields
           - if @account.identity_proofs.active?
-          - proofs.each do |proof|
-            %dl
-              %dt= proof.provider.capitalize
-              %dd.verified
-                = link_to material_symbol('check'), proof.badge.proof_url, class: 'verified__mark', title: t('accounts.link_verified_on', date: l(proof.updated_at))
-                = link_to proof.provider_username, proof.badge.profile_url
+            - proofs.each do |proof|
+              %dl
+                %dt= proof.provider.capitalize
+                %dd.verified
+                  = link_to material_symbol('check'), proof.badge.proof_url, class: 'verified__mark', title: t('accounts.link_verified_on', date: l(proof.updated_at))
+                  = link_to proof.provider_username, proof.badge.profile_url
 
           = render partial: 'field', collection: @account.fields, locals: { account: @account }
 
