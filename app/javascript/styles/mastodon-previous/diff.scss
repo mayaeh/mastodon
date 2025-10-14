@@ -578,6 +578,10 @@ body {
   color: $dark-text-color;
 }
 
+.dialog-modal {
+  background: lighten($ui-base-color, 4%);
+}
+
 .dialog-modal__content__preview {
   background: darken($ui-base-color, 10%);
 }
@@ -751,6 +755,10 @@ body {
       }
     }
   }
+}
+
+.modal-root__overlay {
+  background: lighten($ui-base-color, 4%);
 }
 
 .boost-modal,
