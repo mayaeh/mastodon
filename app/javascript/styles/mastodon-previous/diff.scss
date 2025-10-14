@@ -330,6 +330,10 @@ body {
   color: lighten($ui-highlight-color, 8%);
 }
 
+.status__quote {
+  background-color: $ui-base-color;
+}
+
 .floating-action-button {
   background: darken($ui-highlight-color, 3%);
 
