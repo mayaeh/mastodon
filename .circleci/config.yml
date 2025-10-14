@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  ruby: circleci/ruby@2.5.3
-  node: circleci/node@7.1.1
+  ruby: circleci/ruby@2.5.4
+  node: circleci/node@7.2.0
 
 executors:
   default:
@@ -36,10 +36,10 @@ commands:
   prepare-yarn:
     steps:
       - run:
-          name: Specification version of yarn to 4.9.2
+          name: Specification version of yarn to 4.10.3
           command: |
             sudo corepack enable
-            sudo COREPACK_ENABLE_DOWNLOAD_PROMPT=0 yarn set version 4.9.2
+            sudo COREPACK_ENABLE_DOWNLOAD_PROMPT=0 yarn set version 4.10.3
   install-ruby-dependencies:
     parameters:
       ruby-version:
@@ -52,7 +52,7 @@ commands:
             bundle config without 'development production'
           name: Set bundler settings
       - ruby/install-deps:
-          bundler-version: '2.7.1'
+          bundler-version: '2.7.2'
           key: ruby<< parameters.ruby-version >>-gems-v2
   wait-db:
     steps:
@@ -63,7 +63,7 @@ commands:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.4.5-node
+      - image: cimg/ruby:3.4.7-node
         environment:
           RAILS_ENV: test
     steps:
