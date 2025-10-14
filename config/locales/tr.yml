@@ -367,7 +367,7 @@ tr:
       title: Özel emojiler
       uncategorized: Kategorilenmemiş
       unlist: Liste dışı
-      unlisted: Sessizce herkese açık
+      unlisted: Listelenmemiş
       update_failed_msg: Bu emoji güncellenemedi
       updated_msg: Emoji başarıyla güncellendi!
       upload: Yükle
@@ -848,6 +848,10 @@ tr:
         all: Herkes için
         disabled: Hiç kimseye
         users: Oturum açan yerel kullanıcılara
+      feed_access:
+        modes:
+          authenticated: Sadece yetkilendirilmiş kullanıcılar
+          public: Herkes
       registrations:
         moderation_recommandation: Lütfen kayıtları herkese açmadan önce yeterli ve duyarlı bir denetleyici ekibine sahip olduğunuzdan emin olun!
         preamble: Sunucunuzda kimin hesap oluşturabileceğini denetleyin.
@@ -1740,6 +1744,9 @@ tr:
       self_vote: Kendi anketlerinizde oy kullanamazsınız
       too_few_options: birden fazla öğeye sahip olmalı
       too_many_options: "%{max} öğeden fazla öğe içeremez"
+    vote: Oyla
+  posting_defaults:
+    explanation: Bu ayarlar, yeni gönderiler oluştururken varsayılan olarak kullanılacaktır, ancak bunları oluşturucu içinde her gönderi için ayrı ayrı düzenleyebilirsiniz.
   preferences:
     other: Diğer
     posting_defaults: Gönderi varsayılanları
@@ -1895,6 +1902,9 @@ tr:
         other: "%{count} videolar"
     boosted_from_html: "%{acct_link} kişisinden yeniden paylaştı"
     content_warning: 'İçerik uyarısı: %{warning}'
+    content_warnings:
+      hide: Gönderiyi gizle
+      show: Daha fazlasını göster
     default_language: Arayüz diliyle aynı
     disallowed_hashtags:
       one: 'izin verilmeyen bir etiket içeriyordu: %{tags}'
@@ -1917,10 +1927,9 @@ tr:
     visibilities:
       direct: Özel değini
       private: Sadece takipçiler
-      private_long: Sadece takipçilerime gönder
       public: Herkese açık
       public_long: Mastodon'da olan olmayan herkes
-      unlisted: Listelenmemiş
+      unlisted: Sessizce herkese açık
       unlisted_long: Mastodon arama sonuçlarında, öne çıkanlarda ve herkese açık zaman çizelgesinde gizli
   statuses_cleanup:
     enabled: Eski gönderileri otomatik olarak sil

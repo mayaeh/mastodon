@@ -364,7 +364,7 @@ vi:
       title: Emoji
       uncategorized: Chưa phân loại
       unlist: Bỏ danh sách
-      unlisted: Hạn chế
+      unlisted: Chưa cho phép
       update_failed_msg: Không thể cập nhật Emoji này
       updated_msg: Cập nhật thành công Emoji!
       upload: Tải lên
@@ -834,6 +834,10 @@ vi:
         all: Tới mọi người
         disabled: Không ai
         users: Để đăng nhập người cục bộ
+      feed_access:
+        modes:
+          authenticated: Chỉ những người dùng đã xác minh
+          public: Mọi người
       registrations:
         moderation_recommandation: Vui lòng đảm bảo rằng bạn có một đội ngũ kiểm duyệt và phản ứng nhanh trước khi mở đăng ký cho mọi người!
         preamble: Kiểm soát những ai có thể tạo tài khoản trên máy chủ của bạn.
@@ -1549,6 +1553,13 @@ vi:
       expires_at: Hết hạn
       uses: Sử dụng
     title: Mời bạn bè
+  link_preview:
+    author_html: Bởi %{name}
+    potentially_sensitive_content:
+      action: Nhấn để xem
+      confirm_visit: Bạn có chắc muốn mở liên kết này?
+      hide_button: Ẩn
+      label: Có khả năng là nội dung nhạy cảm
   lists:
     errors:
       limit: Bạn đã đạt đến số lượng danh sách tối đa
@@ -1701,6 +1712,9 @@ vi:
       self_vote: Bạn không thể tự vốt cho tút của mình
       too_few_options: phải có nhiều hơn một mục
       too_many_options: tối đa %{max} lựa chọn
+    vote: Vốt
+  posting_defaults:
+    explanation: Các thiết lập này sẽ được sử dụng làm mặc định khi bạn tạo tút mới, nhưng bạn có thể chỉnh sửa cho từng tút khi soạn thảo.
   preferences:
     other: Khác
     posting_defaults: Mặc định cho tút
@@ -1853,6 +1867,9 @@ vi:
         other: "%{count} video"
     boosted_from_html: Đã đăng lại từ %{acct_link}
     content_warning: 'Cảnh báo nội dung: %{warning}'
+    content_warnings:
+      hide: Ẩn tút
+      show: Mở rộng
     default_language: Giống giao diện
     disallowed_hashtags:
       other: 'chứa các hashtag bị cấm: %{tags}'
@@ -1873,8 +1890,7 @@ vi:
     title: '%{name}: "%{quote}"'
     visibilities:
       direct: Nhắn riêng
-      private: Riêng tư
-      private_long: Chỉ người theo dõi mới được xem
+      private: Chỉ người theo dõi
       public: Công khai
       public_long: Bất kỳ ai trong và ngoài Mastodon
       unlisted: Hạn chế

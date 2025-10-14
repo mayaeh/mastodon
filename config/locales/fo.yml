@@ -367,7 +367,7 @@ fo:
       title: Sergjørd kenslutekn
       uncategorized: Ikki flokkað
       unlist: Tak av listanum
-      unlisted: Stillur almenningur
+      unlisted: Ikki listað
       update_failed_msg: Fekk ikki dagført hatta kensluteknið
       updated_msg: Kenslutekn dagført!
       upload: Legg upp
@@ -848,6 +848,10 @@ fo:
         all: Til øll
         disabled: Til ongan
         users: Fyri lokalum brúkarum, sum eru ritaðir inn
+      feed_access:
+        modes:
+          authenticated: Einans váttaðir brúkarar
+          public: Øll
       registrations:
         moderation_recommandation: Vinarliga tryggja tær, at tú hevur eitt nøktandi og klárt umsjónartoymi, áðreen tú letur upp fyri skrásetingum frá øllum!
         preamble: Stýr, hvør kann stovna eina kontu á tínum ambætara.
@@ -1588,6 +1592,13 @@ fo:
       expires_at: Rennir út
       uses: Brúk
     title: Bjóða fólki
+  link_preview:
+    author_html: Av %{name}
+    potentially_sensitive_content:
+      action: Klikka fyri at vísa
+      confirm_visit: Er tú vís/ur í, at tú vil lata hetta leinkið upp?
+      hide_button: Fjal
+      label: Tilfar, sum møguliga er viðkvæmt
   lists:
     errors:
       limit: Tú hevur rokkið mesta talið av listum
@@ -1740,6 +1751,9 @@ fo:
       self_vote: Tú kanst ikki atkvøða í tínum egnum atkvøðugreiðslum
       too_few_options: má hava meiri enn ein valmøguleika
       too_many_options: kann ikki innihalda fleiri enn %{max} valmøguleikar
+    vote: Atkvøð
+  posting_defaults:
+    explanation: Hesar stillingar verða brúktar sum sjálvval tá stovnar nýggjar postar, men tú kanst rætta tær fyri hvønn post í rættiøkinum.
   preferences:
     other: Annað
     posting_defaults: Postingarstillingar
@@ -1917,10 +1931,9 @@ fo:
     visibilities:
       direct: Privat umrøða
       private: Einans fylgjarar
-      private_long: Vís einans fyri fylgjarum
       public: Alment
       public_long: Øll í og uttanfyri Mastodon
-      unlisted: Ólistað
+      unlisted: Stillur almenningur
       unlisted_long: Fjalt frá leitiúrslitum, rákum og almennum tíðarlinjum í Mastodon
   statuses_cleanup:
     enabled: Strika gamlar postar sjálvvirkandi

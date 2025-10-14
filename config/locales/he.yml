@@ -373,7 +373,7 @@ he:
       title: אמוג'י שהעלינו
       uncategorized: לא מסווגים
       unlist: בטל רישום
-      unlisted: ציבורי שקט
+      unlisted: לא רשומים
       update_failed_msg: לא ניתן היה לעדכן את היצגן הזה
       updated_msg: יצגן עודכן בהצלחה!
       upload: העלאה
@@ -876,6 +876,10 @@ he:
         all: לכולם
         disabled: לאף אחד
         users: למשתמשים מקומיים מחוברים
+      feed_access:
+        modes:
+          authenticated: משתמשים מאומתים בלבד
+          public: כולם
       registrations:
         moderation_recommandation: יש לוודא שלאתר יש צוות מנחות ומנחי שיחה מספק ושירותי בטרם תבחרו לפתוח הרשמה לכולם!
         preamble: שליטה בהרשאות יצירת חשבון בשרת שלך.
@@ -936,7 +940,7 @@ he:
       title: פרסומי החשבון - @%{name}
       trending: נושאים חמים
       view_publicly: צפיה בפומבי
-      visibility: נראות
+      visibility: חשיפה
       with_media: עם מדיה
     strikes:
       actions:
@@ -1666,6 +1670,13 @@ he:
       expires_at: פג תוקף ב-
       uses: שימושים
     title: הזמנת אנשים
+  link_preview:
+    author_html: מאת %{name}
+    potentially_sensitive_content:
+      action: לחץ להצגה
+      confirm_visit: האם להמשיך ליעד הקישור?
+      hide_button: להסתיר
+      label: תוכן שעלול להיות רגיש
   lists:
     errors:
       limit: הגעת למספר הרשימות המירבי
@@ -1818,9 +1829,12 @@ he:
       self_vote: אין אפשרות להצביע במשאל שפרסמת בעצמך
       too_few_options: חייב להכיל יותר מפריט אחד
       too_many_options: לא יכול להכיל יותר מ-%{max} פריטים
+    vote: הצבעה
+  posting_defaults:
+    explanation: העדפות אלו ישמשו כברירות המחדל כשתצרו הודעה חדשה, ברם תוכלו לבחור אחרת בכל חיבור הודעה בעתיד.
   preferences:
     other: שונות
-    posting_defaults: ברירות מחדל להודעות
+    posting_defaults: ברירות מחדל בפרסום
     public_timelines: פידים פומביים
   privacy:
     hint_html: "<strong>ניתן להתאים את הצורה שבה תירצו שיראו את פרופיל המשתמש וההודעות שלכם.</strong> מגוון אפשרויות במסטודון יכולות לעזור לכם להיחשף לקהל רחב יותר כאשר תפעילו אותן. הקדישו רגע לבדוק את ההגדרות הללו כדי לוודא שהן מתאימות לכם."
@@ -1979,6 +1993,9 @@ he:
         two: "%{count} סרטונים"
     boosted_from_html: הודהד מ-%{acct_link}
     content_warning: 'אזהרת תוכן: %{warning}'
+    content_warnings:
+      hide: להסתיר הודעה
+      show: הצג עוד
     default_language: זהה לשפת ממשק
     disallowed_hashtags:
       many: 'מכיל את התגיות האסורות: %{tags}'
@@ -2003,10 +2020,9 @@ he:
     visibilities:
       direct: אזכור פרטי
       private: לעוקבים בלבד
-      private_long: להצגה לעוקבים בלבד
       public: פומבי
       public_long: כל הגולשים, מחוברים למסטודון או לא
-      unlisted: מוסתר
+      unlisted: ציבורי שקט
       unlisted_long: מוסתרת מתוצאות חיפוש במסטודון, נושאים חמים וציר הזמן הציבורי
   statuses_cleanup:
     enabled: מחק הודעות ישנות אוטומטית

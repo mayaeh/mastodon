@@ -323,7 +323,7 @@ zh-CN:
         title: 新公告
       preview:
         disclaimer: 由于用户无法选择退出，电子邮件通知应仅限于重要公告，例如个人数据泄露或服务器关闭通知。
-        explanation_html: 此电子邮件将发送给 <strong>%{display_count} 用户</strong>。电子邮件将包含以下文本：
+        explanation_html: 此电子邮件将发送给 <strong>%{display_count} 名用户</strong>。电子邮件将包含以下文本：
         title: 预览公告通知
       publish: 发布
       published_msg: 公告已发布！
@@ -364,7 +364,7 @@ zh-CN:
       title: 自定义表情
       uncategorized: 未分类
       unlist: 隐藏
-      unlisted: 悄悄公开
+      unlisted: 已隐藏
       update_failed_msg: 表情更新失败
       updated_msg: 表情更新成功！
       upload: 上传新表情
@@ -834,6 +834,10 @@ zh-CN:
         all: 对所有人
         disabled: 不对任何人
         users: 对已登录的本站用户
+      feed_access:
+        modes:
+          authenticated: 仅已登录用户
+          public: 所有人
       registrations:
         moderation_recommandation: 在向所有人开放注册之前，请确保你拥有一个人手足够且反应迅速的管理团队！
         preamble: 控制谁可以在你的服务器上创建账号。
@@ -1549,6 +1553,13 @@ zh-CN:
       expires_at: 失效时间
       uses: 已使用次数
     title: 邀请用户
+  link_preview:
+    author_html: 来自 %{name}
+    potentially_sensitive_content:
+      action: 点击查看
+      confirm_visit: 您确定要打开此链接吗？
+      hide_button: 隐藏
+      label: 可能为敏感内容
   lists:
     errors:
       limit: 你已达到列表数量的上限
@@ -1701,6 +1712,9 @@ zh-CN:
       self_vote: 你不能参与自己发起的投票
       too_few_options: 至少需要两个选项
       too_many_options: 不能超过 %{max} 项
+    vote: 投票
+  posting_defaults:
+    explanation: 这些设置会在您撰写新嘟文时作为默认值应用，但每篇嘟文的设置也可以在编辑器处单独修改。
   preferences:
     other: 其他
     posting_defaults: 发布默认值
@@ -1853,6 +1867,9 @@ zh-CN:
         other: "%{count} 段视频"
     boosted_from_html: 转嘟自 %{acct_link}
     content_warning: 内容警告：%{warning}
+    content_warnings:
+      hide: 隐藏嘟文
+      show: 显示更多
     default_language: 与界面显示语言相同
     disallowed_hashtags:
       other: 包含以下被禁止的话题：%{tags}
@@ -1872,11 +1889,10 @@ zh-CN:
       public: 任何人
     title: "%{name}：“%{quote}”"
     visibilities:
-      direct: 私信提及
+      direct: 私下提及
       private: 仅关注者
-      private_long: 只有关注你的用户能看到
       public: 公开
-      public_long: 所有人（无论是否注册了 Mastodon）
+      public_long: 任何人（无论是否注册了 Mastodon）
       unlisted: 悄悄公开
       unlisted_long: 不显示在Mastodon的搜索结果、热门趋势、公共时间线上
   statuses_cleanup:
@@ -1924,8 +1940,8 @@ zh-CN:
   terms_of_service:
     title: 服务条款
   terms_of_service_interstitial:
-    future_preamble_html: 我们正修改服务条款，将在<strong>%{date}</strong>生效。我们建议您查看更新后的条款。
-    past_preamble_html: 自你上次访问起，我们改变了我们的服务条款。我们鼓励你查看更新后的条款。
+    future_preamble_html: 我们将更改部分服务条款，这些更改将在<strong>%{date}</strong>生效。我们建议您查看更新后的条款。
+    past_preamble_html: 自你上次访问起，我们更改了一些服务条款。我们建议你查看更新后的条款。
     review_link: 查看服务条款
     title: "%{domain} 更新了服务条款"
   themes:

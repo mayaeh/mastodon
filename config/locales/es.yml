@@ -367,7 +367,7 @@ es:
       title: Emojis personalizados
       uncategorized: Sin clasificar
       unlist: No listado
-      unlisted: Ocultos
+      unlisted: Sin listar
       update_failed_msg: No se pudo actualizar ese emoji
       updated_msg: "¡Emoji actualizado con éxito!"
       upload: Subir
@@ -848,6 +848,10 @@ es:
         all: A todos
         disabled: A nadie
         users: Para los usuarios locales que han iniciado sesión
+      feed_access:
+        modes:
+          authenticated: Solo usuarios autenticados
+          public: Todos
       registrations:
         moderation_recommandation: Por favor, ¡asegúrate de tener un equipo de moderación adecuado y reactivo antes de abrir los registros a todo el mundo!
         preamble: Controla quién puede crear una cuenta en tu servidor.
@@ -1588,6 +1592,13 @@ es:
       expires_at: Expira
       uses: Usos
     title: Invitar a gente
+  link_preview:
+    author_html: Por %{name}
+    potentially_sensitive_content:
+      action: Pulsa para mostrar
+      confirm_visit: "¿Seguro que quieres abrir este enlace?"
+      hide_button: Ocultar
+      label: Contenido potencialmente sensible
   lists:
     errors:
       limit: Has alcanzado la cantidad máxima de listas
@@ -1740,6 +1751,9 @@ es:
       self_vote: No puedes votar en tus propias encuestas
       too_few_options: debe tener más de un elemento
       too_many_options: no puede contener más de %{max} elementos
+    vote: Votar
+  posting_defaults:
+    explanation: Esta configuración se usará como predeterminada cuando crees nuevas publicaciones, pero puedes modificarla al escribir una publicación.
   preferences:
     other: Otros
     posting_defaults: Configuración por defecto de publicaciones
@@ -1895,6 +1909,9 @@ es:
         other: "%{count} vídeos"
     boosted_from_html: Impulsado desde %{acct_link}
     content_warning: 'Alerta de contenido: %{warning}'
+    content_warnings:
+      hide: Ocultar publicación
+      show: Mostrar más
     default_language: Igual que el idioma de la interfaz
     disallowed_hashtags:
       one: 'contenía una etiqueta no permitida: %{tags}'
@@ -1917,10 +1934,9 @@ es:
     visibilities:
       direct: Mención privada
       private: Solo seguidores
-      private_long: Solo mostrar a tus seguidores
       public: Pública
       public_long: Cualquiera dentro y fuera de Mastodon
-      unlisted: Pública, pero no mostrar en la historia federada
+      unlisted: Pública silenciosa
       unlisted_long: Ocultado de los resultados de búsqueda de Mastodon, tendencias y cronologías públicas
   statuses_cleanup:
     enabled: Borrar automáticamente publicaciones antiguas

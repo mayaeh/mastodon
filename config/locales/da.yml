@@ -367,7 +367,7 @@ da:
       title: Tilpassede emojier
       uncategorized: Ukategoriseret
       unlist: Fjern fra liste
-      unlisted: Tavsgør offentligt
+      unlisted: Ikke oplistet
       update_failed_msg: Kunne ikke opdatere denne emoji
       updated_msg: Emoji er opdateret!
       upload: Upload
@@ -848,6 +848,10 @@ da:
         all: Til alle
         disabled: Til ingen
         users: Til indloggede lokale brugere
+      feed_access:
+        modes:
+          authenticated: Kun godkendte brugere
+          public: Alle
       registrations:
         moderation_recommandation: Sørg for, at der er et tilstrækkeligt og reaktivt moderationsteam, før registrering åbnes for alle!
         preamble: Styr, hvem der kan oprette en konto på serveren.
@@ -1282,7 +1286,7 @@ da:
       account_status: Kontostatus
       confirming: Afventer færdiggørelse af e-mailbekræftelse.
       functional: Din konto er fuldt funktionel.
-      pending: Ansøgningen afventer gennemgang af vores personale. Dette kan tage noget tid. Man bør modtage en e-mail, såfremt ansøgningen godkendes.
+      pending: Ansøgningen afventer gennemgang af vores personale. Dette kan tage noget tid. Du modtager en e-mail, hvis din ansøgning bliver godkendt.
       redirecting_to: Din konto er inaktiv, da den pt. er omdirigerer til %{acct}.
       self_destruct: Da %{domain} er under nedlukning, vil kontoadgangen være begrænset.
       view_strikes: Se tidligere anmeldelser af din konto
@@ -1500,39 +1504,39 @@ da:
       overwrite_long: Erstat aktuelle poster med de nye
     overwrite_preambles:
       blocking_html:
-        one: Man er ved at <strong>erstatte sin sortliste</strong> med <strong>%{count} konto</strong> fra <strong>%{filename}</strong>.
-        other: Man er ved at <strong>erstatte sin sortliste</strong> med optil <strong>%{count} konti</strong> fra <strong>%{filename}</strong>.
+        one: Du er ved at <strong>erstatte din sortliste</strong> med <strong>%{count} konto</strong> fra <strong>%{filename}</strong>.
+        other: Du er ved at <strong>erstatte din sortliste</strong> med op til <strong>%{count} konti</strong> fra <strong>%{filename}</strong>.
       bookmarks_html:
         one: Du er ved at <strong>erstatte dine bogmærker</strong> med <strong>%{count} indlæg</strong> fra <strong>%{filename}</strong>.
         other: Du er ved at <strong>erstatte dine bogmærker</strong> med op til <strong>%{count} indlæg</strong> fra <strong>%{filename}</strong>.
       domain_blocking_html:
-        one: Man er ved at <strong>erstatte sin domænesortliste</strong> med <strong>%{count} domæne</strong> fra <strong>%{filename}</strong>.
-        other: Man er ved at <strong>erstatte sin domænesortliste</strong> med op til <strong>%{count} domæner</strong> fra <strong>%{filename}</strong>.
+        one: Du er ved at <strong>erstatte din domænesortliste</strong> med <strong>%{count} domæne</strong> fra <strong>%{filename}</strong>.
+        other: Du er ved at <strong>erstatte din domænesortliste</strong> med op til <strong>%{count} domæner</strong> fra <strong>%{filename}</strong>.
       following_html:
         one: Du er ved at <strong>følge</strong> <strong>%{count} konto</strong> fra <strong>%{filename}</strong> og <strong>stoppe med at følge andre</strong>.
         other: Du er ved at <strong>følge</strong> <strong>%{count} konti</strong> fra <strong>%{filename}</strong> og <strong>stoppe med at følge andre</strong>.
       lists_html:
-        one: Man er ved at <strong>erstatte sine lister</strong> med indhold fra <strong>%{filename}</strong>. <strong>%{count} konto</strong> føjes til nye lister.
-        other: Man er ved at <strong>erstatte sine lister</strong> med indhold fra <strong>%{filename}</strong>. Op til <strong>%{count} konti</strong> føjes til nye lister.
+        one: Du er ved at <strong>erstatte dine lister</strong> med indhold fra <strong>%{filename}</strong>. <strong>%{count} konto</strong> føjes til nye lister.
+        other: Du er ved at <strong>erstatte dine lister</strong> med indhold fra <strong>%{filename}</strong>. Op til <strong>%{count} konti</strong> føjes til nye lister.
       muting_html:
         one: Du er ved at <strong>erstatte din liste over en skjult konto</strong> med op til <strong>%{count} konto</strong> fra <strong>%{filename}</strong>.
         other: Du er ved at <strong>erstatte din liste over skjulte konti</strong> med op til <strong>%{count} konti</strong> fra <strong>%{filename}</strong>.
     preambles:
       blocking_html:
-        one: Man er ved at <strong>blokere</strong> <strong>%{count} konto</strong> fra <strong>%{filename}</strong>.
-        other: Man er ved at <strong>blokere</strong> op til <strong>%{count} konti</strong> fra <strong>%{filename}</strong>.
+        one: Du er ved at <strong>blokere</strong> <strong>%{count} konto</strong> fra <strong>%{filename}</strong>.
+        other: Du er ved at <strong>blokere</strong> op til <strong>%{count} konti</strong> fra <strong>%{filename}</strong>.
       bookmarks_html:
         one: Du er ved at tilføje <strong>%{count} indlæg</strong> fra <strong>%{filename}</strong> til dine <strong>bogmærker</strong>.
         other: Du er ved at tilføje <strong>%{count} indlæg</strong> fra <strong>%{filename}</strong> til dine <strong>bogmærker</strong>.
       domain_blocking_html:
-        one: Man er ved at <strong>blokere</strong> <strong>%{count} domæne</strong> fra <strong>%{filename}</strong>.
+        one: Du er ved at <strong>blokere</strong> <strong>%{count} domæne</strong> fra <strong>%{filename}</strong>.
         other: Man er ved at <strong>blokere</strong> op til <strong>%{count} domæner</strong> fra <strong>%{filename}</strong>.
       following_html:
-        one: Man er ved at <strong>følge</strong> <strong>%{count} konto</strong> fra <strong>%{filename}</strong>.
+        one: Du er ved at <strong>følge</strong> <strong>%{count} konto</strong> fra <strong>%{filename}</strong>.
         other: Man er ved at <strong>følge</strong> op til<strong>%{count} konti</strong> fra <strong>%{filename}</strong>.
       lists_html:
-        one: Man er ved at tilføje <strong>%{count} konto</strong> fra <strong>%{filename}</strong> til sine <strong>lister</strong>. Nye lister oprettes, hvis der ikke findes nogen liste at tilføje til.
-        other: Man er ved at tilføje <strong>%{count} konti</strong> fra <strong>%{filename}</strong> til sine <strong>lister</strong>. Nye lister oprettes, hvis der ikke findes nogen liste at tilføje til.
+        one: Du er ved at tilføje <strong>%{count} konto</strong> fra <strong>%{filename}</strong> til dine <strong>lister</strong>. Nye lister oprettes, hvis der ikke findes nogen liste at tilføje til.
+        other: Du er ved at tilføje <strong>%{count} konti</strong> fra <strong>%{filename}</strong> til dine <strong>lister</strong>. Nye lister oprettes, hvis der ikke findes nogen liste at tilføje til.
       muting_html:
         one: Du er ved at <strong>skjule</strong> op til <strong>%{count} konto</strong> fra <strong>%{filename}</strong>.
         other: Du er ved at <strong>skjule</strong> op til <strong>%{count} konti</strong> fra <strong>%{filename}</strong>.
@@ -1588,6 +1592,13 @@ da:
       expires_at: Udløber
       uses: Benyttelser
     title: Invitér personer
+  link_preview:
+    author_html: Af %{name}
+    potentially_sensitive_content:
+      action: Klik for at vise
+      confirm_visit: Er du sikker på, at du vil åbne dette link?
+      hide_button: Skjul
+      label: Potentielt følsomt indhold
   lists:
     errors:
       limit: Maks. listeantal nået
@@ -1635,7 +1646,7 @@ da:
       not_found: kunne ikke findes
       on_cooldown: Du er på nedkøling
     followers_count: Følgere på flytningstidspunktet
-    incoming_migrations: Flytter fra en anden konto
+    incoming_migrations: Flytning fra en anden konto
     incoming_migrations_html: For at flytte fra en anden konto til denne skal der først <a href="%{path}">oprettes et kontoalias</a>.
     moved_msg: Din konto omdirigeres nu til %{acct} og dine følgere overflyttes.
     not_redirecting: Din konto omdirigerer pt. ikke til nogen anden konto.
@@ -1740,6 +1751,9 @@ da:
       self_vote: Du kan ikke stemme i dine egne afstemninger
       too_few_options: skal have flere end ét valg
       too_many_options: må maks. indeholde %{max} valg
+    vote: Stem
+  posting_defaults:
+    explanation: Disse indstillinger vil blive brugt som standard, når du opretter nye indlæg, men du kan redigere dem for hvert enkelt indlæg i redigeringsværktøjet.
   preferences:
     other: Andet
     posting_defaults: Standarder for indlæg
@@ -1895,6 +1909,9 @@ da:
         other: "%{count} videoer"
     boosted_from_html: Fremhævet fra %{acct_link}
     content_warning: 'Indholdsadvarsel: %{warning}'
+    content_warnings:
+      hide: Skjul indlæg
+      show: Vis mere
     default_language: Samme som UI-sproget
     disallowed_hashtags:
       one: 'indeholdte et ikke tilladt hashtag: %{tags}'
@@ -1911,16 +1928,15 @@ da:
       reblog: En fremhævelse kan ikke fastgøres
     quote_policies:
       followers: Kun følgere
-      nobody: Kun en selv
+      nobody: Kun mig
       public: Alle
     title: '%{name}: "%{quote}"'
     visibilities:
       direct: Privat omtale
       private: Kun følgere
-      private_long: Vis kun til følgere
       public: Offentlig
       public_long: Alle på og udenfor Mastodon
-      unlisted: Ikke oplistet
+      unlisted: Offentlig (stille)
       unlisted_long: Skjult fra Mastodons søgeresultater, tendenser og offentlige tidslinjer
   statuses_cleanup:
     enabled: Slet automatisk gamle indlæg
