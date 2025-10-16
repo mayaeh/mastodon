@@ -10425,7 +10425,7 @@ noscript {
   color: $white;
   background: color.change($black, $alpha: 0.85);
   backdrop-filter: blur(8px);
-  border: 1px solid color.change(lighten($classic-base-color, $alpha: 4%), 0.85);
+  border: 1px solid color.change(lighten($classic-base-color, 4%), $alpha: 0.85);
   border-radius: 8px;
   box-shadow:
     0 10px 15px -3px color.change($base-shadow-color, $alpha: 0.25),
