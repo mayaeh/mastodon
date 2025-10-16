@@ -639,11 +639,13 @@ body {
 }
 
 .privacy-dropdown__dropdown,
-.language-dropdown__dropdown {
+.language-dropdown__dropdown,
+.visibility-dropdown__dropdown {
   background: $simple-background-color;
 }
 
-.privacy-dropdown__option {
+.privacy-dropdown__option,
+.visibility-dropdown__option {
   color: $inverted-text-color;
 
   &:hover,
