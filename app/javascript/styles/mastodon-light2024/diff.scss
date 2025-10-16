@@ -475,6 +475,13 @@ html {
   color: $white;
 }
 
+.privacy-dropdown__option,
+.visibility-dropdown__option {
+  &:focus,
+  &.active {
+    --dropdown-text-color: #{$white};
+}
+
 .compose-form .spoiler-input__input {
   color: lighten($ui-highlight-color, 8%);
 }

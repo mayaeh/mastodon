@@ -864,6 +864,10 @@ en:
         all: To everyone
         disabled: To no one
         users: To logged-in local users
+      feed_access:
+        modes:
+          authenticated: Authenticated users only
+          public: Everyone
       others:
         activitypub: ActivityPub
         preamble: Other settings, including customizing behavior
@@ -1611,6 +1615,13 @@ en:
       expires_at: Expires
       uses: Uses
     title: Invite people
+  link_preview:
+    author_html: By %{name}
+    potentially_sensitive_content:
+      action: Click to show
+      confirm_visit: Are you sure you wish to open this link?
+      hide_button: Hide
+      label: Potentially sensitive content
   lists:
     errors:
       limit: You have reached the maximum number of lists
@@ -1764,6 +1775,9 @@ en:
       self_vote: You cannot vote in your own polls
       too_few_options: must have more than one item
       too_many_options: can't contain more than %{max} items
+    vote: Vote
+  posting_defaults:
+    explanation: These settings will be used as defaults when you create new posts, but you can edit them per post within the composer.
   preferences:
     other: Other
     posting_defaults: Posting defaults
@@ -1919,6 +1933,9 @@ en:
         other: "%{count} videos"
     boosted_from_html: Boosted from %{acct_link}
     content_warning: 'Content warning: %{warning}'
+    content_warnings:
+      hide: Hide post
+      show: Show more
     default_language: Same as interface language
     disallowed_hashtags:
       one: 'contained a disallowed hashtag: %{tags}'
@@ -1934,18 +1951,17 @@ en:
       ownership: Someone else's post cannot be pinned
       reblog: A boost cannot be pinned
     quote_policies:
-      followers: Only your followers
-      nobody: Nobody
-      public: Everyone
+      followers: Followers only
+      nobody: Just me
+      public: Anyone
     title: '%{name}: "%{quote}"'
     visibilities:
-      direct: Direct
-      private: Followers-only
-      private_long: Only show to followers
+      direct: Private mention
+      private: Followers only
       public: Public
-      public_long: Everyone can see
-      unlisted: Unlisted
-      unlisted_long: Everyone can see, but not listed on public timelines
+      public_long: Anyone on and off Mastodon
+      unlisted: Quiet public
+      unlisted_long: Hidden from Mastodon search results, trending, and public timelines
   statuses_cleanup:
     enabled: Automatically delete old posts
     enabled_hint: Automatically deletes your posts once they reach a specified age threshold, unless they match one of the exceptions below

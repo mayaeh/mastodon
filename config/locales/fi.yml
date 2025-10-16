@@ -18,8 +18,8 @@ fi:
     pin_errors:
       following: Sinun täytyy seurata käyttäjää, jota haluat tukea
     posts:
-      one: Julkaisu
-      other: viestiä
+      one: julkaisu
+      other: julkaisua
     posts_tab_heading: Julkaisut
     self_follow_error: Oman tilisi seuraaminen ei ole sallittua
   admin:
@@ -507,12 +507,14 @@ fi:
         registration_requested: Rekisteröintiä pyydetty
         registrations:
           confirm: Vahvista
+          description: Vastaanotit rekisteröintymisen FASP-palvelusta. Hylkää rekisteröintyminen, jos et aloittanut sitä. Jos aloitit sen, vertaile huolellisesti nimeä ja avaimen sormenjälkeä ennen kuin hyväksyt rekisteröintymisen.
           reject: Hylkää
           title: Vahvista FASP-rekisteröinti
         save: Tallenna
         select_capabilities: Valitse kyvykkyydet
         sign_in: Kirjaudu sisään
         status: Tila
+        title: Fediversumin tukitoimintojen tarjoajat
       title: FASP
     follow_recommendations:
       description_html: "<strong>Seurantasuositukset auttavat uusia käyttäjiä löytämään nopeasti kiinnostavaa sisältöä</strong>. Kun käyttäjä ei ole ollut tarpeeksi vuorovaikutuksessa muiden kanssa, jotta hänelle olisi muodostunut henkilökohtaisia seuraamissuosituksia, suositellaan niiden sijaan näitä tilejä. Ne lasketaan päivittäin uudelleen yhdistelmästä tilejä, jotka ovat viime aikoina olleet aktiivisimmin sitoutuneita ja joilla on suurimmat paikalliset seuraajamäärät tietyllä kielellä."
@@ -846,6 +848,10 @@ fi:
         all: Kaikille
         disabled: Ei kenellekään
         users: Kirjautuneille paikallisille käyttäjille
+      feed_access:
+        modes:
+          authenticated: Vain todennetut käyttäjät
+          public: Kaikki
       registrations:
         moderation_recommandation: Varmista, että sinulla on riittävä ja toimintavalmis joukko moderaattoreita, ennen kuin avaat rekisteröitymisen kaikille!
         preamble: Määritä, kuka voi luoda tilin palvelimellesi.
@@ -1586,6 +1592,13 @@ fi:
       expires_at: Vanhenee
       uses: Käyttökertoja
     title: Kutsu käyttäjiä
+  link_preview:
+    author_html: Tehnyt %{name}
+    potentially_sensitive_content:
+      action: Näytä napsauttamalla
+      confirm_visit: Haluatko varmasti avata tämän linkin?
+      hide_button: Piilota
+      label: Mahdollisesti arkaluonteista sisältöä
   lists:
     errors:
       limit: Sinulla on enimmäismäärä listoja
@@ -1738,9 +1751,12 @@ fi:
       self_vote: Et voi äänestää omissa äänestyksissäsi
       too_few_options: on oltava useampi kuin yksi
       too_many_options: ei voi sisältää enempää kuin %{max} kohdetta
+    vote: Äänestä
+  posting_defaults:
+    explanation: Näitä asetuksia käytetään oletuksina, kun luot uusia julkaisuja, mutta voit muokata niitä julkaisukohtaisesti luontikentässä.
   preferences:
     other: Muut
-    posting_defaults: Julkaisun oletusasetukset
+    posting_defaults: Julkaisun oletukset
     public_timelines: Julkiset aikajanat
   privacy:
     hint_html: "<strong>Määritä, kuinka haluat profiilisi ja julkaisujesi löytyvän.</strong> Mastodonissa on monia ominaisuuksia, joiden käyttöönotto voi auttaa sinua tavoittamaan laajemman yleisön. Käytä hetki tarkistaaksesi, sopivatko nämä asetukset käyttöösi."
@@ -1893,6 +1909,9 @@ fi:
         other: "%{count} videota"
     boosted_from_html: Tehosti lähteestä %{acct_link}
     content_warning: 'Sisältövaroitus: %{warning}'
+    content_warnings:
+      hide: Piilota julkaisu
+      show: Näytä lisää
     default_language: Sama kuin käyttöliittymän kieli
     disallowed_hashtags:
       one: 'sisälsi kielletyn aihetunnisteen: %{tags}'
@@ -1908,18 +1927,17 @@ fi:
       ownership: Muiden julkaisuja ei voi kiinnittää
       reblog: Tehostusta ei voi kiinnittää
     quote_policies:
-      followers: Vain seuraajasi
-      nobody: Ei kukaan
-      public: Kaikki
+      followers: Vain seuraajat
+      nobody: Vain minä
+      public: Kuka tahansa
     title: "%{name}: ”%{quote}”"
     visibilities:
-      direct: Suoraan
+      direct: Yksityismaininta
       private: Vain seuraajat
-      private_long: Näytä vain seuraajille
       public: Julkinen
-      public_long: Kaikki voivat nähdä
-      unlisted: Listaamaton
-      unlisted_long: Kaikki voivat nähdä, mutta ei näytetä julkisilla aikajanoilla
+      public_long: Kuka tahansa Mastodonissa ja sen ulkopuolella
+      unlisted: Vaivihkaa julkinen
+      unlisted_long: Piilotettu Mastodonin hakutuloksista, trendeistä ja julkisilta aikajanoilta
   statuses_cleanup:
     enabled: Poista vanhat julkaisut automaattisesti
     enabled_hint: Poistaa julkaisusi automaattisesti, kun ne saavuttavat valitun ikäkynnyksen, ellei jokin alla olevista poikkeuksista tule kyseeseen

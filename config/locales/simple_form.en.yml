@@ -56,7 +56,8 @@ en:
         scopes: Which APIs the application will be allowed to access. If you select a top-level scope, you don't need to select individual ones.
         setting_aggregate_reblogs: Do not show new boosts for posts that have been recently boosted (only affects newly-received boosts)
         setting_always_send_emails: Normally e-mail notifications won't be sent when you are actively using Mastodon
-        setting_default_quote_policy: This setting will only take effect for posts created with the next Mastodon version, but you can select your preference in preparation.
+        setting_default_quote_policy_private: Followers-only posts authored on Mastodon can't be quoted by others.
+        setting_default_quote_policy_unlisted: When people quote you, their post will also be hidden from trending timelines.
         setting_default_sensitive: Sensitive media is hidden by default and can be revealed with a click
         setting_display_media_default: Hide media marked as sensitive
         setting_display_media_hide_all: Always hide media
@@ -111,7 +112,6 @@ en:
         status_page_url: URL of a page where people can see the status of this server during an outage
         theme: Theme that logged out visitors and new users see.
         thumbnail: A roughly 2:1 image displayed alongside your server information.
-        timeline_preview: Logged out visitors will be able to browse the most recent public posts available on the server.
         trendable_by_default: Skip manual review of trending content. Individual items can still be removed from trends after the fact.
         trends: Trends show which posts, hashtags and news stories are gaining traction on your server.
         trends_as_landing_page: Show trending content to logged-out users and visitors instead of a description of this server. Requires trends to be enabled.
@@ -244,7 +244,7 @@ en:
         setting_boost_modal: Show confirmation dialog before boosting
         setting_crop_images: Crop images in non-expanded posts to 16x9
         setting_default_language: Posting language
-        setting_default_privacy: Posting privacy
+        setting_default_privacy: Posting visibility
         setting_default_quote_policy: Who can quote
         setting_default_sensitive: Always mark media as sensitive
         setting_delete_modal: Show confirmation dialog before deleting a post
@@ -293,12 +293,16 @@ en:
         content_cache_retention_period: Remote content retention period
         custom_css: Custom CSS
         favicon: Favicon
+        local_live_feed_access: Access to live feeds featuring local posts
+        local_topic_feed_access: Access to hashtag and link feeds featuring local posts
         mascot: Custom mascot (legacy)
         media_cache_retention_period: Media cache retention period
         min_age: Minimum age requirement
         peers_api_enabled: Publish list of discovered servers in the API
         profile_directory: Enable profile directory
         registrations_mode: Who can sign-up
+        remote_live_feed_access: Access to live feeds featuring remote posts
+        remote_topic_feed_access: Access to hashtag and link feeds featuring remote posts
         require_invite_text: Require a reason to join
         show_domain_blocks: Show domain blocks
         show_domain_blocks_rationale: Show why domains were blocked
@@ -311,7 +315,6 @@ en:
         status_page_url: Status page URL
         theme: Default theme
         thumbnail: Server thumbnail
-        timeline_preview: Allow unauthenticated access to public timelines
         trendable_by_default: Allow trends without prior review
         trends: Enable trends
         trends_as_landing_page: Use trends as the landing page

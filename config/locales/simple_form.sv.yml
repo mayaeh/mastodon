@@ -103,7 +103,6 @@ sv:
         status_page_url: URL till en sida där personer kan se serverns status under ett driftavbrott
         theme: Tema som utloggade besökare och nya användare ser.
         thumbnail: En bild i cirka 2:1-proportioner som visas tillsammans med din serverinformation.
-        timeline_preview: Utloggade besökare kommer kunna bläddra bland de senaste offentliga inläggen som finns på servern.
         trendable_by_default: Hoppa över manuell granskning av trendande innehåll. Enskilda objekt kan ändå raderas från trender retroaktivt.
         trends: Trender visar vilka inlägg, hashtaggar och nyheter det pratas om på din server.
         trends_as_landing_page: Visa trendande innehåll för utloggade användare och besökare istället för en beskrivning om servern. Kräver att trender är aktiverat.
@@ -149,6 +148,9 @@ sv:
         min_age: Bör inte vara lägre än den minimiålder som krävs enligt lagarna i din jurisdiktion.
       user:
         chosen_languages: Vid aktivering visas bara inlägg på dina valda språk i offentliga tidslinjer
+        date_of_birth:
+          one: Vi måste se till att du är minst %{count} för att använda %{domain}. Vi sparar inte denna information.
+          other: Vi måste se till att du är minst %{count} för att använda %{domain}. Vi lagrar inte denna information.
         role: Rollen styr vilka behörigheter användaren har.
       user_role:
         color: Färgen som ska användas för rollen i användargränssnittet, som RGB i hex-format
@@ -156,6 +158,10 @@ sv:
         name: Offentligt namn på rollen, om rollen är inställd på att visas som ett emblem
         permissions_as_keys: Användare med denna roll kommer ha tillgång till...
         position: Högre roll avgör konfliktlösning i vissa situationer. Vissa åtgärder kan endast utföras på roller med lägre prioritet
+      username_block:
+        allow_with_approval: I stället för att förhindra direkt registrering kräver matchning av registreringar ditt godkännande
+        comparison: Var uppmärksam på Scunthorpe Problem vid blockering av partiella matcher
+        username: Matchas oavsett versaler och gemena bokstäver som ”4” för ”a” eller ’3’ för ”e”
       webhook:
         events: Välj händelser att skicka
         template: Skriv din egen JSON-nyttolast med variabel interpolation. Lämna tomt för förvald JSON.
@@ -229,7 +235,6 @@ sv:
         setting_boost_modal: Visa bekräftelsedialog innan boostning
         setting_crop_images: Beskär bilder i icke-utökade inlägg till 16x9
         setting_default_language: Inläggsspråk
-        setting_default_privacy: Inläggsintegritet
         setting_default_quote_policy: Vem kan citera
         setting_default_sensitive: Markera alltid media som känsligt
         setting_delete_modal: Visa bekräftelsedialog innan radering av inlägg
@@ -294,7 +299,6 @@ sv:
         status_page_url: URL för statussida
         theme: Standardtema
         thumbnail: Serverns tumnagelbild
-        timeline_preview: Tillåt oautentiserad åtkomst till offentliga tidslinjer
         trendable_by_default: Tillåt trender utan föregående granskning
         trends: Aktivera trender
         trends_as_landing_page: Använd trender som landningssida
@@ -322,6 +326,7 @@ sv:
         follow_request: Någon begärt att följa dig
         mention: Någon nämnt dig
         pending_account: Ett nytt konto behöver granskas
+        quote: Någon citerade dig
         reblog: Någon boostade ditt inlägg
         report: En ny rapport har skickats
         software_updates:
@@ -368,6 +373,10 @@ sv:
         name: Namn
         permissions_as_keys: Behörigheter
         position: Prioritet
+      username_block:
+        allow_with_approval: Tillåt registreringar med godkännande
+        comparison: Jämförelsesätt
+        username: Ord att matcha
       webhook:
         events: Aktiverade händelser
         template: Lastmall

@@ -99,7 +99,13 @@
 
 .focusable {
   &:focus {
-    background: rgba($ui-highlight-color, 0.05);
+    background: color.change($ui-highlight-color, $alpha: 0.05);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $ui-button-focus-outline-color;
+    outline-offset: -2px;
+    background: color.change($ui-highlight-color, $alpha: 0.05);
   }
 }
 
@@ -107,10 +113,10 @@
 .notification-ungrouped--direct,
 .notification-group--direct,
 .notification-group--annual-report {
-  background: rgba($ui-highlight-color, 0.05);
+  background: color.change($ui-highlight-color, $alpha: 0.05);
 
   &:focus {
-    background: rgba($ui-highlight-color, 0.05);
+    background: color.change($ui-highlight-color, $alpha: 0.1);
   }
 }
 
@@ -344,7 +350,7 @@
 .compose-form {
   &__highlightable {
     border: 1px solid var(--background-border-color);
-    background: $ui-base-color;
+    background: var(--input-background-color);
 
     &.active {
       border-color: $ui-highlight-color;
@@ -352,8 +358,15 @@
   }
 
   .spoiler-input {
+    &__border {
+      background: url('@/images/warning-stripes.svg') repeat-y;
+      width: 5px;
+      flex: 0 0 auto;
+    }
+
     .autosuggest-input {
-      border-bottom: 1px solid var(--background-border-color);
+      border: 1px solid var(--background-border-color);
+      border-width: 1px 0;
     }
   }
 
@@ -364,7 +377,7 @@
   }
 
   .spoiler-input__input {
-    background: color.mix($ui-base-color, $ui-highlight-color, 85%);
+    background: color.change($ui-highlight-color, $alpha: 0.05);
     color: $highlight-text-color;
   }
 }
@@ -392,6 +405,12 @@
 .privacy-dropdown__dropdown,
 .language-dropdown__dropdown {
   background: var(--dropdown-background-color);
+}
+
+.privacy-dropdown__option,
+.visibility-dropdown__option {
+  color: var(--dropdown-text-color);
+
 }
 
 .privacy-dropdown__option {
@@ -734,5 +753,14 @@
       border-color: $ui-primary-color;
       border-width: 1px;
     }
+  }
+}
+
+// tables.scss
+.batch-table {
+  &__toolbar {
+    border: 1px solid var(--background-border-color);
+    background: var(--background-color);
+    border-radius: 4px 4px 0 0;
   }
 }

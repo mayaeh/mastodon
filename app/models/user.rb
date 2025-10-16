@@ -180,6 +180,10 @@ class User < ApplicationRecord
 
   def disable!
     update!(disabled: true)
+
+    # This terminates all connections for the given account with the streaming
+    # server:
+    redis.publish("timeline:system:#{account.id}", Oj.dump(event: :kill))
   end
 
   def enable!
@@ -357,17 +361,22 @@ class User < ApplicationRecord
   end
 
   def reset_password!
+    # First, change password to something random, this revokes sessions and on-going access:
+    change_password!(SecureRandom.hex)
+
+    # Finally, send a reset password prompt to the user
+    send_reset_password_instructions
+  end
+
+  def change_password!(new_password)
     # First, change password to something random and deactivate all sessions
     transaction do
-      update(password: SecureRandom.hex)
+      update(password: new_password)
       session_activations.destroy_all
     end
 
     # Then, remove all authorized applications and connected push subscriptions
     revoke_access!
-
-    # Finally, send a reset password prompt to the user
-    send_reset_password_instructions
   end
 
   protected
@@ -412,7 +421,7 @@ class User < ApplicationRecord
 
   def set_approved
     self.approved = begin
-      if sign_up_from_ip_requires_approval? || sign_up_email_requires_approval? || sign_up_username_requires_approval?
+      if requires_approval?
         false
       else
         open_registrations? || valid_invitation? || external?
@@ -426,7 +435,11 @@ class User < ApplicationRecord
 
   def grant_approval_on_confirmation?
     # Re-check approval on confirmation if the server has switched to open registrations
-    open_registrations? && !sign_up_from_ip_requires_approval? && !sign_up_email_requires_approval?
+    open_registrations? && !requires_approval?
+  end
+
+  def requires_approval?
+    sign_up_from_ip_requires_approval? || sign_up_email_requires_approval? || sign_up_username_requires_approval?
   end
 
   def wrap_email_confirmation
