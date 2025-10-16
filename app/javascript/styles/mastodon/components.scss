@@ -6590,7 +6590,7 @@ a.status-card {
   width: 588px;
   max-height: 80vh;
   flex-direction: column;
-  background: var(--modal-background-color);
+  background: lighten($ui-base-color, 8%);
   backdrop-filter: $backdrop-blur-filter;
   border: 1px solid var(--modal-border-color);
   border-radius: 16px;

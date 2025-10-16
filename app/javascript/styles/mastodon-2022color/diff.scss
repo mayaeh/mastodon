@@ -469,6 +469,10 @@
   background: #000;
 }
 
+.dialog-modal {
+  background: var(--modal-background-color);
+}
+
 .search-results__section {
   &__header {
     background: var(--surface-background-color);
