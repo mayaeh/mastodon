@@ -258,11 +258,6 @@ class ComposeForm extends ImmutablePureComponent {
         <div className={classNames('compose-form__highlightable', { active: highlighted })} ref={this.setRef}>
           <EditIndicator />
 
-          <div className='compose-form__dropdowns'>
-            <VisibilityButton disabled={this.props.isEditing} />
-            <LanguageDropdown />
-          </div>
-
           {this.props.spoiler && (
             <div className='spoiler-input'>
               <div className='spoiler-input__border' />
@@ -312,6 +307,11 @@ class ComposeForm extends ImmutablePureComponent {
           <ComposeQuotedStatus />
 
           <div className='compose-form__footer'>
+            <div className='compose-form__dropdowns'>
+              <VisibilityButton disabled={this.props.isEditing} />
+              <LanguageDropdown />
+            </div>
+
             <div className='compose-form__actions'>
               <div className='compose-form__buttons'>
                 <UploadButtonContainer />
