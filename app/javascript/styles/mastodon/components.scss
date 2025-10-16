@@ -1918,6 +1918,7 @@
   margin-block-start: 16px;
   margin-inline-start: calc(var(--quote-margin) + var(--thread-margin, 0px));
   border-radius: 12px;
+  background-color: $ui-base-color;
   color: var(--nested-card-text);
   border: 1px solid var(--surface-border-color);
 }

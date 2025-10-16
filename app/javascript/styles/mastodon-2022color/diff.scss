@@ -136,6 +136,10 @@
   background: var(--background-color);
 }
 
+.status__quote {
+  background: inherit;
+}
+
 .column {
   > .scrollable {
     background: inherit;
