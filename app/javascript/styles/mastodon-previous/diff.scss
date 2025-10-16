@@ -668,6 +668,11 @@ body {
   }
 }
 
+.privacy-dropdown__option__content strong,
+.visibility-dropdown__option__content strong {
+  color: $inverted-text-color;
+}
+
 .language-dropdown {
   &__dropdown {
     .emoji-mart-search {
