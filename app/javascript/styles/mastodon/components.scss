@@ -2266,7 +2266,6 @@
   display: block;
   position: relative;
   border-radius: var(--avatar-border-radius);
-  background: var(--surface-background-color);
   flex-shrink: 0;
 
   img {
@@ -8424,7 +8423,6 @@ noscript {
       flex: 0 0 auto;
 
       .account__avatar {
-        background: var(--background-color);
         border: 1px solid var(--background-border-color);
         border-radius: var(--avatar-border-radius);
       }
@@ -10734,7 +10732,6 @@ noscript {
           flex-shrink: 0;
           align-self: flex-end;
           border: 1px solid var(--background-border-color);
-          background-color: $ui-base-color;
         }
 
         &__text-stack {
