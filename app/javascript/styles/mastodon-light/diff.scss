@@ -657,6 +657,10 @@ a.sparkline {
   }
 }
 
+kbd {
+  background-color: color.change($ui-highlight-color, $alpha: 0.1);
+}
+
 // emoji_picker.scss
 .emoji-mart-bar {
   &:first-child {

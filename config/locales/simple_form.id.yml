@@ -176,11 +176,9 @@ id:
         setting_aggregate_reblogs: Boost grup di linimasa
         setting_always_send_emails: Selalu kirim notifikasi email
         setting_auto_play_gif: Mainkan otomatis animasi GIF
-        setting_boost_modal: Tampilkan dialog konfirmasi dialog sebelum boost
         setting_crop_images: Potong gambar ke 16x9 pada toot yang tidak dibentangkan
         setting_default_language: Bahasa posting
         setting_default_sensitive: Selalu tandai media sebagai sensitif
-        setting_delete_modal: Tampilkan dialog konfirmasi sebelum hapus toot
         setting_disable_swiping: Nonaktifkan gerak usap
         setting_display_media: Tampilan media
         setting_display_media_default: Bawaan
