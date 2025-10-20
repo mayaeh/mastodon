@@ -1,36 +1,26 @@
-import { useEffect } from 'react';
-
 import { FormattedMessage } from 'react-intl';
 
-import { Link } from 'react-router-dom';
-
-import { fetchAccountsFamiliarFollowers } from '@/mastodon/actions/accounts_familiar_followers';
 import { Avatar } from '@/mastodon/components/avatar';
 import { AvatarGroup } from '@/mastodon/components/avatar_group';
+import { LinkedDisplayName } from '@/mastodon/components/display_name';
 import type { Account } from '@/mastodon/models/account';
-import { getAccountFamiliarFollowers } from '@/mastodon/selectors/accounts';
-import { useAppDispatch, useAppSelector } from '@/mastodon/store';
 
-const AccountLink: React.FC<{ account?: Account }> = ({ account }) => {
-  if (!account) {
-    return null;
-  }
-
-  return (
-    <Link
-      to={`/@${account.acct}`}
-      data-hover-card-account={account.id}
-      dangerouslySetInnerHTML={{ __html: account.display_name_html }}
-    />
-  );
-};
+import { useFetchFamiliarFollowers } from '../hooks/familiar_followers';
 
 const FamiliarFollowersReadout: React.FC<{ familiarFollowers: Account[] }> = ({
   familiarFollowers,
 }) => {
   const messageData = {
-    name1: <AccountLink account={familiarFollowers.at(0)} />,
-    name2: <AccountLink account={familiarFollowers.at(1)} />,
+    name1: (
+      <LinkedDisplayName
+        displayProps={{ account: familiarFollowers.at(0), variant: 'simple' }}
+      />
+    ),
+    name2: (
+      <LinkedDisplayName
+        displayProps={{ account: familiarFollowers.at(1), variant: 'simple' }}
+      />
+    ),
     othersCount: familiarFollowers.length - 2,
   };
 
@@ -64,20 +54,11 @@ const FamiliarFollowersReadout: React.FC<{ familiarFollowers: Account[] }> = ({
 export const FamiliarFollowers: React.FC<{ accountId: string }> = ({
   accountId,
 }) => {
-  const dispatch = useAppDispatch();
-  const familiarFollowers = useAppSelector((state) =>
-    getAccountFamiliarFollowers(state, accountId),
-  );
+  const { familiarFollowers, isLoading } = useFetchFamiliarFollowers({
+    accountId,
+  });
 
-  const hasNoData = familiarFollowers === null;
-
-  useEffect(() => {
-    if (hasNoData) {
-      void dispatch(fetchAccountsFamiliarFollowers({ id: accountId }));
-    }
-  }, [dispatch, accountId, hasNoData]);
-
-  if (hasNoData || familiarFollowers.length === 0) {
+  if (isLoading || familiarFollowers.length === 0) {
     return null;
   }
 

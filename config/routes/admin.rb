@@ -92,9 +92,16 @@ namespace :admin do
       post :restart_delivery
       post :stop_delivery
     end
+
+    resources :moderation_notes, controller: 'instances/moderation_notes', only: [:create, :destroy]
   end
 
-  resources :rules, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :rules, only: [:index, :new, :create, :edit, :update, :destroy] do
+    member do
+      post :move_up
+      post :move_down
+    end
+  end
 
   resources :webhooks do
     member do
@@ -229,6 +236,12 @@ namespace :admin do
     member do
       post :enable
       post :disable
+    end
+  end
+
+  resources :username_blocks, except: [:show, :destroy] do
+    collection do
+      post :batch
     end
   end
 end

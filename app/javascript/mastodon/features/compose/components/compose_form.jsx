@@ -12,12 +12,11 @@ import { length } from 'stringz';
 
 import { missingAltTextModal } from 'mastodon/initial_state';
 
-import AutosuggestInput from '../../../components/autosuggest_input';
-import AutosuggestTextarea from '../../../components/autosuggest_textarea';
-import { Button } from '../../../components/button';
+import AutosuggestInput from 'mastodon/components/autosuggest_input';
+import AutosuggestTextarea from 'mastodon/components/autosuggest_textarea';
+import { Button } from 'mastodon/components/button';
 import EmojiPickerDropdown from '../containers/emoji_picker_dropdown_container';
 import PollButtonContainer from '../containers/poll_button_container';
-import PrivacyDropdownContainer from '../containers/privacy_dropdown_container';
 import SpoilerButtonContainer from '../containers/spoiler_button_container';
 import UploadButtonContainer from '../containers/upload_button_container';
 import { countableText } from '../util/counter';
@@ -30,6 +29,8 @@ import { PollForm } from "./poll_form";
 import { ReplyIndicator } from './reply_indicator';
 import { UploadForm } from './upload_form';
 import { Warning } from './warning';
+import { ComposeQuotedStatus } from './quoted_post';
+import { VisibilityButton } from './visibility_button';
 
 const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d';
 
@@ -72,6 +73,7 @@ class ComposeForm extends ImmutablePureComponent {
     singleColumn: PropTypes.bool,
     lang: PropTypes.string,
     maxChars: PropTypes.number,
+    redirectOnSuccess: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -91,10 +93,29 @@ class ComposeForm extends ImmutablePureComponent {
     this.props.onChange(e.target.value);
   };
 
-  handleKeyDown = (e) => {
-    if (e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
-      this.handleSubmit();
+  blurOnEscape = (e) => {
+    if (['esc', 'escape'].includes(e.key.toLowerCase())) {
+      e.target.blur();
     }
+  }
+
+  handleKeyDownPost = (e) => {
+    if (e.key.toLowerCase() === 'enter' && (e.ctrlKey || e.metaKey)) {
+        this.handleSubmit();
+    }
+    this.blurOnEscape(e);
+  };
+
+  handleKeyDownSpoiler = (e) => {
+    if (e.key.toLowerCase() === 'enter') {
+      if (e.ctrlKey || e.metaKey) {
+        this.handleSubmit();
+      } else {
+        e.preventDefault();
+        this.textareaRef.current?.focus();
+      }
+    }
+    this.blurOnEscape(e);
   };
 
   getFulltextForCharacterCounting = () => {
@@ -225,9 +246,8 @@ class ComposeForm extends ImmutablePureComponent {
   };
 
   render () {
-    const { intl, onPaste, autoFocus, withoutNavigation, maxChars } = this.props;
+    const { intl, onPaste, autoFocus, withoutNavigation, maxChars, isSubmitting } = this.props;
     const { highlighted } = this.state;
-    const disabled = this.props.isSubmitting;
 
     return (
       <form className='compose-form' onSubmit={this.handleSubmit}>
@@ -246,9 +266,9 @@ class ComposeForm extends ImmutablePureComponent {
                 <AutosuggestInput
                   placeholder={intl.formatMessage(messages.spoiler_placeholder)}
                   value={this.props.spoilerText}
-                  disabled={disabled}
+                  disabled={isSubmitting}
                   onChange={this.handleChangeSpoilerText}
-                  onKeyDown={this.handleKeyDown}
+                  onKeyDown={this.handleKeyDownSpoiler}
                   ref={this.setSpoilerText}
                   suggestions={this.props.suggestions}
                   onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -268,12 +288,12 @@ class ComposeForm extends ImmutablePureComponent {
             <AutosuggestTextarea
               ref={this.textareaRef}
               placeholder={intl.formatMessage(messages.placeholder)}
-              disabled={disabled}
+              disabled={isSubmitting}
               value={this.props.text}
               onChange={this.handleChange}
               suggestions={this.props.suggestions}
               onFocus={this.handleFocus}
-              onKeyDown={this.handleKeyDown}
+              onKeyDown={this.handleKeyDownPost}
               onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
               onSuggestionsClearRequested={this.onSuggestionsClearRequested}
               onSuggestionSelected={this.onSuggestionSelected}
@@ -285,10 +305,11 @@ class ComposeForm extends ImmutablePureComponent {
 
           <UploadForm />
           <PollForm />
+          <ComposeQuotedStatus />
 
           <div className='compose-form__footer'>
             <div className='compose-form__dropdowns'>
-              <PrivacyDropdownContainer disabled={this.props.isEditing} />
+              <VisibilityButton disabled={this.props.isEditing} />
               <LanguageDropdown />
             </div>
 
@@ -305,9 +326,15 @@ class ComposeForm extends ImmutablePureComponent {
                 <Button
                   type='submit'
                   compact
-                  text={intl.formatMessage(this.props.isEditing ? messages.saveChanges : (this.props.isInReply ? messages.reply : messages.publish))}
                   disabled={!this.canSubmit()}
-                />
+                  loading={isSubmitting}
+                >
+                  {intl.formatMessage(
+                    this.props.isEditing ?
+                      messages.saveChanges :
+                      (this.props.isInReply ? messages.reply : messages.publish)
+                  )}
+                </Button>
               </div>
             </div>
           </div>

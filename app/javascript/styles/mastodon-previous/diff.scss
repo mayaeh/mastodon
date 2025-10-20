@@ -330,6 +330,10 @@ body {
   color: lighten($ui-highlight-color, 8%);
 }
 
+.status__quote {
+  background-color: $ui-base-color;
+}
+
 .floating-action-button {
   background: darken($ui-highlight-color, 3%);
 
@@ -436,6 +440,43 @@ body {
   }
 }
 
+.ui__navigation-bar {
+  background: lighten($ui-base-color, 8%);
+}
+
+@media screen and (width <= 759px) {
+  .columns-area__panels__pane--navigational .columns-area__panels__pane__inner {
+    background: $ui-base-color;
+  }
+}
+
+.navigation-panel {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: 100%;
+
+  &__menu {
+    background: $ui-base-color;
+
+    a {
+      &:hover {
+        background: lighten($ui-base-color, 8%);
+      }
+    }
+  }
+
+  &__compose-button {
+    color: $primary-text-color;
+    background: transparent;
+    text-decoration: none;
+  }
+
+  &__logo {
+    margin-bottom: 0px;
+    border-bottom: 1px solid var(--background-border-color);
+  }
+}
+
 @media screen and (max-width: $no-gap-breakpoint - 1px) {
   .columns-area__panels__pane--navigational {
     .navigation-panel {
@@ -521,11 +562,28 @@ body {
       color: $ui-highlight-color;
     }
   }
+
+  &--logo {
+    background: $ui-base-color;
+
+    &:hover,
+    &:focus {
+      background: lighten($ui-base-color, 8%);
+    }
+
+    &:active {
+      background: transparent;
+    }
+  }
 }
 
 .column-subheading {
   background: $ui-base-color;
   color: $dark-text-color;
+}
+
+.dialog-modal {
+  background: lighten($ui-base-color, 8%);
 }
 
 .dialog-modal__content__preview {
@@ -581,11 +639,13 @@ body {
 }
 
 .privacy-dropdown__dropdown,
-.language-dropdown__dropdown {
+.language-dropdown__dropdown,
+.visibility-dropdown__dropdown {
   background: $simple-background-color;
 }
 
-.privacy-dropdown__option {
+.privacy-dropdown__option,
+.visibility-dropdown__option {
   color: $inverted-text-color;
 
   &:hover,
@@ -606,6 +666,11 @@ body {
   strong {
     color: $inverted-text-color;
   }
+}
+
+.privacy-dropdown__option__content strong,
+.visibility-dropdown__option__content strong {
+  color: $inverted-text-color;
 }
 
 .language-dropdown {
@@ -640,6 +705,12 @@ body {
 .search-results__section {
   &__header {
     background: var(--background-color);
+  }
+}
+
+.explore__search-results {
+  article {
+    background: $ui-base-color;
   }
 }
 
@@ -695,6 +766,10 @@ body {
       }
     }
   }
+}
+
+.modal-root__overlay {
+  background: lighten($ui-base-color, 4%);
 }
 
 .boost-modal,

@@ -2,8 +2,8 @@ import { defineMessages, useIntl } from 'react-intl';
 
 import AlternateEmailIcon from '@/material-icons/400-24px/alternate_email.svg?react';
 import LockIcon from '@/material-icons/400-24px/lock.svg?react';
+import LockOpenIcon from '@/material-icons/400-24px/lock_open_right.svg?react';
 import PublicIcon from '@/material-icons/400-24px/public.svg?react';
-import QuietTimeIcon from '@/material-icons/400-24px/quiet_time.svg?react';
 import type { StatusVisibility } from 'mastodon/models/status';
 
 import { Icon } from './icon';
@@ -11,7 +11,7 @@ import { Icon } from './icon';
 const messages = defineMessages({
   public_short: {
     id: 'privacy.public.short',
-    defaultMessage: 'Public'
+    defaultMessage: 'Public',
   },
   unlisted_short: {
     id: 'privacy.unlisted.short',
@@ -40,7 +40,7 @@ export const VisibilityIcon: React.FC<{ visibility: StatusVisibility }> = ({
     },
     unlisted: {
       icon: 'unlock',
-      iconComponent: QuietTimeIcon,
+      iconComponent: LockOpenIcon,
       text: intl.formatMessage(messages.unlisted_short),
     },
     private: {
@@ -61,7 +61,7 @@ export const VisibilityIcon: React.FC<{ visibility: StatusVisibility }> = ({
     <Icon
       id={visibilityIcon.icon}
       icon={visibilityIcon.iconComponent}
-      title={visibilityIcon.text}
+      aria-label={visibilityIcon.text}
     />
   );
 };

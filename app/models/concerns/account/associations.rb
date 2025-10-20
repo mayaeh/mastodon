@@ -19,6 +19,7 @@ module Account::Associations
         has_many :featured_tags, -> { includes(:tag) }
         has_many :identity_proofs, class_name: 'AccountIdentityProof'
         has_many :list_accounts
+        has_many :instance_moderation_notes
         has_many :media_attachments
         has_many :mentions
         has_many :migrations, class_name: 'AccountMigration'

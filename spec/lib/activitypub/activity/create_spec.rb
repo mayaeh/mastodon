@@ -887,8 +887,35 @@ RSpec.describe ActivityPub::Activity::Create do
         end
       end
 
-      context 'with an unverifiable quote of a known post', feature: :inbound_quotes do
-        let(:quoted_status) { Fabricate(:status) }
+      context 'with an unverifiable quote of a known post, with summary (CW) but no text' do
+        let(:quoted_status) { Fabricate(:status, account: Fabricate(:account, domain: 'example.com')) }
+
+        let(:object_json) do
+          build_object(
+            type: 'Note',
+            summary: 'beware of what she said',
+            content: nil,
+            quote: ActivityPub::TagManager.instance.uri_for(quoted_status)
+          )
+        end
+
+        it 'creates a status with an unverified quote' do
+          expect { subject.perform }.to change(sender.statuses, :count).by(1)
+
+          status = sender.statuses.first
+          expect(status).to_not be_nil
+          expect(status.spoiler_text).to eq 'beware of what she said'
+          expect(status.content).to eq ''
+          expect(status.quote).to_not be_nil
+          expect(status.quote).to have_attributes(
+            state: 'pending',
+            approval_uri: nil
+          )
+        end
+      end
+
+      context 'with an unverifiable quote of a known post' do
+        let(:quoted_status) { Fabricate(:status, account: Fabricate(:account, domain: 'example.com')) }
 
         let(:object_json) do
           build_object(
@@ -911,7 +938,31 @@ RSpec.describe ActivityPub::Activity::Create do
         end
       end
 
-      context 'with an unverifiable unknown post', feature: :inbound_quotes do
+      context 'with an unverifiable quote of a dead post' do
+        let(:quoted_status) { Fabricate(:status) }
+
+        let(:object_json) do
+          build_object(
+            type: 'Note',
+            content: 'woah what she said is amazing',
+            quote: { type: 'Tombstone' }
+          )
+        end
+
+        it 'creates a status with an unverified quote' do
+          expect { subject.perform }.to change(sender.statuses, :count).by(1)
+
+          status = sender.statuses.first
+          expect(status).to_not be_nil
+          expect(status.quote).to_not be_nil
+          expect(status.quote).to have_attributes(
+            state: 'deleted',
+            approval_uri: nil
+          )
+        end
+      end
+
+      context 'with an unverifiable unknown post' do
         let(:unknown_post_uri) { 'https://unavailable.example.com/unavailable-post' }
 
         let(:object_json) do
@@ -939,7 +990,7 @@ RSpec.describe ActivityPub::Activity::Create do
         end
       end
 
-      context 'with a verifiable quote of a known post', feature: :inbound_quotes do
+      context 'with a verifiable quote of a known post' do
         let(:quoted_account) { Fabricate(:account, domain: 'quoted.example.com') }
         let(:quoted_status) { Fabricate(:status, account: quoted_account) }
         let(:approval_uri) { 'https://quoted.example.com/quote-approval' }

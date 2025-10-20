@@ -31,6 +31,7 @@ class UserSettings
     setting :disable_hover_cards, default: false
     setting :delete_modal, default: true
     setting :reblog_modal, default: false
+    setting :quick_boosting, default: false
     setting :missing_alt_text_modal, default: false
     setting :reduce_motion, default: false
     setting :expand_content_warnings, default: false
@@ -38,6 +39,7 @@ class UserSettings
     setting :auto_play, default: false
     setting :navigation_panel_layout, default: 'right'
     setting :fab_layout, default: 'right'
+    setting :emoji_style, default: 'auto', in: %w(auto native twemoji)
   end
 
   namespace :notification_emails do
@@ -45,6 +47,7 @@ class UserSettings
     setting :reblog, default: false
     setting :favourite, default: false
     setting :mention, default: true
+    setting :quote, default: true
     setting :follow_request, default: true
     setting :report, default: true
     setting :pending_account, default: true

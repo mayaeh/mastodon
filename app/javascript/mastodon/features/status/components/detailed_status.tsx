@@ -26,10 +26,12 @@ import { IconLogo } from 'mastodon/components/logo';
 import MediaGallery from 'mastodon/components/media_gallery';
 import { PictureInPicturePlaceholder } from 'mastodon/components/picture_in_picture_placeholder';
 import StatusContent from 'mastodon/components/status_content';
+import { QuotedStatus } from 'mastodon/components/status_quoted';
 import { VisibilityIcon } from 'mastodon/components/visibility_icon';
 import { Audio } from 'mastodon/features/audio';
 import scheduleIdleTask from 'mastodon/features/ui/util/schedule_idle_task';
 import { Video } from 'mastodon/features/video';
+import { useIdentity } from 'mastodon/identity_context';
 
 import Card from './card';
 
@@ -72,6 +74,8 @@ export const DetailedStatus: React.FC<{
   const [height, setHeight] = useState(0);
   const [showDespiteFilter, setShowDespiteFilter] = useState(false);
   const nodeRef = useRef<HTMLDivElement>();
+
+  const { signedIn } = useIdentity();
 
   const handleOpenVideo = useCallback(
     (options: VideoModalOptions) => {
@@ -126,6 +130,7 @@ export const DetailedStatus: React.FC<{
   let media;
   let applicationLink;
   let reblogLink;
+  let quotesLink;
 
   const outerStyle = { boxSizing: 'border-box' } as CSSProperties;
 
@@ -194,6 +199,7 @@ export const DetailedStatus: React.FC<{
         <Video
           preview={attachment.get('preview_url')}
           frameRate={attachment.getIn(['meta', 'original', 'frame_rate'])}
+          aspectRatio={`${attachment.getIn(['meta', 'original', 'width'])} / ${attachment.getIn(['meta', 'original', 'height'])}`}
           blurhash={attachment.get('blurhash')}
           src={attachment.get('url')}
           alt={description}
@@ -206,7 +212,7 @@ export const DetailedStatus: React.FC<{
         />
       );
     }
-  } else if (status.get('card')) {
+  } else if (status.get('card') && !status.get('quote')) {
     media = (
       <Card
         sensitive={status.get('sensitive')}
@@ -258,6 +264,39 @@ export const DetailedStatus: React.FC<{
     );
   }
 
+  if (['private', 'direct'].includes(status.get('visibility') as string)) {
+    quotesLink = '';
+  } else if (signedIn) {
+    quotesLink = (
+      <Link
+        to={`/@${status.getIn(['account', 'acct'])}/${status.get('id')}/quotes`}
+        className='detailed-status__link'
+      >
+        <span className='detailed-status__quotes'>
+          <AnimatedNumber value={status.get('quotes_count')} />
+        </span>
+        <FormattedMessage
+          id='status.quotes'
+          defaultMessage='{count, plural, one {quote} other {quotes}}'
+          values={{ count: status.get('quotes_count') }}
+        />
+      </Link>
+    );
+  } else {
+    quotesLink = (
+      <span className='detailed-status__link'>
+        <span className='detailed-status__quotes'>
+          <AnimatedNumber value={status.get('quotes_count')} />
+        </span>
+        <FormattedMessage
+          id='status.quotes'
+          defaultMessage='{count, plural, one {quote} other {quotes}}'
+          values={{ count: status.get('quotes_count') }}
+        />
+      </span>
+    );
+  }
+
   const favouriteLink = (
     <Link
       to={`/@${status.getIn(['account', 'acct'])}/${status.get('id')}/favourites`}
@@ -286,7 +325,12 @@ export const DetailedStatus: React.FC<{
 
   return (
     <div style={outerStyle}>
-      <div ref={handleRef} className={classNames('detailed-status')}>
+      <div
+        ref={handleRef}
+        className={classNames('detailed-status', {
+          'status--has-quote': !!status.get('quote'),
+        })}
+      >
         {status.get('visibility') === 'direct' && (
           <div className='status__prepend'>
             <div className='status__prepend-icon-wrapper'>
@@ -331,17 +375,13 @@ export const DetailedStatus: React.FC<{
           />
         )}
 
-        {status.get('spoiler_text').length > 0 &&
-          (!matchedFilters || showDespiteFilter) && (
-            <ContentWarning
-              text={
-                status.getIn(['translation', 'spoilerHtml']) ||
-                status.get('spoilerHtml')
-              }
-              expanded={expanded}
-              onClick={handleExpandedToggle}
-            />
-          )}
+        {(!matchedFilters || showDespiteFilter) && (
+          <ContentWarning
+            status={status}
+            expanded={expanded}
+            onClick={handleExpandedToggle}
+          />
+        )}
 
         {expanded && (
           <>
@@ -353,6 +393,13 @@ export const DetailedStatus: React.FC<{
 
             {media}
             {hashtagBar}
+
+            {status.get('quote') && (
+              <QuotedStatus
+                quote={status.get('quote')}
+                parentQuotePostId={status.get('id')}
+              />
+            )}
           </>
         )}
 
@@ -390,6 +437,8 @@ export const DetailedStatus: React.FC<{
           <div className='detailed-status__meta__line'>
             {reblogLink}
             {reblogLink && <>·</>}
+            {quotesLink}
+            {quotesLink && <>·</>}
             {favouriteLink}
           </div>
         </div>

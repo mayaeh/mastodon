@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_07_142305) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -210,6 +210,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
     t.datetime "requested_review_at", precision: nil
     t.boolean "indexable", default: false, null: false
     t.string "attribution_domains", default: [], array: true
+    t.string "following_url", default: "", null: false
+    t.integer "id_scheme", default: 1
     t.index "(((setweight(to_tsvector('simple'::regconfig, (display_name)::text), 'A'::\"char\") || setweight(to_tsvector('simple'::regconfig, (username)::text), 'B'::\"char\")) || setweight(to_tsvector('simple'::regconfig, (COALESCE(domain, ''::character varying))::text), 'C'::\"char\")))", name: "search_index", using: :gin
     t.index "lower((username)::text), COALESCE(lower((domain)::text), ''::text)", name: "index_accounts_on_username_and_domain_lower", unique: true
     t.index ["domain", "id"], name: "index_accounts_on_domain_and_id"
@@ -371,6 +373,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
     t.string "uri"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.bigint "parent_status_id"
+    t.bigint "parent_account_id"
+    t.index ["parent_status_id"], name: "index_conversations_on_parent_status_id", unique: true, where: "(parent_status_id IS NOT NULL)"
     t.index ["uri"], name: "index_conversations_on_uri", unique: true, opclass: :text_pattern_ops, where: "(uri IS NOT NULL)"
   end
 
@@ -457,6 +462,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
     t.index ["domain"], name: "index_email_domain_blocks_on_domain", unique: true
   end
 
+  create_table "fasp_backfill_requests", force: :cascade do |t|
+    t.string "category", null: false
+    t.integer "max_count", default: 100, null: false
+    t.string "cursor"
+    t.boolean "fulfilled", default: false, null: false
+    t.bigint "fasp_provider_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fasp_provider_id"], name: "index_fasp_backfill_requests_on_fasp_provider_id"
+  end
+
   create_table "fasp_debug_callbacks", force: :cascade do |t|
     t.bigint "fasp_provider_id", null: false
     t.string "ip", null: false
@@ -464,6 +480,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["fasp_provider_id"], name: "index_fasp_debug_callbacks_on_fasp_provider_id"
+  end
+
+  create_table "fasp_follow_recommendations", force: :cascade do |t|
+    t.bigint "requesting_account_id", null: false
+    t.bigint "recommended_account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recommended_account_id"], name: "index_fasp_follow_recommendations_on_recommended_account_id"
+    t.index ["requesting_account_id"], name: "index_fasp_follow_recommendations_on_requesting_account_id"
   end
 
   create_table "fasp_providers", force: :cascade do |t|
@@ -480,7 +505,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
     t.string "fediverse_account"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "delivery_last_failed_at"
     t.index ["base_url"], name: "index_fasp_providers_on_base_url", unique: true
+  end
+
+  create_table "fasp_subscriptions", force: :cascade do |t|
+    t.string "category", null: false
+    t.string "subscription_type", null: false
+    t.integer "max_batch_size", null: false
+    t.integer "threshold_timeframe"
+    t.integer "threshold_shares"
+    t.integer "threshold_likes"
+    t.integer "threshold_replies"
+    t.bigint "fasp_provider_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fasp_provider_id"], name: "index_fasp_subscriptions_on_fasp_provider_id"
   end
 
   create_table "favourites", force: :cascade do |t|
@@ -543,7 +583,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
     t.boolean "notify", default: false, null: false
     t.string "languages", array: true
     t.index ["account_id", "target_account_id"], name: "index_follows_on_account_id_and_target_account_id", unique: true
-    t.index ["target_account_id"], name: "index_follows_on_target_account_id"
+    t.index ["target_account_id", "account_id"], name: "index_follows_on_target_account_id_and_account_id"
   end
 
   create_table "generated_annual_reports", force: :cascade do |t|
@@ -565,6 +605,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
     t.bigint "user_id"
     t.index ["uid", "provider"], name: "index_identities_on_uid_and_provider", unique: true
     t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "instance_moderation_notes", force: :cascade do |t|
+    t.string "domain", null: false
+    t.bigint "account_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["domain"], name: "index_instance_moderation_notes_on_domain"
   end
 
   create_table "invites", force: :cascade do |t|
@@ -901,11 +950,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
     t.string "activity_uri"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id", "quoted_account_id"], name: "index_quotes_on_account_id_and_quoted_account_id"
+    t.boolean "legacy", default: false, null: false
+    t.index ["account_id", "quoted_account_id", "id"], name: "index_quotes_on_account_id_and_quoted_account_id_and_id"
     t.index ["activity_uri"], name: "index_quotes_on_activity_uri", unique: true, where: "(activity_uri IS NOT NULL)"
     t.index ["approval_uri"], name: "index_quotes_on_approval_uri", where: "(approval_uri IS NOT NULL)"
     t.index ["quoted_account_id"], name: "index_quotes_on_quoted_account_id"
-    t.index ["quoted_status_id"], name: "index_quotes_on_quoted_status_id"
+    t.index ["quoted_status_id", "id"], name: "index_quotes_on_quoted_status_id_and_id"
     t.index ["status_id"], name: "index_quotes_on_status_id", unique: true
   end
 
@@ -955,6 +1005,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
     t.index ["action_taken_by_account_id"], name: "index_reports_on_action_taken_by_account_id", where: "(action_taken_by_account_id IS NOT NULL)"
     t.index ["assigned_account_id"], name: "index_reports_on_assigned_account_id", where: "(assigned_account_id IS NOT NULL)"
     t.index ["target_account_id"], name: "index_reports_on_target_account_id"
+  end
+
+  create_table "rule_translations", force: :cascade do |t|
+    t.text "text", default: "", null: false
+    t.text "hint", default: "", null: false
+    t.string "language", null: false
+    t.bigint "rule_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rule_id", "language"], name: "index_rule_translations_on_rule_id_and_language", unique: true
   end
 
   create_table "rules", force: :cascade do |t|
@@ -1068,6 +1128,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "untrusted_favourites_count"
     t.bigint "untrusted_reblogs_count"
+    t.bigint "quotes_count", default: 0, null: false
     t.index ["status_id"], name: "index_status_stats_on_status_id", unique: true
   end
 
@@ -1109,6 +1170,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
     t.integer "quote_approval_policy", default: 0, null: false
     t.index ["account_id", "id", "visibility", "updated_at"], name: "index_statuses_20190820", order: { id: :desc }, where: "(deleted_at IS NULL)"
     t.index ["account_id"], name: "index_statuses_on_account_id"
+    t.index ["conversation_id"], name: "index_statuses_on_conversation_id"
     t.index ["deleted_at"], name: "index_statuses_on_deleted_at", where: "(deleted_at IS NOT NULL)"
     t.index ["id", "account_id"], name: "index_statuses_local_20190824", order: { id: :desc }, where: "((local OR (uri IS NULL)) AND (deleted_at IS NULL) AND (visibility = 0) AND (reblog_of_id IS NULL) AND ((NOT reply) OR (in_reply_to_account_id = account_id)))"
     t.index ["id", "language", "account_id"], name: "index_statuses_public_20250129", order: { id: :desc }, where: "((deleted_at IS NULL) AND (visibility = 0) AND (reblog_of_id IS NULL) AND ((NOT reply) OR (in_reply_to_account_id = account_id)))"
@@ -1204,6 +1266,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "username_blocks", force: :cascade do |t|
+    t.string "username", null: false
+    t.string "normalized_username", null: false
+    t.boolean "exact", default: false, null: false
+    t.boolean "allow_with_approval", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "lower((username)::text)", name: "index_username_blocks_on_username_lower_btree", unique: true
+    t.index ["normalized_username"], name: "index_username_blocks_on_normalized_username"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -1219,9 +1292,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
     t.datetime "confirmation_sent_at", precision: nil
     t.string "unconfirmed_email"
     t.string "locale"
-    t.string "encrypted_otp_secret"
-    t.string "encrypted_otp_secret_iv"
-    t.string "encrypted_otp_secret_salt"
     t.integer "consumed_timestep"
     t.boolean "otp_required_for_login", default: false, null: false
     t.datetime "last_emailed_at", precision: nil
@@ -1242,6 +1312,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
     t.string "time_zone"
     t.string "otp_secret"
     t.datetime "age_verified_at"
+    t.boolean "require_tos_interstitial", default: false, null: false
     t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_by_application_id"], name: "index_users_on_created_by_application_id", where: "(created_by_application_id IS NOT NULL)"
@@ -1343,7 +1414,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
   add_foreign_key "custom_filter_statuses", "statuses", on_delete: :cascade
   add_foreign_key "custom_filters", "accounts", on_delete: :cascade
   add_foreign_key "email_domain_blocks", "email_domain_blocks", column: "parent_id", on_delete: :cascade
+  add_foreign_key "fasp_backfill_requests", "fasp_providers"
   add_foreign_key "fasp_debug_callbacks", "fasp_providers"
+  add_foreign_key "fasp_follow_recommendations", "accounts", column: "recommended_account_id"
+  add_foreign_key "fasp_follow_recommendations", "accounts", column: "requesting_account_id"
+  add_foreign_key "fasp_subscriptions", "fasp_providers"
   add_foreign_key "favourites", "accounts", name: "fk_5eb6c2b873", on_delete: :cascade
   add_foreign_key "favourites", "statuses", name: "fk_b0e856845e", on_delete: :cascade
   add_foreign_key "featured_tags", "accounts", on_delete: :cascade
@@ -1357,6 +1432,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
   add_foreign_key "follows", "accounts", name: "fk_32ed1b5560", on_delete: :cascade
   add_foreign_key "generated_annual_reports", "accounts"
   add_foreign_key "identities", "users", name: "fk_bea040f377", on_delete: :cascade
+  add_foreign_key "instance_moderation_notes", "accounts", on_delete: :cascade
   add_foreign_key "invites", "users", on_delete: :cascade
   add_foreign_key "list_accounts", "accounts", on_delete: :cascade
   add_foreign_key "list_accounts", "follow_requests", on_delete: :cascade
@@ -1402,6 +1478,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
   add_foreign_key "reports", "accounts", column: "target_account_id", name: "fk_eb37af34f0", on_delete: :cascade
   add_foreign_key "reports", "accounts", name: "fk_4b81f7522c", on_delete: :cascade
   add_foreign_key "reports", "oauth_applications", column: "application_id", on_delete: :nullify
+  add_foreign_key "rule_translations", "rules", on_delete: :cascade
   add_foreign_key "scheduled_statuses", "accounts", on_delete: :cascade
   add_foreign_key "session_activations", "oauth_access_tokens", column: "access_token_id", name: "fk_957e5bda89", on_delete: :cascade
   add_foreign_key "session_activations", "users", name: "fk_e5fda67334", on_delete: :cascade
@@ -1435,53 +1512,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
   add_foreign_key "web_settings", "users", name: "fk_11910667b2", on_delete: :cascade
   add_foreign_key "webauthn_credentials", "users", on_delete: :cascade
 
-  create_view "instances", materialized: true, sql_definition: <<-SQL
-      WITH domain_counts(domain, accounts_count) AS (
-           SELECT accounts.domain,
-              count(*) AS accounts_count
-             FROM accounts
-            WHERE (accounts.domain IS NOT NULL)
-            GROUP BY accounts.domain
-          )
-   SELECT domain_counts.domain,
-      domain_counts.accounts_count
-     FROM domain_counts
-  UNION
-   SELECT domain_blocks.domain,
-      COALESCE(domain_counts.accounts_count, (0)::bigint) AS accounts_count
-     FROM (domain_blocks
-       LEFT JOIN domain_counts ON (((domain_counts.domain)::text = (domain_blocks.domain)::text)))
-  UNION
-   SELECT domain_allows.domain,
-      COALESCE(domain_counts.accounts_count, (0)::bigint) AS accounts_count
-     FROM (domain_allows
-       LEFT JOIN domain_counts ON (((domain_counts.domain)::text = (domain_allows.domain)::text)));
-  SQL
-  add_index "instances", "reverse(('.'::text || (domain)::text)), domain", name: "index_instances_on_reverse_domain"
-  add_index "instances", ["domain"], name: "index_instances_on_domain", unique: true
-
-  create_view "user_ips", sql_definition: <<-SQL
-      SELECT user_id,
-      ip,
-      max(used_at) AS used_at
-     FROM ( SELECT users.id AS user_id,
-              users.sign_up_ip AS ip,
-              users.created_at AS used_at
-             FROM users
-            WHERE (users.sign_up_ip IS NOT NULL)
-          UNION ALL
-           SELECT session_activations.user_id,
-              session_activations.ip,
-              session_activations.updated_at
-             FROM session_activations
-          UNION ALL
-           SELECT login_activities.user_id,
-              login_activities.ip,
-              login_activities.created_at
-             FROM login_activities
-            WHERE (login_activities.success = true)) t0
-    GROUP BY user_id, ip;
-  SQL
   create_view "account_summaries", materialized: true, sql_definition: <<-SQL
       SELECT accounts.id AS account_id,
       mode() WITHIN GROUP (ORDER BY t0.language) AS language,
@@ -1532,4 +1562,51 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_095029) do
   SQL
   add_index "global_follow_recommendations", ["account_id"], name: "index_global_follow_recommendations_on_account_id", unique: true
 
+  create_view "instances", materialized: true, sql_definition: <<-SQL
+      WITH domain_counts(domain, accounts_count) AS (
+           SELECT accounts.domain,
+              count(*) AS accounts_count
+             FROM accounts
+            WHERE (accounts.domain IS NOT NULL)
+            GROUP BY accounts.domain
+          )
+   SELECT domain_counts.domain,
+      domain_counts.accounts_count
+     FROM domain_counts
+  UNION
+   SELECT domain_blocks.domain,
+      COALESCE(domain_counts.accounts_count, (0)::bigint) AS accounts_count
+     FROM (domain_blocks
+       LEFT JOIN domain_counts ON (((domain_counts.domain)::text = (domain_blocks.domain)::text)))
+  UNION
+   SELECT domain_allows.domain,
+      COALESCE(domain_counts.accounts_count, (0)::bigint) AS accounts_count
+     FROM (domain_allows
+       LEFT JOIN domain_counts ON (((domain_counts.domain)::text = (domain_allows.domain)::text)));
+  SQL
+  add_index "instances", "reverse(('.'::text || (domain)::text)), domain", name: "index_instances_on_reverse_domain"
+  add_index "instances", ["domain"], name: "index_instances_on_domain", unique: true
+
+  create_view "user_ips", sql_definition: <<-SQL
+      SELECT user_id,
+      ip,
+      max(used_at) AS used_at
+     FROM ( SELECT users.id AS user_id,
+              users.sign_up_ip AS ip,
+              users.created_at AS used_at
+             FROM users
+            WHERE (users.sign_up_ip IS NOT NULL)
+          UNION ALL
+           SELECT session_activations.user_id,
+              session_activations.ip,
+              session_activations.updated_at
+             FROM session_activations
+          UNION ALL
+           SELECT login_activities.user_id,
+              login_activities.ip,
+              login_activities.created_at
+             FROM login_activities
+            WHERE (login_activities.success = true)) t0
+    GROUP BY user_id, ip;
+  SQL
 end
