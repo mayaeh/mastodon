@@ -46,11 +46,11 @@ class FollowService < BaseService
   private
 
   def mark_home_feed_as_partial!
-    redis.set("account:#{@source_account.id}:regeneration", true, nx: true, ex: 1.day.seconds)
+    HomeFeed.new(@source_account).regeneration_in_progress!
   end
 
   def following_not_possible?
-    @target_account.nil? || @target_account.id == @source_account.id || @target_account.suspended?
+    @target_account.nil? || @target_account.id == @source_account.id || @target_account.unavailable?
   end
 
   def following_not_allowed?
@@ -71,7 +71,7 @@ class FollowService < BaseService
     if @target_account.local?
       LocalNotificationWorker.perform_async(@target_account.id, follow_request.id, follow_request.class.name, 'follow_request')
     elsif @target_account.activitypub?
-      ActivityPub::DeliveryWorker.perform_async(build_json(follow_request), @source_account.id, @target_account.inbox_url)
+      ActivityPub::DeliveryWorker.perform_async(build_json(follow_request), @source_account.id, @target_account.inbox_url, { 'bypass_availability' => true })
     end
 
     follow_request
@@ -81,7 +81,10 @@ class FollowService < BaseService
     follow = @source_account.follow!(@target_account, **follow_options.merge(rate_limit: @options[:with_rate_limit], bypass_limit: @options[:bypass_limit]))
 
     LocalNotificationWorker.perform_async(@target_account.id, follow.id, follow.class.name, 'follow')
-    MergeWorker.perform_async(@target_account.id, @source_account.id)
+    MergeWorker.perform_async(@target_account.id, @source_account.id, 'home')
+    MergeWorker.push_bulk(@source_account.owned_lists.with_list_account(@target_account).pluck(:id)) do |list_id|
+      [@target_account.id, list_id, 'list']
+    end
 
     follow
   end

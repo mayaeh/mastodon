@@ -1,11 +1,12 @@
-import { SETTING_CHANGE, SETTING_SAVE } from '../actions/settings';
-import { NOTIFICATIONS_FILTER_SET } from '../actions/notifications';
-import { COLUMN_ADD, COLUMN_REMOVE, COLUMN_MOVE, COLUMN_PARAMS_CHANGE } from '../actions/columns';
-import { STORE_HYDRATE } from '../actions/store';
-import { EMOJI_USE } from '../actions/emojis';
-import { LANGUAGE_USE } from '../actions/languages';
-import { LIST_DELETE_SUCCESS, LIST_FETCH_FAIL } from '../actions/lists';
 import { Map as ImmutableMap, fromJS } from 'immutable';
+
+import { COLUMN_ADD, COLUMN_REMOVE, COLUMN_MOVE, COLUMN_PARAMS_CHANGE } from '../actions/columns';
+import { COMPOSE_LANGUAGE_CHANGE } from '../actions/compose';
+import { EMOJI_USE } from '../actions/emojis';
+import { LIST_DELETE_SUCCESS, LIST_FETCH_FAIL } from '../actions/lists';
+import { NOTIFICATIONS_FILTER_SET } from '../actions/notifications';
+import { SETTING_CHANGE, SETTING_SAVE } from '../actions/settings';
+import { STORE_HYDRATE } from '../actions/store';
 import { uuid } from '../uuid';
 
 const initialState = ImmutableMap({
@@ -19,6 +20,7 @@ const initialState = ImmutableMap({
 
   home: ImmutableMap({
     shows: ImmutableMap({
+      quote: true,
       reblog: true,
       reply: true,
     }),
@@ -34,6 +36,7 @@ const initialState = ImmutableMap({
       follow_request: false,
       favourite: false,
       reblog: false,
+      quote: false,
       mention: false,
       poll: false,
       status: false,
@@ -50,12 +53,14 @@ const initialState = ImmutableMap({
 
     dismissPermissionBanner: false,
     showUnread: true,
+    minimizeFilteredBanner: false,
 
     shows: ImmutableMap({
       follow: true,
       follow_request: false,
       favourite: true,
       reblog: true,
+      quote: true,
       mention: true,
       poll: true,
       status: true,
@@ -69,6 +74,7 @@ const initialState = ImmutableMap({
       follow_request: false,
       favourite: true,
       reblog: true,
+      quote: true,
       mention: true,
       poll: true,
       status: true,
@@ -76,6 +82,14 @@ const initialState = ImmutableMap({
       'admin.sign_up': true,
       'admin.report': true,
     }),
+
+    group: ImmutableMap({
+      follow: true
+    }),
+  }),
+
+  firehose: ImmutableMap({
+    onlyMedia: false,
   }),
 
   community: ImmutableMap({
@@ -94,6 +108,17 @@ const initialState = ImmutableMap({
     regex: ImmutableMap({
       body: '',
     }),
+  }),
+
+  dismissed_banners: ImmutableMap({
+    'public_timeline': false,
+    'community_timeline': false,
+    'home/follow-suggestions': false,
+    'explore/links': false,
+    'explore/statuses': false,
+    'explore/tags': false,
+    'notifications/remove_quote_hint': false,
+    'quote/quiet_post_hint': false,
   }),
 });
 
@@ -160,7 +185,7 @@ export default function settings(state = initialState, action) {
     return changeColumnParams(state, action.uuid, action.path, action.value);
   case EMOJI_USE:
     return updateFrequentEmojis(state, action.emoji);
-  case LANGUAGE_USE:
+  case COMPOSE_LANGUAGE_CHANGE:
     return updateFrequentLanguages(state, action.language);
   case SETTING_SAVE:
     return state.set('saved', true);

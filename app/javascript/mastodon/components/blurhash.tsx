@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import { memo, useRef, useEffect } from 'react';
 
 import { decode } from 'blurhash';
 
@@ -30,9 +30,12 @@ const Blurhash: React.FC<Props> = ({
     try {
       const pixels = decode(hash, width, height);
       const ctx = canvas.getContext('2d');
-      const imageData = new ImageData(pixels, width, height);
+      const imageData = ctx?.createImageData(width, height);
+      imageData?.data.set(pixels);
 
-      ctx?.putImageData(imageData, 0, 0);
+      if (imageData) {
+        ctx?.putImageData(imageData, 0, 0);
+      }
     } catch (err) {
       console.error('Blurhash decoding failure', { err, hash });
     }
@@ -43,6 +46,6 @@ const Blurhash: React.FC<Props> = ({
   );
 };
 
-const MemoizedBlurhash = React.memo(Blurhash);
+const MemoizedBlurhash = memo(Blurhash);
 
 export { MemoizedBlurhash as Blurhash };

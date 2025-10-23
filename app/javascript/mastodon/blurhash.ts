@@ -86,10 +86,9 @@ const DIGIT_CHARACTERS = [
 
 export const decode83 = (str: string) => {
   let value = 0;
-  let c, digit;
+  let digit;
 
-  for (let i = 0; i < str.length; i++) {
-    c = str[i];
+  for (const c of str) {
     digit = DIGIT_CHARACTERS.indexOf(c);
     value = value * 83 + digit;
   }
@@ -97,13 +96,19 @@ export const decode83 = (str: string) => {
   return value;
 };
 
-export const intToRGB = (int: number) => ({
+export interface RGB {
+  r: number;
+  g: number;
+  b: number;
+}
+
+export const intToRGB = (int: number): RGB => ({
   r: Math.max(0, int >> 16),
   g: Math.max(0, (int >> 8) & 255),
   b: Math.max(0, int & 255),
 });
 
-export const getAverageFromBlurhash = (blurhash: string) => {
+export const getAverageFromBlurhash = (blurhash: string | null) => {
   if (!blurhash) {
     return null;
   }

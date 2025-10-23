@@ -1,3 +1,17 @@
+import { Map as ImmutableMap, OrderedSet as ImmutableOrderedSet } from 'immutable';
+
+import {
+  blockAccountSuccess,
+  muteAccountSuccess,
+} from '../actions/accounts';
+import {
+  BOOKMARKED_STATUSES_FETCH_REQUEST,
+  BOOKMARKED_STATUSES_FETCH_SUCCESS,
+  BOOKMARKED_STATUSES_FETCH_FAIL,
+  BOOKMARKED_STATUSES_EXPAND_REQUEST,
+  BOOKMARKED_STATUSES_EXPAND_SUCCESS,
+  BOOKMARKED_STATUSES_EXPAND_FAIL,
+} from '../actions/bookmarks';
 import {
   FAVOURITED_STATUSES_FETCH_REQUEST,
   FAVOURITED_STATUSES_FETCH_SUCCESS,
@@ -7,13 +21,16 @@ import {
   FAVOURITED_STATUSES_EXPAND_FAIL,
 } from '../actions/favourites';
 import {
-  BOOKMARKED_STATUSES_FETCH_REQUEST,
-  BOOKMARKED_STATUSES_FETCH_SUCCESS,
-  BOOKMARKED_STATUSES_FETCH_FAIL,
-  BOOKMARKED_STATUSES_EXPAND_REQUEST,
-  BOOKMARKED_STATUSES_EXPAND_SUCCESS,
-  BOOKMARKED_STATUSES_EXPAND_FAIL,
-} from '../actions/bookmarks';
+  FAVOURITE_SUCCESS,
+  UNFAVOURITE_SUCCESS,
+  BOOKMARK_SUCCESS,
+  UNBOOKMARK_SUCCESS,
+  PIN_SUCCESS,
+  UNPIN_SUCCESS,
+} from '../actions/interactions';
+import {
+  fetchQuotes
+} from '../actions/interactions_typed';
 import {
   PINNED_STATUSES_FETCH_SUCCESS,
 } from '../actions/pin_statuses';
@@ -25,19 +42,6 @@ import {
   TRENDS_STATUSES_EXPAND_SUCCESS,
   TRENDS_STATUSES_EXPAND_FAIL,
 } from '../actions/trends';
-import { Map as ImmutableMap, OrderedSet as ImmutableOrderedSet } from 'immutable';
-import {
-  FAVOURITE_SUCCESS,
-  UNFAVOURITE_SUCCESS,
-  BOOKMARK_SUCCESS,
-  UNBOOKMARK_SUCCESS,
-  PIN_SUCCESS,
-  UNPIN_SUCCESS,
-} from '../actions/interactions';
-import {
-  ACCOUNT_BLOCK_SUCCESS,
-  ACCOUNT_MUTE_SUCCESS,
-} from '../actions/accounts';
 
 const initialState = ImmutableMap({
   favourites: ImmutableMap({
@@ -59,6 +63,12 @@ const initialState = ImmutableMap({
     next: null,
     loaded: false,
     items: ImmutableOrderedSet(),
+  }),
+  quotes: ImmutableMap({
+    next: null,
+    loaded: false,
+    items: ImmutableOrderedSet(),
+    statusId: null,
   }),
 });
 
@@ -93,6 +103,7 @@ const removeOneFromList = (state, listType, status) => {
   return state.updateIn([listType, 'items'], (list) => list.delete(status.get('id')));
 };
 
+/** @type {import('@reduxjs/toolkit').Reducer<typeof initialState>} */
 export default function statusLists(state = initialState, action) {
   switch(action.type) {
   case FAVOURITED_STATUSES_FETCH_REQUEST:
@@ -139,10 +150,17 @@ export default function statusLists(state = initialState, action) {
     return prependOneToList(state, 'pins', action.status);
   case UNPIN_SUCCESS:
     return removeOneFromList(state, 'pins', action.status);
-  case ACCOUNT_BLOCK_SUCCESS:
-  case ACCOUNT_MUTE_SUCCESS:
-    return state.updateIn(['trending', 'items'], ImmutableOrderedSet(), list => list.filterNot(statusId => action.statuses.getIn([statusId, 'account']) === action.relationship.id));
+  case blockAccountSuccess.type:
+  case muteAccountSuccess.type:
+    return state.updateIn(['trending', 'items'], ImmutableOrderedSet(), list => list.filterNot(statusId => action.payload.statuses.getIn([statusId, 'account']) === action.payload.relationship.id));
   default:
-    return state;
+    if (fetchQuotes.fulfilled.match(action))
+      return normalizeList(state, 'quotes', action.payload.statuses, action.payload.next).set('statusId', action.meta.arg.statusId);
+    else if (fetchQuotes.pending.match(action))
+      return state.setIn(['quotes', 'isLoading'], true).setIn(['quotes', 'statusId'], action.meta.arg.statusId);
+    else if (fetchQuotes.rejected.match(action))
+      return state.setIn(['quotes', 'isLoading', false]).setIn(['quotes', 'statusId'], action.meta.arg.statusId);
+    else
+      return state;
   }
 }

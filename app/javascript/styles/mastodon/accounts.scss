@@ -1,19 +1,20 @@
+@use 'sass:color';
+@use 'variables' as *;
+@use 'functions' as *;
+
 .card {
   & > a {
     display: block;
     text-decoration: none;
     color: inherit;
-    box-shadow: 0 0 15px rgba($base-shadow-color, 0.2);
-
-    @media screen and (max-width: $no-gap-breakpoint) {
-      box-shadow: none;
-    }
+    overflow: hidden;
+    border-radius: 4px;
 
     &:hover,
     &:active,
     &:focus {
       .card__bar {
-        background: lighten($ui-base-color, 8%);
+        background: $ui-base-color;
       }
     }
   }
@@ -21,8 +22,9 @@
   &__img {
     height: 130px;
     position: relative;
-    background: darken($ui-base-color, 12%);
-    border-radius: 4px 4px 0 0;
+    background: $ui-base-color;
+    border: 1px solid var(--background-border-color);
+    border-bottom: none;
 
     img {
       display: block;
@@ -30,7 +32,6 @@
       height: 100%;
       margin: 0;
       object-fit: cover;
-      border-radius: 4px 4px 0 0;
     }
 
     @media screen and (width <= 600px) {
@@ -44,12 +45,9 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    background: lighten($ui-base-color, 4%);
-    border-radius: 0 0 4px 4px;
-
-    @media screen and (max-width: $no-gap-breakpoint) {
-      border-radius: 0;
-    }
+    background: var(--background-color);
+    border: 1px solid var(--background-border-color);
+    border-top: none;
 
     .avatar {
       flex: 0 0 auto;
@@ -72,7 +70,7 @@
       margin-inline-start: 15px;
       text-align: start;
 
-      i[data-hidden] {
+      svg[data-hidden] {
         display: none;
       }
 
@@ -136,21 +134,11 @@
   .older {
     float: left;
     padding-inline-start: 0;
-
-    .fa {
-      display: inline-block;
-      margin-inline-end: 5px;
-    }
   }
 
   .newer {
     float: right;
     padding-inline-end: 0;
-
-    .fa {
-      display: inline-block;
-      margin-inline-start: 5px;
-    }
   }
 
   .disabled {
@@ -174,8 +162,8 @@
 
 .nothing-here {
   background: $ui-base-color;
-  box-shadow: 0 0 15px rgba($base-shadow-color, 0.2);
-  color: $light-text-color;
+  box-shadow: 0 0 15px color.change($base-shadow-color, $alpha: 0.2);
+  color: $darker-text-color;
   font-size: 14px;
   font-weight: 500;
   text-align: center;
@@ -197,30 +185,64 @@
   }
 }
 
-.account-role,
+.information-badge,
+.simple_form .overridden,
 .simple_form .recommended,
 .simple_form .not_recommended {
   display: inline-block;
   padding: 4px 6px;
   cursor: default;
-  border-radius: 3px;
+  border-radius: 4px;
   font-size: 12px;
   line-height: 12px;
   font-weight: 500;
-  color: var(--user-role-accent, $ui-secondary-color);
-  background-color: var(--user-role-background, rgba($ui-secondary-color, 0.1));
-  border: 1px solid var(--user-role-border, rgba($ui-secondary-color, 0.5));
+  color: $ui-secondary-color;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
-  &.moderator {
-    color: $success-green;
-    background-color: rgba($success-green, 0.1);
-    border-color: rgba($success-green, 0.5);
+.information-badge,
+.simple_form .overridden,
+.simple_form .recommended,
+.simple_form .not_recommended {
+  background-color: color.change($ui-secondary-color, $alpha: 0.1);
+  border: 1px solid color.change($ui-secondary-color, $alpha: 0.5);
+}
+
+.account-role {
+  display: inline-flex;
+  padding: 4px;
+  padding-inline-end: 8px;
+  border: 1px solid $highlight-text-color;
+  color: $highlight-text-color;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  line-height: 16px;
+  gap: 4px;
+  border-radius: 6px;
+  align-items: center;
+
+  svg {
+    width: auto;
+    height: 15px;
+    opacity: 0.85;
+    fill: currentColor;
   }
 
-  &.admin {
-    color: lighten($error-red, 12%);
-    background-color: rgba(lighten($error-red, 12%), 0.1);
-    border-color: rgba(lighten($error-red, 12%), 0.5);
+  &__domain {
+    font-weight: 400;
+    opacity: 0.75;
+    letter-spacing: 0;
+  }
+}
+
+.information-badge {
+  &.superapp {
+    color: $success-green;
+    background-color: color.change($success-green, $alpha: 0.1);
+    border-color: color.change($success-green, $alpha: 0.5);
   }
 }
 
@@ -281,8 +303,8 @@
   }
 
   .verified {
-    border: 1px solid rgba($valid-value-color, 0.5);
-    background: rgba($valid-value-color, 0.25);
+    border: 1px solid color.change($valid-value-color, $alpha: 0.5);
+    background: color.change($valid-value-color, $alpha: 0.25);
 
     a {
       color: $valid-value-color;
@@ -321,6 +343,10 @@
     strong {
       color: $primary-text-color;
       font-weight: 700;
+    }
+
+    .warning-hint {
+      font-weight: normal !important;
     }
   }
 

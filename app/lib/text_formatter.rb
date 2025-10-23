@@ -5,9 +5,9 @@ class TextFormatter
   include ERB::Util
   include RoutingHelper
 
-  URL_PREFIX_REGEX = /\A(https?:\/\/(www\.)?|xmpp:)/
+  URL_PREFIX_REGEX = %r{\A(https?://(www\.)?|xmpp:)}
 
-  DEFAULT_REL = %w(nofollow noopener noreferrer).freeze
+  DEFAULT_REL = %w(nofollow noopener).freeze
 
   DEFAULT_OPTIONS = {
     multiline: true,
@@ -44,8 +44,38 @@ class TextFormatter
     end
 
     html = simple_format(html, {}, sanitize: false).delete("\n") if multiline?
+    html = add_quote_fallback(html) if options[:quoted_status].present?
 
     html.html_safe # rubocop:disable Rails/OutputSafety
+  end
+
+  class << self
+    include ERB::Util
+    include ActionView::Helpers::TagHelper
+
+    def shortened_link(url, rel_me: false)
+      url = Addressable::URI.parse(url).to_s
+      rel = rel_me ? (DEFAULT_REL + %w(me)) : DEFAULT_REL
+
+      prefix      = url.match(URL_PREFIX_REGEX).to_s
+      display_url = url[prefix.length, 30]
+      suffix      = url[(prefix.length + 30)..]
+      cutoff      = url[prefix.length..].length > 30
+
+      if suffix && suffix.length == 1 # revert truncation to account for ellipsis
+        display_url += suffix
+        suffix = nil
+        cutoff = false
+      end
+
+      tag.a href: url, target: '_blank', rel: rel.join(' '), translate: 'no' do
+        tag.span(prefix, class: 'invisible') +
+          tag.span(display_url, class: (cutoff ? 'ellipsis' : '')) +
+          tag.span(suffix, class: 'invisible')
+      end
+    rescue Addressable::URI::InvalidURIError, IDN::Idna::IdnaError
+      h(url)
+    end
   end
 
   private
@@ -55,7 +85,7 @@ class TextFormatter
       entity[:indices].first
     end
 
-    result = ''.dup
+    result = +''
 
     last_index = entities.reduce(0) do |index, entity|
       indices = entity[:indices]
@@ -64,25 +94,13 @@ class TextFormatter
       indices.last
     end
 
-    result << h(text[last_index..-1])
+    result << h(text[last_index..])
 
     result
   end
 
   def link_to_url(entity)
-    url = Addressable::URI.parse(entity[:url]).to_s
-    rel = with_rel_me? ? (DEFAULT_REL + %w(me)) : DEFAULT_REL
-
-    prefix      = url.match(URL_PREFIX_REGEX).to_s
-    display_url = url[prefix.length, 30]
-    suffix      = url[prefix.length + 30..-1]
-    cutoff      = url[prefix.length..-1].length > 30
-
-    <<~HTML.squish
-      <a href="#{h(url)}" target="_blank" rel="#{rel.join(' ')}"><span class="invisible">#{h(prefix)}</span><span class="#{cutoff ? 'ellipsis' : ''}">#{h(display_url)}</span><span class="invisible">#{h(suffix)}</span></a>
-    HTML
-  rescue Addressable::URI::InvalidURIError, IDN::Idna::IdnaError
-    h(entity[:url])
+    TextFormatter.shortened_link(entity[:url], rel_me: with_rel_me?)
   end
 
   def link_to_hashtag(entity)
@@ -122,7 +140,7 @@ class TextFormatter
     display_username = same_username_hits&.positive? || with_domains? ? account.pretty_acct : account.username
 
     <<~HTML.squish
-      <span class="h-card"><a href="#{h(url)}" class="u-url mention">@<span>#{h(display_username)}</span></a></span>
+      <span class="h-card" translate="no"><a href="#{h(url)}" class="u-url mention">@<span>#{h(display_username)}</span></a></span>
     HTML
   end
 
@@ -154,5 +172,16 @@ class TextFormatter
 
   def preloaded_accounts?
     preloaded_accounts.present?
+  end
+
+  def add_quote_fallback(html)
+    return html if options[:quoted_status].nil?
+
+    url = ActivityPub::TagManager.instance.url_for(options[:quoted_status]) || ActivityPub::TagManager.instance.uri_for(options[:quoted_status])
+    return html if url.blank? || html.include?(url)
+
+    <<~HTML.squish
+      <p class="quote-inline">RE: #{TextFormatter.shortened_link(url)}</p>#{html}
+    HTML
   end
 end

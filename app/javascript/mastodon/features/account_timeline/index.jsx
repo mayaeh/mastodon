@@ -1,29 +1,33 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
+
+import { FormattedMessage } from 'react-intl';
+
+import { List as ImmutableList } from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
+import { connect } from 'react-redux';
+
+import BundleColumnError from 'mastodon/features/ui/components/bundle_column_error';
+import { me } from 'mastodon/initial_state';
+import { normalizeForLookup } from 'mastodon/reducers/accounts_map';
+import { getAccountHidden } from 'mastodon/selectors/accounts';
+
 import { lookupAccount, fetchAccount } from '../../actions/accounts';
 import { expandAccountFeaturedTimeline, expandAccountTimeline, connectTimeline, disconnectTimeline } from '../../actions/timelines';
+import { ColumnBackButton } from '../../components/column_back_button';
+import { LoadingIndicator } from '../../components/loading_indicator';
 import StatusList from '../../components/status_list';
-import LoadingIndicator from '../../components/loading_indicator';
 import Column from '../ui/components/column';
-import HeaderContainer from './containers/header_container';
-import ColumnBackButton from '../../components/column_back_button';
-import { List as ImmutableList } from 'immutable';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { FormattedMessage } from 'react-intl';
-import TimelineHint from 'mastodon/components/timeline_hint';
-import { me } from 'mastodon/initial_state';
-import LimitedAccountHint from './components/limited_account_hint';
-import { getAccountHidden } from 'mastodon/selectors';
-import { fetchFeaturedTags } from '../../actions/featured_tags';
-import { normalizeForLookup } from 'mastodon/reducers/accounts_map';
-import BundleColumnError from 'mastodon/features/ui/components/bundle_column_error';
+import { RemoteHint } from 'mastodon/components/remote_hint';
+
+import { AccountHeader } from './components/account_header';
+import { LimitedAccountHint } from './components/limited_account_hint';
+import { FeaturedCarousel } from '@/mastodon/components/featured_carousel';
 
 const emptyList = ImmutableList();
 
 const mapStateToProps = (state, { params: { acct, id, tagged }, withReplies = false }) => {
-  const accountId = id || state.getIn(['accounts_map', normalizeForLookup(acct)]);
+  const accountId = id || state.accounts_map[normalizeForLookup(acct)];
 
   if (accountId === null) {
     return {
@@ -42,25 +46,14 @@ const mapStateToProps = (state, { params: { acct, id, tagged }, withReplies = fa
 
   return {
     accountId,
-    remote: !!(state.getIn(['accounts', accountId, 'acct']) !== state.getIn(['accounts', accountId, 'username'])),
-    remoteUrl: state.getIn(['accounts', accountId, 'url']),
     isAccount: !!state.getIn(['accounts', accountId]),
     statusIds: state.getIn(['timelines', `account:${path}`, 'items'], emptyList),
-    featuredStatusIds: withReplies ? ImmutableList() : state.getIn(['timelines', `account:${accountId}:pinned${tagged ? `:${tagged}` : ''}`, 'items'], emptyList),
     isLoading: state.getIn(['timelines', `account:${path}`, 'isLoading']),
     hasMore: state.getIn(['timelines', `account:${path}`, 'hasMore']),
     suspended: state.getIn(['accounts', accountId, 'suspended'], false),
     hidden: getAccountHidden(state, accountId),
     blockedBy: state.getIn(['relationships', accountId, 'blocked_by'], false),
   };
-};
-
-const RemoteHint = ({ url }) => (
-  <TimelineHint url={url} resource={<FormattedMessage id='timeline_hint.resources.statuses' defaultMessage='Older posts' />} />
-);
-
-RemoteHint.propTypes = {
-  url: PropTypes.string.isRequired,
 };
 
 class AccountTimeline extends ImmutablePureComponent {
@@ -74,7 +67,6 @@ class AccountTimeline extends ImmutablePureComponent {
     accountId: PropTypes.string,
     dispatch: PropTypes.func.isRequired,
     statusIds: ImmutablePropTypes.list,
-    featuredStatusIds: ImmutablePropTypes.list,
     isLoading: PropTypes.bool,
     hasMore: PropTypes.bool,
     withReplies: PropTypes.bool,
@@ -82,8 +74,6 @@ class AccountTimeline extends ImmutablePureComponent {
     isAccount: PropTypes.bool,
     suspended: PropTypes.bool,
     hidden: PropTypes.bool,
-    remote: PropTypes.bool,
-    remoteUrl: PropTypes.string,
     multiColumn: PropTypes.bool,
   };
 
@@ -96,7 +86,6 @@ class AccountTimeline extends ImmutablePureComponent {
       dispatch(expandAccountFeaturedTimeline(accountId, { tagged }));
     }
 
-    dispatch(fetchFeaturedTags(accountId));
     dispatch(expandAccountTimeline(accountId, { withReplies, tagged }));
 
     if (accountId === me) {
@@ -129,7 +118,7 @@ class AccountTimeline extends ImmutablePureComponent {
     }
 
     if (prevProps.accountId === me && accountId !== me) {
-      dispatch(disconnectTimeline(`account:${me}`));
+      dispatch(disconnectTimeline({ timeline: `account:${me}` }));
     }
   }
 
@@ -137,7 +126,7 @@ class AccountTimeline extends ImmutablePureComponent {
     const { dispatch, accountId } = this.props;
 
     if (accountId === me) {
-      dispatch(disconnectTimeline(`account:${me}`));
+      dispatch(disconnectTimeline({ timeline: `account:${me}` }));
     }
   }
 
@@ -146,7 +135,7 @@ class AccountTimeline extends ImmutablePureComponent {
   };
 
   render () {
-    const { accountId, statusIds, featuredStatusIds, isLoading, hasMore, blockedBy, suspended, isAccount, hidden, multiColumn, remote, remoteUrl } = this.props;
+    const { accountId, statusIds, isLoading, hasMore, blockedBy, suspended, isAccount, hidden, multiColumn, remote, remoteUrl, params: { tagged } } = this.props;
 
     if (isLoading && statusIds.isEmpty()) {
       return (
@@ -171,30 +160,33 @@ class AccountTimeline extends ImmutablePureComponent {
     } else if (blockedBy) {
       emptyMessage = <FormattedMessage id='empty_column.account_unavailable' defaultMessage='Profile unavailable' />;
     } else if (remote && statusIds.isEmpty()) {
-      emptyMessage = <RemoteHint url={remoteUrl} />;
+      emptyMessage = <RemoteHint accountId={accountId} url={remoteUrl} />;
     } else {
       emptyMessage = <FormattedMessage id='empty_column.account_timeline' defaultMessage='No posts found' />;
     }
 
-    const remoteMessage = remote ? <RemoteHint url={remoteUrl} /> : null;
-
     return (
       <Column>
-        <ColumnBackButton multiColumn={multiColumn} />
+        <ColumnBackButton />
 
         <StatusList
-          prepend={<HeaderContainer accountId={this.props.accountId} hideTabs={forceEmptyState} tagged={this.props.params.tagged} />}
+          prepend={
+            <>
+              <AccountHeader accountId={this.props.accountId} hideTabs={forceEmptyState} tagged={tagged} />
+              {!forceEmptyState && <FeaturedCarousel accountId={this.props.accountId} tagged={tagged} />}
+            </>
+        }
           alwaysPrepend
-          append={remoteMessage}
+          append={<RemoteHint accountId={accountId} />}
           scrollKey='account_timeline'
           statusIds={forceEmptyState ? emptyList : statusIds}
-          featuredStatusIds={featuredStatusIds}
           isLoading={isLoading}
           hasMore={!forceEmptyState && hasMore}
           onLoadMore={this.handleLoadMore}
           emptyMessage={emptyMessage}
           bindToDocument={!multiColumn}
           timelineId='account'
+          withCounters
         />
       </Column>
     );

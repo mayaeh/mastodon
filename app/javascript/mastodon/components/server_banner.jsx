@@ -1,14 +1,18 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import { PureComponent } from 'react';
+
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import { connect } from 'react-redux';
-import { fetchServer } from 'mastodon/actions/server';
-import ShortNumber from 'mastodon/components/short_number';
-import Skeleton from 'mastodon/components/skeleton';
-import Account from 'mastodon/containers/account_container';
-import { domain } from 'mastodon/initial_state';
-import { ServerHeroImage } from 'mastodon/components/server_hero_image';
+
 import { Link } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+
+import { fetchServer } from 'mastodon/actions/server';
+import { Account } from 'mastodon/components/account';
+import { ServerHeroImage } from 'mastodon/components/server_hero_image';
+import { ShortNumber } from 'mastodon/components/short_number';
+import { Skeleton } from 'mastodon/components/skeleton';
+import { domain } from 'mastodon/initial_state';
 
 const messages = defineMessages({
   aboutActiveUsers: { id: 'server_banner.about_active_users', defaultMessage: 'People using this server during the last 30 days (Monthly Active Users)' },
@@ -18,7 +22,7 @@ const mapStateToProps = state => ({
   server: state.getIn(['server', 'server']),
 });
 
-class ServerBanner extends React.PureComponent {
+class ServerBanner extends PureComponent {
 
   static propTypes = {
     server: PropTypes.object,
@@ -38,10 +42,12 @@ class ServerBanner extends React.PureComponent {
     return (
       <div className='server-banner'>
         <div className='server-banner__introduction'>
-          <FormattedMessage id='server_banner.introduction' defaultMessage='{domain} is part of the decentralized social network powered by {mastodon}.' values={{ domain: <strong>{domain}</strong>, mastodon: <a href='https://joinmastodon.org' target='_blank'>Mastodon</a> }} />
+          <FormattedMessage id='server_banner.is_one_of_many' defaultMessage='{domain} is one of the many independent Mastodon servers you can use to participate in the fediverse.' values={{ domain: <strong>{domain}</strong>, mastodon: <a href='https://joinmastodon.org' target='_blank' rel='noopener'>Mastodon</a> }} />
         </div>
 
-        <ServerHeroImage blurhash={server.getIn(['thumbnail', 'blurhash'])} src={server.getIn(['thumbnail', 'url'])} className='server-banner__hero' />
+        <Link to='/about'>
+          <ServerHeroImage blurhash={server.getIn(['thumbnail', 'blurhash'])} src={server.getIn(['thumbnail', 'url'])} className='server-banner__hero' />
+        </Link>
 
         <div className='server-banner__description'>
           {isLoading ? (
@@ -80,10 +86,6 @@ class ServerBanner extends React.PureComponent {
             )}
           </div>
         </div>
-
-        <hr className='spacer' />
-
-        <Link className='button button--block button-secondary' to='/about'><FormattedMessage id='server_banner.learn_more' defaultMessage='Learn more' /></Link>
       </div>
     );
   }

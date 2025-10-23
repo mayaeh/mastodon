@@ -1,65 +1,17 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import { PureComponent } from 'react';
+
 import { injectIntl, FormattedMessage } from 'react-intl';
-import Column from 'mastodon/components/column';
-import Button from 'mastodon/components/button';
+
+import classNames from 'classnames';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import classNames from 'classnames';
-import { autoPlayGif } from 'mastodon/initial_state';
 
-class GIF extends React.PureComponent {
+import { Button } from 'mastodon/components/button';
+import Column from 'mastodon/components/column';
+import { GIF } from 'mastodon/components/gif';
 
-  static propTypes = {
-    src: PropTypes.string.isRequired,
-    staticSrc: PropTypes.string.isRequired,
-    className: PropTypes.string,
-    animate: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    animate: autoPlayGif,
-  };
-
-  state = {
-    hovering: false,
-  };
-
-  handleMouseEnter = () => {
-    const { animate } = this.props;
-
-    if (!animate) {
-      this.setState({ hovering: true });
-    }
-  };
-
-  handleMouseLeave = () => {
-    const { animate } = this.props;
-
-    if (!animate) {
-      this.setState({ hovering: false });
-    }
-  };
-
-  render () {
-    const { src, staticSrc, className, animate } = this.props;
-    const { hovering } = this.state;
-
-    return (
-      <img
-        className={className}
-        src={(hovering || animate) ? src : staticSrc}
-        alt=''
-        role='presentation'
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
-      />
-    );
-  }
-
-}
-
-class CopyButton extends React.PureComponent {
+class CopyButton extends PureComponent {
 
   static propTypes = {
     children: PropTypes.node.isRequired,
@@ -92,7 +44,7 @@ class CopyButton extends React.PureComponent {
 
 }
 
-class BundleColumnError extends React.PureComponent {
+class BundleColumnError extends PureComponent {
 
   static propTypes = {
     errorType: PropTypes.oneOf(['routing', 'network', 'error']),

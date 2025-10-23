@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-describe ApplicationController do
-  controller do
-    include UserTrackingConcern
+RSpec.describe UserTrackingConcern do
+  controller(ApplicationController) do
+    include UserTrackingConcern # rubocop:disable RSpec/DescribedClass
 
     def show
       render plain: 'show'
@@ -65,7 +65,7 @@ describe ApplicationController do
         get :show
 
         expect_updated_sign_in_at(user)
-        expect(redis.get("account:#{user.account_id}:regeneration")).to eq 'true'
+        expect(redis.exists?("account:#{user.account_id}:regeneration")).to be true
         expect(RegenerationWorker).to have_received(:perform_async)
       end
 
@@ -75,12 +75,12 @@ describe ApplicationController do
         expect(redis.ttl("account:#{user.account_id}:regeneration")).to be >= 0
       end
 
-      it 'regenerates feed when sign in is older than two weeks' do
+      it 'regenerates feed when sign in is older than two weeks', :inline_jobs do
         get :show
 
         expect_updated_sign_in_at(user)
         expect(redis.zcard(FeedManager.instance.key(:home, user.account_id))).to eq 3
-        expect(redis.get("account:#{user.account_id}:regeneration")).to be_nil
+        expect(redis.hget("account:#{user.account_id}:regeneration", 'status')).to eq 'finished'
       end
     end
 

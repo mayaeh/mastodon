@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe ReactComponentHelper do
+RSpec.describe ReactComponentHelper do
   describe 'react_component' do
     context 'with no block passed in' do
       let(:result) { helper.react_component('name', { one: :two }) }
@@ -33,7 +33,7 @@ describe ReactComponentHelper do
 
     it 'returns a tag with data attributes' do
       expect(parsed_html.div['data-admin-component']).to eq('Name')
-      expect(parsed_html.div['data-props']).to eq('{"locale":"en","one":"two"}')
+      expect(parsed_html.div['data-props']).to eq('{"one":"two"}')
     end
   end
 

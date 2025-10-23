@@ -3,8 +3,8 @@
 class VoteValidator < ActiveModel::Validator
   def validate(vote)
     vote.errors.add(:base, I18n.t('polls.errors.expired')) if vote.poll_expired?
-
     vote.errors.add(:base, I18n.t('polls.errors.invalid_choice')) if invalid_choice?(vote)
+    vote.errors.add(:base, I18n.t('polls.errors.self_vote')) if self_vote?(vote)
 
     vote.errors.add(:base, I18n.t('polls.errors.already_voted')) if additional_voting_not_allowed?(vote)
   end
@@ -27,11 +27,15 @@ class VoteValidator < ActiveModel::Validator
     vote.choice.negative? || vote.choice >= vote.poll.options.size
   end
 
+  def self_vote?(vote)
+    vote.account_id == vote.poll.account_id
+  end
+
   def already_voted_for_same_choice_on_multiple_poll?(vote)
     if vote.persisted?
       account_votes_on_same_poll(vote).where(choice: vote.choice).where.not(poll_votes: { id: vote }).exists?
     else
-      account_votes_on_same_poll(vote).where(choice: vote.choice).exists?
+      account_votes_on_same_poll(vote).exists?(choice: vote.choice)
     end
   end
 

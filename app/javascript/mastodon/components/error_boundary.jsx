@@ -1,11 +1,15 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import { PureComponent } from 'react';
+
 import { FormattedMessage } from 'react-intl';
-import { version, source_url } from 'mastodon/initial_state';
-import StackTrace from 'stacktrace-js';
+
 import { Helmet } from 'react-helmet';
 
-export default class ErrorBoundary extends React.PureComponent {
+import StackTrace from 'stacktrace-js';
+
+import { version, source_url } from 'mastodon/initial_state';
+
+export default class ErrorBoundary extends PureComponent {
 
   static propTypes = {
     children: PropTypes.node,
@@ -56,8 +60,8 @@ export default class ErrorBoundary extends React.PureComponent {
     try {
       textarea.select();
       document.execCommand('copy');
-    } catch (e) {
-
+    } catch {
+      // do nothing
     } finally {
       document.body.removeChild(textarea);
     }
@@ -94,7 +98,7 @@ export default class ErrorBoundary extends React.PureComponent {
             )}
           </p>
 
-          <p className='error-boundary__footer'>Mastodon v{version} · <a href={source_url} rel='noopener noreferrer' target='_blank'><FormattedMessage id='errors.unexpected_crash.report_issue' defaultMessage='Report issue' /></a> · <button onClick={this.handleCopyStackTrace} className={copied ? 'copied' : ''}><FormattedMessage id='errors.unexpected_crash.copy_stacktrace' defaultMessage='Copy stacktrace to clipboard' /></button></p>
+          <p className='error-boundary__footer'>Mastodon v{version} · <a href={source_url} rel='noopener' target='_blank'><FormattedMessage id='errors.unexpected_crash.report_issue' defaultMessage='Report issue' /></a> · <button onClick={this.handleCopyStackTrace} className={copied ? 'copied' : ''}><FormattedMessage id='errors.unexpected_crash.copy_stacktrace' defaultMessage='Copy stacktrace to clipboard' /></button></p>
         </div>
 
         <Helmet>

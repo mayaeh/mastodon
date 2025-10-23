@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'pundit/rspec'
 
 RSpec.describe DomainBlockPolicy do
-  let(:subject) { described_class }
-  let(:admin)   { Fabricate(:user, role: UserRole.find_by(name: 'Admin')).account }
+  subject { described_class }
+
+  let(:admin)   { Fabricate(:admin_user).account }
   let(:john)    { Fabricate(:account) }
 
-  permissions :index?, :show?, :create?, :destroy? do
+  permissions :index?, :show?, :create?, :destroy?, :update? do
     context 'when admin' do
       it 'permits' do
         expect(subject).to permit(admin, DomainBlock)

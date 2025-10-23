@@ -3,14 +3,13 @@
 class FollowingAccountsController < ApplicationController
   include AccountControllerConcern
   include SignatureVerification
-  include WebAppControllerConcern
 
   vary_by -> { public_fetch_mode? ? 'Accept, Accept-Language, Cookie' : 'Accept, Accept-Language, Cookie, Signature' }
 
   before_action :require_account_signature!, if: -> { request.format == :json && authorized_fetch_mode? }
 
   skip_around_action :set_locale, if: -> { request.format == :json }
-  skip_before_action :require_functional!, unless: :whitelist_mode?
+  skip_before_action :require_functional!, unless: :limited_federation_mode?
 
   def index
     respond_to do |format|
@@ -50,7 +49,7 @@ class FollowingAccountsController < ApplicationController
   end
 
   def page_url(page)
-    account_following_index_url(@account, page: page) unless page.nil?
+    ActivityPub::TagManager.instance.following_uri_for(@account, page: page) unless page.nil?
   end
 
   def next_page_url
@@ -64,17 +63,17 @@ class FollowingAccountsController < ApplicationController
   def collection_presenter
     if page_requested?
       ActivityPub::CollectionPresenter.new(
-        id: account_following_index_url(@account, page: params.fetch(:page, 1)),
+        id: page_url(params.fetch(:page, 1)),
         type: :ordered,
         size: @account.following_count,
         items: follows.map { |follow| ActivityPub::TagManager.instance.uri_for(follow.target_account) },
-        part_of: account_following_index_url(@account),
+        part_of: ActivityPub::TagManager.instance.following_uri_for(@account),
         next: next_page_url,
         prev: prev_page_url
       )
     else
       ActivityPub::CollectionPresenter.new(
-        id: account_following_index_url(@account),
+        id: ActivityPub::TagManager.instance.following_uri_for(@account),
         type: :ordered,
         size: @account.following_count,
         first: page_url(1)

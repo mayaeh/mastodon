@@ -23,69 +23,37 @@ RSpec.describe HomeHelper do
     context 'with a valid account' do
       let(:account) { Fabricate(:account) }
 
-      it 'returns a link to the account' do
-        without_partial_double_verification do
-          allow(helper).to receive(:current_account).and_return(account)
-          allow(helper).to receive(:prefers_autoplay?).and_return(false)
-          result = helper.account_link_to(account)
+      before { helper.extend controller_helpers }
 
-          expect(result).to match "@#{account.acct}"
+      it 'returns a link to the account' do
+        result = helper.account_link_to(account)
+
+        expect(result).to match "@#{account.acct}"
+      end
+
+      private
+
+      def controller_helpers
+        Module.new do
+          def current_account = Account.last
         end
       end
     end
   end
 
-  describe 'obscured_counter' do
-    context 'with a value of less than zero' do
-      let(:count) { -10 }
+  describe 'field_verified_class' do
+    subject { helper.field_verified_class(verified) }
 
-      it 'returns the correct string' do
-        expect(helper.obscured_counter(count)).to eq '0'
-      end
-    end
-
-    context 'with a value of zero' do
-      let(:count) { 0 }
-
-      it 'returns the correct string' do
-        expect(helper.obscured_counter(count)).to eq '0'
-      end
-    end
-
-    context 'with a value of one' do
-      let(:count) { 1 }
-
-      it 'returns the correct string' do
-        expect(helper.obscured_counter(count)).to eq '1'
-      end
-    end
-
-    context 'with a value of more than one' do
-      let(:count) { 10 }
-
-      it 'returns the correct string' do
-        expect(helper.obscured_counter(count)).to eq '1+'
-      end
-    end
-  end
-
-  describe 'custom_field_classes' do
     context 'with a verified field' do
-      let(:field) { instance_double(Account::Field, verified?: true) }
+      let(:verified) { true }
 
-      it 'returns verified string' do
-        result = helper.custom_field_classes(field)
-        expect(result).to eq 'verified'
-      end
+      it { is_expected.to eq('verified') }
     end
 
     context 'with a non-verified field' do
-      let(:field) { instance_double(Account::Field, verified?: false) }
+      let(:verified) { false }
 
-      it 'returns verified string' do
-        result = helper.custom_field_classes(field)
-        expect(result).to eq 'emojify'
-      end
+      it { is_expected.to eq('emojify') }
     end
   end
 
@@ -95,14 +63,13 @@ RSpec.describe HomeHelper do
         allow(helper).to receive(:closed_registrations?).and_return(true)
         result = helper.sign_up_message
 
-        expect(result).to eq t('auth.registration_closed', instance: 'cb6e6126.ngrok.io')
+        expect(result).to eq t('auth.registration_closed', instance: local_domain_uri.host)
       end
     end
 
     context 'with open registrations' do
       it 'returns correct sign up message' do
-        allow(helper).to receive(:closed_registrations?).and_return(false)
-        allow(helper).to receive(:open_registrations?).and_return(true)
+        allow(helper).to receive_messages(closed_registrations?: false, open_registrations?: true)
         result = helper.sign_up_message
 
         expect(result).to eq t('auth.register')
@@ -111,9 +78,7 @@ RSpec.describe HomeHelper do
 
     context 'with approved registrations' do
       it 'returns correct sign up message' do
-        allow(helper).to receive(:closed_registrations?).and_return(false)
-        allow(helper).to receive(:open_registrations?).and_return(false)
-        allow(helper).to receive(:approved_registrations?).and_return(true)
+        allow(helper).to receive_messages(closed_registrations?: false, open_registrations?: false, approved_registrations?: true)
         result = helper.sign_up_message
 
         expect(result).to eq t('auth.apply_for_account')

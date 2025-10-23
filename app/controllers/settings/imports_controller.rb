@@ -12,6 +12,7 @@ class Settings::ImportsController < Settings::BaseController
     muting: 'muted_accounts_failures.csv',
     domain_blocking: 'blocked_domains_failures.csv',
     bookmarks: 'bookmarks_failures.csv',
+    lists: 'lists_failures.csv',
   }.freeze
 
   TYPE_TO_HEADERS_MAP = {
@@ -20,7 +21,10 @@ class Settings::ImportsController < Settings::BaseController
     muting: ['Account address', 'Hide notifications'],
     domain_blocking: false,
     bookmarks: false,
+    lists: false,
   }.freeze
+
+  RECENT_IMPORTS_LIMIT = 10
 
   def index
     @import = Form::Import.new(current_account: current_account)
@@ -29,7 +33,7 @@ class Settings::ImportsController < Settings::BaseController
   def show; end
 
   def failures
-    @bulk_import = current_account.bulk_imports.where(state: :finished).find(params[:id])
+    @bulk_import = current_account.bulk_imports.state_finished.find(params[:id])
 
     respond_to do |format|
       format.csv do
@@ -49,6 +53,8 @@ class Settings::ImportsController < Settings::BaseController
               csv << [row.data['domain']]
             when :bookmarks
               csv << [row.data['uri']]
+            when :lists
+              csv << [row.data['list_name'], row.data['acct']]
             end
           end
         end
@@ -84,14 +90,14 @@ class Settings::ImportsController < Settings::BaseController
   private
 
   def import_params
-    params.require(:form_import).permit(:data, :type, :mode)
+    params.expect(form_import: [:data, :type, :mode])
   end
 
   def set_bulk_import
-    @bulk_import = current_account.bulk_imports.where(state: :unconfirmed).find(params[:id])
+    @bulk_import = current_account.bulk_imports.state_unconfirmed.find(params[:id])
   end
 
   def set_recent_imports
-    @recent_imports = current_account.bulk_imports.reorder(id: :desc).limit(10)
+    @recent_imports = current_account.bulk_imports.reorder(id: :desc).limit(RECENT_IMPORTS_LIMIT)
   end
 end

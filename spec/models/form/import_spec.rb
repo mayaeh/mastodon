@@ -30,7 +30,7 @@ RSpec.describe Form::Import do
 
       it 'has errors' do
         subject.validate
-        expect(subject.errors[:data]).to include(I18n.t('imports.errors.over_rows_processing_limit', count: Form::Import::ROWS_PROCESSING_LIMIT))
+        expect(subject.errors[:data]).to include(I18n.t('imports.errors.over_rows_processing_limit', count: described_class::ROWS_PROCESSING_LIMIT))
       end
     end
 
@@ -61,10 +61,7 @@ RSpec.describe Form::Import do
       let(:import_type) { 'following' }
       let(:import_file) { 'boop.ogg' }
 
-      it 'has errors' do
-        # NOTE: not testing more specific error because we don't know the string to match
-        expect(subject).to model_have_error_on_field(:data)
-      end
+      it { is_expected.to_not allow_value(data).for(:data) }
     end
 
     context 'when importing more follows than allowed' do
@@ -86,6 +83,7 @@ RSpec.describe Form::Import do
     it_behaves_like 'too many CSV rows', 'muting', 'imports.txt', 1
     it_behaves_like 'too many CSV rows', 'domain_blocking', 'domain_blocks.csv', 2
     it_behaves_like 'too many CSV rows', 'bookmarks', 'bookmark-imports.txt', 3
+    it_behaves_like 'too many CSV rows', 'lists', 'lists.csv', 2
 
     # Importing list of addresses with no headers into various types
     it_behaves_like 'valid import', 'following', 'imports.txt'
@@ -97,6 +95,9 @@ RSpec.describe Form::Import do
 
     # Importing bookmarks list with no headers into expected type
     it_behaves_like 'valid import', 'bookmarks', 'bookmark-imports.txt'
+
+    # Importing lists with no headers into expected type
+    it_behaves_like 'valid import', 'lists', 'lists.csv'
 
     # Importing followed accounts with headers into various compatible types
     it_behaves_like 'valid import', 'following', 'following_accounts.csv'
@@ -233,44 +234,52 @@ RSpec.describe Form::Import do
       let(:import_file) { file }
       let(:import_mode) { mode }
 
-      before do
-        subject.save
-      end
+      before { subject.save }
 
-      it 'creates the expected rows' do
-        expect(account.bulk_imports.first.rows.pluck(:data)).to match_array(expected_rows)
-      end
+      context 'with a BulkImport' do
+        let(:bulk_import) { account.bulk_imports.first }
 
-      it 'creates a BulkImport with expected attributes' do
-        bulk_import = account.bulk_imports.first
-        expect(bulk_import).to_not be_nil
-        expect(bulk_import.type.to_sym).to eq subject.type.to_sym
-        expect(bulk_import.original_filename).to eq subject.data.original_filename
-        expect(bulk_import.likely_mismatched?).to eq subject.likely_mismatched?
-        expect(bulk_import.overwrite?).to eq !!subject.overwrite # rubocop:disable Style/DoubleNegation
-        expect(bulk_import.processed_items).to eq 0
-        expect(bulk_import.imported_items).to eq 0
-        expect(bulk_import.total_items).to eq bulk_import.rows.count
-        expect(bulk_import.unconfirmed?).to be true
+        it 'creates a bulk import with correct values' do
+          expect(bulk_import)
+            .to be_present
+            .and have_attributes(
+              type: eq(subject.type),
+              original_filename: eq(subject.data.original_filename),
+              likely_mismatched?: eq(subject.likely_mismatched?),
+              overwrite?: eq(!!subject.overwrite), # rubocop:disable Style/DoubleNegation
+              processed_items: eq(0),
+              imported_items: eq(0),
+              total_items: eq(bulk_import.rows.count),
+              state_unconfirmed?: be(true)
+            )
+          expect(bulk_import.rows.pluck(:data))
+            .to match_array(expected_rows)
+        end
       end
     end
 
-    it_behaves_like 'on successful import', 'following', 'merge', 'imports.txt', (%w(user@example.com user@test.com).map { |acct| { 'acct' => acct } })
-    it_behaves_like 'on successful import', 'following', 'overwrite', 'imports.txt', (%w(user@example.com user@test.com).map { |acct| { 'acct' => acct } })
-    it_behaves_like 'on successful import', 'blocking', 'merge', 'imports.txt', (%w(user@example.com user@test.com).map { |acct| { 'acct' => acct } })
-    it_behaves_like 'on successful import', 'blocking', 'overwrite', 'imports.txt', (%w(user@example.com user@test.com).map { |acct| { 'acct' => acct } })
-    it_behaves_like 'on successful import', 'muting', 'merge', 'imports.txt', (%w(user@example.com user@test.com).map { |acct| { 'acct' => acct } })
-    it_behaves_like 'on successful import', 'domain_blocking', 'merge', 'domain_blocks.csv', (%w(bad.domain worse.domain reject.media).map { |domain| { 'domain' => domain } })
-    it_behaves_like 'on successful import', 'bookmarks', 'merge', 'bookmark-imports.txt', (%w(https://example.com/statuses/1312 https://local.com/users/foo/statuses/42 https://unknown-remote.com/users/bar/statuses/1 https://example.com/statuses/direct).map { |uri| { 'uri' => uri } })
+    it_behaves_like('on successful import', 'following', 'merge', 'imports.txt', %w(user@example.com user@test.com).map { |acct| { 'acct' => acct } })
+    it_behaves_like('on successful import', 'following', 'overwrite', 'imports.txt', %w(user@example.com user@test.com).map { |acct| { 'acct' => acct } })
+    it_behaves_like('on successful import', 'blocking', 'merge', 'imports.txt', %w(user@example.com user@test.com).map { |acct| { 'acct' => acct } })
+    it_behaves_like('on successful import', 'blocking', 'overwrite', 'imports.txt', %w(user@example.com user@test.com).map { |acct| { 'acct' => acct } })
+    it_behaves_like('on successful import', 'muting', 'merge', 'imports.txt', %w(user@example.com user@test.com).map { |acct| { 'acct' => acct } })
+    it_behaves_like('on successful import', 'domain_blocking', 'merge', 'domain_blocks.csv', %w(bad.domain worse.domain reject.media).map { |domain| { 'domain' => domain } })
+    it_behaves_like('on successful import', 'bookmarks', 'merge', 'bookmark-imports.txt', %w(https://example.com/statuses/1312 https://local.com/users/foo/statuses/42 https://unknown-remote.com/users/bar/statuses/1 https://example.com/statuses/direct).map { |uri| { 'uri' => uri } })
 
     it_behaves_like 'on successful import', 'following', 'merge', 'following_accounts.csv', [
       { 'acct' => 'user@example.com', 'show_reblogs' => true, 'notify' => false, 'languages' => nil },
-      { 'acct' => 'user@test.com', 'show_reblogs' => true, 'notify' => true, 'languages' => ['en', 'fr'] },
+      { 'acct' => 'user@test.com', 'show_reblogs' => true, 'notify' => true, 'languages' => %w(en fr) },
     ]
 
     it_behaves_like 'on successful import', 'muting', 'merge', 'muted_accounts.csv', [
       { 'acct' => 'user@example.com', 'hide_notifications' => true },
       { 'acct' => 'user@test.com', 'hide_notifications' => false },
+    ]
+
+    it_behaves_like 'on successful import', 'lists', 'merge', 'lists.csv', [
+      { 'acct' => 'gargron@example.com', 'list_name' => 'Mastodon project' },
+      { 'acct' => 'mastodon@example.com', 'list_name' => 'Mastodon project' },
+      { 'acct' => 'foo@example.com', 'list_name' => 'test' },
     ]
 
     # Based on the bug report 20571 where UTF-8 encoded domains were rejecting import of their users

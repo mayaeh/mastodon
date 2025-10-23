@@ -1,7 +1,6 @@
 ---
 zgh:
   accounts:
-    follow: ⴹⴼⵕ
     followers:
       one: ⴰⵎⴹⴼⴰⵕ
       other: ⵉⵎⴹⴼⴰⵕⵏ
@@ -48,7 +47,6 @@ zgh:
     ip_blocks:
       delete: ⴽⴽⵙ
       expires_in:
-        '1209600': 2 weeks
         '15778476': 6 ⵡⴰⵢⵢⵓⵔⵏ
         '2629746': ⴰⵢⵢⵓⵔ
         '31556952': ⴰⵙⴳⴳⵯⴰⵙ
@@ -70,7 +68,6 @@ zgh:
   application_mailer:
     view_profile: ⵙⴽⵏ ⵉⴼⵔⵙ
   auth:
-    change_password: ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ
     forgot_password: ⵜⴻⵜⵜⵓⴷ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏⵏⴽ?
     login: ⴽⵛⵎ
     logout: ⴼⴼⵖ
@@ -78,9 +75,6 @@ zgh:
     register: ⵣⵎⵎⴻⵎ
     status:
       account_status: ⴰⴷⴷⴰⴷ ⵏ ⵓⵎⵉⴹⴰⵏ
-  authorize_follow:
-    follow: ⴹⴼⵕ
-    title: ⴹⴼⵕ %{acct}
   deletes:
     proceed: ⴽⴽⵙ ⴰⵎⵉⴹⴰⵏ
   exports:
@@ -115,5 +109,4 @@ zgh:
     account_settings: ⵜⵉⵙⵖⴰⵍ ⵏ ⵓⵎⵉⴹⴰⵏ
     back: ⴰⵖⵓⵍ ⵖⵔ ⵎⴰⵙⵜⵓⴷⵓⵏ
     edit_profile: ⵙⵏⴼⵍ ⵉⴼⵔⵙ
-    notifications: ⵜⵉⵏⵖⵎⵉⵙⵉⵏ
     profile: ⵉⴼⵔⵙ

@@ -2,14 +2,14 @@
 
 require 'rails_helper'
 
-describe RegenerationWorker do
+RSpec.describe RegenerationWorker do
   subject { described_class.new }
 
   describe 'perform' do
     let(:account) { Fabricate(:account) }
 
     it 'calls the precompute feed service for the account' do
-      service = double(call: nil)
+      service = instance_double(PrecomputeFeedService, call: nil)
       allow(PrecomputeFeedService).to receive(:new).and_return(service)
       result = subject.perform(account.id)
 

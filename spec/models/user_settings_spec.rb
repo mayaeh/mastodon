@@ -24,7 +24,7 @@ RSpec.describe UserSettings do
 
     context 'when setting was not defined' do
       it 'raises error' do
-        expect { subject[:foo] }.to raise_error UserSettings::KeyError
+        expect { subject[:foo] }.to raise_error described_class::KeyError
       end
     end
   end
@@ -47,6 +47,16 @@ RSpec.describe UserSettings do
 
       it 'updates value with a type-cast' do
         expect(subject[:always_send_emails]).to be true
+      end
+    end
+
+    context 'when the setting has a closed set of values' do
+      it 'updates the attribute when given a valid value' do
+        expect { subject[:'web.display_media'] = :show_all }.to change { subject[:'web.display_media'] }.from('default').to('show_all')
+      end
+
+      it 'raises an error when given an invalid value' do
+        expect { subject[:'web.display_media'] = 'invalid value' }.to raise_error ArgumentError
       end
     end
   end
@@ -83,7 +93,7 @@ RSpec.describe UserSettings do
   describe '.definition_for' do
     context 'when key is defined' do
       it 'returns a setting' do
-        expect(described_class.definition_for(:always_send_emails)).to be_a UserSettings::Setting
+        expect(described_class.definition_for(:always_send_emails)).to be_a described_class::Setting
       end
     end
 

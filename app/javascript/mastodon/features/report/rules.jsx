@@ -1,20 +1,26 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import { PureComponent } from 'react';
+
+import { FormattedMessage } from 'react-intl';
+
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import Button from 'mastodon/components/button';
+
+import { Button } from 'mastodon/components/button';
+
 import Option from './components/option';
 
 const mapStateToProps = state => ({
   rules: state.getIn(['server', 'server', 'rules']),
+  locale: state.getIn(['meta', 'locale']),
 });
 
-class Rules extends React.PureComponent {
+class Rules extends PureComponent {
 
   static propTypes = {
     onNextStep: PropTypes.func.isRequired,
     rules: ImmutablePropTypes.list,
+    locale: PropTypes.string,
     selectedRuleIds: ImmutablePropTypes.set.isRequired,
     onToggle: PropTypes.func.isRequired,
   };
@@ -30,10 +36,10 @@ class Rules extends React.PureComponent {
   };
 
   render () {
-    const { rules, selectedRuleIds } = this.props;
+    const { rules, locale, selectedRuleIds } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         <h3 className='report-dialog-modal__title'><FormattedMessage id='report.rules.title' defaultMessage='Which rules are being violated?' /></h3>
         <p className='report-dialog-modal__lead'><FormattedMessage id='report.rules.subtitle' defaultMessage='Select all that apply' /></p>
 
@@ -45,7 +51,7 @@ class Rules extends React.PureComponent {
               value={item.get('id')}
               checked={selectedRuleIds.includes(item.get('id'))}
               onToggle={this.handleRulesToggle}
-              label={item.get('text')}
+              label={item.getIn(['translations', locale, 'text']) || item.getIn(['translations', locale.split('-')[0], 'text']) || item.get('text')}
               multiple
             />
           ))}
@@ -56,7 +62,7 @@ class Rules extends React.PureComponent {
         <div className='report-dialog-modal__actions'>
           <Button onClick={this.handleNextClick} disabled={selectedRuleIds.size < 1}><FormattedMessage id='report.next' defaultMessage='Next' /></Button>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 

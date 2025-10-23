@@ -12,6 +12,7 @@ class RemoveStatusService < BaseService
   # @option  [Boolean] :immediate
   # @option  [Boolean] :preserve
   # @option  [Boolean] :original_removed
+  # @option  [Boolean] :skip_streaming
   def call(status, **options)
     @payload  = Oj.dump(event: :delete, payload: status.id.to_s)
     @status   = status
@@ -46,11 +47,17 @@ class RemoveStatusService < BaseService
         remove_media
       end
 
+      # Revoke the quote while we get a chance… maybe this should be a `before_destroy` hook?
+      RevokeQuoteService.new.call(@status.quote) if @status.quote&.quoted_account&.local? && @status.quote&.accepted?
+
       @status.destroy! if permanently?
     end
   end
 
   private
+
+  # The following FeedManager calls all do not result in redis publishes for
+  # streaming, as the `:update` option is false
 
   def remove_from_self
     FeedManager.instance.unpush_from_home(@account, @status)
@@ -74,6 +81,8 @@ class RemoveStatusService < BaseService
     # and therefore the delete is already handled by sending it to all
     # followers. Here we send a delete to actively mentioned accounts
     # that may not follow the account
+
+    return if skip_streaming?
 
     @status.active_mentions.find_each do |mention|
       redis.publish("timeline:#{mention.account_id}", @payload)
@@ -103,25 +112,29 @@ class RemoveStatusService < BaseService
     # without us being able to do all the fancy stuff
 
     @status.reblogs.rewhere(deleted_at: [nil, @status.deleted_at]).includes(:account).reorder(nil).find_each do |reblog|
-      RemoveStatusService.new.call(reblog, original_removed: true)
+      RemoveStatusService.new.call(reblog, original_removed: true, skip_streaming: skip_streaming?)
     end
   end
 
   def remove_from_hashtags
-    @account.featured_tags.where(tag_id: @status.tags.map(&:id)).each do |featured_tag|
-      featured_tag.decrement(@status.id)
+    @account.featured_tags.where(tag_id: @status.tags.map(&:id)).find_each do |featured_tag|
+      featured_tag.decrement(@status)
     end
 
     return unless @status.public_visibility?
 
+    return if skip_streaming?
+
     @status.tags.map(&:name).each do |hashtag|
-      redis.publish("timeline:hashtag:#{hashtag.mb_chars.downcase}", @payload)
-      redis.publish("timeline:hashtag:#{hashtag.mb_chars.downcase}:local", @payload) if @status.local?
+      redis.publish("timeline:hashtag:#{hashtag.downcase}", @payload)
+      redis.publish("timeline:hashtag:#{hashtag.downcase}:local", @payload) if @status.local?
     end
   end
 
   def remove_from_public
     return unless @status.public_visibility?
+
+    return if skip_streaming?
 
     redis.publish('timeline:public', @payload)
     redis.publish(@status.local? ? 'timeline:public:local' : 'timeline:public:remote', @payload)
@@ -130,17 +143,27 @@ class RemoveStatusService < BaseService
   def remove_from_media
     return unless @status.public_visibility?
 
+    return if skip_streaming?
+
     redis.publish('timeline:public:media', @payload)
     redis.publish(@status.local? ? 'timeline:public:local:media' : 'timeline:public:remote:media', @payload)
   end
 
   def remove_media
-    return if @options[:redraft] || !permanently?
+    return if @options[:redraft]
 
-    @status.media_attachments.destroy_all
+    if permanently?
+      @status.media_attachments.destroy_all
+    else
+      UpdateMediaAttachmentsPermissionsService.new.call(@status.media_attachments, :private)
+    end
   end
 
   def permanently?
     @options[:immediate] || !(@options[:preserve] || @status.reported?)
+  end
+
+  def skip_streaming?
+    !!@options[:skip_streaming]
   end
 end

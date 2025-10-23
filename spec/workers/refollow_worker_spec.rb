@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe RefollowWorker do
+RSpec.describe RefollowWorker do
   subject { described_class.new }
 
   let(:account) { Fabricate(:account, domain: 'example.org', protocol: :activitypub) }
@@ -10,7 +10,7 @@ describe RefollowWorker do
   let(:bob)     { Fabricate(:account, domain: nil, username: 'bob') }
 
   describe 'perform' do
-    let(:service) { double }
+    let(:service) { instance_double(FollowService) }
 
     before do
       allow(FollowService).to receive(:new).and_return(service)

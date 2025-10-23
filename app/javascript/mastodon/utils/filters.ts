@@ -6,8 +6,13 @@ export const toServerSideType = (columnType: string) => {
     case 'thread':
     case 'account':
       return columnType;
+    case 'detailed':
+      return 'thread';
+    case 'bookmarks':
+    case 'favourites':
+      return 'home';
     default:
-      if (columnType.indexOf('list:') > -1) {
+      if (columnType.includes('list:')) {
         return 'home';
       } else {
         return 'public'; // community, account, hashtag

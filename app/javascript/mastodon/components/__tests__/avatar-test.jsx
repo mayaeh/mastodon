@@ -1,10 +1,13 @@
-import React from 'react';
+
 import renderer from 'react-test-renderer';
-import { fromJS } from 'immutable';
+
+import { accountDefaultValues, createAccountFromServerJSON } from '@/mastodon/models/account';
+
 import { Avatar } from '../avatar';
 
 describe('<Avatar />', () => {
-  const account = fromJS({
+  const account = createAccountFromServerJSON({
+    ...accountDefaultValues,
     username: 'alice',
     acct: 'alice',
     display_name: 'Alice',

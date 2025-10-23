@@ -5,8 +5,8 @@ class ActivityPub::DeliveryWorker
   include RoutingHelper
   include JsonLdHelper
 
+  STOPLIGHT_COOL_OFF_TIME = 60
   STOPLIGHT_FAILURE_THRESHOLD = 10
-  STOPLIGHT_COOLDOWN = 60
 
   sidekiq_options queue: 'push', retry: 16, dead: false
 
@@ -23,9 +23,10 @@ class ActivityPub::DeliveryWorker
   HEADERS = { 'Content-Type' => 'application/activity+json' }.freeze
 
   def perform(json, source_account_id, inbox_url, options = {})
-    return unless DeliveryFailureTracker.available?(inbox_url)
-
     @options        = options.with_indifferent_access
+
+    return unless @options[:bypass_availability] || DeliveryFailureTracker.available?(inbox_url)
+
     @json           = json
     @source_account = Account.find(source_account_id)
     @inbox_url      = inbox_url
@@ -54,23 +55,31 @@ class ActivityPub::DeliveryWorker
   end
 
   def synchronization_header
-    "collectionId=\"#{account_followers_url(@source_account)}\", digest=\"#{@source_account.remote_followers_hash(@inbox_url)}\", url=\"#{account_followers_synchronization_url(@source_account)}\""
+    "collectionId=\"#{ActivityPub::TagManager.instance.followers_uri_for(@source_account)}\", digest=\"#{@source_account.remote_followers_hash(@inbox_url)}\", url=\"#{account_followers_synchronization_url(@source_account)}\""
   end
 
   def perform_request
-    light = Stoplight(@inbox_url) do
+    stoplight_wrapper.run do
       request_pool.with(@host) do |http_client|
         build_request(http_client).perform do |response|
-          raise Mastodon::UnexpectedResponseError, response unless response_successful?(response) || response_error_unsalvageable?(response)
+          raise Mastodon::UnexpectedResponseError, response unless response_successful?(response) || response_error_unsalvageable?(response) || unsalvageable_authorization_failure?(response)
 
           @performed = true
         end
       end
     end
+  end
 
-    light.with_threshold(STOPLIGHT_FAILURE_THRESHOLD)
-         .with_cool_off_time(STOPLIGHT_COOLDOWN)
-         .run
+  def unsalvageable_authorization_failure?(response)
+    @source_account.permanently_unavailable? && response.code == 401
+  end
+
+  def stoplight_wrapper
+    Stoplight(
+      @inbox_url,
+      cool_off_time: STOPLIGHT_COOL_OFF_TIME,
+      threshold: STOPLIGHT_FAILURE_THRESHOLD
+    )
   end
 
   def failure_tracker

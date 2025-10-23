@@ -6,6 +6,7 @@ RSpec.describe AccountableConcern do
   let(:hoge_class) do
     Class.new do
       include AccountableConcern
+
       attr_reader :current_account
 
       def initialize(current_account)
@@ -22,7 +23,7 @@ RSpec.describe AccountableConcern do
     it 'creates Admin::ActionLog' do
       expect do
         hoge.log_action(:create, target)
-      end.to change { Admin::ActionLog.count }.by(1)
+      end.to change(Admin::ActionLog, :count).by(1)
     end
   end
 end

@@ -18,7 +18,7 @@ class StatusLengthValidator < ActiveModel::Validator
   end
 
   def countable_length(str)
-    str.mb_chars.grapheme_length
+    str.each_grapheme_cluster.size
   end
 
   def combined_text(status)
@@ -45,7 +45,7 @@ class StatusLengthValidator < ActiveModel::Validator
 
   def rewrite_entities(str, entities)
     entities.sort_by! { |entity| entity[:indices].first }
-    result = ''.dup
+    result = +''
 
     last_index = entities.reduce(0) do |index, entity|
       result << str[index...entity[:indices].first]
@@ -53,7 +53,7 @@ class StatusLengthValidator < ActiveModel::Validator
       entity[:indices].last
     end
 
-    result << str[last_index..-1]
+    result << str[last_index..]
     result
   end
 end

@@ -1,7 +1,11 @@
-import { autoPlayGif } from '../../initial_state';
-import unicodeMapping from './emoji_unicode_mapping_light';
-import { assetHost } from 'mastodon/utils/config';
 import Trie from 'substring-trie';
+
+import { isModernEmojiEnabled } from '@/mastodon/utils/environment';
+import { assetHost } from 'mastodon/utils/config';
+
+import { autoPlayGif } from '../../initial_state';
+
+import { unicodeMapping } from './emoji_unicode_mapping_light';
 
 const trie = new Trie(Object.keys(unicodeMapping));
 
@@ -11,11 +15,16 @@ const emojiFilenames = (emojis) => {
 };
 
 // Emoji requiring extra borders depending on theme
-const darkEmoji = emojiFilenames(['🎱', '🐜', '⚫', '🖤', '⬛', '◼️', '◾', '◼️', '✒️', '▪️', '💣', '🎳', '📷', '📸', '♣️', '🕶️', '✴️', '🔌', '💂‍♀️', '📽️', '🍳', '🦍', '💂', '🔪', '🕳️', '🕹️', '🕋', '🖊️', '🖋️', '💂‍♂️', '🎤', '🎓', '🎥', '🎼', '♠️', '🎩', '🦃', '📼', '📹', '🎮', '🐃', '🏴', '🐞', '🕺', '📱', '📲', '🚲']);
-const lightEmoji = emojiFilenames(['👽', '⚾', '🐔', '☁️', '💨', '🕊️', '👀', '🍥', '👻', '🐐', '❕', '❔', '⛸️', '🌩️', '🔊', '🔇', '📃', '🌧️', '🐏', '🍚', '🍙', '🐓', '🐑', '💀', '☠️', '🌨️', '🔉', '🔈', '💬', '💭', '🏐', '🏳️', '⚪', '⬜', '◽', '◻️', '▫️']);
+const darkEmoji = emojiFilenames(['🎱', '🐜', '⚫', '🖤', '⬛', '◼️', '◾', '◼️', '✒️', '▪️', '💣', '🎳', '📷', '📸', '♣️', '🕶️', '✴️', '🔌', '💂‍♀️', '📽️', '🍳', '🦍', '💂', '🔪', '🕳️', '🕹️', '🕋', '🖊️', '🖋️', '💂‍♂️', '🎤', '🎓', '🎥', '🎼', '♠️', '🎩', '🦃', '📼', '📹', '🎮', '🐃', '🏴', '🐞', '🕺', '📱', '📲', '🚲', '🪮', '🐦‍⬛']);
+const lightEmoji = emojiFilenames(['👽', '⚾', '🐔', '☁️', '💨', '🕊️', '👀', '🍥', '👻', '🐐', '❕', '❔', '⛸️', '🌩️', '🔊', '🔇', '📃', '🌧️', '🐏', '🍚', '🍙', '🐓', '🐑', '💀', '☠️', '🌨️', '🔉', '🔈', '💬', '💭', '🏐', '🏳️', '⚪', '⬜', '◽', '◻️', '▫️', '🪽', '🪿']);
 
-const emojiFilename = (filename) => {
-  const borderedEmoji = (document.body && document.body.classList.contains('theme-mastodon-light')) ? lightEmoji : darkEmoji;
+/**
+ * @param {string} filename
+ * @param {"light" | "dark" } colorScheme
+ * @returns {string}
+ */
+const emojiFilename = (filename, colorScheme) => {
+  const borderedEmoji = colorScheme === "light" ? lightEmoji : darkEmoji;
   return borderedEmoji.includes(filename) ? (filename + '_border') : filename;
 };
 
@@ -89,12 +98,30 @@ const emojifyTextNode = (node, customEmojis) => {
       const { filename, shortCode } = unicodeMapping[unicode_emoji];
       const title = shortCode ? `:${shortCode}:` : '';
 
-      replacement = document.createElement('img');
-      replacement.setAttribute('draggable', 'false');
-      replacement.setAttribute('class', 'emojione');
-      replacement.setAttribute('alt', unicode_emoji);
-      replacement.setAttribute('title', title);
-      replacement.setAttribute('src', `${assetHost}/emoji/${emojiFilename(filename)}.svg`);
+      const isSystemTheme = !!document.body?.classList.contains('theme-system');
+
+      const theme = (isSystemTheme || document.body?.classList.contains('theme-mastodon-light')) ? 'light' : 'dark';
+
+      const imageFilename = emojiFilename(filename, theme);
+
+      const img = document.createElement('img');
+      img.setAttribute('draggable', 'false');
+      img.setAttribute('class', 'emojione');
+      img.setAttribute('alt', unicode_emoji);
+      img.setAttribute('title', title);
+      img.setAttribute('src', `${assetHost}/emoji/${imageFilename}.svg`);
+
+      if (isSystemTheme && imageFilename !== emojiFilename(filename, 'dark')) {
+        replacement = document.createElement('picture');
+
+        const source = document.createElement('source');
+        source.setAttribute('media', '(prefers-color-scheme: dark)');
+        source.setAttribute('srcset', `${assetHost}/emoji/${emojiFilename(filename, 'dark')}.svg`);
+        replacement.appendChild(source);
+        replacement.appendChild(img);
+      } else {
+        replacement = img;
+      }
     }
 
     // Add the processed-up-to-now string and the emoji replacement
@@ -109,7 +136,7 @@ const emojifyTextNode = (node, customEmojis) => {
 };
 
 const emojifyNode = (node, customEmojis) => {
-  for (const child of node.childNodes) {
+  for (const child of Array.from(node.childNodes)) {
     switch(child.nodeType) {
     case Node.TEXT_NODE:
       emojifyTextNode(child, customEmojis);
@@ -122,7 +149,17 @@ const emojifyNode = (node, customEmojis) => {
   }
 };
 
-const emojify = (str, customEmojis = {}) => {
+/**
+ * Legacy emoji processing function.
+ * @param {string} str
+ * @param {object} customEmojis
+ * @param {boolean} force If true, always emojify even if modern emoji is enabled
+ * @returns {string}
+ */
+const emojify = (str, customEmojis = {}, force = false) => {
+  if (isModernEmojiEnabled() && !force) {
+    return str;
+  }
   const wrapper = document.createElement('div');
   wrapper.innerHTML = str;
 

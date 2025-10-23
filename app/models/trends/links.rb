@@ -3,6 +3,8 @@
 class Trends::Links < Trends::Base
   PREFIX = 'trending_links'
 
+  BATCH_SIZE = 100
+
   self.default_options = {
     threshold: 5,
     review_threshold: 3,
@@ -12,18 +14,9 @@ class Trends::Links < Trends::Base
   }
 
   class Query < Trends::Query
-    def filtered_for!(account)
-      @account = account
-      self
-    end
-
-    def filtered_for(account)
-      clone.filtered_for!(account)
-    end
-
     def to_arel
       scope = PreviewCard.joins(:trend).reorder(score: :desc)
-      scope = scope.reorder(language_order_clause.desc, score: :desc) if preferred_languages.present?
+      scope = scope.reorder(language_order_clause, score: :desc) if preferred_languages.present?
       scope = scope.merge(PreviewCardTrend.allowed) if @allowed
       scope = scope.offset(@offset) if @offset.present?
       scope = scope.limit(@limit) if @limit.present?
@@ -32,29 +25,20 @@ class Trends::Links < Trends::Base
 
     private
 
-    def language_order_clause
-      Arel::Nodes::Case.new.when(PreviewCardTrend.arel_table[:language].in(preferred_languages)).then(1).else(0)
-    end
-
-    def preferred_languages
-      if @account&.chosen_languages.present?
-        @account.chosen_languages
-      else
-        @locale
-      end
+    def trend_class
+      PreviewCardTrend
     end
   end
 
   def register(status, at_time = Time.now.utc)
     original_status = status.proper
 
-    return unless (original_status.public_visibility? && status.public_visibility?) &&
+    return unless original_status.public_visibility? &&
+                  status.public_visibility? &&
                   !(original_status.account.silenced? || status.account.silenced?) &&
                   !(original_status.spoiler_text? || original_status.sensitive?)
 
-    original_status.preview_cards.each do |preview_card|
-      add(preview_card, status.account_id, at_time) if preview_card.appropriate_for_trends?
-    end
+    add(original_status.preview_card, status.account_id, at_time) if original_status.preview_card&.appropriate_for_trends?
   end
 
   def add(preview_card, account_id, at_time = Time.now.utc)
@@ -67,14 +51,27 @@ class Trends::Links < Trends::Base
   end
 
   def refresh(at_time = Time.now.utc)
-    preview_cards = PreviewCard.where(id: (recently_used_ids(at_time) + PreviewCardTrend.pluck(:preview_card_id)).uniq)
-    calculate_scores(preview_cards, at_time)
+    # First, recalculate scores for links that were trending previously. We split the queries
+    # to avoid having to load all of the IDs into Ruby just to send them back into Postgres
+    PreviewCard.where(id: PreviewCardTrend.select(:preview_card_id)).find_in_batches(batch_size: BATCH_SIZE) do |preview_cards|
+      calculate_scores(preview_cards, at_time)
+    end
+
+    # Then, calculate scores for links that were used today. There are potentially some
+    # duplicate items here that we might process one more time, but that should be fine
+    PreviewCard.where(id: recently_used_ids(at_time)).find_in_batches(batch_size: BATCH_SIZE) do |preview_cards|
+      calculate_scores(preview_cards, at_time)
+    end
+
+    # Now that all trends have up-to-date scores, and all the ones below the threshold have
+    # been removed, we can recalculate their positions
+    PreviewCardTrend.recalculate_ordered_rank
   end
 
   def request_review
-    PreviewCardTrend.pluck('distinct language').flat_map do |language|
-      score_at_threshold  = PreviewCardTrend.where(language: language, allowed: true).order(rank: :desc).where('rank <= ?', options[:review_threshold]).first&.score || 0
-      preview_card_trends = PreviewCardTrend.where(language: language, allowed: false).joins(:preview_card)
+    PreviewCardTrend.locales.flat_map do |language|
+      score_at_threshold  = PreviewCardTrend.where(language: language).allowed.by_rank.ranked_below(options[:review_threshold]).first&.score || 0
+      preview_card_trends = PreviewCardTrend.where(language: language).not_allowed.joins(:preview_card)
 
       preview_card_trends.filter_map do |trend|
         preview_card = trend.preview_card
@@ -139,10 +136,7 @@ class Trends::Links < Trends::Base
     to_insert = items.filter { |(score, _)| score >= options[:decay_threshold] }
     to_delete = items.filter { |(score, _)| score < options[:decay_threshold] }
 
-    PreviewCardTrend.transaction do
-      PreviewCardTrend.upsert_all(to_insert.map { |(score, preview_card)| { preview_card_id: preview_card.id, score: score, language: preview_card.language, allowed: preview_card.trendable? || false } }, unique_by: :preview_card_id) if to_insert.any?
-      PreviewCardTrend.where(preview_card_id: to_delete.map { |(_, preview_card)| preview_card.id }).delete_all if to_delete.any?
-      PreviewCardTrend.connection.exec_update('UPDATE preview_card_trends SET rank = t0.calculated_rank FROM (SELECT id, row_number() OVER w AS calculated_rank FROM preview_card_trends WINDOW w AS (PARTITION BY language ORDER BY score DESC)) t0 WHERE preview_card_trends.id = t0.id')
-    end
+    PreviewCardTrend.upsert_all(to_insert.map { |(score, preview_card)| { preview_card_id: preview_card.id, score: score, language: preview_card.language, allowed: preview_card.trendable? || false } }, unique_by: :preview_card_id) if to_insert.any?
+    PreviewCardTrend.where(preview_card_id: to_delete.map { |(_, preview_card)| preview_card.id }).delete_all if to_delete.any?
   end
 end

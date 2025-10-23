@@ -2,37 +2,34 @@
 // If there are no polyfills, then this is just Promise.resolve() which means
 // it will execute in the same tick of the event loop (i.e. near-instant).
 
-function importBasePolyfills() {
-  return import(/* webpackChunkName: "base_polyfills" */ './base_polyfills');
-}
+// eslint-disable-next-line import/extensions -- This file is virtual so it thinks it has an extension
+import 'vite/modulepreload-polyfill';
+
+import { loadIntlPolyfills } from './intl';
 
 function importExtraPolyfills() {
-  return import(/* webpackChunkName: "extra_polyfills" */ './extra_polyfills');
+  return import('./extra_polyfills');
 }
 
 export function loadPolyfills() {
-  const needsBasePolyfills = !(
-    'toBlob' in HTMLCanvasElement.prototype &&
-    'Intl' in window &&
-    'assign' in Object &&
-    'values' in Object &&
-    'Symbol' in window &&
-    'finally' in Promise.prototype
-  );
-
-  // Latest version of Firefox and Safari do not have IntersectionObserver.
-  // Edge does not have requestIdleCallback.
+  // Safari does not have requestIdleCallback.
   // This avoids shipping them all the polyfills.
-  const needsExtraPolyfills = !(
-    window.AbortController &&
-    window.IntersectionObserver &&
-    window.IntersectionObserverEntry &&
-    'isIntersecting' in IntersectionObserverEntry.prototype &&
-    window.requestIdleCallback
-  );
+  const needsExtraPolyfills = !window.requestIdleCallback;
 
   return Promise.all([
-    needsBasePolyfills && importBasePolyfills(),
-    needsExtraPolyfills && importExtraPolyfills(),
+    loadIntlPolyfills(),
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- those properties might not exist in old browsers, even if they are always here in types
+    needsExtraPolyfills ? importExtraPolyfills() : Promise.resolve(),
+    loadEmojiPolyfills(),
   ]);
 }
+
+// In the case of no /v support, rely on the emojibase data.
+async function loadEmojiPolyfills() {
+  if (!('unicodeSets' in RegExp.prototype)) {
+    emojiRegexPolyfill = (await import('emojibase-regex/emoji')).default;
+  }
+}
+
+// Null unless polyfill is needed.
+export let emojiRegexPolyfill: RegExp | null = null;

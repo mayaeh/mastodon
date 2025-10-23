@@ -1,17 +1,32 @@
+@use 'sass:color';
 @use 'sass:math';
+@use 'functions' as *;
+@use 'variables' as *;
 
-$no-columns-breakpoint: 600px;
-$sidebar-width: 240px;
+$no-columns-breakpoint: 890px;
+$sidebar-width: 300px;
 $content-width: 840px;
 
 .admin-wrapper {
   display: flex;
   justify-content: center;
+  box-sizing: border-box;
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+
+  .icon {
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+    margin: 0 2px;
+  }
 
   .sidebar-wrapper {
     min-height: 100vh;
+    min-height: 100dvh;
     overflow: hidden;
     pointer-events: none;
     flex: 1 1 auto;
@@ -19,7 +34,7 @@ $content-width: 840px;
     &__inner {
       display: flex;
       justify-content: flex-end;
-      background: $ui-base-color;
+      background: var(--background-color);
       height: 100%;
     }
   }
@@ -31,7 +46,7 @@ $content-width: 840px;
 
     &__toggle {
       display: none;
-      background: darken($ui-base-color, 4%);
+      background: var(--background-color);
       border-bottom: 1px solid lighten($ui-base-color, 4%);
       align-items: center;
 
@@ -58,16 +73,16 @@ $content-width: 840px;
           background: $ui-base-color;
         }
 
-        .fa-times {
+        .material-close {
           display: none;
         }
 
         &.active {
-          .fa-times {
+          .material-close {
             display: block;
           }
 
-          .fa-bars {
+          .material-menu {
             display: none;
           }
         }
@@ -96,7 +111,6 @@ $content-width: 840px;
 
     ul {
       list-style: none;
-      border-radius: 4px 0 0 4px;
       overflow: hidden;
       margin-bottom: 20px;
 
@@ -105,37 +119,25 @@ $content-width: 840px;
       }
 
       a {
-        display: block;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
         padding: 15px;
         color: $darker-text-color;
         text-decoration: none;
         transition: all 200ms linear;
         transition-property: color, background-color;
-        border-radius: 4px 0 0 4px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-
-        i.fa {
-          margin-inline-end: 5px;
-        }
 
         &:hover {
           color: $primary-text-color;
-          background-color: darken($ui-base-color, 5%);
           transition: all 100ms linear;
           transition-property: color, background-color;
-        }
-
-        &.selected {
-          background: darken($ui-base-color, 2%);
-          border-radius: 4px 0 0;
         }
       }
 
       ul {
-        background: darken($ui-base-color, 4%);
-        border-radius: 0 0 0 4px;
+        background: var(--background-color);
         margin: 0;
 
         a {
@@ -144,20 +146,15 @@ $content-width: 840px;
         }
       }
 
-      .simple-navigation-active-leaf a {
-        color: $primary-text-color;
-        background-color: darken($ui-highlight-color, 2%);
-        border-bottom: 0;
-        border-radius: 0;
-
-        &:hover {
-          background-color: $ui-highlight-color;
-        }
+      .warning a {
+        color: $gold-star;
+        font-weight: 700;
       }
-    }
 
-    & > ul > .simple-navigation-active-leaf a {
-      border-radius: 4px 0 0 4px;
+      .simple-navigation-active-leaf a {
+        color: $highlight-text-color;
+        border-bottom: 0;
+      }
     }
   }
 
@@ -168,7 +165,7 @@ $content-width: 840px;
     flex: 1 1 auto;
   }
 
-  @media screen and (max-width: $content-width + $sidebar-width) {
+  @media screen and (max-width: ($content-width + $sidebar-width)) {
     .sidebar-wrapper--empty {
       display: none;
     }
@@ -236,6 +233,10 @@ $content-width: 840px;
           gap: 5px;
           white-space: nowrap;
 
+          @media screen and (max-width: $mobile-breakpoint) {
+            flex: 1 0 50%;
+          }
+
           &:hover,
           &:focus,
           &:active {
@@ -246,12 +247,6 @@ $content-width: 840px;
             font-weight: 700;
             color: $primary-text-color;
             background: $ui-highlight-color;
-
-            &:hover,
-            &:focus,
-            &:active {
-              background: lighten($ui-highlight-color, 4%);
-            }
           }
         }
       }
@@ -260,6 +255,15 @@ $content-width: 840px;
         display: inline-flex;
         flex-flow: wrap;
         gap: 5px;
+        align-items: center;
+
+        .time-period {
+          padding: 0 10px;
+        }
+
+        .back-link {
+          margin-bottom: 0;
+        }
       }
 
       h2 small {
@@ -296,9 +300,9 @@ $content-width: 840px;
       font-size: 13px;
       font-weight: 700;
       color: $darker-text-color;
-      padding-bottom: 8px;
+      padding-top: 24px;
       margin-bottom: 8px;
-      border-bottom: 1px solid lighten($ui-base-color, 8%);
+      border-top: 1px solid var(--background-border-color);
     }
 
     h6 {
@@ -318,10 +322,6 @@ $content-width: 840px;
       box-shadow: none;
     }
 
-    .directory__tag .table-action-link .fa {
-      color: inherit;
-    }
-
     .directory__tag h4 {
       font-size: 18px;
       font-weight: 700;
@@ -330,6 +330,23 @@ $content-width: 840px;
       padding-bottom: 0;
       margin-bottom: 0;
       border-bottom: 0;
+
+      .comment {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: 4px;
+
+        &.private-comment {
+          display: block;
+          color: $darker-text-color;
+        }
+
+        &.public-comment {
+          display: block;
+          color: $secondary-text-color;
+        }
+      }
     }
 
     & > p {
@@ -354,7 +371,7 @@ $content-width: 840px;
       width: 100%;
       height: 0;
       border: 0;
-      border-bottom: 1px solid rgba($ui-base-lighter-color, 0.6);
+      border-bottom: 1px solid var(--background-border-color);
       margin: 20px 0;
 
       &.spacer {
@@ -392,14 +409,14 @@ $content-width: 840px;
           inset-inline-start: 0;
           bottom: 0;
           overflow-y: auto;
-          background: $ui-base-color;
+          background: var(--background-color);
         }
       }
 
       ul a,
       ul ul a {
+        font-size: 16px;
         border-radius: 0;
-        border-bottom: 1px solid lighten($ui-base-color, 4%);
         transition: none;
 
         &:hover {
@@ -469,6 +486,14 @@ body,
     color: $gold-star;
     font-weight: 500;
   }
+}
+
+kbd {
+  font-family: Courier, monospace;
+  background-color: color.change($ui-secondary-color, $alpha: 0.1);
+  padding: 4px;
+  padding-bottom: 2px;
+  border-radius: 5px;
 }
 
 .filters {
@@ -574,16 +599,6 @@ body,
 .account-status {
   display: flex;
   margin-bottom: 10px;
-
-  .activity-stream {
-    flex: 2 0 0;
-    margin-inline-end: 20px;
-    max-width: calc(100% - 60px);
-
-    .entry {
-      border-radius: 4px;
-    }
-  }
 }
 
 .report-status__actions,
@@ -605,16 +620,6 @@ body,
   max-width: 100%;
 }
 
-.simple_form {
-  .actions {
-    margin-top: 15px;
-  }
-
-  .button {
-    font-size: 15px;
-  }
-}
-
 .batch-form-box {
   display: flex;
   flex-wrap: wrap;
@@ -627,16 +632,6 @@ body,
 
   input.button {
     margin: 0 5px 5px 0;
-  }
-
-  .media-spoiler-toggle-buttons {
-    margin-inline-start: auto;
-
-    .button {
-      overflow: visible;
-      margin: 0 0 5px 5px;
-      float: right;
-    }
   }
 }
 
@@ -675,8 +670,10 @@ body,
   line-height: 20px;
   padding: 15px;
   padding-inline-start: 15px * 2 + 40px;
-  background: $ui-base-color;
-  border-bottom: 1px solid darken($ui-base-color, 8%);
+  background: var(--background-color);
+  border-right: 1px solid var(--background-border-color);
+  border-left: 1px solid var(--background-border-color);
+  border-bottom: 1px solid var(--background-border-color);
   position: relative;
   text-decoration: none;
   color: $darker-text-color;
@@ -685,18 +682,13 @@ body,
   &:first-child {
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+    border-top: 1px solid var(--background-border-color);
   }
 
   &:last-child {
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
-    border-bottom: 0;
-  }
-
-  &:hover,
-  &:focus,
-  &:active {
-    background: lighten($ui-base-color, 4%);
+    border-bottom: 1px solid var(--background-border-color);
   }
 
   &__avatar {
@@ -705,14 +697,14 @@ body,
     top: 15px;
 
     .avatar {
-      border-radius: 4px;
+      border-radius: var(--avatar-border-radius);
       width: 40px;
       height: 40px;
     }
   }
 
   &__title {
-    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   &__timestamp {
@@ -736,12 +728,57 @@ body,
   }
 }
 
+.strike-entry {
+  display: block;
+  line-height: 20px;
+  padding: 15px;
+  padding-inline-start: 15px * 2 + 40px;
+  background: var(--background-color);
+  border: 1px solid var(--background-border-color);
+  border-radius: 4px;
+  position: relative;
+  text-decoration: none;
+  color: $darker-text-color;
+  font-size: 14px;
+  margin-bottom: 15px;
+
+  &__avatar {
+    position: absolute;
+    inset-inline-start: 15px;
+    top: 15px;
+
+    .avatar {
+      border-radius: var(--avatar-border-radius);
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  &__title {
+    overflow-wrap: break-word;
+  }
+
+  &__timestamp {
+    color: $dark-text-color;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: $ui-base-color;
+  }
+}
+
 a.name-tag,
 .name-tag,
 a.inline-name-tag,
 .inline-name-tag {
   text-decoration: none;
   color: $secondary-text-color;
+
+  &:hover {
+    color: $highlight-text-color;
+  }
 
   .username {
     font-weight: 500;
@@ -822,7 +859,8 @@ a.name-tag,
 }
 
 .report-card {
-  background: $ui-base-color;
+  background: var(--background-color);
+  border: 1px solid var(--background-border-color);
   border-radius: 4px;
   margin-bottom: 20px;
 
@@ -834,7 +872,7 @@ a.name-tag,
 
     .account {
       padding: 0;
-      border: 0;
+      border: none;
 
       &__avatar-wrapper {
         margin-inline-start: 0;
@@ -855,7 +893,7 @@ a.name-tag,
         &:focus,
         &:hover,
         &:active {
-          color: lighten($darker-text-color, 8%);
+          color: $highlight-text-color;
         }
       }
 
@@ -869,11 +907,7 @@ a.name-tag,
     &__item {
       display: flex;
       justify-content: flex-start;
-      border-top: 1px solid darken($ui-base-color, 4%);
-
-      &:hover {
-        background: lighten($ui-base-color, 2%);
-      }
+      border-top: 1px solid var(--background-border-color);
 
       &__reported-by,
       &__assigned {
@@ -896,7 +930,6 @@ a.name-tag,
         max-width: calc(100% - 300px);
 
         &__icon {
-          color: $dark-text-color;
           margin-inline-end: 4px;
           font-weight: 500;
         }
@@ -909,6 +942,10 @@ a.name-tag,
         padding: 15px;
         text-decoration: none;
         color: $darker-text-color;
+
+        &:hover {
+          color: $highlight-text-color;
+        }
       }
     }
   }
@@ -944,14 +981,15 @@ a.name-tag,
 
   .account__header__fields,
   .account__header__content {
-    background: lighten($ui-base-color, 8%);
+    background: var(--background-color);
+    border: 1px solid var(--background-border-color);
     border-radius: 4px;
     height: 100%;
   }
 
   .account__header__fields {
     margin: 0;
-    border: 0;
+    border: 1px solid var(--background-border-color);
 
     a {
       color: $highlight-text-color;
@@ -980,8 +1018,8 @@ a.name-tag,
 .applications-list__item,
 .filters-list__item {
   padding: 15px 0;
-  background: $ui-base-color;
-  border: 1px solid lighten($ui-base-color, 4%);
+  background: var(--background-color);
+  border: 1px solid var(--background-border-color);
   border-radius: 4px;
   margin-top: 15px;
 }
@@ -990,15 +1028,21 @@ a.name-tag,
   color: var(--user-role-accent);
 }
 
+.applications-list {
+  .icon {
+    vertical-align: middle;
+  }
+}
+
 .announcements-list,
 .filters-list {
-  border: 1px solid lighten($ui-base-color, 4%);
+  border: 1px solid var(--background-border-color);
   border-radius: 4px;
+  border-bottom: none;
 
   &__item {
     padding: 15px 0;
-    background: $ui-base-color;
-    border-bottom: 1px solid lighten($ui-base-color, 4%);
+    border-bottom: 1px solid var(--background-border-color);
 
     &__title {
       padding: 0 15px;
@@ -1010,9 +1054,17 @@ a.name-tag,
       text-decoration: none;
       margin-bottom: 10px;
 
+      &:hover {
+        color: $highlight-text-color;
+      }
+
       .account-role {
         vertical-align: middle;
       }
+    }
+
+    .icon {
+      vertical-align: middle;
     }
 
     a.announcements-list__item__title {
@@ -1020,6 +1072,17 @@ a.name-tag,
       &:focus,
       &:active {
         color: $primary-text-color;
+      }
+    }
+
+    &__action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+
+      &:not(.no-wrap) {
+        flex-wrap: wrap;
       }
     }
 
@@ -1039,18 +1102,12 @@ a.name-tag,
       }
     }
 
-    &__action-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    &__actions {
+      margin-inline-start: auto;
     }
 
     &__permissions {
       margin-top: 10px;
-    }
-
-    &:last-child {
-      border-bottom: 0;
     }
   }
 }
@@ -1060,6 +1117,7 @@ a.name-tag,
     display: flex;
     justify-content: space-between;
     margin-bottom: 0;
+    overflow-wrap: anywhere;
   }
 
   &__permissions {
@@ -1082,6 +1140,15 @@ a.name-tag,
   }
 }
 
+.rule-actions {
+  display: flex;
+  flex-direction: column;
+
+  a.table-action-link {
+    padding-inline-start: 0;
+  }
+}
+
 .dashboard__counters.admin-account-counters {
   margin-top: 10px;
 }
@@ -1100,7 +1167,7 @@ a.name-tag,
 
   &__table {
     &__number {
-      color: $secondary-text-color;
+      color: var(--background-color);
       padding: 10px;
     }
 
@@ -1127,7 +1194,7 @@ a.name-tag,
 
     &__box {
       box-sizing: border-box;
-      background: $ui-highlight-color;
+      background: var(--background-color);
       padding: 10px;
       font-weight: 500;
       color: $primary-text-color;
@@ -1149,8 +1216,9 @@ a.name-tag,
 .sparkline {
   display: block;
   text-decoration: none;
-  background: lighten($ui-base-color, 4%);
+  background: var(--background-color);
   border-radius: 4px;
+  border: 1px solid var(--background-border-color);
   padding: 0;
   position: relative;
   padding-bottom: 55px + 20px;
@@ -1207,7 +1275,7 @@ a.name-tag,
     }
 
     path:first-child {
-      fill: rgba($highlight-text-color, 0.25) !important;
+      fill: color.change($highlight-text-color, $alpha: 0.25) !important;
       fill-opacity: 1 !important;
     }
 
@@ -1222,12 +1290,12 @@ a.sparkline {
   &:hover,
   &:focus,
   &:active {
-    background: lighten($ui-base-color, 6%);
+    background: $ui-base-color;
   }
 }
 
 .skeleton {
-  background-color: lighten($ui-base-color, 8%);
+  background-color: var(--background-color);
   background-image: linear-gradient(
     90deg,
     lighten($ui-base-color, 8%),
@@ -1293,24 +1361,32 @@ a.sparkline {
     &:last-child {
       border-bottom: 0;
     }
+
+    &.negative {
+      color: $error-value-color;
+      font-weight: 700;
+
+      .dimension__item__value {
+        color: $error-value-color;
+      }
+    }
   }
 }
 
 .report-reason-selector {
   border-radius: 4px;
-  background: $ui-base-color;
+  background: var(--background-color);
   margin-bottom: 20px;
 
   &__category {
     cursor: pointer;
     border-bottom: 1px solid darken($ui-base-color, 8%);
 
-    &:last-child {
-      border-bottom: 0;
-    }
-
     &__label {
       padding: 15px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
     }
 
     &__rules {
@@ -1321,17 +1397,20 @@ a.sparkline {
   &__rule {
     cursor: pointer;
     padding: 15px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
   }
 }
 
 .report-header {
   display: grid;
-  grid-gap: 15px;
+  gap: 15px;
   grid-template-columns: minmax(0, 1fr) 300px;
 
   &__details {
     &__item {
-      border-bottom: 1px solid lighten($ui-base-color, 8%);
+      border-bottom: 1px solid var(--background-border-color);
       padding: 15px 0;
 
       &:last-child {
@@ -1361,8 +1440,21 @@ a.sparkline {
 }
 
 .account-card {
-  background: $ui-base-color;
   border-radius: 4px;
+  border: 1px solid var(--background-border-color);
+  position: relative;
+
+  &__warning-badge {
+    position: absolute;
+    padding: 4px 10px;
+    top: 10px;
+    inset-inline-start: 10px;
+    border-radius: 4px;
+    background:
+      url('@/images/warning-stripes.svg') repeat-y left,
+      url('@/images/warning-stripes.svg') repeat-y right,
+      var(--background-color);
+  }
 
   &__permalink {
     color: inherit;
@@ -1423,7 +1515,7 @@ a.sparkline {
     margin: 8px 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    word-wrap: break-word;
+    overflow-wrap: break-word;
     max-height: 21px * 2;
     position: relative;
     font-size: 15px;
@@ -1437,7 +1529,6 @@ a.sparkline {
       position: absolute;
       bottom: 0;
       inset-inline-end: 15px;
-      background: linear-gradient(to left, $ui-base-color, transparent);
       pointer-events: none;
     }
 
@@ -1513,11 +1604,11 @@ a.sparkline {
   margin-bottom: 20px;
 
   &__item {
-    background: $ui-base-color;
+    background: var(--background-color);
     position: relative;
     padding: 15px;
     padding-inline-start: 15px * 2 + 40px;
-    border-bottom: 1px solid darken($ui-base-color, 8%);
+    border: 1px solid var(--background-border-color);
 
     &:first-child {
       border-top-left-radius: 4px;
@@ -1527,18 +1618,13 @@ a.sparkline {
     &:last-child {
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
-      border-bottom: 0;
-    }
-
-    &:hover {
-      background-color: lighten($ui-base-color, 4%);
     }
 
     &__avatar {
       position: absolute;
       inset-inline-start: 15px;
       top: 15px;
-      border-radius: 4px;
+      border-radius: var(--avatar-border-radius);
       width: 40px;
       height: 40px;
     }
@@ -1566,6 +1652,17 @@ a.sparkline {
         }
       }
 
+      a.timestamp {
+        color: $darker-text-color;
+        text-decoration: none;
+
+        &:hover,
+        &:focus,
+        &:active {
+          text-decoration: underline;
+        }
+      }
+
       time {
         margin-inline-start: 5px;
         vertical-align: baseline;
@@ -1575,7 +1672,7 @@ a.sparkline {
     &__content {
       font-size: 15px;
       line-height: 20px;
-      word-wrap: break-word;
+      overflow-wrap: break-word;
       font-weight: 400;
       color: $primary-text-color;
 
@@ -1609,13 +1706,10 @@ a.sparkline {
 }
 
 .report-actions {
-  border: 1px solid darken($ui-base-color, 8%);
-
   &__item {
     display: flex;
     align-items: center;
     line-height: 18px;
-    border-bottom: 1px solid darken($ui-base-color, 8%);
 
     &:last-child {
       border-bottom: 0;
@@ -1678,15 +1772,15 @@ a.sparkline {
 
 .strike-card {
   padding: 15px;
-  border-radius: 4px;
-  background: $ui-base-color;
   font-size: 15px;
   line-height: 20px;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   font-weight: 400;
   color: $primary-text-color;
   box-sizing: border-box;
   min-height: 100%;
+  border: 1px solid var(--background-border-color);
+  border-radius: 4px;
 
   a {
     color: $highlight-text-color;
@@ -1727,15 +1821,14 @@ a.sparkline {
 
   &__statuses-list {
     border-radius: 4px;
-    border: 1px solid darken($ui-base-color, 8%);
+    border: 1px solid var(--background-border-color);
     font-size: 13px;
     line-height: 18px;
     overflow: hidden;
 
     &__item {
       padding: 16px;
-      background: lighten($ui-base-color, 2%);
-      border-bottom: 1px solid darken($ui-base-color, 8%);
+      border-bottom: 1px solid var(--background-border-color);
 
       &:last-child {
         border-bottom: 0;
@@ -1799,7 +1892,7 @@ a.sparkline {
   font-size: 15px;
   line-height: 22px;
 
-  li {
+  > li {
     counter-increment: step 1;
     padding-inline-start: 2.5rem;
     padding-bottom: 8px;
@@ -1854,6 +1947,233 @@ a.sparkline {
       border: 1px solid lighten($ui-base-color, 4%);
       background: $ui-base-color;
       border-radius: 4px;
+    }
+  }
+}
+
+.status__card {
+  padding: 15px;
+  border-radius: 4px;
+  font-size: 15px;
+  line-height: 20px;
+  overflow-wrap: break-word;
+  font-weight: 400;
+  border: 1px solid lighten($ui-base-color, 4%);
+  color: $primary-text-color;
+  box-sizing: border-box;
+  min-height: 100%;
+
+  &.status--has-quote {
+    .quote-inline {
+      display: none;
+    }
+  }
+
+  .status__quote & {
+    // Remove the border from the .status__card within .status__quote
+    border: none;
+
+    .display-name__account {
+      line-height: inherit;
+    }
+
+    .status__avatar,
+    .status__avatar .account__avatar {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .status__prepend {
+    padding: 0 0 15px;
+    gap: 4px;
+    align-items: center;
+  }
+
+  > details {
+    summary {
+      display: block;
+      box-sizing: border-box;
+      background: var(--nested-card-background);
+      color: var(--nested-card-text);
+      border: var(--nested-card-border);
+      border-radius: 8px;
+      padding: 8px 13px;
+      position: relative;
+      font-size: 15px;
+      line-height: 22px;
+      cursor: pointer;
+
+      &::after {
+        content: attr(data-show, 'Show more');
+        margin-top: 8px;
+        display: block;
+        font-size: 15px;
+        line-height: 20px;
+        color: $highlight-text-color;
+        cursor: pointer;
+        border: 0;
+        background: transparent;
+        padding: 0;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      &:hover,
+      &:focus-visible {
+        &::after {
+          text-decoration: underline !important;
+        }
+      }
+    }
+
+    &[open] summary {
+      margin-bottom: 16px;
+
+      &::after {
+        content: attr(data-hide, 'Hide post');
+      }
+    }
+  }
+
+  .preview-card {
+    position: relative;
+    max-width: 566px;
+
+    .status-card__image {
+      &--video {
+        aspect-ratio: 16 / 9;
+      }
+
+      &--large {
+        aspect-ratio: 1.91 / 1;
+      }
+
+      aspect-ratio: 1;
+    }
+
+    .spoiler-button__overlay__label {
+      outline: 1px solid var(--media-outline-color);
+    }
+
+    .hide-button {
+      // Toggled to appear when the preview-card is unblurred:
+      display: none;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      color: $white;
+      border: 0;
+      outline: 1px solid var(--media-outline-color);
+      background-color: color.change($black, $alpha: 0.45);
+      backdrop-filter: $backdrop-blur-filter;
+      padding: 3px 12px;
+      border-radius: 99px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 20px;
+
+      &:hover,
+      &:focus {
+        background-color: color.change($black, $alpha: 0.9);
+      }
+    }
+
+    &.preview-card--image-visible {
+      .hide-button {
+        display: block;
+      }
+
+      .spoiler-button__overlay,
+      .status-card__image-preview {
+        display: none;
+      }
+    }
+  }
+
+  .detailed-status__meta {
+    .detailed-status__application,
+    .detailed-status__datetime,
+    .detailed-status__link {
+      color: inherit;
+    }
+  }
+}
+
+.admin {
+  &__terms-of-service {
+    &__container {
+      background: var(--surface-background-color);
+      border-radius: 8px;
+      border: 1px solid var(--background-border-color);
+      overflow: hidden;
+
+      &__header {
+        padding: 16px;
+        font-size: 14px;
+        line-height: 20px;
+        color: $secondary-text-color;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      &__body {
+        background: var(--background-color);
+        padding: 16px;
+        overflow-y: scroll;
+        height: 30vh;
+      }
+    }
+
+    &__history {
+      & > li {
+        border-bottom: 1px solid var(--background-border-color);
+
+        &:last-child {
+          border-bottom: 0;
+        }
+      }
+
+      &__item {
+        padding: 16px 0;
+        padding-bottom: 8px;
+
+        h5 {
+          font-size: 14px;
+          line-height: 20px;
+          font-weight: 600;
+          margin-bottom: 16px;
+
+          a {
+            color: inherit;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.dot-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+
+  &__indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: $dark-text-color;
+  }
+
+  &.success {
+    color: $valid-value-color;
+
+    .dot-indicator__indicator {
+      background-color: $valid-value-color;
     }
   }
 }

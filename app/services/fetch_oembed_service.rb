@@ -2,7 +2,7 @@
 
 class FetchOEmbedService
   ENDPOINT_CACHE_EXPIRES_IN = 24.hours.freeze
-  URL_REGEX                 = /(=(http[s]?(%3A|:)(\/\/|%2F%2F)))([^&]*)/i
+  URL_REGEX                 = %r{(=(https?(%3A|:)(//|%2F%2F)))([^&]*)}i
 
   attr_reader :url, :options, :format, :endpoint_url
 
@@ -25,7 +25,7 @@ class FetchOEmbedService
     return if html.nil?
 
     @format = @options[:format]
-    page    = Nokogiri::HTML(html)
+    page    = Nokogiri::HTML5(html)
 
     if @format.nil? || @format == :json
       @endpoint_url ||= page.at_xpath('//link[@type="application/json+oembed"]|//link[@type="text/json+oembed"]')&.attribute('href')&.value
@@ -100,7 +100,7 @@ class FetchOEmbedService
   end
 
   def validate(oembed)
-    oembed if oembed[:version].to_s == '1.0' && oembed[:type].present?
+    oembed if oembed.present? && oembed[:version].to_s == '1.0' && oembed[:type].present?
   end
 
   def html

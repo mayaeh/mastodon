@@ -91,5 +91,84 @@ RSpec.describe BulkImportRowService do
         end
       end
     end
+
+    context 'when importing a list row' do
+      let(:import_type) { 'lists' }
+      let(:target_account) { Fabricate(:account) }
+      let(:list_name) { 'my list' }
+      let(:data) do
+        { 'acct' => target_account.acct, 'list_name' => list_name }
+      end
+
+      shared_examples 'common behavior' do
+        shared_examples 'row import success and list addition' do
+          it 'returns true and adds the target account to the list' do
+            result = nil
+            expect { result = subject.call(import_row) }
+              .to change { result }.from(nil).to(true)
+              .and add_target_account_to_list
+          end
+        end
+
+        context 'when the target account is already followed' do
+          before do
+            account.follow!(target_account)
+          end
+
+          it_behaves_like 'row import success and list addition'
+        end
+
+        context 'when the user already requested to follow the target account' do
+          before do
+            account.request_follow!(target_account)
+          end
+
+          it_behaves_like 'row import success and list addition'
+        end
+
+        context 'when the target account is neither followed nor requested' do
+          it_behaves_like 'row import success and list addition'
+        end
+
+        context 'when the target account is the user themself' do
+          let(:target_account) { account }
+
+          it_behaves_like 'row import success and list addition'
+        end
+
+        def add_target_account_to_list
+          change { target_account_on_list? }
+            .from(false)
+            .to(true)
+        end
+
+        def target_account_on_list?
+          ListAccount
+            .joins(:list)
+            .exists?(
+              account_id: target_account.id,
+              list: { title: list_name }
+            )
+        end
+      end
+
+      context 'when the list does not exist yet' do
+        it_behaves_like 'common behavior'
+      end
+
+      context 'when the list exists' do
+        before do
+          Fabricate(:list, account: account, title: list_name)
+        end
+
+        it_behaves_like 'common behavior'
+
+        it 'does not create a new list' do
+          account.follow!(target_account)
+
+          expect { subject.call(import_row) }.to_not(change { List.where(title: list_name).count })
+        end
+      end
+    end
   end
 end

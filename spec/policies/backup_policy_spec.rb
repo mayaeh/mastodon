@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'pundit/rspec'
 
 RSpec.describe BackupPolicy do
-  let(:subject) { described_class }
-  let(:john)    { Fabricate(:account) }
+  subject { described_class }
+
+  let(:john) { Fabricate(:account) }
 
   permissions :create? do
     context 'when not user_signed_in?' do
@@ -23,21 +23,29 @@ RSpec.describe BackupPolicy do
 
       context 'when backups are too old' do
         it 'permits' do
-          travel(-8.days) do
+          travel(-before_time) do
             Fabricate(:backup, user: john.user)
           end
 
           expect(subject).to permit(john, Backup)
         end
+
+        def before_time
+          described_class::MIN_AGE + 2.days
+        end
       end
 
       context 'when backups are newer' do
         it 'denies' do
-          travel(-3.days) do
+          travel(-within_time) do
             Fabricate(:backup, user: john.user)
           end
 
           expect(subject).to_not permit(john, Backup)
+        end
+
+        def within_time
+          described_class::MIN_AGE - 2.days
         end
       end
     end

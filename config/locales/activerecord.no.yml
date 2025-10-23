@@ -8,13 +8,16 @@
       user:
         agreement: Tjenesteavtale
         email: E-postadresse
-        locale: Landstandard
+        locale: Språk
         password: Passord
       user/account:
         username: Brukernavn
       user/invite_request:
         text: Årsak
     errors:
+      attributes:
+        domain:
+          invalid: er ikke et gyldig domenenavn
       models:
         account:
           attributes:
@@ -24,11 +27,11 @@
         admin/webhook:
           attributes:
             url:
-              invalid: er ikke en gyldig nettadresse
+              invalid: er ikke en gyldig lenke
         doorkeeper/application:
           attributes:
             website:
-              invalid: er ikke en gyldig nettadresse
+              invalid: er ikke en gyldig lenke
         import:
           attributes:
             data:
@@ -53,3 +56,7 @@
             position:
               elevated: kan ikke være høyere enn din nåværende rolle
               own_role: kan ikke endres med din nåværende rolle
+        webhook:
+          attributes:
+            events:
+              invalid_permissions: kan ikke inkludere hendelser du ikke har rettigheter til

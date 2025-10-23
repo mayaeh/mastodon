@@ -1,31 +1,66 @@
-import React, { PureComponent } from 'react';
-import ScrollContainer from 'mastodon/containers/scroll_container';
 import PropTypes from 'prop-types';
-import IntersectionObserverArticleContainer from '../containers/intersection_observer_article_container';
-import LoadMore from './load_more';
-import LoadPending from './load_pending';
-import IntersectionObserverWrapper from '../features/ui/util/intersection_observer_wrapper';
-import { throttle } from 'lodash';
-import { List as ImmutableList } from 'immutable';
+import { Children, cloneElement, PureComponent } from 'react';
+
 import classNames from 'classnames';
-import { supportsPassiveEvents } from 'detect-passive-events';
-import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from '../features/ui/util/fullscreen';
-import LoadingIndicator from './loading_indicator';
+import { useLocation } from 'react-router-dom';
+
+import { List as ImmutableList } from 'immutable';
 import { connect } from 'react-redux';
+
+import { supportsPassiveEvents } from 'detect-passive-events';
+import { throttle } from 'lodash';
+
+import { ScrollContainer } from 'mastodon/containers/scroll_container';
+
+import IntersectionObserverArticleContainer from '../containers/intersection_observer_article_container';
+import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from '../features/ui/util/fullscreen';
+import IntersectionObserverWrapper from '../features/ui/util/intersection_observer_wrapper';
+
+import { LoadMore } from './load_more';
+import { LoadPending } from './load_pending';
+import { LoadingIndicator } from './loading_indicator';
 
 const MOUSE_IDLE_DELAY = 300;
 
+const listenerOptions = supportsPassiveEvents ? { passive: true } : false;
+
+/**
+ *
+ * @param {import('mastodon/store').RootState} state
+ * @param {*} props
+ */
 const mapStateToProps = (state, { scrollKey }) => {
   return {
-    preventScroll: scrollKey === state.getIn(['dropdown_menu', 'scroll_key']),
+    preventScroll: scrollKey === state.dropdownMenu.scrollKey,
   };
 };
 
-class ScrollableList extends PureComponent {
+// This component only exists to be able to call useLocation()
+const IOArticleContainerWrapper = ({id, index, listLength, intersectionObserverWrapper, trackScroll, scrollKey, children}) => {
+  const location = useLocation();
 
-  static contextTypes = {
-    router: PropTypes.object,
-  };
+  return (<IntersectionObserverArticleContainer
+    id={id}
+    index={index}
+    listLength={listLength}
+    intersectionObserverWrapper={intersectionObserverWrapper}
+    saveHeightKey={trackScroll ? `${location.key}:${scrollKey}` : null}
+  >
+    {children}
+  </IntersectionObserverArticleContainer>);
+};
+
+IOArticleContainerWrapper.propTypes =  {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  index: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  listLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  scrollKey: PropTypes.string.isRequired,
+  intersectionObserverWrapper: PropTypes.object.isRequired,
+  trackScroll: PropTypes.bool.isRequired,
+  children: PropTypes.node,
+};
+
+class ScrollableList extends PureComponent {
 
   static propTypes = {
     scrollKey: PropTypes.string.isRequired,
@@ -45,6 +80,8 @@ class ScrollableList extends PureComponent {
     children: PropTypes.node,
     bindToDocument: PropTypes.bool,
     preventScroll: PropTypes.bool,
+    footer: PropTypes.node,
+    className: PropTypes.string,
   };
 
   static defaultProps = {
@@ -65,7 +102,7 @@ class ScrollableList extends PureComponent {
       const clientHeight = this.getClientHeight();
       const offset = scrollHeight - scrollTop - clientHeight;
 
-      if (400 > offset && this.props.onLoadMore && this.props.hasMore && !this.props.isLoading) {
+      if (scrollTop > 0 && offset < 400 && this.props.onLoadMore && this.props.hasMore && !this.props.isLoading) {
         this.props.onLoadMore();
       }
 
@@ -182,8 +219,8 @@ class ScrollableList extends PureComponent {
   };
 
   getSnapshotBeforeUpdate (prevProps) {
-    const someItemInserted = React.Children.count(prevProps.children) > 0 &&
-      React.Children.count(prevProps.children) < React.Children.count(this.props.children) &&
+    const someItemInserted = Children.count(prevProps.children) > 0 &&
+      Children.count(prevProps.children) < Children.count(this.props.children) &&
       this.getFirstChildKey(prevProps) !== this.getFirstChildKey(this.props);
     const pendingChanged = (prevProps.numPending > 0) !== (this.props.numPending > 0);
 
@@ -237,20 +274,20 @@ class ScrollableList extends PureComponent {
   attachScrollListener () {
     if (this.props.bindToDocument) {
       document.addEventListener('scroll', this.handleScroll);
-      document.addEventListener('wheel', this.handleWheel, supportsPassiveEvents ? { passive: true } : undefined);
+      document.addEventListener('wheel', this.handleWheel,  listenerOptions);
     } else {
       this.node.addEventListener('scroll', this.handleScroll);
-      this.node.addEventListener('wheel', this.handleWheel, supportsPassiveEvents ? { passive: true } : undefined);
+      this.node.addEventListener('wheel', this.handleWheel, listenerOptions);
     }
   }
 
   detachScrollListener () {
     if (this.props.bindToDocument) {
       document.removeEventListener('scroll', this.handleScroll);
-      document.removeEventListener('wheel', this.handleWheel);
+      document.removeEventListener('wheel', this.handleWheel, listenerOptions);
     } else {
       this.node.removeEventListener('scroll', this.handleScroll);
-      this.node.removeEventListener('wheel', this.handleWheel);
+      this.node.removeEventListener('wheel', this.handleWheel, listenerOptions);
     }
   }
 
@@ -289,9 +326,9 @@ class ScrollableList extends PureComponent {
   };
 
   render () {
-    const { children, scrollKey, trackScroll, showLoading, isLoading, hasMore, numPending, prepend, alwaysPrepend, append, emptyMessage, onLoadMore } = this.props;
+    const { children, scrollKey, className, trackScroll, showLoading, isLoading, hasMore, numPending, prepend, alwaysPrepend, append, footer, emptyMessage, onLoadMore } = this.props;
     const { fullscreen } = this.state;
-    const childrenCount = React.Children.count(children);
+    const childrenCount = Children.count(children);
 
     const loadMore     = (hasMore && onLoadMore) ? <LoadMore visible={!isLoading} onClick={this.handleLoadMore} /> : null;
     const loadPending  = (numPending > 0) ? <LoadPending count={numPending} onClick={this.handleLoadPending} /> : null;
@@ -300,45 +337,50 @@ class ScrollableList extends PureComponent {
     if (showLoading) {
       scrollableArea = (
         <div className='scrollable scrollable--flex' ref={this.setRef}>
-          <div role='feed' className='item-list'>
-            {prepend}
-          </div>
+          {prepend}
+
+          <div role='feed' className='item-list' />
 
           <div className='scrollable__append'>
             <LoadingIndicator />
           </div>
+
+          {footer}
         </div>
       );
     } else if (isLoading || childrenCount > 0 || numPending > 0 || hasMore || !emptyMessage) {
       scrollableArea = (
-        <div className={classNames('scrollable', { fullscreen })} ref={this.setRef} onMouseMove={this.handleMouseMove}>
-          <div role='feed' className='item-list'>
-            {prepend}
+        <div className={classNames('scrollable scrollable--flex', { fullscreen })} ref={this.setRef} onMouseMove={this.handleMouseMove}>
+          {prepend}
 
+          <div role='feed' className={classNames('item-list', className)}>
             {loadPending}
 
-            {React.Children.map(this.props.children, (child, index) => (
-              <IntersectionObserverArticleContainer
+            {Children.map(this.props.children, (child, index) => (
+              <IOArticleContainerWrapper
                 key={child.key}
                 id={child.key}
                 index={index}
                 listLength={childrenCount}
                 intersectionObserverWrapper={this.intersectionObserverWrapper}
-                saveHeightKey={trackScroll ? `${this.context.router.route.location.key}:${scrollKey}` : null}
+                trackScroll={trackScroll}
+                scrollKey={scrollKey}
               >
-                {React.cloneElement(child, {
+                {cloneElement(child, {
                   getScrollPosition: this.getScrollPosition,
                   updateScrollBottom: this.updateScrollBottom,
                   cachedMediaWidth: this.state.cachedMediaWidth,
                   cacheMediaWidth: this.cacheMediaWidth,
                 })}
-              </IntersectionObserverArticleContainer>
+              </IOArticleContainerWrapper>
             ))}
 
             {loadMore}
 
             {!hasMore && append}
           </div>
+
+          {footer}
         </div>
       );
     } else {
@@ -349,13 +391,15 @@ class ScrollableList extends PureComponent {
           <div className='empty-column-indicator'>
             {emptyMessage}
           </div>
+
+          {footer}
         </div>
       );
     }
 
     if (trackScroll) {
       return (
-        <ScrollContainer scrollKey={scrollKey}>
+        <ScrollContainer scrollKey={scrollKey} childRef={this.setRef}>
           {scrollableArea}
         </ScrollContainer>
       );

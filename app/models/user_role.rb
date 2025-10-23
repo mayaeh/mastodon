@@ -38,6 +38,12 @@ class UserRole < ApplicationRecord
     delete_user_data: (1 << 19),
   }.freeze
 
+  EVERYONE_ROLE_ID = -99
+  NOBODY_POSITION = -1
+
+  POSITION_LIMIT = (2**31) - 1
+  CSS_COLORS = /\A#?(?:[A-F0-9]{3}){1,2}\z/i # CSS-style hex colors
+
   module Flags
     NONE = 0
     ALL  = FLAGS.values.reduce(&:|)
@@ -49,7 +55,7 @@ class UserRole < ApplicationRecord
         invite_users
       ).freeze,
 
-      moderation: %w(
+      moderation: %i(
         view_dashboard
         view_audit_log
         manage_users
@@ -63,7 +69,7 @@ class UserRole < ApplicationRecord
         manage_invites
       ).freeze,
 
-      administration: %w(
+      administration: %i(
         manage_settings
         manage_rules
         manage_roles
@@ -72,7 +78,7 @@ class UserRole < ApplicationRecord
         manage_announcements
       ).freeze,
 
-      devops: %w(
+      devops: %i(
         view_devops
       ).freeze,
 
@@ -85,7 +91,8 @@ class UserRole < ApplicationRecord
   attr_writer :current_account
 
   validates :name, presence: true, unless: :everyone?
-  validates :color, format: { with: /\A#?(?:[A-F0-9]{3}){1,2}\z/i }, unless: -> { color.blank? }
+  validates :color, format: { with: CSS_COLORS }, if: :color?
+  validates :position, numericality: { in: (-POSITION_LIMIT..POSITION_LIMIT) }
 
   validate :validate_permissions_elevation
   validate :validate_position_elevation
@@ -94,18 +101,18 @@ class UserRole < ApplicationRecord
 
   before_validation :set_position
 
-  scope :assignable, -> { where.not(id: -99).order(position: :asc) }
+  scope :assignable, -> { where.not(id: EVERYONE_ROLE_ID).order(position: :asc) }
 
   has_many :users, inverse_of: :role, foreign_key: 'role_id', dependent: :nullify
 
   def self.nobody
-    @nobody ||= UserRole.new(permissions: Flags::NONE, position: -1)
+    @nobody ||= UserRole.new(permissions: Flags::NONE, position: NOBODY_POSITION)
   end
 
   def self.everyone
-    UserRole.find(-99)
+    UserRole.find(EVERYONE_ROLE_ID)
   rescue ActiveRecord::RecordNotFound
-    UserRole.create!(id: -99, permissions: Flags::DEFAULT)
+    UserRole.create!(id: EVERYONE_ROLE_ID, permissions: Flags::DEFAULT)
   end
 
   def self.that_can(*any_of_privileges)
@@ -113,7 +120,7 @@ class UserRole < ApplicationRecord
   end
 
   def everyone?
-    id == -99
+    id == EVERYONE_ROLE_ID
   end
 
   def nobody?
@@ -125,7 +132,7 @@ class UserRole < ApplicationRecord
   end
 
   def permissions_as_keys=(value)
-    self.permissions = value.map(&:presence).compact.reduce(Flags::NONE) { |bitmask, privilege| FLAGS.key?(privilege.to_sym) ? (bitmask | FLAGS[privilege.to_sym]) : bitmask }
+    self.permissions = value.filter_map(&:presence).reduce(Flags::NONE) { |bitmask, privilege| FLAGS.key?(privilege.to_sym) ? (bitmask | FLAGS[privilege.to_sym]) : bitmask }
   end
 
   def can?(*any_of_privileges)
@@ -134,6 +141,10 @@ class UserRole < ApplicationRecord
 
   def overrides?(other_role)
     other_role.nil? || position > other_role.position
+  end
+
+  def bypass_block?(role)
+    overrides?(role) && highlighted? && can?(*Flags::CATEGORIES[:moderation])
   end
 
   def computed_permissions
@@ -168,7 +179,7 @@ class UserRole < ApplicationRecord
   end
 
   def set_position
-    self.position = -1 if everyone?
+    self.position = NOBODY_POSITION if everyone?
   end
 
   def validate_own_role_edition

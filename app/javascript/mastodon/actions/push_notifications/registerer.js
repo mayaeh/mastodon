@@ -1,8 +1,9 @@
 import api from '../../api';
-import { decode as decodeBase64 } from '../../utils/base64';
-import { pushNotificationsSetting } from '../../settings';
-import { setBrowserSupport, setSubscription, clearSubscription } from './setter';
 import { me } from '../../initial_state';
+import { pushNotificationsSetting } from '../../settings';
+import { decode as decodeBase64 } from '../../utils/base64';
+
+import { setBrowserSupport, setSubscription, clearSubscription } from './setter';
 
 // Taken from https://www.npmjs.com/package/web-push
 const urlBase64ToUint8Array = (base64String) => {
@@ -32,7 +33,7 @@ const unsubscribe = ({ registration, subscription }) =>
   subscription ? subscription.unsubscribe().then(() => registration) : registration;
 
 const sendSubscriptionToBackend = (subscription) => {
-  const params = { subscription };
+  const params = { subscription: { ...subscription.toJSON(), standard: true } };
 
   if (me) {
     const data = pushNotificationsSetting.get(me);

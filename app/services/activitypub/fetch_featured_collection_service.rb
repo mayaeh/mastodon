@@ -4,13 +4,12 @@ class ActivityPub::FetchFeaturedCollectionService < BaseService
   include JsonLdHelper
 
   def call(account, **options)
-    return if account.featured_collection_url.blank? || account.suspended? || account.local?
+    return if (account.featured_collection_url.blank? && options[:collection].blank?) || account.suspended? || account.local?
 
     @account = account
     @options = options
-    @json    = fetch_resource(@account.featured_collection_url, true, local_follower)
-
-    return unless supported_context?(@json)
+    @json    = fetch_collection(options[:collection].presence || @account.featured_collection_url)
+    return if @json.blank?
 
     process_items(collection_items(@json))
   end
@@ -23,9 +22,9 @@ class ActivityPub::FetchFeaturedCollectionService < BaseService
 
     case collection['type']
     when 'Collection', 'CollectionPage'
-      collection['items']
+      as_array(collection['items'])
     when 'OrderedCollection', 'OrderedCollectionPage'
-      collection['orderedItems']
+      as_array(collection['orderedItems'])
     end
   end
 
@@ -33,10 +32,12 @@ class ActivityPub::FetchFeaturedCollectionService < BaseService
     return collection_or_uri if collection_or_uri.is_a?(Hash)
     return if non_matching_uri_hosts?(@account.uri, collection_or_uri)
 
-    fetch_resource_without_id_validation(collection_or_uri, local_follower, true)
+    fetch_resource_without_id_validation(collection_or_uri, local_follower, raise_on_error: :temporary)
   end
 
   def process_items(items)
+    return if items.nil?
+
     process_note_items(items) if @options[:note]
     process_hashtag_items(items) if @options[:hashtag]
   end
