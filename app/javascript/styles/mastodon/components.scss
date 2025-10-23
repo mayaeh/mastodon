@@ -10410,6 +10410,10 @@ noscript {
   display: flex;
   flex-direction: column;
   gap: 4px;
+
+  @media (max-width: #{$mobile-menu-breakpoint - 1}) {
+    bottom: calc(20px + var(--mobile-bottom-nav-height));
+  }
 }
 
 .notification-bar {
