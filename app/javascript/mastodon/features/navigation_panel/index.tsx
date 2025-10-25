@@ -42,6 +42,7 @@ import {
   me,
 } from 'mastodon/initial_state';
 import { transientSingleColumn } from 'mastodon/is_mobile';
+import { canViewFeed } from 'mastodon/permissions';
 import { selectUnreadNotificationGroupsCount } from 'mastodon/selectors/notifications';
 import { selectUseGroupedNotifications } from 'mastodon/selectors/settings';
 import { useAppSelector, useAppDispatch } from 'mastodon/store';
@@ -198,7 +199,7 @@ export const NavigationPanel: React.FC<{ multiColumn?: boolean }> = ({
   multiColumn = false,
 }) => {
   const intl = useIntl();
-  const { signedIn, disabledAccountId } = useIdentity();
+  const { signedIn, permissions, disabledAccountId } = useIdentity();
   const location = useLocation();
   const showSearch = useBreakpoint('full') && !multiColumn;
 
@@ -260,13 +261,12 @@ export const NavigationPanel: React.FC<{ multiColumn?: boolean }> = ({
           </>
         )}
 
-        {(signedIn ||
-          localLiveFeedAccess === 'public' ||
-          remoteLiveFeedAccess === 'public') && (
+        {(canViewFeed(signedIn, permissions, localLiveFeedAccess) ||
+          canViewFeed(signedIn, permissions, remoteLiveFeedAccess)) && (
           <ColumnLink
             transparent
             to={
-              signedIn || localLiveFeedAccess === 'public'
+              canViewFeed(signedIn, permissions, localLiveFeedAccess)
                 ? '/public/local'
                 : '/public/remote'
             }
