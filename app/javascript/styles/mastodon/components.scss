@@ -1097,7 +1097,8 @@
   font-size: inherit;
   vertical-align: middle;
   object-fit: contain;
-  margin: -0.2ex 0.15em 0;
+  margin: -0.2ex 0.15em 0.2ex;
+  width: 16px;
   height: 16px;
 
   img {
@@ -1139,6 +1140,7 @@
   }
 
   .emojione {
+    width: 20px;
     height: 20px;
     margin: -3px 0 0;
   }
@@ -1356,11 +1358,12 @@
   }
 }
 
-.announcements__item__content {
+.announcements__content {
   overflow-wrap: break-word;
   overflow-y: auto;
 
   .emojione {
+    width: 20px;
     height: 20px;
     margin: -3px 0 0;
   }
@@ -1777,6 +1780,7 @@
     line-height: 24px;
 
     .emojione {
+      width: 24px;
       height: 24px;
       margin: -1px 0 0;
     }
@@ -4013,6 +4017,7 @@ a.account__display-name {
   background: lighten($ui-highlight-color, 5%);
 }
 
+.follow_requests-unlocked_explanation,
 .switch-to-advanced {
   color: $light-text-color;
   background-color: $ui-base-color;
@@ -4023,7 +4028,7 @@ a.account__display-name {
   font-size: 13px;
   line-height: 18px;
 
-  .switch-to-advanced__toggle {
+  a {
     color: $ui-button-tertiary-color;
     font-weight: bold;
   }
@@ -5217,8 +5222,7 @@ a.status-card {
   }
 }
 
-.empty-column-indicator,
-.follow_requests-unlocked_explanation {
+.empty-column-indicator {
   color: $dark-text-color;
   text-align: center;
   padding: 20px;
@@ -5257,10 +5261,8 @@ a.status-card {
 }
 
 .follow_requests-unlocked_explanation {
-  background: var(--surface-background-color);
-  border-bottom: 1px solid var(--background-border-color);
-  contain: initial;
-  flex-grow: 0;
+  margin: 16px;
+  margin-bottom: 0;
 }
 
 .error-column {
@@ -7083,6 +7085,7 @@ a.status-card {
     line-height: 24px;
 
     .emojione {
+      width: 24px;
       height: 24px;
       margin: -1px 0 0;
     }
@@ -8422,6 +8425,7 @@ noscript {
       margin-bottom: 16px;
 
       .emojione {
+        width: 22px;
         height: 22px;
       }
 
@@ -8933,10 +8937,21 @@ noscript {
 }
 
 .announcements {
-  background: lighten($ui-base-color, 8%);
-  font-size: 13px;
-  display: flex;
-  align-items: flex-end;
+  width: calc(100% - 124px);
+  flex: 0 0 auto;
+  position: relative;
+  overflow: hidden;
+
+  @media screen and (max-width: (124px + 300px)) {
+    width: 100%;
+  }
+
+  &__root {
+    background: lighten($ui-base-color, 8%);
+    font-size: 13px;
+    display: flex;
+    align-items: flex-end;
+  }
 
   &__mastodon {
     width: 124px;
@@ -8947,19 +8962,16 @@ noscript {
     }
   }
 
-  &__container {
-    width: calc(100% - 124px);
-    flex: 0 0 auto;
-    position: relative;
-
-    @media screen and (max-width: (124px + 300px)) {
-      width: 100%;
-    }
+  &__slides {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: start;
   }
 
-  &__item {
+  &__slide {
     box-sizing: border-box;
     width: 100%;
+    flex: 0 0 100%;
     padding: 15px;
     position: relative;
     font-size: 15px;
@@ -8968,26 +8980,25 @@ noscript {
     font-weight: 400;
     max-height: 50vh;
     overflow: hidden;
-    display: flex;
     flex-direction: column;
+  }
 
-    &__range {
-      display: block;
-      font-weight: 500;
-      margin-bottom: 10px;
-      padding-inline-end: 18px;
-    }
+  &__range {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 10px;
+    padding-inline-end: 18px;
+  }
 
-    &__unread {
-      position: absolute;
-      top: 19px;
-      inset-inline-end: 19px;
-      display: block;
-      background: $highlight-text-color;
-      border-radius: 50%;
-      width: 0.625rem;
-      height: 0.625rem;
-    }
+  &__unread {
+    position: absolute;
+    top: 19px;
+    inset-inline-end: 19px;
+    display: block;
+    background: $highlight-text-color;
+    border-radius: 50%;
+    width: 0.625rem;
+    height: 0.625rem;
   }
 
   &__pagination {
@@ -8998,6 +9009,7 @@ noscript {
     inset-inline-end: 0;
     display: flex;
     align-items: center;
+    z-index: 1;
   }
 }
 
@@ -11595,5 +11607,11 @@ noscript {
       width: 16px;
       height: 16px;
     }
+  }
+
+  &__pagination {
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 }
