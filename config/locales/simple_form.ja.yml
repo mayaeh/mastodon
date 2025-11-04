@@ -247,6 +247,7 @@ ja:
         setting_hide_network: 繋がりを隠す
         setting_missing_alt_text_modal: 代替テキストなしでメディアを投稿する前に確認ダイアログを表示する
         setting_navigation_panel_layout: ナビゲーションパネルの表示位置
+        setting_quick_boosting: クイックブーストの有効化
         setting_reduce_motion: アニメーションの動きを減らす
         setting_system_font_ui: システムのデフォルトフォントを使う
         setting_system_scrollbars_ui: システムのデフォルトのスクロールバーを使う
