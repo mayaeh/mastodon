@@ -57,10 +57,12 @@ ja:
         setting_advanced_layout: マルチカラムレイアウトを有効にします。タイムラインや通知、選択した3つめのタイムラインを同時に表示できます。狭い画面での利用は推奨されません。
         setting_aggregate_reblogs: 最近ブーストされた投稿が新たにブーストされても表示しません (設定後受信したものにのみ影響)
         setting_always_send_emails: 通常、Mastodon からメール通知は行われません。
+        setting_boost_modal: 有効にすると、ブースト時に公開範囲を変更できる確認ダイアログが表示されるようになります。
         setting_default_sensitive: 閲覧注意状態のメディアはデフォルトでは内容が伏せられ、クリックして初めて閲覧できるようになります
         setting_display_media_default: 閲覧注意としてマークされたメディアは隠す
         setting_display_media_hide_all: メディアを常に隠す
         setting_display_media_show_all: メディアを常に表示する
+        setting_emoji_style: 表示する絵文字タイプを選択できます。 "オート" は表示する環境標準の絵文字を使おうとしますが、古いブラウザでは Twemoji を使用する可能性があります。
         setting_fab_layout_hint: ナビゲーションパネルの表示位置が上または下の場合のみ動作します
         setting_fab_layout_left: 左
         setting_fab_layout_right: 右 (標準)
@@ -230,6 +232,7 @@ ja:
         setting_aggregate_reblogs: ブーストをまとめる
         setting_always_send_emails: 常にメール通知を送信する
         setting_auto_play_gif: アニメーションGIFを自動再生する
+        setting_boost_modal: ブースト時に確認ダイアログを表示する
         setting_crop_images: 投稿の詳細以外では画像を16:9に切り抜く
         setting_default_language: 投稿する言語
         setting_default_privacy: 投稿の公開範囲
