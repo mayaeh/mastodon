@@ -54,6 +54,7 @@ ja:
         password: 少なくとも8文字は入力してください
         phrase: 投稿内容の大文字小文字や閲覧注意に関係なく一致
         scopes: アプリの API に許可するアクセス権を選択してください。最上位のスコープを選択する場合、個々のスコープを選択する必要はありません。
+        setting_advanced_layout: マルチカラムレイアウトを有効にします。タイムラインや通知、選択した3つめのタイムラインを同時に表示できます。狭い画面での利用は推奨されません。
         setting_aggregate_reblogs: 最近ブーストされた投稿が新たにブーストされても表示しません (設定後受信したものにのみ影響)
         setting_always_send_emails: 通常、Mastodon からメール通知は行われません。
         setting_boost_modal: 有効にすると、ブースト時に公開範囲を変更できる確認ダイアログが表示されるようになります。
@@ -69,7 +70,7 @@ ja:
         setting_navigation_panel_layout_hint: 上または下を選択するとナビゲーションパネルが移動し、また上部ヘッダーが非表示になります。
         setting_navigation_panel_layout_right: 右 (デフォルト)
         setting_navigation_panel_layout_top: 上
-        setting_quick_boosting_html: 有効にすると、 %{boost_icon} Boostアイコンをクリックするとブースト/引用メニューを開かずすぐにブーストします。引用ボタンは %{options_icon} (もっと見る) の中に移動します。
+        setting_quick_boosting_html: 有効にすると、 %{boost_icon} Boostアイコンをクリックするとブースト/引用メニューを開かずすぐにブーストします。引用は %{options_icon} (もっと見る) の中から行えます。
         setting_system_scrollbars_ui: Safari/Chromeベースのデスクトップブラウザーでのみ有効です
         setting_use_blurhash: ぼかしはメディアの色を元に生成されますが、細部は見えにくくなっています
         setting_use_pending_items: 新着があってもタイムラインを自動的にスクロールしないようにします
