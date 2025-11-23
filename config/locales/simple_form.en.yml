@@ -72,6 +72,7 @@ en:
         setting_navigation_panel_layout_hint: Selecting Top or Bottom moves the navigation panel and hides the top header.
         setting_navigation_panel_layout_right: Right (default)
         setting_navigation_panel_layout_top: Top
+        setting_quick_boosting_html: When enabled, clicking on the %{boost_icon} Boost icon will immediately boost instead of opening the boost/quote dropdown menu. Relocates the quoting action to the %{options_icon} (Options) menu.
         setting_system_scrollbars_ui: Applies only to desktop browsers based on Safari and Chrome
         setting_use_blurhash: Gradients are based on the colors of the hidden visuals but obfuscate any details
         setting_use_pending_items: Hide timeline updates behind a click instead of automatically scrolling the feed
