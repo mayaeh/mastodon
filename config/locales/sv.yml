@@ -837,7 +837,6 @@ sv:
         title: Undantag användare från sökmotorindexering som standard
       discovery:
         follow_recommendations: Följrekommendationer
-        preamble: Att visa intressant innehåll är avgörande i onboarding av nya användare som kanske inte känner någon på Mastodon. Styr hur olika upptäcktsfunktioner fungerar på din server.
         privacy: Integritet
         profile_directory: Profilkatalog
         public_timelines: Offentliga tidslinjer
@@ -1649,7 +1648,6 @@ sv:
       disabled_account: Ditt nuvarande konto kommer inte att kunna användas fullt ut efteråt. Du kommer dock att ha tillgång till dataexport samt återaktivering.
       followers: Den här åtgärden kommer att flytta alla följare från det nuvarande kontot till det nya kontot
       only_redirect_html: Alternativt kan du <a href="%{path}">bara sätta upp en omdirigering på din profil</a>.
-      other_data: Ingen annan data kommer att flyttas automatiskt
       redirect: Ditt nuvarande kontos profil kommer att uppdateras med ett meddelande om omdirigering och uteslutas från sökningar
   moderation:
     title: Moderera

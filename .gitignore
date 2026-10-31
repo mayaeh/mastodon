@@ -24,6 +24,7 @@
 /public/packs-dev
 /public/packs-test
 /public/announcements.json
+stats.html
 .env
 .env.production
 node_modules/

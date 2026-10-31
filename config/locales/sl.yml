@@ -812,7 +812,6 @@ sl:
         title: Privzeto izvzemi uporabnike iz indeksiranja iskalnika
       discovery:
         follow_recommendations: Sledi priporočilom
-        preamble: Izpostavljanje zanimivih vsebin je ključno za pridobivanje novih uporabnikov, ki morda ne poznajo nikogar na Mastodonu. Nadzirajte, kako različne funkcionalnosti razkritja delujejo na vašem strežniku.
         profile_directory: Imenik profilov
         public_timelines: Javne časovnice
         publish_statistics: Objavi statistiko
@@ -1648,7 +1647,6 @@ sl:
       disabled_account: Vaš trenutni račun zatem ne bo polno uporaben. Vendar pa boste imeli dostop do izvoza podatkov kot tudi do ponovne aktivacije.
       followers: S tem dejanjem boste preselili vse sledilce iz trenutnega računa na novi račun
       only_redirect_html: Namesto tega lahko <a href="%{path}">na svojem profilu zgolj vzpostavite preusmeritev</a>.
-      other_data: Nobeni drugi podatki se ne bodo preselili samodejno
       redirect: Profil vašega trenutnega računa bo posodobljen z obvestilom o preusmeritvi in bo izključen iz iskanj
   moderation:
     title: Moderiranje

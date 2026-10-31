@@ -31,7 +31,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:use_blurhash]            = object_account_user.setting_use_blurhash
       store[:use_pending_items]       = object_account_user.setting_use_pending_items
       store[:show_trends]             = Setting.trends && object_account_user.setting_trends
-      store[:emoji_style]             = object_account_user.settings['web.emoji_style'] if Mastodon::Feature.modern_emojis_enabled?
+      store[:emoji_style]             = object_account_user.settings['web.emoji_style']
       store[:crop_images]             = object_account_user.setting_crop_images
       store[:navigation_panel_layout] = object_account_user.setting_navigation_panel_layout
       store[:fab_layout]              = object_account_user.setting_fab_layout
@@ -117,7 +117,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       status_page_url: Setting.status_page_url,
       streaming_api_base_url: Rails.configuration.x.streaming_api_base_url,
       title: instance_presenter.title,
-      trends_as_landing_page: Setting.trends_as_landing_page,
+      landing_page: Setting.landing_page,
       trends_enabled: Setting.trends,
       version: instance_presenter.version,
       force_grouped_notifications: ENV['FORCE_GROUPED_NOTIFICATIONS'] == 'true',
