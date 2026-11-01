@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  ruby: circleci/ruby@2.5.4
-  node: circleci/node@7.2.0
+  ruby: circleci/ruby@4.0.0
+  node: circleci/node@7.2.1
 
 executors:
   default:
@@ -19,11 +19,11 @@ executors:
           DB_USER: root
           DISABLE_SIMPLECOV: true
           RAILS_ENV: test
-      - image: cimg/postgres:16.4
+      - image: cimg/postgres:16.15
         environment:
           POSTGRES_USER: root
           POSTGRES_HOST_AUTH_METHOD: trust
-      - image: cimg/redis:7.4.5
+      - image: cimg/redis:8.10.3
 
 commands:
   install-system-dependencies:
@@ -36,10 +36,10 @@ commands:
   prepare-yarn:
     steps:
       - run:
-          name: Specification version of yarn to 4.10.3
+          name: Specification version of yarn to 4.18.1
           command: |
             sudo corepack enable
-            sudo COREPACK_ENABLE_DOWNLOAD_PROMPT=0 yarn set version 4.10.3
+            sudo COREPACK_ENABLE_DOWNLOAD_PROMPT=0 yarn set version 4.18.1
   install-ruby-dependencies:
     parameters:
       ruby-version:
@@ -63,7 +63,7 @@ commands:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.4.7-node
+      - image: cimg/ruby:3.4.12-node
         environment:
           RAILS_ENV: test
     steps:
