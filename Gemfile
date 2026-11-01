@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 ruby '>= 3.2.0', '< 3.5.0'
 
 gem 'propshaft'
-gem 'puma', '~> 7.0'
+gem 'puma', '~> 7.2'
 gem 'rails', '~> 8.0'
 gem 'thor', '~> 1.2'
 
@@ -23,7 +23,7 @@ gem 'kt-paperclip', '~> 7.2'
 gem 'ruby-vips', '~> 2.2', require: false
 
 gem 'active_model_serializers', '~> 0.10'
-gem 'addressable', '~> 2.8'
+gem 'addressable', '~> 2.9'
 gem 'bootsnap', '~> 1.19.0', require: false
 gem 'browser'
 gem 'charlock_holmes', '~> 0.7.7'
@@ -66,8 +66,8 @@ gem 'linzer', '~> 0.7.7'
 gem 'mario-redis-lock', '~> 1.2', require: 'redis_lock'
 gem 'mime-types', '~> 3.7.0', require: 'mime/types/columnar'
 gem 'mutex_m'
-gem 'nokogiri', '~> 1.15'
-gem 'oj', '~> 3.14'
+gem 'nokogiri', '~> 1.19'
+gem 'oj', '~> 3.17'
 gem 'ox', '~> 2.14'
 gem 'parslet'
 gem 'premailer-rails'
@@ -228,10 +228,10 @@ gem 'connection_pool', require: false
 gem 'xorcist', '~> 1.1'
 
 gem 'net-http', '~> 0.6.0'
-gem 'rubyzip', '~> 3.0'
+gem 'rubyzip', '~> 3.4'
 
 gem 'hcaptcha', '~> 7.1'
 
-gem 'mail', '~> 2.8'
+gem 'mail', '~> 2.9'
 
 gem 'vite_rails', '~> 3.0.19'

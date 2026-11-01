@@ -86,8 +86,8 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
-    addressable (2.8.7)
-      public_suffix (>= 2.0.2, < 7.0)
+    addressable (2.9.0)
+      public_suffix (>= 2.0.2, < 8.0)
     aes_key_wrap (1.1.0)
     android_key_attestation (0.3.0)
     annotaterb (4.20.0)
@@ -166,7 +166,7 @@ GEM
     climate_control (1.2.0)
     cocoon (1.2.15)
     color_diff (0.1)
-    concurrent-ruby (1.3.5)
+    concurrent-ruby (1.3.7)
     connection_pool (2.5.4)
     cose (1.3.1)
       cbor (~> 0.5.9)
@@ -174,15 +174,16 @@ GEM
     crack (1.0.1)
       bigdecimal
       rexml
-    crass (1.0.6)
-    css_parser (1.21.1)
+    crass (1.0.8)
+    css_parser (3.0.0)
       addressable
+      ssrf_filter (~> 1.5)
     csv (3.3.5)
     database_cleaner-active_record (2.2.2)
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0)
     database_cleaner-core (2.0.1)
-    date (3.5.0)
+    date (3.6.0)
     debug (1.11.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
@@ -227,16 +228,16 @@ GEM
       mail (~> 2.7)
     email_validator (2.2.4)
       activemodel
-    erb (5.1.3)
+    erb (6.0.1.1)
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
-    excon (1.3.0)
+    excon (1.5.0)
       logger
     fabrication (3.0.0)
     faker (3.5.2)
       i18n (>= 1.8.11, < 2)
-    faraday (2.14.0)
+    faraday (2.14.3)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
@@ -244,8 +245,8 @@ GEM
       faraday (>= 1, < 3)
     faraday-httpclient (2.0.2)
       httpclient (>= 2.2)
-    faraday-net_http (3.4.1)
-      net-http (>= 0.5.0)
+    faraday-net_http (3.4.4)
+      net-http (~> 0.5)
     fast_blank (1.0.1)
     fastimage (2.4.0)
     ffi (1.17.2)
@@ -350,7 +351,7 @@ GEM
       azure-blob (~> 0.5.2)
       hashie (~> 5.0)
     jmespath (1.6.2)
-    json (2.19.5)
+    json (2.21.2)
     json-canonicalization (1.0.0)
     json-jwt (1.17.0)
       activesupport (>= 4.2)
@@ -374,7 +375,7 @@ GEM
       addressable (~> 2.8)
       bigdecimal (~> 3.1)
     jsonapi-renderer (0.2.2)
-    jwt (2.10.2)
+    jwt (2.10.3)
       base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -427,10 +428,10 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
-    loofah (2.24.1)
+    loofah (2.25.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    mail (2.9.0)
+    mail (2.9.1)
       logger
       mini_mime (>= 0.1.1)
       net-imap
@@ -450,12 +451,12 @@ GEM
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    msgpack (1.8.0)
+    msgpack (1.8.2)
     multi_json (1.17.0)
     mutex_m (0.3.0)
     net-http (0.6.0)
       uri
-    net-imap (0.5.12)
+    net-imap (0.6.8)
       date
       net-protocol
     net-ldap (0.20.0)
@@ -463,15 +464,15 @@ GEM
       ostruct
     net-pop (0.1.2)
       net-protocol
-    net-protocol (0.2.2)
+    net-protocol (0.4.0)
       timeout
-    net-smtp (0.5.1)
+    net-smtp (0.5.2)
       net-protocol
-    nio4r (2.7.4)
-    nokogiri (1.18.10)
+    nio4r (2.7.5)
+    nokogiri (1.19.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    oj (3.16.12)
+    oj (3.17.3)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
     omniauth (2.1.4)
@@ -621,13 +622,13 @@ GEM
       date
       stringio
     public_suffix (6.0.2)
-    puma (7.1.0)
+    puma (7.2.1)
       nio4r (~> 2.0)
     pundit (2.5.2)
       activesupport (>= 3.0.0)
     raabro (1.4.0)
     racc (1.8.1)
-    rack (3.2.4)
+    rack (3.2.8)
     rack-attack (6.8.0)
       rack (>= 1.0, < 4)
     rack-cors (3.0.0)
@@ -646,7 +647,7 @@ GEM
       rack (>= 3.0.0, < 4)
     rack-proxy (0.7.7)
       rack
-    rack-session (2.1.1)
+    rack-session (2.1.2)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
     rack-test (2.2.0)
@@ -671,8 +672,8 @@ GEM
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.6.2)
-      loofah (~> 2.21)
+    rails-html-sanitizer (1.7.1)
+      loofah (~> 2.25, >= 2.25.2)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
     rails-i18n (8.0.2)
       i18n (>= 0.7, < 2)
@@ -799,7 +800,7 @@ GEM
     ruby-vips (2.2.5)
       ffi (~> 1.12)
       logger
-    rubyzip (3.2.2)
+    rubyzip (3.4.0)
     rufus-scheduler (3.9.2)
       fugit (~> 1.1, >= 1.11.1)
     safety_net_attestation (0.5.0)
@@ -840,6 +841,7 @@ GEM
     simplecov-html (0.13.2)
     simplecov-lcov (0.9.0)
     simplecov_json_formatter (0.1.4)
+    ssrf_filter (1.6.0)
     stackprof (0.2.27)
     starry (0.2.0)
       base64
@@ -862,7 +864,7 @@ GEM
     test-prof (1.4.4)
     thor (1.4.0)
     tilt (2.6.1)
-    timeout (0.4.3)
+    timeout (0.6.1)
     tpm-key_attestation (0.14.1)
       bindata (~> 2.4)
       openssl (> 2.0)
@@ -891,7 +893,7 @@ GEM
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.1.0)
-    uri (1.1.1)
+    uri (1.1.2)
     useragent (0.16.11)
     validate_url (1.0.15)
       activemodel (>= 3.0.0)
@@ -924,7 +926,7 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.9.1)
-    websocket-driver (0.8.0)
+    websocket-driver (0.8.2)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -939,7 +941,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10)
-  addressable (~> 2.8)
+  addressable (~> 2.9)
   annotaterb (~> 4.13)
   aws-sdk-core
   aws-sdk-s3 (~> 1.123)
@@ -1002,15 +1004,15 @@ DEPENDENCIES
   link_header (~> 0.0)
   linzer (~> 0.7.7)
   lograge (~> 0.12)
-  mail (~> 2.8)
+  mail (~> 2.9)
   mario-redis-lock (~> 1.2)
   memory_profiler
   mime-types (~> 3.7.0)
   mutex_m
   net-http (~> 0.6.0)
   net-ldap (~> 0.18)
-  nokogiri (~> 1.15)
-  oj (~> 3.14)
+  nokogiri (~> 1.19)
+  oj (~> 3.17)
   omniauth (~> 2.0)
   omniauth-cas (~> 3.0.0.beta.1)
   omniauth-rails_csrf_protection (~> 1.0)
@@ -1041,7 +1043,7 @@ DEPENDENCIES
   prometheus_exporter (~> 2.2)
   propshaft
   public_suffix (~> 6.0)
-  puma (~> 7.0)
+  puma (~> 7.2)
   pundit (~> 2.3)
   rack-attack (~> 6.6)
   rack-cors
@@ -1066,7 +1068,7 @@ DEPENDENCIES
   ruby-prof
   ruby-progressbar (~> 1.13)
   ruby-vips (~> 2.2)
-  rubyzip (~> 3.0)
+  rubyzip (~> 3.4)
   sanitize (~> 7.0)
   scenic (~> 1.7)
   shoulda-matchers
