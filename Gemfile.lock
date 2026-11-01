@@ -468,7 +468,7 @@ GEM
     net-smtp (0.5.2)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.18.10)
+    nokogiri (1.19.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     oj (3.17.3)
@@ -1009,7 +1009,7 @@ DEPENDENCIES
   mutex_m
   net-http (~> 0.6.0)
   net-ldap (~> 0.18)
-  nokogiri (~> 1.15)
+  nokogiri (~> 1.19)
   oj (~> 3.17)
   omniauth (~> 2.0)
   omniauth-cas (~> 3.0.0.beta.1)
