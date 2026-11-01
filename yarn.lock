@@ -2717,7 +2717,7 @@ __metadata:
     "@reduxjs/toolkit": "npm:^2.0.1"
     "@storybook/addon-a11y": "npm:^10.0.6"
     "@storybook/addon-docs": "npm:^10.0.6"
-    "@storybook/addon-vitest": "npm:^10.0.6"
+    "@storybook/addon-vitest": "npm:^10.6.2"
     "@storybook/react-vite": "npm:^10.0.6"
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/react": "npm:^16.3.0"
@@ -3611,20 +3611,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-vitest@npm:^10.0.6":
-  version: 10.0.6
-  resolution: "@storybook/addon-vitest@npm:10.0.6"
+"@storybook/addon-vitest@npm:^10.6.2":
+  version: 10.6.2
+  resolution: "@storybook/addon-vitest@npm:10.6.2"
   dependencies:
     "@storybook/global": "npm:^5.0.0"
-    "@storybook/icons": "npm:^1.6.0"
-    prompts: "npm:^2.4.0"
-    ts-dedent: "npm:^2.2.0"
+    "@storybook/icons": "npm:^2.0.2"
   peerDependencies:
-    "@vitest/browser": ^3.0.0 || ^4.0.0
-    "@vitest/browser-playwright": ^4.0.0
-    "@vitest/runner": ^3.0.0 || ^4.0.0
-    storybook: ^10.0.6
-    vitest: ^3.0.0 || ^4.0.0
+    "@vitest/browser": ^3.0.0 || ^4.0.0 || ^5.0.0
+    "@vitest/browser-playwright": ^4.0.0 || ^5.0.0
+    "@vitest/runner": ^3.0.0 || ^4.0.0 || ^5.0.0
+    storybook: ^10.6.2
+    vitest: ^3.0.0 || ^4.0.0 || ^5.0.0
   peerDependenciesMeta:
     "@vitest/browser":
       optional: true
@@ -3634,7 +3632,7 @@ __metadata:
       optional: true
     vitest:
       optional: true
-  checksum: 10c0/6377cfbac4c2f9f9b43006131e0273c2d2f8b76b0ce01fdcb42f2935ac245a2236fab60b2543507a69852dba1ac4e3b770b0a96f5595123e0f9599609d0a57e2
+  checksum: 10c0/422bb77645eabd7f8ac3d5fbe145221e9ba69249610d5293a5d91c0c6844f27ef4045b8790eed4aad13f0cc4250e6f69f7fdb50361819d04e053468dd693b3d3
   languageName: node
   linkType: hard
 
@@ -3689,6 +3687,15 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
   checksum: 10c0/bbec9201a78a730195f9cf377b15856dc414a54d04e30d16c379d062425cc617bfd0d6586ba1716012cfbdab461f0c9693a6a52920f9bd09c7b4291fb116f59c
+  languageName: node
+  linkType: hard
+
+"@storybook/icons@npm:^2.0.2":
+  version: 2.2.0
+  resolution: "@storybook/icons@npm:2.2.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/ff0eabc01f0ded465b0f80e9bdeabd9827b8e6753c3ea6cee6c0c08c6f04d17b0a1e94621edf3364dc17b4807465de602978e490d722677c7cb0f4c0c029e974
   languageName: node
   linkType: hard
 
@@ -9074,13 +9081,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kleur@npm:^3.0.3":
-  version: 3.0.3
-  resolution: "kleur@npm:3.0.3"
-  checksum: 10c0/cd3a0b8878e7d6d3799e54340efe3591ca787d9f95f109f28129bdd2915e37807bf8918bb295ab86afb8c82196beec5a1adcaf29042ce3f2bd932b038fe3aa4b
-  languageName: node
-  linkType: hard
-
 "known-css-properties@npm:^0.36.0":
   version: 0.36.0
   resolution: "known-css-properties@npm:0.36.0"
@@ -11072,16 +11072,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prompts@npm:^2.4.0":
-  version: 2.4.2
-  resolution: "prompts@npm:2.4.2"
-  dependencies:
-    kleur: "npm:^3.0.3"
-    sisteransi: "npm:^1.0.5"
-  checksum: 10c0/16f1ac2977b19fe2cf53f8411cc98db7a3c8b115c479b2ca5c82b5527cd937aa405fa04f9a5960abeb9daef53191b53b4d13e35c1f5d50e8718c76917c5f1ea4
-  languageName: node
-  linkType: hard
-
 "prop-types@npm:^15.5.10, prop-types@npm:^15.6.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
@@ -12371,13 +12361,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sisteransi@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "sisteransi@npm:1.0.5"
-  checksum: 10c0/230ac975cca485b7f6fe2b96a711aa62a6a26ead3e6fb8ba17c5a00d61b8bed0d7adc21f5626b70d7c33c62ff4e63933017a6462942c719d1980bb0b1207ad46
-  languageName: node
-  linkType: hard
-
 "slash@npm:^3.0.0":
   version: 3.0.0
   resolution: "slash@npm:3.0.0"
@@ -13373,7 +13356,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-dedent@npm:^2.0.0, ts-dedent@npm:^2.2.0":
+"ts-dedent@npm:^2.0.0":
   version: 2.2.0
   resolution: "ts-dedent@npm:2.2.0"
   checksum: 10c0/175adea838468cc2ff7d5e97f970dcb798bbcb623f29c6088cb21aa2880d207c5784be81ab1741f56b9ac37840cbaba0c0d79f7f8b67ffe61c02634cafa5c303
