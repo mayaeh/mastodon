@@ -232,6 +232,6 @@ gem 'rubyzip', '~> 3.0'
 
 gem 'hcaptcha', '~> 7.1'
 
-gem 'mail', '~> 2.8'
+gem 'mail', '~> 2.9'
 
 gem 'vite_rails', '~> 3.0.19'
