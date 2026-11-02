@@ -117,7 +117,7 @@
     "tesseract.js": "^6.0.0",
     "tiny-queue": "^0.2.1",
     "twitter-text": "3.1.0",
-    "use-debounce": "^10.0.0",
+    "use-debounce": "^10.1.1",
     "vite": "^7.3.7",
     "vite-plugin-manifest-sri": "^0.2.0",
     "vite-plugin-pwa": "^1.0.2",
