@@ -2833,7 +2833,7 @@ __metadata:
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/react": "npm:^16.3.0"
     "@types/debug": "npm:^4"
-    "@types/emoji-mart": "npm:3.0.14"
+    "@types/emoji-mart": "npm:5.3.0"
     "@types/escape-html": "npm:^1.0.2"
     "@types/hoist-non-react-statics": "npm:^3.3.1"
     "@types/http-link-header": "npm:^1.0.3"
@@ -4614,12 +4614,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/emoji-mart@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@types/emoji-mart@npm:3.0.14"
+"@types/emoji-mart@npm:5.3.0":
+  version: 5.3.0
+  resolution: "@types/emoji-mart@npm:5.3.0"
   dependencies:
-    "@types/react": "npm:*"
-  checksum: 10c0/23ded65fce9b3355fbe903d3971cb67cc827a5d587464bb7e3f349615527ef4a9197b3bb59fa84c4391d1b901e7f200f686a7fc83f649ae2a51a0fb948cbadfb
+    emoji-mart: "npm:*"
+  checksum: 10c0/751ba65bc9bf0f4a372bbfef22979db4c667d225fcbb4126a667d8b4130e7d2b5ed3b724b1abb0bb784d00a226bc04a50637c4bf102cec680f31b542bd4e5b8e
   languageName: node
   linkType: hard
 
@@ -7196,6 +7196,13 @@ __metadata:
   version: 1.5.222
   resolution: "electron-to-chromium@npm:1.5.222"
   checksum: 10c0/a81eb8d2b171236884faf9b5dd382c66d9250283032cb89a3e555d788bf3956f7f4f6bf7bf30b3daf9e5c945ef837bfcd1be21b3f41cfe186ed2f25da13c9af3
+  languageName: node
+  linkType: hard
+
+"emoji-mart@npm:*":
+  version: 5.6.0
+  resolution: "emoji-mart@npm:5.6.0"
+  checksum: 10c0/23e68ab10984f101b696d8f8e103e553ffa8e4d644e9a315190a9657903f71b833db09aac51b05de20f33bb9eef5bc1425eecdb2437042b25aff2dad0231f029
   languageName: node
   linkType: hard
 
