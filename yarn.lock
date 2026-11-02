@@ -2878,7 +2878,7 @@ __metadata:
     delegated-events: "npm:^1.1.2"
     detect-passive-events: "npm:^2.0.3"
     emoji-mart: "npm:emoji-mart-lazyload@latest"
-    emojibase: "npm:^16.0.0"
+    emojibase: "npm:^18.0.0"
     emojibase-data: "npm:^16.0.3"
     emojibase-regex: "npm:^16.0.0"
     escape-html: "npm:^1.0.3"
@@ -7249,10 +7249,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"emojibase@npm:^16.0.0":
-  version: 16.0.0
-  resolution: "emojibase@npm:16.0.0"
-  checksum: 10c0/ec49ca2e131d349fa1f1dbe6ee8a6bf12da6225ce2de99d488e67a3cb80ac282f27aa480f0a7062c0c069c24508684ba524418be56b475cbd937877663686c47
+"emojibase@npm:^18.0.0":
+  version: 18.0.0
+  resolution: "emojibase@npm:18.0.0"
+  checksum: 10c0/77ed3a9abe5f5a1a998e6bef8451fefbf8ba20698d3cbe0cefb73afe181b6d4bbda19c586f96906ead4d072846f2f3b7d84a798553b706853f1f5103328595b1
   languageName: node
   linkType: hard
 
