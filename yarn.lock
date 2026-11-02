@@ -2991,7 +2991,7 @@ __metadata:
     ioredis: "npm:^5.3.2"
     jsdom: "npm:^27.0.0"
     pg: "npm:^8.5.0"
-    pg-connection-string: "npm:^2.6.0"
+    pg-connection-string: "npm:^2.14.1"
     pino: "npm:^10.0.0"
     pino-http: "npm:^11.0.0"
     pino-pretty: "npm:^13.0.0"
@@ -11269,7 +11269,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pg-connection-string@npm:^2.6.0, pg-connection-string@npm:^2.9.1":
+"pg-connection-string@npm:^2.14.1":
+  version: 2.14.1
+  resolution: "pg-connection-string@npm:2.14.1"
+  checksum: 10c0/7321eed97579b4972a714909e7a444beb2186780fe7fd86ea719ff7c8f1fad07d7e5f85722c4992245b23683ed7d2fe2bdda8f7469fed4c016bb5c3379c575ca
+  languageName: node
+  linkType: hard
+
+"pg-connection-string@npm:^2.9.1":
   version: 2.9.1
   resolution: "pg-connection-string@npm:2.9.1"
   checksum: 10c0/9a646529bbc0843806fc5de98ce93735a4612b571f11867178a85665d11989a827e6fd157388ca0e34ec948098564fce836c178cfd499b9f0e8cd9972b8e2e5c
