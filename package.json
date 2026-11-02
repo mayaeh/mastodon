@@ -168,7 +168,7 @@
     "chromatic": "^13.3.3",
     "eslint": "^9.23.0",
     "eslint-import-resolver-typescript": "^4.2.5",
-    "eslint-plugin-formatjs": "^5.3.1",
+    "eslint-plugin-formatjs": "^8.1.2",
     "eslint-plugin-import": "~2.32.0",
     "eslint-plugin-jsdoc": "^61.1.11",
     "eslint-plugin-jsx-a11y": "~6.10.2",
