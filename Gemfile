@@ -116,7 +116,7 @@ group :opentelemetry do
   gem 'opentelemetry-instrumentation-net_http', '~> 0.26.0', require: false
   gem 'opentelemetry-instrumentation-pg', '~> 0.33.0', require: false
   gem 'opentelemetry-instrumentation-rack', '~> 0.29.0', require: false
-  gem 'opentelemetry-instrumentation-rails', '~> 0.39.0', require: false
+  gem 'opentelemetry-instrumentation-rails', '~> 0.40.0', require: false
   gem 'opentelemetry-instrumentation-redis', '~> 0.28.0', require: false
   gem 'opentelemetry-instrumentation-sidekiq', '~> 0.28.0', require: false
   gem 'opentelemetry-sdk', '~> 1.4', require: false
