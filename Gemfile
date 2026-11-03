@@ -234,4 +234,4 @@ gem 'hcaptcha', '~> 7.1'
 
 gem 'mail', '~> 2.9'
 
-gem 'vite_rails', '~> 3.0.19'
+gem 'vite_rails', '~> 3.11.1'
