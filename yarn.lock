@@ -2963,7 +2963,7 @@ __metadata:
     workbox-expiration: "npm:^7.3.0"
     workbox-routing: "npm:^7.3.0"
     workbox-strategies: "npm:^7.3.0"
-    workbox-window: "npm:^7.3.0"
+    workbox-window: "npm:^7.4.1"
   peerDependenciesMeta:
     react:
       optional: true
@@ -15600,6 +15600,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"workbox-core@npm:7.4.1":
+  version: 7.4.1
+  resolution: "workbox-core@npm:7.4.1"
+  checksum: 10c0/953c3bcec2c04cef44ac779ac6b525f639fade17c594cfa601d7892090da6e18abd3eda22d2d592d8b4df6aa6856c947770f8b960f70c1ac1c989f722d0e7f67
+  languageName: node
+  linkType: hard
+
 "workbox-expiration@npm:7.3.0, workbox-expiration@npm:^7.3.0":
   version: 7.3.0
   resolution: "workbox-expiration@npm:7.3.0"
@@ -15707,6 +15714,16 @@ __metadata:
     "@types/trusted-types": "npm:^2.0.2"
     workbox-core: "npm:7.3.0"
   checksum: 10c0/dbda33c4761ec40051cfe6e3f1701b2381b4f3b191f7a249c32f683503ea35cf8b42d1f99df5ba3b693fac78705d8ed0c191488bdd178c525d1291d0161ec8ff
+  languageName: node
+  linkType: hard
+
+"workbox-window@npm:^7.4.1":
+  version: 7.4.1
+  resolution: "workbox-window@npm:7.4.1"
+  dependencies:
+    "@types/trusted-types": "npm:^2.0.2"
+    workbox-core: "npm:7.4.1"
+  checksum: 10c0/1c4db303d2f71cccd16e12ced9c85e2a2d16a00e3992bade92e990bcd1e6c8a49bc2021261e62145ba098065a691972a763f958d35f07232ee61e8d26555699b
   languageName: node
   linkType: hard
 
