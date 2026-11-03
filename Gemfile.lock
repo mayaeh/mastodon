@@ -135,7 +135,7 @@ GEM
     blurhash (0.1.8)
     bootsnap (1.24.6)
       msgpack (~> 1.2)
-    brakeman (7.1.1)
+    brakeman (8.1.0)
       racc
     browser (6.2.0)
     builder (3.3.0)
@@ -955,7 +955,7 @@ DEPENDENCIES
   binding_of_caller (~> 1.0)
   blurhash (~> 0.1)
   bootsnap (~> 1.24.0)
-  brakeman (~> 7.0)
+  brakeman (~> 8.1)
   browser
   bundler-audit (~> 0.9)
   capybara (~> 3.39)
