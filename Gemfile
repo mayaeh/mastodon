@@ -20,7 +20,7 @@ gem 'fog-core', '<= 2.6.0'
 gem 'fog-openstack', '~> 1.0', require: false
 gem 'jd-paperclip-azure', '~> 3.0', require: false
 gem 'kt-paperclip', '~> 7.2'
-gem 'ruby-vips', '~> 2.2', require: false
+gem 'ruby-vips', '~> 2.3', require: false
 
 gem 'active_model_serializers', '~> 0.10'
 gem 'addressable', '~> 2.9'
