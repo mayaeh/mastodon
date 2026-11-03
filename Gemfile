@@ -200,7 +200,7 @@ end
 
 group :development, :test do
   # Interactive Debugging tools
-  gem 'debug', '~> 1.8', require: false
+  gem 'debug', '~> 1.11', require: false
 
   # Generate fake data values
   gem 'faker', '~> 3.2'
