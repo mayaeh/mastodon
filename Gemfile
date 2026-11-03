@@ -5,7 +5,7 @@ ruby '>= 3.2.0', '< 3.5.0'
 
 gem 'propshaft'
 gem 'puma', '~> 7.2'
-gem 'rails', '~> 8.0'
+gem 'rails', '~> 8.1.0'
 gem 'thor', '~> 1.2'
 
 gem 'dotenv'
@@ -24,7 +24,7 @@ gem 'ruby-vips', '~> 2.2', require: false
 
 gem 'active_model_serializers', '~> 0.10'
 gem 'addressable', '~> 2.9'
-gem 'bootsnap', '~> 1.19.0', require: false
+gem 'bootsnap', '~> 1.24.0', require: false
 gem 'browser'
 gem 'charlock_holmes', '~> 0.7.7'
 gem 'chewy', '~> 7.3'
@@ -40,7 +40,7 @@ gem 'net-ldap', '~> 0.18'
 gem 'omniauth', '~> 2.0'
 gem 'omniauth-cas', '~> 3.0.0.beta.1'
 gem 'omniauth_openid_connect', '~> 0.8.0'
-gem 'omniauth-rails_csrf_protection', '~> 1.0'
+gem 'omniauth-rails_csrf_protection', '~> 2.0'
 gem 'omniauth-saml', '~> 2.0'
 
 gem 'color_diff', '~> 0.1'
@@ -55,7 +55,7 @@ gem 'hiredis-client'
 gem 'htmlentities', '~> 4.3'
 gem 'http', '~> 5.3.0'
 gem 'http_accept_language', '~> 2.1'
-gem 'httplog', '~> 1.7.0', require: false
+gem 'httplog', '~> 1.8.0', require: false
 gem 'i18n'
 gem 'idn-ruby', require: 'idn'
 gem 'inline_svg'

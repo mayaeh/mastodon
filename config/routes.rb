@@ -12,7 +12,7 @@ class RedirectWithVary < ActionDispatch::Routing::PathRedirect
 end
 
 def redirect_with_vary(path)
-  RedirectWithVary.new(301, path)
+  RedirectWithVary.new(301, path, caller(1..1).first)
 end
 
 Rails.application.routes.draw do
@@ -224,7 +224,7 @@ Rails.application.routes.draw do
 
   draw(:web_app)
 
-  get '/web/(*any)', to: redirect('/%{any}', status: 302), as: :web, defaults: { any: '' }, format: false
+  get '/web/(*any)', to: redirect(path: '/%{any}', status: 302), as: :web, defaults: { any: '' }, format: false
   get '/about',      to: 'about#show'
   get '/about/more', to: redirect('/about')
 

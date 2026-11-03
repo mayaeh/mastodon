@@ -258,6 +258,9 @@ RSpec.describe ActivityPub::ProcessStatusUpdateService do
           tag: [
             { type: 'Hashtag', name: 'foo' },
             { type: 'Hashtag', name: 'bar' },
+            { type: 'Hashtag', name: '#2024' },
+            { type: 'Hashtag', name: 'Foo Bar' },
+            { type: 'Hashtag', name: 'FooBar' },
           ],
         }
       end
@@ -269,7 +272,7 @@ RSpec.describe ActivityPub::ProcessStatusUpdateService do
 
       it 'updates tags and featured tags' do
         expect { subject.call(status, json, json) }
-          .to change { status.tags.reload.pluck(:name) }.from(contain_exactly('test', 'foo')).to(contain_exactly('foo', 'bar'))
+          .to change { status.tags.reload.pluck(:name) }.from(contain_exactly('test', 'foo')).to(contain_exactly('foo', 'bar', 'foobar'))
           .and change { status.account.featured_tags.find_by(name: 'test').statuses_count }.by(-1)
           .and change { status.account.featured_tags.find_by(name: 'bar').statuses_count }.by(1)
           .and change { status.account.featured_tags.find_by(name: 'bar').last_status_at }.from(nil).to(be_present)
@@ -867,10 +870,10 @@ RSpec.describe ActivityPub::ProcessStatusUpdateService do
       }))
     end
 
-    it 'updates the approval URI but does not verify the quote' do
+    it 'does not update the approval URI and does not verify the quote' do
       expect { subject.call(status, json, json) }
         .to change(status, :quote).from(nil)
-      expect(status.quote.approval_uri).to eq approval_uri
+      expect(status.quote.approval_uri).to be_nil
       expect(status.quote.state).to_not eq 'accepted'
       expect(status.quote.quoted_status).to be_nil
     end

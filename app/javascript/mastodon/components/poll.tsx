@@ -61,10 +61,14 @@ export const Poll: React.FC<PollProps> = ({ pollId, disabled, status }) => {
     if (!poll) {
       return false;
     }
-    return poll.expired || isPollExpired(poll.expires_at);
+    const expiresAt = poll.expires_at;
+    return (
+      poll.expired ||
+      (expiresAt !== null && new Date(expiresAt).getTime() < Date.now())
+    );
   }, [poll]);
   const timeRemaining = useMemo(() => {
-    if (!poll) {
+    if (!poll?.expires_at) {
       return null;
     }
     if (expired) {
