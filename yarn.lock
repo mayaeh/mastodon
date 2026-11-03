@@ -2923,7 +2923,7 @@ __metadata:
     react-immutable-pure-component: "npm:^2.2.2"
     react-intl: "npm:^7.1.10"
     react-overlays: "npm:^5.2.1"
-    react-redux: "npm:^9.0.4"
+    react-redux: "npm:^9.3.1"
     react-redux-loading-bar: "npm:^5.0.8"
     react-router: "npm:^5.3.4"
     react-router-dom: "npm:^5.3.4"
@@ -12375,9 +12375,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-redux@npm:^9.0.4":
-  version: 9.2.0
-  resolution: "react-redux@npm:9.2.0"
+"react-redux@npm:^9.3.1":
+  version: 9.3.1
+  resolution: "react-redux@npm:9.3.1"
   dependencies:
     "@types/use-sync-external-store": "npm:^0.0.6"
     use-sync-external-store: "npm:^1.4.0"
@@ -12390,7 +12390,7 @@ __metadata:
       optional: true
     redux:
       optional: true
-  checksum: 10c0/00d485f9d9219ca1507b4d30dde5f6ff8fb68ba642458f742e0ec83af052f89e65cd668249b99299e1053cc6ad3d2d8ac6cb89e2f70d2ac5585ae0d7fa0ef259
+  checksum: 10c0/71898ea69fc16447dd0876886ed2572d8f53cf8e92fc96bc477508f686e37f9d8ecfcc6e4e9b8a576c06587c566bd89ce468307e1c32befaddc46acc8d1221b4
   languageName: node
   linkType: hard
 
