@@ -303,7 +303,7 @@ GEM
       rubocop (>= 1.0)
       sysexits (~> 1.1)
     hashdiff (1.2.1)
-    hashie (5.1.0)
+    hashie (5.2.0)
       logger
     hcaptcha (7.1.0)
       json
@@ -481,11 +481,11 @@ GEM
     oj (3.17.3)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
-    omniauth (2.1.4)
-      hashie (>= 3.4.6)
+    omniauth (2.3.1)
+      hashie (>= 3.5.2)
       logger
-      rack (>= 2.2.3)
-      rack-protection
+      rack (>= 2.2.8)
+      rack-protection (>= 2.2.0)
     omniauth-cas (3.0.2)
       addressable (~> 2.8)
       nokogiri (~> 1.12)
@@ -1019,7 +1019,7 @@ DEPENDENCIES
   net-ldap (~> 0.18)
   nokogiri (~> 1.19)
   oj (~> 3.17)
-  omniauth (~> 2.0)
+  omniauth (~> 2.3)
   omniauth-cas (~> 3.0.0.beta.1)
   omniauth-rails_csrf_protection (~> 2.0)
   omniauth-saml (~> 2.0)
