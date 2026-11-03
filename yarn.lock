@@ -2445,15 +2445,76 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/cli@npm:^6.1.1":
-  version: 6.7.4
-  resolution: "@formatjs/cli@npm:6.7.4"
+"@formatjs/cli-native-darwin-arm64@npm:1.1.30":
+  version: 1.1.30
+  resolution: "@formatjs/cli-native-darwin-arm64@npm:1.1.30"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@formatjs/cli-native-linux-arm64-musl@npm:1.0.28":
+  version: 1.0.28
+  resolution: "@formatjs/cli-native-linux-arm64-musl@npm:1.0.28"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@formatjs/cli-native-linux-arm64@npm:1.2.30":
+  version: 1.2.30
+  resolution: "@formatjs/cli-native-linux-arm64@npm:1.2.30"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@formatjs/cli-native-linux-x64-musl@npm:1.0.28":
+  version: 1.0.28
+  resolution: "@formatjs/cli-native-linux-x64-musl@npm:1.0.28"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@formatjs/cli-native-linux-x64@npm:1.1.30":
+  version: 1.1.30
+  resolution: "@formatjs/cli-native-linux-x64@npm:1.1.30"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@formatjs/cli-native-win32-x64@npm:1.1.31":
+  version: 1.1.31
+  resolution: "@formatjs/cli-native-win32-x64@npm:1.1.31"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@formatjs/cli@npm:^6.16.36":
+  version: 6.16.36
+  resolution: "@formatjs/cli@npm:6.16.36"
+  dependencies:
+    "@formatjs/cli-native-darwin-arm64": "npm:1.1.30"
+    "@formatjs/cli-native-linux-arm64": "npm:1.2.30"
+    "@formatjs/cli-native-linux-arm64-musl": "npm:1.0.28"
+    "@formatjs/cli-native-linux-x64": "npm:1.1.30"
+    "@formatjs/cli-native-linux-x64-musl": "npm:1.0.28"
+    "@formatjs/cli-native-win32-x64": "npm:1.1.31"
   peerDependencies:
-    "@glimmer/syntax": ^0.95.0
-    "@vue/compiler-core": ^3.5.12
-    content-tag: ^3.0.0
-    ember-template-recast: ^6.1.5
-    vue: ^3.5.12
+    "@glimmer/syntax": ^0.84.3 || ^0.95.0
+    "@vue/compiler-core": 3
+    content-tag: 4
+    vue: 3
+  dependenciesMeta:
+    "@formatjs/cli-native-darwin-arm64":
+      optional: true
+    "@formatjs/cli-native-linux-arm64":
+      optional: true
+    "@formatjs/cli-native-linux-arm64-musl":
+      optional: true
+    "@formatjs/cli-native-linux-x64":
+      optional: true
+    "@formatjs/cli-native-linux-x64-musl":
+      optional: true
+    "@formatjs/cli-native-win32-x64":
+      optional: true
   peerDependenciesMeta:
     "@glimmer/env":
       optional: true
@@ -2467,13 +2528,11 @@ __metadata:
       optional: true
     content-tag:
       optional: true
-    ember-template-recast:
-      optional: true
     vue:
       optional: true
   bin:
     formatjs: bin/formatjs
-  checksum: 10c0/11ff474cd79bef464a2aa50d0a5145542aaf414445399f3eb6d5693c0f3ebed1fdb90b58a5f88a5c834a3344624baf7b457d622a4697534ada271ad97532eac9
+  checksum: 10c0/624dc1b35f34610238a10d506d42c143b4b0ac874efae252ab72d5b886c89bc4d7600f91219d70a39f7e5cf21db177094a1a002a961a58a98015bb017740aa65
   languageName: node
   linkType: hard
 
@@ -2818,7 +2877,7 @@ __metadata:
     "@dnd-kit/sortable": "npm:^10.0.0"
     "@dnd-kit/utilities": "npm:^3.2.2"
     "@eslint/js": "npm:^9.23.0"
-    "@formatjs/cli": "npm:^6.1.1"
+    "@formatjs/cli": "npm:^6.16.36"
     "@formatjs/intl-pluralrules": "npm:^5.4.4"
     "@gamestdio/websocket": "npm:^0.3.2"
     "@github/webauthn-json": "npm:^2.1.1"
