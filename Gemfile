@@ -108,7 +108,7 @@ group :opentelemetry do
   gem 'opentelemetry-exporter-otlp', '~> 0.31.0', require: false
   gem 'opentelemetry-instrumentation-active_job', '~> 0.10.0', require: false
   gem 'opentelemetry-instrumentation-active_model_serializers', '~> 0.24.0', require: false
-  gem 'opentelemetry-instrumentation-concurrent_ruby', '~> 0.24.0', require: false
+  gem 'opentelemetry-instrumentation-concurrent_ruby', '~> 0.25.0', require: false
   gem 'opentelemetry-instrumentation-excon', '~> 0.26.0', require: false
   gem 'opentelemetry-instrumentation-faraday', '~> 0.30.0', require: false
   gem 'opentelemetry-instrumentation-http', '~> 0.27.0', require: false
