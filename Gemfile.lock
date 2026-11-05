@@ -600,7 +600,7 @@ GEM
     parslet (2.0.0)
     pastel (0.8.0)
       tty-color (~> 0.5)
-    pg (1.6.2)
+    pg (1.7.0)
     pghero (3.7.0)
       activerecord (>= 7.1)
     playwright-ruby-client (1.56.0)
@@ -1042,7 +1042,7 @@ DEPENDENCIES
   opentelemetry-sdk (~> 1.4)
   ox (~> 2.14)
   parslet
-  pg (~> 1.5)
+  pg (~> 1.7)
   pghero
   playwright-ruby-client (= 1.56.0)
   premailer-rails
