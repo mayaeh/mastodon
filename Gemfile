@@ -160,7 +160,7 @@ group :test do
   gem 'simplecov-lcov', '~> 0.8', require: false
 
   # Stub web requests for specs
-  gem 'webmock', '~> 3.18'
+  gem 'webmock', '~> 3.34'
 
   # Websocket driver for testing integration between rails/sidekiq and streaming
   gem 'websocket-driver', '~> 0.8', require: false
