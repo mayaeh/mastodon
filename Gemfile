@@ -9,7 +9,7 @@ gem 'rails', '~> 8.1.0'
 gem 'thor', '~> 1.2'
 
 gem 'dotenv'
-gem 'haml-rails', '~>3.0'
+gem 'haml-rails', '~>3.1'
 gem 'pg', '~> 1.5'
 gem 'pghero'
 
