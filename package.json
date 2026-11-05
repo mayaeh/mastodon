@@ -145,7 +145,7 @@
     "@types/http-link-header": "^1.0.3",
     "@types/intl": "^1.2.0",
     "@types/js-yaml": "^4.0.5",
-    "@types/lodash": "^4.14.195",
+    "@types/lodash": "^4.17.27",
     "@types/object-assign": "^4.0.30",
     "@types/prop-types": "^15.7.5",
     "@types/punycode": "^2.1.0",
