@@ -87,7 +87,7 @@ gem 'sidekiq-bulk', '~> 0.2.0'
 gem 'sidekiq-scheduler', '~> 6.0'
 gem 'sidekiq-unique-jobs', '> 8'
 gem 'simple_form', '~> 5.2'
-gem 'simple-navigation', '~> 4.4'
+gem 'simple-navigation', '~> 4.5'
 gem 'stoplight'
 gem 'strong_migrations'
 gem 'tty-prompt', '~> 0.23', require: false
