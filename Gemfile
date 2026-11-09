@@ -195,7 +195,7 @@ group :development do
   gem 'haml_lint', require: false
 
   # Validate missing i18n keys
-  gem 'i18n-tasks', '~> 1.0', require: false
+  gem 'i18n-tasks', '~> 1.1', require: false
 end
 
 group :development, :test do
