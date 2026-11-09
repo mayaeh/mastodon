@@ -177,7 +177,7 @@ group :development do
   gem 'rubocop-rspec_rails', require: false
 
   # Annotates modules with schema
-  gem 'annotaterb', '~> 4.13', require: false
+  gem 'annotaterb', '~> 4.26', require: false
 
   # Enhanced error message pages for development
   gem 'better_errors', '~> 2.9'
