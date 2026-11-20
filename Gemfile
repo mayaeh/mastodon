@@ -203,7 +203,7 @@ group :development, :test do
   gem 'debug', '~> 1.8', require: false
 
   # Generate fake data values
-  gem 'faker', '~> 3.2'
+  gem 'faker', '~> 3.8'
 
   # Generate factory objects
   gem 'fabrication'
