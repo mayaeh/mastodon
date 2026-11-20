@@ -10,7 +10,7 @@ gem 'thor', '~> 1.2'
 
 gem 'dotenv'
 gem 'haml-rails', '~>3.0'
-gem 'pg', '~> 1.5'
+gem 'pg', '~> 1.7'
 gem 'pghero'
 
 gem 'aws-sdk-core', require: false
