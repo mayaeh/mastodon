@@ -24,7 +24,7 @@ jobs:
 
       # Download the translation files from Crowdin
       - name: crowdin action
-        uses: crowdin/github-action@b4b468cffefb50bdd99dd83e5d2eaeb63c880380 # v2
+        uses: crowdin/github-action@959dc74ac104447731cba99a016f85d0ae719788 # v2
         with:
           upload_sources: false
           upload_translations: false
