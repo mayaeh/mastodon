@@ -52,7 +52,7 @@ gem 'fast_blank', '~> 1.0'
 gem 'fastimage'
 gem 'hiredis', '~> 0.6'
 gem 'hiredis-client'
-gem 'htmlentities', '~> 4.3'
+gem 'htmlentities', '~> 4.4'
 gem 'http', '~> 5.3.0'
 gem 'http_accept_language', '~> 2.1'
 gem 'httplog', '~> 1.8.0', require: false
