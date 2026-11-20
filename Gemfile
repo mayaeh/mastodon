@@ -151,7 +151,7 @@ group :test do
 
   # Test harness fo rack components
   gem 'rack-test', '~> 2.1'
-  gem 'rspec_junit_formatter', '~> 0.6'
+  gem 'rspec_junit_formatter', '~> 0.8'
 
   gem 'shoulda-matchers'
 
