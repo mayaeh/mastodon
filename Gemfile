@@ -27,7 +27,7 @@ gem 'addressable', '~> 2.9'
 gem 'bootsnap', '~> 1.24.0', require: false
 gem 'browser'
 gem 'charlock_holmes', '~> 0.7.7'
-gem 'chewy', '~> 7.3'
+gem 'chewy', '~> 8.4'
 gem 'devise'
 gem 'devise-two-factor'
 
