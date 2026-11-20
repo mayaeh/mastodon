@@ -6,7 +6,7 @@ ruby '>= 3.2.0', '< 3.5.0'
 gem 'propshaft'
 gem 'puma', '~> 7.2'
 gem 'rails', '~> 8.1.0'
-gem 'thor', '~> 1.2'
+gem 'thor', '~> 1.5'
 
 gem 'dotenv'
 gem 'haml-rails', '~>3.0'
