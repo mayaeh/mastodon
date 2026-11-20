@@ -112,7 +112,7 @@ group :opentelemetry do
   gem 'opentelemetry-instrumentation-excon', '~> 0.26.0', require: false
   gem 'opentelemetry-instrumentation-faraday', '~> 0.30.0', require: false
   gem 'opentelemetry-instrumentation-http', '~> 0.27.0', require: false
-  gem 'opentelemetry-instrumentation-http_client', '~> 0.26.0', require: false
+  gem 'opentelemetry-instrumentation-http_client', '~> 0.29.1', require: false
   gem 'opentelemetry-instrumentation-net_http', '~> 0.26.0', require: false
   gem 'opentelemetry-instrumentation-pg', '~> 0.33.0', require: false
   gem 'opentelemetry-instrumentation-rack', '~> 0.29.0', require: false
